@@ -1,6 +1,6 @@
-import "./App.css";
+import "./Map.css";
 
-function App() {
+function Map() {
   return (
     <div>
       <h1>Renginiai</h1>
@@ -8,4 +8,4 @@ function App() {
   );
 }
 
-export default App;
+export default Map;
