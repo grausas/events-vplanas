@@ -19,6 +19,7 @@ const EventCard = ({
   date,
   time,
   handleChange,
+  handleLocation,
 }) => {
   return (
     <Wrapper>
@@ -37,7 +38,7 @@ const EventCard = ({
         <Text>
           <p>{organization}</p>
         </Text>
-        <Text>
+        <Text onClick={handleLocation}>
           <img src={Place} alt="place" />
           <p>{place}</p>
         </Text>

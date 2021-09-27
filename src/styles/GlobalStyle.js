@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   body {
@@ -43,7 +43,7 @@ export const GlobalStyle = createGlobalStyle`
       margin: 0;
     }
 
-    p {
+    p, span {
       font-size: 0.9rem;
       color: var(--dark);
       margin: 0;
