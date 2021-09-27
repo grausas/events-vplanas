@@ -4,8 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import "./Map.css";
 
 // Modules
-import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
-// import TileLayer from "@arcgis/core/layers/TileLayer";
+import TileLayer from "@arcgis/core/layers/TileLayer";
 
 // Hooks
 import { useModal } from "../hooks/useModal";
@@ -14,30 +13,27 @@ import { useModal } from "../hooks/useModal";
 import EventCard from "../components/EventCard/EventCard";
 
 import { createMapView } from "../utils/Map";
+import { featureLayer } from "../utils/Layers";
 
 function Map() {
   const mapRef = useRef(null);
 
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
-  //   const [view, setView] = useState();
+  const [view, setView] = useState();
 
   // Event modal open
   const { handleOpen, show } = useModal();
 
   useEffect(() => {
-    //  const baselayer = new TileLayer({
-    //    url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_LKS_su_rajonu/MapServer",
-    //  });
+    // const baselayer = new TileLayer({
+    //   url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_LKS_su_rajonu/MapServer",
+    // });
 
-    const layer = new FeatureLayer({
-      url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Renginiu_zemelapis_gdb/FeatureServer/0",
-      outFields: ["*"],
-    });
+    const layer = featureLayer();
+    const view = createMapView(mapRef.current, [layer], "streets");
 
-    const view = createMapView(mapRef.current, layer, "streets");
-
-    //  setView(view);
+    setView(view);
 
     layer
       .queryFeatures({
