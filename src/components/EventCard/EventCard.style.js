@@ -29,20 +29,20 @@ export const Close = styled.div`
   span {
     font-weight: 600;
   }
+`;
 
-  img {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    width: 25px;
-    height: 25px;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
+export const CloseImage = styled.img`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  padding: 3px;
+  cursor: pointer;
 
-    :hover {
-      background-color: var(--white);
-    }
+  :hover {
+    background-color: var(--white);
   }
 `;
 

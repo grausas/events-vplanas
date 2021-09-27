@@ -1,5 +1,12 @@
 // Styles
-import { Wrapper, Content, Close, Title, Text } from "./EventCard.style";
+import {
+  Wrapper,
+  Content,
+  Close,
+  Title,
+  Text,
+  CloseImage,
+} from "./EventCard.style";
 
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
@@ -16,7 +23,7 @@ const EventCard = ({
   return (
     <Wrapper>
       <Close>
-        <img src={CloseIcon} alt="close-icon" onClick={handleChange} />
+        <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
       </Close>
       <Content>
         <Text>
