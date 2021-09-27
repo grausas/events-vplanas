@@ -4,7 +4,7 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     --maxWidth: 1280px;
     --white: #fff;
-    --grey: #F5F3F5;
+    --grey: #6e6d7a;
     --blue: #274690;
     --lightBlue: #576CA8;
     --darkBlue: #1B264F;
@@ -32,19 +32,19 @@ export const GlobalStyle = createGlobalStyle`
 
     h3 {
       font-size: 1.1rem;
+      font-weight: 500;
       margin: 0;
     }
 
     h5 {
       font-size: 0.8rem;
       text-transform: uppercase;
-      font-weight:400;
-      color: var(--blue);
+      font-weight: 400;
       margin: 0;
     }
 
     p {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--dark);
       margin: 0;
     }

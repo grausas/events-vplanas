@@ -4,7 +4,6 @@ export const Wrapper = styled.div`
   position: absolute;
   width: 350px;
   max-height: 600px;
-  padding: 20px;
   top: 50px;
   border-radius: 5px;
   right: 20px;
@@ -13,18 +12,28 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  div {
-    margin-top: 15px;
+  padding: 20px;
+
+  p {
+    color: var(--grey);
   }
 `;
 
 export const Close = styled.div`
-  text-align: right;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  position: relative;
+  height: 170px;
+  background-color: var(--grey);
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+
+  span {
+    font-weight: 600;
+  }
 
   img {
+    position: absolute;
+    right: 5px;
+    top: 5px;
     width: 25px;
     height: 25px;
     border-radius: 5px;
@@ -32,16 +41,22 @@ export const Close = styled.div`
     cursor: pointer;
 
     :hover {
-      background-color: var(--grey);
+      background-color: var(--white);
     }
   }
 `;
 
 export const Title = styled.div`
-  margin-bottom: 20px;
-  padding-top: 20px;
+  margin-bottom: 15px;
+`;
 
-  h3 {
-    font-weight: 400;
+export const Text = styled.div`
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+
+  img {
+    margin-right: 7px;
+    width: 20px;
   }
 `;
