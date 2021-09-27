@@ -5,12 +5,12 @@ export const useModal = () => {
   //   const handleClose = () => setShow(false);
   //   const handleShow = () => setShow(true);
 
-  const handleShow = () => {
+  const handleOpen = () => {
     setShow(!show);
   };
 
   return {
-    handleShow,
+    handleOpen,
     show,
   };
 };
