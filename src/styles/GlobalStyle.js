@@ -38,8 +38,8 @@ export const GlobalStyle = createGlobalStyle`
     h5 {
       font-size: 0.8rem;
       text-transform: uppercase;
-      font-weight: 500;
-      color: #aaa;
+      font-weight:400;
+      color: var(--blue);
       margin: 0;
     }
 

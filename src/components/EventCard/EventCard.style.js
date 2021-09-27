@@ -32,7 +32,7 @@ export const Close = styled.div`
     cursor: pointer;
 
     :hover {
-      background-color: #eee;
+      background-color: var(--grey);
     }
   }
 `;
@@ -42,6 +42,6 @@ export const Title = styled.div`
   padding-top: 20px;
 
   h3 {
-    font-weight: 500;
+    font-weight: 400;
   }
 `;

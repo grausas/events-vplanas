@@ -139,14 +139,6 @@ function Map(props) {
           handleChange={togglePopup}
         />
       )}
-      {/* <ul>
-        {data.map((item) => (
-          <>
-            <li>{item.attributes.USER_PAVADINIMAS}</li>
-            <li>{item.attributes.VIETA}</li>
-          </>
-        ))}
-      </ul> */}
     </div>
   );
 }
