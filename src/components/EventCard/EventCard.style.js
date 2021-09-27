@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  width: 400px;
+  width: 350px;
   max-height: 600px;
   padding: 20px;
   top: 50px;
@@ -19,22 +19,29 @@ export const Content = styled.div`
 `;
 
 export const Close = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  text-align: right;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 
   img {
     width: 25px;
     height: 25px;
-    border: 1px solid #eee;
     border-radius: 5px;
-    box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
     padding: 5px;
     cursor: pointer;
 
     :hover {
       background-color: #eee;
     }
+  }
+`;
+
+export const Title = styled.div`
+  margin-bottom: 20px;
+  padding-top: 20px;
+
+  h3 {
+    font-weight: 500;
   }
 `;

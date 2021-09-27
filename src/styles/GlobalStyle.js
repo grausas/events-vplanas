@@ -30,13 +30,13 @@ export const GlobalStyle = createGlobalStyle`
 
     h3 {
       font-size: 1.1rem;
-      font-weight: 600;
       margin: 0;
     }
 
     h5 {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
+      font-weight: 500;
       color: #aaa;
       margin: 0;
     }
