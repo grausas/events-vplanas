@@ -1,9 +1,9 @@
 import WebMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 
-export const createMapView = (ref, layer) => {
+export const createMapView = (ref, layer, basemap) => {
   const webmap = new WebMap({
-    basemap: "streets",
+    basemap: basemap,
     layers: layer,
   });
 

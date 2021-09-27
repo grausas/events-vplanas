@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./Map";
+import App from "./App";
 
 import "./index.css";
 
