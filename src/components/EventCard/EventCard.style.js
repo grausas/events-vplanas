@@ -27,6 +27,13 @@ export const Close = styled.div`
   }
 `;
 
+export const Logo = styled.img`
+  position: absolute;
+  width: 150px;
+  left: calc(50% - 75px);
+  top: calc(50% - 60px);
+`;
+
 export const CloseImage = styled.img`
   position: absolute;
   right: 10px;

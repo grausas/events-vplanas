@@ -1,6 +1,9 @@
 // Styles
 import { Input, InputDiv, Icon } from "./SearchInput.style";
 
+// Icon
+import Search from "../../assets/icons/search.png";
+
 const SearchInput = ({
   defaultValue,
   placeholder,
@@ -10,7 +13,7 @@ const SearchInput = ({
 }) => {
   return (
     <InputDiv>
-      <Icon />
+      <Icon src={Search} />
       <Input
         type="text"
         defaultValue={defaultValue}

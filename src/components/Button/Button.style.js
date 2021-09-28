@@ -9,6 +9,7 @@ export const Wrapper = styled.button`
   border-radius: 10px;
   border: 1px solid var(--color-light);
   cursor: pointer;
+
   :hover {
     background: var(--white);
     color: var(--lightBlue);

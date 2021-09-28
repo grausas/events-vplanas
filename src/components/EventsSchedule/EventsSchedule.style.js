@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 0px 20px;
+  padding: 0 20px 20px 20px;
   overflow: auto;
 
   div {

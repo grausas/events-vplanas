@@ -6,6 +6,7 @@ import {
   Title,
   Text,
   CloseImage,
+  Logo,
 } from "./EventCard.style";
 
 // Icon
@@ -13,6 +14,7 @@ import CloseIcon from "../../assets/icons/close.png";
 import Place from "../../assets/icons/place.png";
 import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
+import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
 
 const EventCard = ({
   organization,
@@ -26,6 +28,7 @@ const EventCard = ({
   return (
     <Wrapper>
       <Close>
+        <Logo src={VilniusLogo} alt="vilnius-logo" />
         <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
       </Close>
       <Content>

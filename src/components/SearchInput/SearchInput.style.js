@@ -10,14 +10,15 @@ export const InputDiv = styled.div`
 
 export const Input = styled.input`
   width: 100%;
-  padding: 0.2em 2.2em;
+  padding: 0.5rem 2.2rem;
   font-size: 1em;
   border: none;
-  color: #111;
+  color: var(--dark);
   box-sizing: border-box;
   outline: none;
   border-radius: 5px;
   border: 2px solid var(--dark);
+
   &&:focus {
     outline: none;
     border-color: var(--lightBlue);
@@ -26,8 +27,8 @@ export const Input = styled.input`
 
 export const Icon = styled.img`
   position: absolute;
-  color: #292f38;
-  z-index: 1;
   left: 0;
-  padding: 0 1em;
+  z-index: 1;
+  width: 40px;
+  padding: 0 0.7rem;
 `;
