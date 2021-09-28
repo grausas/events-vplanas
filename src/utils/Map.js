@@ -12,6 +12,9 @@ export const createMapView = (ref, layer, basemap) => {
     map: webmap,
     center: [25.25, 54.68],
     zoom: 12,
+    ui: {
+      components: ["attribution"], // Exclude the zoom widget from the default UI
+    },
   });
 
   view.constraints = {

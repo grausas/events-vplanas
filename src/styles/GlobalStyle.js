@@ -30,6 +30,11 @@ export const GlobalStyle = createGlobalStyle`
       color: var(--dark);
     }
 
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
     h3 {
       font-size: 1.1rem;
       font-weight: 500;

@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  max-width: 1920px;
   height: 100%;
   display: flex;
   justify-content: space-between;

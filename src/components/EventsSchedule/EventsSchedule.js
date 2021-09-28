@@ -1,10 +1,12 @@
 // Style
-import { Wrapper } from "./EventsSchedule.style";
+import { Wrapper, Content } from "./EventsSchedule.style";
 
 const EventsSchedule = () => {
   return (
     <Wrapper>
-      <h2>Artėjantys renginiai</h2>
+      <Content>
+        <h2>Artėjantys renginiai</h2>
+      </Content>
     </Wrapper>
   );
 };
