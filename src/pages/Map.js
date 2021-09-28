@@ -4,13 +4,14 @@ import { useRef, useEffect, useState } from "react";
 import "./Map.css";
 
 // Modules
-import TileLayer from "@arcgis/core/layers/TileLayer";
+// import TileLayer from "@arcgis/core/layers/TileLayer";
 
 // Hooks
 import { useModal } from "../hooks/useModal";
 
 // Components
 import EventCard from "../components/EventCard/EventCard";
+import Events from "../components/EventsSchedule/EventsSchedule";
 
 import { createMapView } from "../utils/Map";
 import { featureLayer } from "../utils/Layers";
@@ -119,6 +120,7 @@ function Map() {
 
   return (
     <div className="mapDiv" ref={mapRef}>
+      <Events />
       {show && (
         <EventCard
           organization={queryPoint.USER_ORGANIZATORIAI}
