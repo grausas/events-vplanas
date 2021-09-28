@@ -12,6 +12,7 @@ import { useModal } from "../hooks/useModal";
 // Components
 import EventCard from "../components/EventCard/EventCard";
 import EventsSchedule from "../components/EventsSchedule/EventsSchedule";
+import SearchInput from "../components/SearchInput/SearchInput";
 
 import { createMapView } from "../utils/Map";
 import { featureLayer } from "../utils/Layers";
@@ -22,9 +23,18 @@ function Map() {
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
   const [view, setView] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Event modal open
   const { handleOpen, show } = useModal();
+
+  const results = !searchTerm
+    ? data
+    : data.filter((item) =>
+        item.attributes.USER_Vieta.toLowerCase().includes(
+          searchTerm.toLocaleLowerCase()
+        )
+      );
 
   useEffect(() => {
     // const baselayer = new TileLayer({
@@ -118,55 +128,43 @@ function Map() {
     "-" +
     pad(newDate.getDate(), 2);
 
-  // useEffect(() => {
-  //   data.map((items) => {
-  //     const item = items.attributes;
-  //     const newDate = new Date(item.USER_RENGINIO_DATA);
-  //     const time =
-  //       pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
-  //     const date =
-  //       newDate.getFullYear() +
-  //       "-" +
-  //       pad(newDate.getMonth() + 1, 2) +
-  //       "-" +
-  //       pad(newDate.getDate(), 2);
-  //     return setEventSchedule({
-  //       id: item.ObjectID,
-  //       title: item.USER_PAVADINIMAS,
-  //       date: date,
-  //       time,
-  //     });
-  //   });
-  // }, []);
-
-  // console.log(eventsSchedule);
-
   return (
     <div className="mapDiv" ref={mapRef}>
       {/* Fix this. Too much code here. Reuse time date */}
       <EventsSchedule>
-        {data.length ? (
-          data.map((items) => {
-            const item = items.attributes;
-            const newDate = new Date(item.USER_RENGINIO_DATA);
-            const time =
-              pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
-            const date =
-              newDate.getFullYear() +
-              "-" +
-              pad(newDate.getMonth() + 1, 2) +
-              "-" +
-              pad(newDate.getDate(), 2);
-            return (
-              <div key={item.ObjectID}>
-                <p>
-                  {date} | {time}
-                </p>
-                <p>{item.USER_PAVADINIMAS}</p>
-                <p>{item.USER_Vieta}</p>
-              </div>
-            );
-          })
+        <SearchInput
+          value={searchTerm}
+          handleChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+          placeholder="Ieškoti..."
+        />
+        {results.length ? (
+          results
+            .map((items) => {
+              const item = items.attributes;
+              const newDate = new Date(item.USER_RENGINIO_DATA);
+              const time =
+                pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
+              const date =
+                newDate.getFullYear() +
+                "-" +
+                pad(newDate.getMonth() + 1, 2) +
+                "-" +
+                pad(newDate.getDate(), 2);
+              return (
+                <div key={item.ObjectID}>
+                  <p>
+                    {date} | {time}
+                  </p>
+                  <p>{item.USER_PAVADINIMAS}</p>
+                  <p>{item.USER_Vieta}</p>
+                </div>
+              );
+            })
+
+            .slice()
+            .sort((a, b) => (new Date(b.date) > new Date(a.date) ? 1 : -1))
         ) : (
           <span>Loading...</span>
         )}
