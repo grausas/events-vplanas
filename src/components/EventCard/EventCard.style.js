@@ -13,10 +13,6 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   padding: 20px;
-
-  p {
-    color: var(--grey);
-  }
 `;
 
 export const Close = styled.div`
@@ -33,8 +29,8 @@ export const Close = styled.div`
 
 export const CloseImage = styled.img`
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 10px;
+  top: 10px;
   width: 22px;
   height: 22px;
   border-radius: 5px;
@@ -53,7 +49,11 @@ export const Title = styled.div`
 export const Text = styled.div`
   display: flex;
   margin-bottom: 15px;
-  align-items: center;
+  align-items: flex-start;
+
+  p {
+    color: var(--grey);
+  }
 
   img {
     margin-right: 7px;

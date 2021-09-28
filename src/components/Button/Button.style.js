@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.button`
-  background: var(--blue);
+  background: var(--lightBlue);
   color: var(--white);
   padding: 0.5rem 1.2rem;
   font-size: var(--font-small);
@@ -11,7 +11,7 @@ export const Wrapper = styled.button`
   cursor: pointer;
   :hover {
     background: var(--white);
-    color: var(--blue);
+    color: var(--lightBlue);
     border: 1px solid var(--color-dark);
     transition: ease-in-out 0.2s;
   }
