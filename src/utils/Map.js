@@ -10,8 +10,8 @@ export const createMapView = (ref, layer, basemap) => {
   const view = new MapView({
     container: ref,
     map: webmap,
-    center: [25.25, 54.68],
-    zoom: 12,
+    center: [25.25, 54.69],
+    zoom: 13,
     ui: {
       components: ["attribution"], // Exclude the zoom widget from the default UI
     },

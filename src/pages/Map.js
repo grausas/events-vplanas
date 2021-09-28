@@ -53,10 +53,7 @@ function Map() {
       })
       .then((res) => {
         setData(res.features);
-        // console.log(res.features);
       });
-
-    // console.log(layer);
 
     // const paracelLayerSQL = ["1=1"];
     // let whereClause = paracelLayerSQL[0];
@@ -164,7 +161,7 @@ function Map() {
             })
 
             .slice()
-            .sort((a, b) => (new Date(b.date) > new Date(a.date) ? 1 : -1))
+            .sort((a, b) => (b.date > a.date ? 1 : -1))
         ) : (
           <span>Loading...</span>
         )}
