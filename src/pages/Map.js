@@ -11,7 +11,7 @@ import { useModal } from "../hooks/useModal";
 
 // Components
 import EventCard from "../components/EventCard/EventCard";
-import Events from "../components/EventsSchedule/EventsSchedule";
+import EventsSchedule from "../components/EventsSchedule/EventsSchedule";
 
 import { createMapView } from "../utils/Map";
 import { featureLayer } from "../utils/Layers";
@@ -118,9 +118,60 @@ function Map() {
     "-" +
     pad(newDate.getDate(), 2);
 
+  // useEffect(() => {
+  //   data.map((items) => {
+  //     const item = items.attributes;
+  //     const newDate = new Date(item.USER_RENGINIO_DATA);
+  //     const time =
+  //       pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
+  //     const date =
+  //       newDate.getFullYear() +
+  //       "-" +
+  //       pad(newDate.getMonth() + 1, 2) +
+  //       "-" +
+  //       pad(newDate.getDate(), 2);
+  //     return setEventSchedule({
+  //       id: item.ObjectID,
+  //       title: item.USER_PAVADINIMAS,
+  //       date: date,
+  //       time,
+  //     });
+  //   });
+  // }, []);
+
+  // console.log(eventsSchedule);
+
   return (
     <div className="mapDiv" ref={mapRef}>
-      <Events />
+      {/* Fix this. Too much code here. Reuse time date */}
+      <EventsSchedule>
+        {data.length ? (
+          data.map((items) => {
+            const item = items.attributes;
+            const newDate = new Date(item.USER_RENGINIO_DATA);
+            const time =
+              pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
+            const date =
+              newDate.getFullYear() +
+              "-" +
+              pad(newDate.getMonth() + 1, 2) +
+              "-" +
+              pad(newDate.getDate(), 2);
+            return (
+              <div key={item.ObjectID}>
+                <p>
+                  {date} | {time}
+                </p>
+                <p>{item.USER_PAVADINIMAS}</p>
+                <p>{item.USER_Vieta}</p>
+              </div>
+            );
+          })
+        ) : (
+          <span>Loading...</span>
+        )}
+      </EventsSchedule>
+
       {show && (
         <EventCard
           organization={queryPoint.USER_ORGANIZATORIAI}

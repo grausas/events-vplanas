@@ -9,8 +9,15 @@ export const Wrapper = styled.div`
   background-color: var(--white);
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+  overflow: auto;
 `;
 
 export const Content = styled.div`
   padding: 0px 20px;
+  overflow: auto;
+
+  div {
+    border-bottom: 1px solid var(--grey);
+    padding: 10px 0;
+  }
 `;
