@@ -2,13 +2,16 @@
 import Button from "../Button/Button";
 
 // Styles
-import { Wrapper, Content } from "./Header.style";
+import { Wrapper, Content, Logo } from "./Header.style";
+
+// Logo
+import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
 
 const Header = () => {
   return (
     <Wrapper>
       <Content>
-        <span>Renginiai</span>
+        <Logo src={VilniusLogo} alt="vilnius-logo" />
         <Button>Pridėti</Button>
       </Content>
     </Wrapper>

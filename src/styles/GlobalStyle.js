@@ -3,12 +3,12 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   :root {
     --maxWidth: 1280px;
-    --white: #fff;
-    --grey: #6e6d7a;
+    --white: #FFFFFF;
+    --grey: #575757;
     --blue: #274690;
-    --lightBlue: #576CA8;
-    --darkBlue: #1B264F;
+    --lightBlue: #00A0E3;
     --dark: #302B27;
+    --red: #ed1c24;
     --fontSuperBig: 2.5rem;
     --fontBig: 1.5rem;
     --fontMed: 1.2rem;
@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Titillium Web', sans-serif;
   }
 
   body {

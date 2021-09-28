@@ -16,8 +16,8 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+`;
 
-  span {
-    color: var(--white);
-  }
+export const Logo = styled.img`
+  width: 40px;
 `;
