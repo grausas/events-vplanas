@@ -24,7 +24,7 @@ export const Text = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 5px 0;
   cursor: pointer;
 
   span {

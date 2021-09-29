@@ -13,6 +13,7 @@ import { useModal } from "../hooks/useModal";
 import EventCard from "../components/EventCard/EventCard";
 import EventsSchedule from "../components/EventsSchedule/EventsSchedule";
 import SearchInput from "../components/SearchInput/SearchInput";
+import Filter from "../components/Filter/Filter";
 
 import { createMapView } from "../utils/Map";
 import { featureLayer } from "../utils/Layers";
@@ -161,11 +162,12 @@ function Map() {
             })
 
             .slice()
-            .sort((a, b) => (b.date > a.date ? 1 : -1))
+            .sort((a, b) => b.date > a.date)
         ) : (
           <span>Loading...</span>
         )}
       </EventsSchedule>
+      <Filter />
 
       {show && (
         <EventCard
