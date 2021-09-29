@@ -7,11 +7,11 @@ export const featureLayer = () => {
     // type: "picture-marker",
     // url: `${Icon}`,
     type: "simple-marker",
-    size: "6",
+    size: "7",
     color: "#ed1c24",
     outline: {
-      color: "#fff",
-      width: 0.5,
+      color: "#000000",
+      width: 0.4,
     },
   };
 

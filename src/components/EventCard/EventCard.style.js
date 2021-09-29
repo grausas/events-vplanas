@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: absolute;
   width: 350px;
   max-height: 600px;
-  top: 10%;
+  top: 2%;
   border-radius: 5px;
   right: 20px;
   background-color: var(--white);

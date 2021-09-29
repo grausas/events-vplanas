@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 // Style
 import { Wrapper, Content, Text, Events } from "./EventsSchedule.style";
@@ -13,9 +13,9 @@ const EventsSchedule = ({ children }) => {
   return (
     <Wrapper close={close}>
       <Content>
-        <Text>
-          <h2>Artėjantys renginiai</h2>
-          <span onClick={handleClose}>{!close ? "-" : "+"}</span>
+        <Text onClick={handleClose} close={!close}>
+          <h2>Renginiai</h2>
+          <span>{!close ? "-" : "+"}</span>
         </Text>
         {!close && <Events>{children}</Events>}
       </Content>

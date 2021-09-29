@@ -5,8 +5,7 @@ export const Wrapper = styled.div`
   width: 300px;
   max-height: 80%;
   left: 20px;
-  top: 10%;
-  /* padding: 25px 0; */
+  top: 2%;
   background-color: var(--white);
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
@@ -21,15 +20,16 @@ export const Content = styled.div`
 `;
 
 export const Text = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
+  cursor: pointer;
 
   span {
     font-size: 20px;
     font-weight: 700;
-    cursor: pointer;
   }
 `;
 
