@@ -2,12 +2,10 @@ import { useRef, useEffect, useState } from "react";
 
 // Styles
 import "./Map.css";
-
 // Modules
 // import TileLayer from "@arcgis/core/layers/TileLayer";
-
 // Hooks
-import { useModal } from "../hooks/useModal";
+import { useOpenClose } from "../hooks/useOpenClose";
 
 // Components
 import EventCard from "../components/EventCard/EventCard";
@@ -27,7 +25,7 @@ function Map() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // Event modal open
-  const { handleOpen, show } = useModal();
+  const { handleOpen, show } = useOpenClose();
 
   const results = !searchTerm
     ? data

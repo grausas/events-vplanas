@@ -1,23 +1,20 @@
-import { useState } from "react";
-
 // Style
 import { Wrapper, Content, Text, Events } from "./EventsSchedule.style";
 
-const EventsSchedule = ({ children }) => {
-  const [close, setClose] = useState(false);
+// hooks
+import { useOpenClose } from "../../hooks/useOpenClose";
 
-  const handleClose = () => {
-    setClose(!close);
-  };
+const EventsSchedule = ({ children }) => {
+  const { handleOpen, show } = useOpenClose();
 
   return (
-    <Wrapper close={close}>
+    <Wrapper close={show}>
       <Content>
-        <Text onClick={handleClose} close={!close}>
+        <Text onClick={handleOpen}>
           <h2>Renginiai</h2>
-          <span>{!close ? "-" : "+"}</span>
+          <span>{!show ? "-" : "+"}</span>
         </Text>
-        {!close && <Events>{children}</Events>}
+        {!show && <Events>{children}</Events>}
       </Content>
     </Wrapper>
   );
