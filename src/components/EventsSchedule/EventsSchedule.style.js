@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   position: absolute;
   width: 300px;
-  height: 80%;
+  max-height: 80%;
   left: 20px;
   top: 10%;
   /* padding: 25px 0; */
@@ -14,8 +14,18 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 0 20px 20px 20px;
+  padding: 0 20px;
   overflow: auto;
+`;
+
+export const Text = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Events = styled.div`
+  margin-bottom: 20px;
 
   div {
     border-bottom: 1px solid var(--grey);
