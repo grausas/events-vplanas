@@ -3,15 +3,34 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   position: absolute;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--white);
+  flex-direction: column;
+  background-color: var(--red);
   border-radius: 5px;
-  color: var(--dark);
+  color: var(--white);
   left: 330px;
   top: 2%;
-  padding: 10px 20px;
+  padding: 9px 20px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   font-weight: 600;
-  font-size: 55px;
+  background-color: ${(props) => (props.close ? "var(--white)" : "none")};
+  color: ${(props) => (props.close ? "var(--dark)" : "none")};
+
+  span {
+    font-size: 16px;
+    cursor: pointer;
+  }
+`;
+
+export const Content = styled.div`
+  margin-top: 10px;
+
+  div {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    input {
+      margin: 0 5px 0 0;
+    }
+  }
 `;
