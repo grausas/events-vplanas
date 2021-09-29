@@ -4,8 +4,15 @@ import Icon from "../assets/icons/place.png";
 
 export const featureLayer = () => {
   const textSymbol = {
-    type: "picture-marker",
-    url: `${Icon}`,
+    // type: "picture-marker",
+    // url: `${Icon}`,
+    type: "simple-marker",
+    size: "6",
+    color: "#ed1c24",
+    outline: {
+      color: "#fff",
+      width: 0.5,
+    },
   };
 
   const layer = new FeatureLayer({

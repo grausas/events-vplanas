@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import { Wrapper, Content, Logo } from "./Header.style";
 
 // Logo
-import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
+import VilniusLogo from "../../assets/icons/VILNIUS_WHITE_LOGO.png";
 
 const Header = () => {
   return (
