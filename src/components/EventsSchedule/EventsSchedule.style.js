@@ -26,10 +26,12 @@ export const Text = styled.div`
   justify-content: space-between;
   padding: 5px 0;
   cursor: pointer;
+  user-select: none;
 
+  h3,
   span {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
   }
 `;
 
