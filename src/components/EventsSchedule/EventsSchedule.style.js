@@ -11,6 +11,8 @@ export const Wrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow: auto;
+  background-color: ${(props) => (props.close ? "var(--red)" : "none")};
+  color: ${(props) => (props.close ? "var(--white)" : "none")};
 `;
 
 export const Content = styled.div`
@@ -22,6 +24,13 @@ export const Text = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 0;
+
+  span {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
 `;
 
 export const Events = styled.div`

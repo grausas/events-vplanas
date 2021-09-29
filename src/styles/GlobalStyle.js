@@ -33,6 +33,7 @@ export const GlobalStyle = createGlobalStyle`
     h2 {
       font-size: 1.3rem;
       font-weight: 600;
+      margin: 0;
     }
 
     h3 {
@@ -50,7 +51,6 @@ export const GlobalStyle = createGlobalStyle`
 
     p, span {
       font-size: 0.9rem;
-      color: var(--dark);
       margin: 0;
     }
   }
