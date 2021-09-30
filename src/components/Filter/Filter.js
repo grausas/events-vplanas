@@ -1,7 +1,9 @@
 // Styles
-import { Wrapper, Content } from "./Filter.style";
+import { Wrapper, Content, IconFilter } from "./Filter.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
+// Icons
+import FilterIcon from "../../assets/icons/filter.png";
 
 // notes: onclick open filter by organization, date and type
 // take info from data state and filter on map
@@ -11,9 +13,9 @@ const Filter = () => {
 
   return (
     <Wrapper close={show}>
-      <span onClick={handleOpen}>
-        {!show ? "Filtruoti" : "Filtruoti pagal:"}
-      </span>
+      <IconFilter onClick={handleOpen}>
+        {!show ? <img src={FilterIcon} alt="filter" /> : "Filtruoti pagal:"}
+      </IconFilter>
       {show && (
         <Content>
           <div>

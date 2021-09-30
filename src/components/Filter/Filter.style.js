@@ -9,26 +9,30 @@ export const Wrapper = styled.div`
   color: var(--white);
   left: 330px;
   top: 2%;
-  padding: 8px 10px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   background-color: ${(props) => (props.close ? "var(--white)" : "none")};
   color: ${(props) => (props.close ? "var(--dark)" : "none")};
+`;
 
-  span {
-    font-size: 16px;
-    cursor: pointer;
+export const IconFilter = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 9px 8px;
+  cursor: pointer;
+
+  img {
+    width: 23px;
     user-select: none;
-    font-weight: 600;
   }
 `;
 
 export const Content = styled.div`
   margin-top: 10px;
-  padding-right: 30px;
+  padding: 0 20px 0 10px;
 
   div {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     padding: 5px 0;
 
     input {
