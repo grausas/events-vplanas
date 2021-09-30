@@ -19,6 +19,7 @@ export const IconFilter = styled.div`
   flex-direction: column;
   padding: 9px 8px;
   cursor: pointer;
+  font-weight: 600;
 
   img {
     width: 23px;
