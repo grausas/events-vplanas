@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  width: 300px;
+  width: 280px;
   max-height: 80%;
   left: 20px;
   top: 2%;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow: auto;
-  background-color: ${(props) => (props.close ? "var(--red)" : "none")};
+  background-color: ${(props) => (props.close ? "var(--grey)" : "none")};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
 `;
 

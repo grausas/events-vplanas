@@ -1,13 +1,10 @@
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
-
-import Icon from "../assets/icons/place.png";
+import TileLayer from "@arcgis/core/layers/TileLayer";
 
 export const featureLayer = () => {
   const textSymbol = {
-    // type: "picture-marker",
-    // url: `${Icon}`,
     type: "simple-marker",
-    size: "7",
+    size: "9",
     color: "#ed1c24",
     outline: {
       color: "#000000",
@@ -25,4 +22,12 @@ export const featureLayer = () => {
   });
 
   return layer;
+};
+
+export const tileLayer = () => {
+  const tile = new TileLayer({
+    url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_LKS_su_rajonu/MapServer",
+  });
+
+  return tile;
 };

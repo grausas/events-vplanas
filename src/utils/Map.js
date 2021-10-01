@@ -1,17 +1,17 @@
 import WebMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 
-export const createMapView = (ref, layer, baselayer) => {
+export const createMapView = (ref, baselayer, layer) => {
   const webmap = new WebMap({
-    basemap: baselayer,
+    basemap: {
+      baseLayers: baselayer,
+    },
     layers: layer,
   });
 
   const view = new MapView({
     container: ref,
     map: webmap,
-    center: [25.25, 54.69],
-    zoom: 13,
     ui: {
       components: ["attribution"], // Exclude the zoom widget from the default UI
     },

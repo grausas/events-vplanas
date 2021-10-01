@@ -3,7 +3,6 @@ import { useRef, useEffect, useState } from "react";
 // Styles
 import "./Map.css";
 // Modules
-// import TileLayer from "@arcgis/core/layers/TileLayer";
 import Graphic from "@arcgis/core/Graphic";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
@@ -15,7 +14,7 @@ import SearchInput from "../components/SearchInput/SearchInput";
 import Filter from "../components/Filter/Filter";
 
 import { createMapView } from "../utils/Map";
-import { featureLayer } from "../utils/Layers";
+import { featureLayer, tileLayer } from "../utils/Layers";
 
 function Map() {
   const mapRef = useRef(null);
@@ -25,7 +24,7 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-  const [fieldValues, setFieldValues] = useState(""); // '' is the initial state value
+  // const [fieldValues, setFieldValues] = useState(""); // '' is the initial state value
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -38,35 +37,32 @@ function Map() {
         )
       );
 
-  const updateFeature = () => {
-    const editFeature = new Graphic({
-      attributes: {
-        ObjectID: "102",
-        USER_PAVADINIMAS: `${fieldValues.pavadinimas}`,
-        USER_Vieta: `${fieldValues.vieta}`,
-      },
-    });
-    const edits = {
-      updateFeatures: [editFeature],
-    };
+  // const updateFeature = () => {
+  //   const editFeature = new Graphic({
+  //     attributes: {
+  //       ObjectID: "102",
+  //       USER_PAVADINIMAS: `${fieldValues.pavadinimas}`,
+  //       USER_Vieta: `${fieldValues.vieta}`,
+  //     },
+  //   });
+  //   const edits = {
+  //     updateFeatures: [editFeature],
+  //   };
 
-    layer
-      .applyEdits(edits)
-      .then((editResults) => {
-        console.log("edit results: ", editResults);
-      })
-      .catch((error) => {
-        console.error("Editing error: ", error);
-      });
-  };
+  //   layer
+  //     .applyEdits(edits)
+  //     .then((editResults) => {
+  //       console.log("edit results: ", editResults);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Editing error: ", error);
+  //     });
+  // };
 
   useEffect(() => {
-    // const baselayer = new TileLayer({
-    //   url: "https://gis.vplanas.lt/arcgis/rest/services/Baziniai_zemelapiai/Vilnius_basemap_LKS_su_rajonu/MapServer",
-    // });
-
     const layer = featureLayer();
-    const view = createMapView(mapRef.current, [layer], "streets");
+    const tile = tileLayer();
+    const view = createMapView(mapRef.current, tile, layer);
 
     setLayer(layer);
     setView(view);
@@ -114,15 +110,6 @@ function Map() {
     //     });
     // };
 
-    // layer
-    //   .applyEdits(updateFeature())
-    //   .then((editResults) => {
-    //     console.log("edit results: ", editResults);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Editing error: ", error);
-    //   });
-
     view.on("click", function (event) {
       view.hitTest(event).then(function (response) {
         if (response.results.length) {
@@ -130,8 +117,6 @@ function Map() {
             // check if the graphic belongs to the layer of interest
             return result.graphic.layer === layer;
           })[0].graphic.attributes;
-          console.log(graphic);
-
           setQueryPoint(graphic);
           handleOpen(true);
         } else {
@@ -163,7 +148,7 @@ function Map() {
 
   return (
     <div className="mapDiv" ref={mapRef}>
-      <form
+      {/* <form
         onSubmit={(e) => {
           e.preventDefault();
           updateFeature(fieldValues);
@@ -184,7 +169,7 @@ function Map() {
           }
         />
         <button type="submit">Add</button>
-      </form>
+      </form> */}
 
       {/* Fix this. Too much code here. Reuse time date */}
       <EventsSchedule>

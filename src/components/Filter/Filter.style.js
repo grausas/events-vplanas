@@ -4,10 +4,10 @@ export const Wrapper = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: var(--red);
+  background-color: var(--grey);
   border-radius: 5px;
   color: var(--white);
-  left: 330px;
+  left: 310px;
   top: 2%;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   background-color: ${(props) => (props.close ? "var(--white)" : "none")};
