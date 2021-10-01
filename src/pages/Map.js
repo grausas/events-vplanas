@@ -24,7 +24,7 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-  // const [fieldValues, setFieldValues] = useState(""); // '' is the initial state value
+  // const [fieldValues, setFieldValues] = useState("");
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -37,27 +37,27 @@ function Map() {
         )
       );
 
-  // const updateFeature = () => {
-  //   const editFeature = new Graphic({
-  //     attributes: {
-  //       ObjectID: "102",
-  //       USER_PAVADINIMAS: `${fieldValues.pavadinimas}`,
-  //       USER_Vieta: `${fieldValues.vieta}`,
-  //     },
-  //   });
-  //   const edits = {
-  //     updateFeatures: [editFeature],
-  //   };
+  const updateFeature = () => {
+    const editFeature = new Graphic({
+      attributes: {
+        ObjectID: `${queryPoint.ObjectID}`,
+        USER_PAVADINIMAS: `${queryPoint.pavadinimas}`,
+        // USER_Vieta: `${fieldValues.vieta}`,
+      },
+    });
+    const edits = {
+      updateFeatures: [editFeature],
+    };
 
-  //   layer
-  //     .applyEdits(edits)
-  //     .then((editResults) => {
-  //       console.log("edit results: ", editResults);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Editing error: ", error);
-  //     });
-  // };
+    layer
+      .applyEdits(edits)
+      .then((editResults) => {
+        console.log("edit results: ", editResults);
+      })
+      .catch((error) => {
+        console.error("Editing error: ", error);
+      });
+  };
 
   useEffect(() => {
     const layer = featureLayer();
@@ -211,7 +211,7 @@ function Map() {
         )}
       </EventsSchedule>
       <Filter />
-
+      {console.log(queryPoint)}
       {show && (
         <EventCard
           organization={queryPoint.USER_ORGANIZATORIAI}
@@ -219,7 +219,19 @@ function Map() {
           place={queryPoint.USER_Vieta}
           date={date}
           time={time}
+          defaultValue={queryPoint.USER_PAVADINIMAS}
           handleChange={handleOpen}
+          handleSubmit={(e) => {
+            e.preventDefault();
+            updateFeature(queryPoint);
+            console.log(queryPoint.USER_PAVADINIMAS);
+          }}
+          handleInput={(e) => {
+            setQueryPoint({
+              ...queryPoint,
+              pavadinimas: e.target.value,
+            });
+          }}
         />
       )}
     </div>

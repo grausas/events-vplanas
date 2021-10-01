@@ -4,7 +4,7 @@ import TileLayer from "@arcgis/core/layers/TileLayer";
 export const featureLayer = () => {
   const textSymbol = {
     type: "simple-marker",
-    size: "9",
+    size: "7",
     color: "#ed1c24",
     outline: {
       color: "#000000",
