@@ -41,7 +41,7 @@ function Map() {
     const editFeature = new Graphic({
       attributes: {
         ObjectID: `${queryPoint.ObjectID}`,
-        USER_PAVADINIMAS: `${queryPoint.pavadinimas}`,
+        USER_PAVADINIMAS: `${queryPoint.USER_PAVADINIMAS}`,
         // USER_Vieta: `${fieldValues.vieta}`,
       },
     });
@@ -224,12 +224,11 @@ function Map() {
           handleSubmit={(e) => {
             e.preventDefault();
             updateFeature(queryPoint);
-            console.log(queryPoint.USER_PAVADINIMAS);
           }}
           handleInput={(e) => {
             setQueryPoint({
               ...queryPoint,
-              pavadinimas: e.target.value,
+              USER_PAVADINIMAS: e.target.value,
             });
           }}
         />

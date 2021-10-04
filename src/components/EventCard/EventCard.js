@@ -11,6 +11,8 @@ import {
   Logo,
 } from "./EventCard.style";
 
+import { useOpenClose } from "../../hooks/useOpenClose";
+
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
 import Place from "../../assets/icons/place.png";
@@ -31,17 +33,18 @@ const EventCard = ({
   handleInput,
   handleSubmit,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
+  const { handleOpen, show } = useOpenClose();
 
   return (
     <Wrapper>
       <Close>
-        <span onClick={() => setIsEditing(true)}>Edit</span>
+        <span onClick={() => handleOpen(show)}>Edit</span>
         <Logo src={VilniusLogo} alt="vilnius-logo" />
         <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
       </Close>
       <Content>
-        {isEditing ? (
+        {show ? (
           <form onSubmit={handleSubmit}>
             <Title>
               <input
@@ -64,7 +67,7 @@ const EventCard = ({
               <img src={Place} alt="place" />
               <p>{place}</p>
             </Text>{" "}
-            <button type="submit">Save</button>
+            <input type="submit" value="Submit" />
           </form>
         ) : (
           <>
