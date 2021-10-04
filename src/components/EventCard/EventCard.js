@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // Styles
 import {
   Wrapper,
@@ -9,7 +11,7 @@ import {
   Logo,
 } from "./EventCard.style";
 
-import { useOpenClose } from "../../hooks/useOpenClose";
+// import { useOpenClose } from "../../hooks/useOpenClose";
 
 // components
 import InputField from "../InputField/InputField";
@@ -35,17 +37,22 @@ const EventCard = ({
   handleSubmit,
 }) => {
   // const [isEditing, setIsEditing] = useState(false);
-  const { handleOpen, show } = useOpenClose();
+  // const { handleOpen, show } = useOpenClose();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEditing = () => {
+    setIsEditing(!isEditing);
+  };
 
   return (
     <Wrapper>
       <Close>
-        <span onClick={() => handleOpen(show)}>Edit</span>
+        <span onClick={() => handleEditing(isEditing)}>Edit</span>
         <Logo src={VilniusLogo} alt="vilnius-logo" />
         <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
       </Close>
       <Content>
-        {show ? (
+        {isEditing ? (
           <form onSubmit={handleSubmit}>
             <Title>
               <InputField
@@ -73,8 +80,7 @@ const EventCard = ({
             <input type="submit" value="Submit" />
           </form>
         ) : (
-          <>
-            {" "}
+          <div>
             <Title>
               <h3>{title}</h3>
             </Title>
@@ -91,8 +97,8 @@ const EventCard = ({
             <Text onClick={handleLocation}>
               <img src={Place} alt="place" />
               <p>{place}</p>
-            </Text>{" "}
-          </>
+            </Text>
+          </div>
         )}
       </Content>
     </Wrapper>

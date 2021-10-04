@@ -24,6 +24,7 @@ function Map() {
 
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
+  const [addNewFeature, setAddNewFeature] = useState([]);
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,8 +65,8 @@ function Map() {
   const addFeature = () => {
     const addFeature = new Graphic({
       attributes: {
-        ObjectID: `${queryPoint.ObjectID}`,
-        USER_PAVADINIMAS: `${queryPoint.USER_PAVADINIMAS}`,
+        // ObjectID: `${queryPoint.ObjectID}`,
+        USER_PAVADINIMAS: `${addNewFeature.USER_PAVADINIMAS}`,
         // USER_Vieta: `${fieldValues.vieta}`,
       },
     });
@@ -178,7 +179,29 @@ function Map() {
         )}
       </EventsSchedule>
       <Filter />
+      <AddFeature
+        buttonText="Pridėti"
+        titleText="Pridėti renginį"
+        handleSubmit={(e) => {
+          e.preventDefault();
+          addFeature(addNewFeature);
+        }}
+      >
+        <InputField
+          type="text"
+          placeholder="Pavadinimas"
+          labelText="Pavadinimas"
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              USER_PAVADINIMAS: e.target.value,
+            });
+          }}
+        />
+      </AddFeature>
+
       {console.log(queryPoint)}
+
       {show && (
         <EventCard
           organization={queryPoint.USER_ORGANIZATORIAI}
@@ -200,26 +223,6 @@ function Map() {
           }}
         />
       )}
-      <AddFeature
-        buttonText="Pridėti"
-        titleText="Pridėti renginį"
-        handleSubmit={(e) => {
-          e.preventDefault();
-          addFeature(queryPoint);
-        }}
-      >
-        <InputField
-          type="text"
-          placeholder="Pavadinimas"
-          labelText="Pavadinimas"
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              USER_PAVADINIMAS: e.target.value,
-            });
-          }}
-        />
-      </AddFeature>
     </div>
   );
 }

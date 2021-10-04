@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   right: 20px;
   background-color: var(--white);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+  z-index: 2;
 `;
 
 export const Content = styled.div`
