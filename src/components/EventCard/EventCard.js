@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Styles
 import {
   Wrapper,
@@ -12,6 +10,9 @@ import {
 } from "./EventCard.style";
 
 import { useOpenClose } from "../../hooks/useOpenClose";
+
+// components
+import InputField from "../InputField/InputField";
 
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
@@ -47,10 +48,12 @@ const EventCard = ({
         {show ? (
           <form onSubmit={handleSubmit}>
             <Title>
-              <input
+              <InputField
+                type="text"
                 defaultValue={defaultValue}
                 onChange={handleInput}
                 value={value}
+                labelText="Pavadinimas"
               />
             </Title>
             <Text>

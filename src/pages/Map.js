@@ -12,7 +12,10 @@ import EventCard from "../components/EventCard/EventCard";
 import EventsSchedule from "../components/EventsSchedule/EventsSchedule";
 import SearchInput from "../components/SearchInput/SearchInput";
 import Filter from "../components/Filter/Filter";
+import AddFeature from "../components/AddFeature/AddFeature";
+import InputField from "../components/InputField/InputField";
 
+// utils
 import { createMapView } from "../utils/Map";
 import { featureLayer, tileLayer } from "../utils/Layers";
 
@@ -24,7 +27,6 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-  // const [fieldValues, setFieldValues] = useState("");
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -59,6 +61,28 @@ function Map() {
       });
   };
 
+  const addFeature = () => {
+    const addFeature = new Graphic({
+      attributes: {
+        ObjectID: `${queryPoint.ObjectID}`,
+        USER_PAVADINIMAS: `${queryPoint.USER_PAVADINIMAS}`,
+        // USER_Vieta: `${fieldValues.vieta}`,
+      },
+    });
+    const add = {
+      addFeatures: [addFeature],
+    };
+
+    layer
+      .applyEdits(add)
+      .then((editResults) => {
+        console.log("edit results: ", editResults);
+      })
+      .catch((error) => {
+        console.error("Editing error: ", error);
+      });
+  };
+
   useEffect(() => {
     const layer = featureLayer();
     const tile = tileLayer();
@@ -75,40 +99,6 @@ function Map() {
       .then((res) => {
         setData(res.features);
       });
-
-    // const paracelLayerSQL = ["1=1"];
-    // let whereClause = paracelLayerSQL[0];
-
-    // const pointQuery = (screenPoint) => {
-    //   const point = view.toMap(screenPoint);
-
-    //   layer
-    //     .queryObjectIds({
-    //       where: whereClause,
-    //       geometryPrecision: point,
-    //       returnGeometry: false,
-    //       outFields: ["*"],
-    //     })
-    //     .then(function (objectIds) {
-    //       layer.queryRelatedFeatures({
-    //         where: ["1=1"],
-    //         relationshipId: layer.relationships,
-    //       });
-
-    //       console.log(
-    //         layer.queryRelatedFeatures({
-    //           outFields: ["OBJECTID", "ZMOGUS"],
-    //           objectIds: objectIds,
-    //         })
-    //       );
-
-    //       return layer.queryRelatedFeatures({
-    //         outFields: ["OBJECTID", "ZMOGUS"],
-    //         relationshipId: layer.relationships[0],
-    //         objectIds: objectIds,
-    //       });
-    //     });
-    // };
 
     view.on("click", function (event) {
       view.hitTest(event).then(function (response) {
@@ -148,29 +138,6 @@ function Map() {
 
   return (
     <div className="mapDiv" ref={mapRef}>
-      {/* <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          updateFeature(fieldValues);
-        }}
-      >
-        <input
-          type="text"
-          placeholder="pavadinimas"
-          onInput={(e) =>
-            setFieldValues({ ...fieldValues, pavadinimas: e.target.value })
-          }
-        />
-        <input
-          type="text"
-          placeholder="vieta"
-          onInput={(e) =>
-            setFieldValues({ ...fieldValues, vieta: e.target.value })
-          }
-        />
-        <button type="submit">Add</button>
-      </form> */}
-
       {/* Fix this. Too much code here. Reuse time date */}
       <EventsSchedule>
         <SearchInput
@@ -233,6 +200,26 @@ function Map() {
           }}
         />
       )}
+      <AddFeature
+        buttonText="Pridėti"
+        titleText="Pridėti renginį"
+        handleSubmit={(e) => {
+          e.preventDefault();
+          addFeature(queryPoint);
+        }}
+      >
+        <InputField
+          type="text"
+          placeholder="Pavadinimas"
+          labelText="Pavadinimas"
+          handleChange={(e) => {
+            setQueryPoint({
+              ...queryPoint,
+              USER_PAVADINIMAS: e.target.value,
+            });
+          }}
+        />
+      </AddFeature>
     </div>
   );
 }
