@@ -29,15 +29,11 @@ const EventCard = ({
   title,
   date,
   time,
-  value,
-  defaultValue,
+  children,
   handleChange,
   handleLocation,
-  handleInput,
   handleSubmit,
 }) => {
-  // const [isEditing, setIsEditing] = useState(false);
-  // const { handleOpen, show } = useOpenClose();
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditing = () => {
@@ -47,38 +43,13 @@ const EventCard = ({
   return (
     <Wrapper>
       <Close>
-        <span onClick={() => handleEditing(isEditing)}>Edit</span>
+        <span onClick={handleEditing}>Edit</span>
         <Logo src={VilniusLogo} alt="vilnius-logo" />
         <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
       </Close>
       <Content>
         {isEditing ? (
-          <form onSubmit={handleSubmit}>
-            <Title>
-              <InputField
-                type="text"
-                defaultValue={defaultValue}
-                onChange={handleInput}
-                value={value}
-                labelText="Pavadinimas"
-              />
-            </Title>
-            <Text>
-              <img src={Time} alt="time" />
-              <p>
-                {date} | {time}
-              </p>
-            </Text>
-            <Text>
-              <img src={Document} alt="document" />
-              <p>{organization}</p>
-            </Text>
-            <Text onClick={handleLocation}>
-              <img src={Place} alt="place" />
-              <p>{place}</p>
-            </Text>{" "}
-            <input type="submit" value="Submit" />
-          </form>
+          <form onSubmit={handleSubmit}>{children}</form>
         ) : (
           <div>
             <Title>

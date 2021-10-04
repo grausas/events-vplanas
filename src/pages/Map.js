@@ -28,6 +28,7 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+  const [value, onChange] = useState(new Date());
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -45,7 +46,8 @@ function Map() {
       attributes: {
         ObjectID: `${queryPoint.ObjectID}`,
         USER_PAVADINIMAS: `${queryPoint.USER_PAVADINIMAS}`,
-        // USER_Vieta: `${fieldValues.vieta}`,
+        USER_Vieta: `${queryPoint.USER_Vieta}`,
+        USER_ORGANIZATORIAI: `${queryPoint.USER_ORGANIZATORIAI}`,
       },
     });
     const edits = {
@@ -129,6 +131,7 @@ function Map() {
   };
 
   const newDate = new Date(queryPoint.USER_RENGINIO_DATA);
+  console.log(newDate);
   const time = pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
   const date =
     newDate.getFullYear() +
@@ -198,9 +201,29 @@ function Map() {
             });
           }}
         />
+        <InputField
+          type="text"
+          placeholder="Organizatoriai"
+          labelText="Organizatoriai"
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              USER_ORGANIZATORIAI: e.target.value,
+            });
+          }}
+        />
+        <InputField
+          type="text"
+          placeholder="Vieta"
+          labelText="Vieta"
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              USER_Vieta: e.target.value,
+            });
+          }}
+        />
       </AddFeature>
-
-      {console.log(queryPoint)}
 
       {show && (
         <EventCard
@@ -209,20 +232,60 @@ function Map() {
           place={queryPoint.USER_Vieta}
           date={date}
           time={time}
-          defaultValue={queryPoint.USER_PAVADINIMAS}
           handleChange={handleOpen}
           handleSubmit={(e) => {
             e.preventDefault();
             updateFeature(queryPoint);
           }}
-          handleInput={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              USER_PAVADINIMAS: e.target.value,
-            });
-          }}
-        />
+        >
+          <InputField
+            type="text"
+            defaultValue={queryPoint.USER_PAVADINIMAS}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                USER_PAVADINIMAS: e.target.value,
+              });
+            }}
+            labelText="Pavadinimas"
+          />
+          <InputField
+            type="text"
+            defaultValue={queryPoint.USER_ORGANIZATORIAI}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                USER_ORGANIZATORIAI: e.target.value,
+              });
+            }}
+            labelText="Organizatoriai"
+          />
+          <InputField
+            type="text"
+            defaultValue={queryPoint.USER_Vieta}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                USER_Vieta: e.target.value,
+              });
+            }}
+            labelText="Vieta"
+          />
+          <InputField
+            type="text"
+            defaultValue={time}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                USER_RENGINIO_DATA: Number(e.target.value),
+              });
+            }}
+            labelText="Vieta"
+          />
+          <button type="submit">Patvirtinti</button>
+        </EventCard>
       )}
+      {console.log(new Date(queryPoint.USER_RENGINIO_DATA) + " nauja data")}
     </div>
   );
 }
