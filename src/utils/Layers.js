@@ -13,7 +13,7 @@ export const featureLayer = () => {
   };
 
   const layer = new FeatureLayer({
-    url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Renginiu_zemelapis_gdb/FeatureServer/0",
+    url: "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Renginiai_Vilniuje_P/FeatureServer/0",
     outFields: ["*"],
     renderer: {
       type: "simple",
