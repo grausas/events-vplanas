@@ -28,7 +28,6 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-  const [value, onChange] = useState(new Date());
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -48,6 +47,7 @@ function Map() {
         USER_PAVADINIMAS: `${queryPoint.USER_PAVADINIMAS}`,
         USER_Vieta: `${queryPoint.USER_Vieta}`,
         USER_ORGANIZATORIAI: `${queryPoint.USER_ORGANIZATORIAI}`,
+        USER_RENGINIO_DATA: `${queryPoint.USER_RENGINIO_DATA}`,
       },
     });
     const edits = {
@@ -67,9 +67,9 @@ function Map() {
   const addFeature = () => {
     const addFeature = new Graphic({
       attributes: {
-        // ObjectID: `${queryPoint.ObjectID}`,
         USER_PAVADINIMAS: `${addNewFeature.USER_PAVADINIMAS}`,
-        // USER_Vieta: `${fieldValues.vieta}`,
+        USER_ORGANIZATORIAI: `${addNewFeature.USER_ORGANIZATORIAI}`,
+        USER_Vieta: `${addNewFeature.USER_Vieta}`,
       },
     });
     const add = {
@@ -130,8 +130,12 @@ function Map() {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   };
 
+  // const tryDate = new Date(queryPoint.USER_RENGINIO_DATA).getTime();
+  // console.log(new Date(tryDate));
+  // console.log(queryPoint.USER_RENGINIO_DATA);
+
   const newDate = new Date(queryPoint.USER_RENGINIO_DATA);
-  console.log(newDate);
+  // console.log(newDate);
   const time = pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
   const date =
     newDate.getFullYear() +
@@ -253,6 +257,10 @@ function Map() {
             type="text"
             defaultValue={queryPoint.USER_ORGANIZATORIAI}
             handleChange={(e) => {
+              console.log({
+                ...queryPoint,
+                USER_ORGANIZATORIAI: e.target.value,
+              });
               setQueryPoint({
                 ...queryPoint,
                 USER_ORGANIZATORIAI: e.target.value,
@@ -273,19 +281,44 @@ function Map() {
           />
           <InputField
             type="text"
-            defaultValue={time}
+            defaultValue={date + " " + time}
+            value={date + time}
             handleChange={(e) => {
+              console.log({
+                ...queryPoint,
+                USER_RENGINIO_DATA: new Date(e.target.value).toLocaleString(
+                  "lt-LT",
+                  { timeZone: "Etc/GMT-0" }
+                ),
+              });
               setQueryPoint({
                 ...queryPoint,
-                USER_RENGINIO_DATA: Number(e.target.value),
+                USER_RENGINIO_DATA: new Date(e.target.value).toLocaleString(
+                  "lt-LT",
+                  { timeZone: "Etc/GMT-0" }
+                ),
               });
             }}
-            labelText="Vieta"
+            labelText="Data"
           />
-          <button type="submit">Patvirtinti</button>
+          {/* <InputField
+            type="text"
+            defaultValue={time}
+            handleChange={(e) => {
+              console.log({
+                ...queryPoint,
+                USER_RENGINIO_DATA: e.target.value,
+              });
+              setQueryPoint({
+                ...queryPoint,
+                USER_RENGINIO_DATA: e.target.value,
+              });
+            }}
+            labelText="Laikas"
+          /> */}
         </EventCard>
       )}
-      {console.log(new Date(queryPoint.USER_RENGINIO_DATA) + " nauja data")}
+      {/* {console.log(new Date(queryPoint.USER_RENGINIO_DATA) + " nauja data")} */}
     </div>
   );
 }

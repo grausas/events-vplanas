@@ -9,12 +9,13 @@ import {
   Text,
   CloseImage,
   Logo,
+  ConfirmButton,
 } from "./EventCard.style";
 
 // import { useOpenClose } from "../../hooks/useOpenClose";
 
 // components
-import InputField from "../InputField/InputField";
+// import Button from "../Button/Button";
 
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
@@ -49,7 +50,10 @@ const EventCard = ({
       </Close>
       <Content>
         {isEditing ? (
-          <form onSubmit={handleSubmit}>{children}</form>
+          <form onSubmit={handleSubmit}>
+            {children}
+            <ConfirmButton>Patvirtinti</ConfirmButton>
+          </form>
         ) : (
           <div>
             <Title>
