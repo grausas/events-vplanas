@@ -4,6 +4,7 @@ import {
   FormWrapper,
   InputWrapper,
   CloseImage,
+  ConfirmButton,
 } from "./AddFeature.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -25,7 +26,7 @@ const AddFeature = ({ children, handleSubmit, titleText, buttonText }) => {
             <h3>{titleText}</h3>
             <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
             <InputWrapper>{children}</InputWrapper>
-            <button type="submit">{buttonText}</button>
+            <ConfirmButton>{buttonText}</ConfirmButton>
           </form>
         </FormWrapper>
       )}

@@ -15,7 +15,7 @@ import {
 
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
-import Place from "../../assets/icons/place.png";
+// import Place from "../../assets/icons/place.png";
 import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";

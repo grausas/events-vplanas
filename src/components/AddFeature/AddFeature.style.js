@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../Button/Button";
 
 export const Close = styled.div`
   position: absolute;
@@ -15,11 +16,12 @@ export const Close = styled.div`
 
 export const FormWrapper = styled.div`
   position: absolute;
+  margin: 0 auto;
   width: 350px;
   max-height: 600px;
   border-radius: 5px;
-  top: 2%;
-  right: 20px;
+  top: 10%;
+  left: calc(50% - 175px);
   background-color: var(--white);
   color: var(--dark);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
@@ -45,4 +47,15 @@ export const CloseImage = styled.img`
   border-radius: 5px;
   padding: 3px;
   cursor: pointer;
+`;
+
+export const ConfirmButton = styled(Button)`
+  background-color: var(--grey);
+  padding: 3px 10px;
+  margin-top: 10px;
+
+  :hover {
+    background: var(--lightBlue);
+    color: var(--white);
+  }
 `;
