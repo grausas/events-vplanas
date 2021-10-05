@@ -1,5 +1,5 @@
 // Styles
-import { Label, Input } from "./InputField.style";
+import { Wrapper, Label, Input } from "./InputField.style";
 
 const InputField = ({
   type,
@@ -7,25 +7,25 @@ const InputField = ({
   placeholder,
   required,
   minLength,
+  id,
   maxLength,
   handleChange,
   defaultValue,
 }) => {
   return (
-    <div>
-      <Label>{labelText}</Label>
-      <div>
-        <Input
-          type={type}
-          placeholder={placeholder}
-          required={required}
-          minLength={minLength}
-          maxLength={maxLength}
-          defaultValue={defaultValue}
-          onChange={handleChange}
-        />
-      </div>
-    </div>
+    <Wrapper>
+      <Input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        minLength={minLength}
+        maxLength={maxLength}
+        defaultValue={defaultValue}
+        onChange={handleChange}
+      />
+      {labelText && <Label htmlFor={id}>{labelText}</Label>}
+    </Wrapper>
   );
 };
 

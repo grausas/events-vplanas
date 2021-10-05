@@ -196,8 +196,8 @@ function Map() {
       >
         <InputField
           type="text"
-          placeholder="Pavadinimas"
           labelText="Pavadinimas"
+          required
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
@@ -207,8 +207,8 @@ function Map() {
         />
         <InputField
           type="text"
-          placeholder="Organizatoriai"
           labelText="Organizatoriai"
+          required
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
@@ -218,8 +218,9 @@ function Map() {
         />
         <InputField
           type="text"
-          placeholder="Vieta"
           labelText="Vieta"
+          id="vieta"
+          required
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
