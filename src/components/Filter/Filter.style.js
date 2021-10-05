@@ -28,18 +28,21 @@ export const IconFilter = styled.div`
 `;
 
 export const Content = styled.div`
-  margin-top: 10px;
-  padding: 0 20px 0 10px;
+  margin-top: 5px;
+  padding: 0 10px;
 
   div {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding: 5px 0;
+    height: 35px;
 
-    input {
-      margin: 0 7px 0 0;
-      width: 18px;
-      height: 18px;
+    span {
+      font-weight: 600;
+      font-size: 20px;
+      height: inherit;
     }
   }
 `;

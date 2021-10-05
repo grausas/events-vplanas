@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 10px;
 
+  // fix, kai paspaudi ant label neveikia transform
   && input:focus ~ label,
   input:valid ~ label {
     transform: translateY(-45px);

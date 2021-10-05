@@ -19,16 +19,16 @@ const Filter = () => {
       {show && (
         <Content>
           <div>
-            <input type="checkbox" />
             <p>Organizacija</p>
+            <span>+</span>
           </div>
           <div>
-            <input type="checkbox" />
             <p>Tipas</p>
+            <span>+</span>
           </div>
           <div>
-            <input type="checkbox" />
             <p>Data</p>
+            <span>+</span>
           </div>
         </Content>
       )}

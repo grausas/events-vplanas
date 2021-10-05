@@ -32,6 +32,7 @@ export const Text = styled.div`
   span {
     font-size: 20px;
     font-weight: 600;
+    height: inherit;
   }
 `;
 
