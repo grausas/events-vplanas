@@ -49,7 +49,7 @@ export const GlobalStyle = createGlobalStyle`
       margin: 0;
     }
 
-    p, span {
+    p, span, a {
       font-size: 0.9rem;
       margin: 0;
     }

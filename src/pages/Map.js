@@ -43,11 +43,10 @@ function Map() {
   const updateFeature = () => {
     const editFeature = new Graphic({
       attributes: {
-        ObjectID: `${queryPoint.ObjectID}`,
-        USER_PAVADINIMAS: `${queryPoint.USER_PAVADINIMAS}`,
-        USER_Vieta: `${queryPoint.USER_Vieta}`,
-        USER_ORGANIZATORIAI: `${queryPoint.USER_ORGANIZATORIAI}`,
-        USER_RENGINIO_DATA: `${queryPoint.USER_RENGINIO_DATA}`,
+        OBJECTID: `${queryPoint.OBJECTID}`,
+        PAVADINIMAS: `${queryPoint.PAVADINIMAS}`,
+        ORGANIZATORIUS: `${queryPoint.ORGANIZATORIUS}`,
+        RENGINIO_PRADZIA: `${queryPoint.RENGINIO_PRADZIA}`,
       },
     });
     const edits = {
@@ -181,12 +180,14 @@ function Map() {
               );
             })
             .slice()
-            .sort((a, b) => (b.date > a.date && b.time > a.time ? 1 : -1))
+            .sort((a, b) => (b.date > a.date ? 1 : -1))
         ) : (
           <span>Loading...</span>
         )}
       </EventsSchedule>
       <Filter />
+
+      {/* Pridėti naują renginį */}
       <AddFeature
         buttonText="Pridėti"
         titleText="Pridėti renginį"
@@ -229,12 +230,26 @@ function Map() {
             });
           }}
         />
+        <InputField
+          type="date"
+          labelText="Pradžios data"
+          id="data"
+          required
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              RENGINIO_PRADZIA: e.target.value,
+            });
+          }}
+        />
       </AddFeature>
 
+      {/* Renginys ir jo editinimas */}
       {show && (
         <EventCard
           organization={queryPoint.ORGANIZATORIUS}
           title={queryPoint.PAVADINIMAS}
+          url={queryPoint.WEBPAGE}
           date={date}
           time={time}
           handleChange={handleOpen}
@@ -245,48 +260,50 @@ function Map() {
         >
           <InputField
             type="text"
-            defaultValue={queryPoint.USER_PAVADINIMAS}
+            defaultValue={queryPoint.PAVADINIMAS}
             handleChange={(e) => {
               setQueryPoint({
                 ...queryPoint,
-                USER_PAVADINIMAS: e.target.value,
+                PAVADINIMAS: e.target.value,
               });
             }}
             labelText="Pavadinimas"
           />
           <InputField
             type="text"
-            defaultValue={queryPoint.USER_ORGANIZATORIAI}
+            defaultValue={queryPoint.ORGANIZATORIUS}
             handleChange={(e) => {
               console.log({
                 ...queryPoint,
-                USER_ORGANIZATORIAI: e.target.value,
+                ORGANIZATORIUS: e.target.value,
               });
               setQueryPoint({
                 ...queryPoint,
-                USER_ORGANIZATORIAI: e.target.value,
+                ORGANIZATORIUS: e.target.value,
               });
             }}
             labelText="Organizatorius"
           />
-
           <InputField
-            type="text"
-            defaultValue={date + " " + time}
-            value={date + time}
+            type="datetime-local"
+            defaultValue={date + time}
             handleChange={(e) => {
               console.log({
                 ...queryPoint,
-                USER_RENGINIO_DATA: new Date(e.target.value).toLocaleString(
+                RENGINIO_PRADZIA: new Date(e.target.value).toLocaleString(
                   "lt-LT",
-                  { timeZone: "Etc/GMT-0" }
+                  {
+                    timeZone: "Etc/GMT-0",
+                  }
                 ),
               });
               setQueryPoint({
                 ...queryPoint,
-                USER_RENGINIO_DATA: new Date(e.target.value).toLocaleString(
+                RENGINIO_PRADZIA: new Date(e.target.value).toLocaleString(
                   "lt-LT",
-                  { timeZone: "Etc/GMT-0" }
+                  {
+                    timeZone: "Etc/GMT-0",
+                  }
                 ),
               });
             }}
