@@ -34,10 +34,12 @@ function Map() {
 
   const results = !searchTerm
     ? data
-    : data.filter((item) =>
-        item.attributes.USER_Vieta.toLowerCase().includes(
-          searchTerm.toLocaleLowerCase()
-        )
+    : data.filter(
+        (item) =>
+          item.attributes.PAVADINIMAS &&
+          item.attributes.PAVADINIMAS.toLowerCase().includes(
+            searchTerm.toLocaleLowerCase()
+          )
       );
 
   const updateFeature = () => {
@@ -66,9 +68,9 @@ function Map() {
   const addFeature = () => {
     const addFeature = new Graphic({
       attributes: {
-        USER_PAVADINIMAS: `${addNewFeature.USER_PAVADINIMAS}`,
-        USER_ORGANIZATORIAI: `${addNewFeature.USER_ORGANIZATORIAI}`,
-        USER_Vieta: `${addNewFeature.USER_Vieta}`,
+        PAVADINIMAS: `${addNewFeature.PAVADINIMAS}`,
+        ORGANIZATORIUS: `${addNewFeature.ORGANIZATORIUS}`,
+        RENGINIO_PRADZIA: `${addNewFeature.RENGINIO_PRADZIA}`,
       },
     });
     const add = {
@@ -203,7 +205,7 @@ function Map() {
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
-              USER_PAVADINIMAS: e.target.value,
+              PAVADINIMAS: e.target.value,
             });
           }}
         />
@@ -214,25 +216,15 @@ function Map() {
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
-              USER_ORGANIZATORIAI: e.target.value,
+              ORGANIZATORIUS: e.target.value,
             });
           }}
         />
+
         <InputField
-          type="text"
-          labelText="Vieta"
-          id="vieta"
-          required
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              USER_Vieta: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="date"
-          labelText="Pradžios data"
+          type="datetime-local"
+          format="MM-dd-yyyyTHH:mm"
+          // labelText="Pradžios data"
           id="data"
           required
           handleChange={(e) => {
