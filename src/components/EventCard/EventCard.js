@@ -15,7 +15,7 @@ import {
 
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
-// import Place from "../../assets/icons/place.png";
+import ExternalLink from "../../assets/icons/external-link.png";
 import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
@@ -23,7 +23,7 @@ import Edit from "../../assets/icons/edit.png";
 
 const EventCard = ({
   organization,
-  place,
+  url,
   title,
   date,
   time,
@@ -66,10 +66,12 @@ const EventCard = ({
               <img src={Document} alt="document" />
               <p>{organization}</p>
             </Text>
-            {/* <Text onClick={handleLocation}>
-              <img src={Place} alt="place" />
-              <p>{place}</p>
-            </Text> */}
+            <Text onClick={handleLocation}>
+              <img src={ExternalLink} alt="place" />
+              <a href={url} target="_blank" rel="noreferrer">
+                Renginio puslapis
+              </a>
+            </Text>
           </div>
         )}
       </Content>

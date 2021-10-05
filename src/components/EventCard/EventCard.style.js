@@ -71,8 +71,18 @@ export const Text = styled.div`
   margin-bottom: 15px;
   align-items: flex-start;
 
-  p {
+  p,
+  a {
     color: var(--grey);
+  }
+
+  a {
+    text-decoration: none;
+
+    :hover {
+      font-weight: 600;
+      color: var(--lightBlue);
+    }
   }
 
   img {
