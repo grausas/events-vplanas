@@ -8,7 +8,8 @@ export const Wrapper = styled.div`
   && input:focus ~ label,
   input:valid ~ label {
     transform: translateY(-45px);
-    font-size: 10px;
+    font-size: 11px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 600;
   }

@@ -66,10 +66,10 @@ const EventCard = ({
               <img src={Document} alt="document" />
               <p>{organization}</p>
             </Text>
-            <Text onClick={handleLocation}>
+            {/* <Text onClick={handleLocation}>
               <img src={Place} alt="place" />
               <p>{place}</p>
-            </Text>
+            </Text> */}
           </div>
         )}
       </Content>

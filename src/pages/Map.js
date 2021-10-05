@@ -103,6 +103,8 @@ function Map() {
         setData(res.features);
       });
 
+    console.log(data);
+
     view.on("click", function (event) {
       view.hitTest(event).then(function (response) {
         if (response.results.length) {
@@ -134,7 +136,7 @@ function Map() {
   // console.log(new Date(tryDate));
   // console.log(queryPoint.USER_RENGINIO_DATA);
 
-  const newDate = new Date(queryPoint.USER_RENGINIO_DATA);
+  const newDate = new Date(queryPoint.RENGINIO_PRADZIA);
   // console.log(newDate);
   const time = pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
   const date =
@@ -159,7 +161,7 @@ function Map() {
           results
             .map((items) => {
               const item = items.attributes;
-              const newDate = new Date(item.USER_RENGINIO_DATA);
+              const newDate = new Date(item.RENGINIO_PRADZIA);
               const time =
                 pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
               const date =
@@ -169,18 +171,17 @@ function Map() {
                 "-" +
                 pad(newDate.getDate(), 2);
               return (
-                <div key={item.ObjectID}>
+                <div key={item.OBJECTID}>
                   <p>
                     {date} | {time}
                   </p>
-                  <p>{item.USER_PAVADINIMAS}</p>
-                  <p>{item.USER_Vieta}</p>
+                  <p>{item.PAVADINIMAS}</p>
+                  <p>{item.ORGANIZATORIUS}</p>
                 </div>
               );
             })
-
             .slice()
-            .sort((a, b) => b.date > a.date)
+            .sort((a, b) => (b.date > a.date && b.time > a.time ? 1 : -1))
         ) : (
           <span>Loading...</span>
         )}
@@ -207,7 +208,7 @@ function Map() {
         />
         <InputField
           type="text"
-          labelText="Organizatoriai"
+          labelText="Organizatorius"
           required
           handleChange={(e) => {
             setAddNewFeature({
@@ -232,9 +233,8 @@ function Map() {
 
       {show && (
         <EventCard
-          organization={queryPoint.USER_ORGANIZATORIAI}
-          title={queryPoint.USER_PAVADINIMAS}
-          place={queryPoint.USER_Vieta}
+          organization={queryPoint.ORGANIZATORIUS}
+          title={queryPoint.PAVADINIMAS}
           date={date}
           time={time}
           handleChange={handleOpen}
@@ -267,19 +267,9 @@ function Map() {
                 USER_ORGANIZATORIAI: e.target.value,
               });
             }}
-            labelText="Organizatoriai"
+            labelText="Organizatorius"
           />
-          <InputField
-            type="text"
-            defaultValue={queryPoint.USER_Vieta}
-            handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
-                USER_Vieta: e.target.value,
-              });
-            }}
-            labelText="Vieta"
-          />
+
           <InputField
             type="text"
             defaultValue={date + " " + time}
