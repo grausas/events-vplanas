@@ -10,12 +10,8 @@ import {
   CloseImage,
   Logo,
   ConfirmButton,
+  EditIcon,
 } from "./EventCard.style";
-
-// import { useOpenClose } from "../../hooks/useOpenClose";
-
-// components
-// import Button from "../Button/Button";
 
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
@@ -23,6 +19,7 @@ import Place from "../../assets/icons/place.png";
 import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
+import Edit from "../../assets/icons/edit.png";
 
 const EventCard = ({
   organization,
@@ -44,7 +41,7 @@ const EventCard = ({
   return (
     <Wrapper>
       <Close>
-        <span onClick={handleEditing}>Edit</span>
+        <EditIcon src={Edit} alt="edit-icon" onClick={handleEditing} />
         <Logo src={VilniusLogo} alt="vilnius-logo" />
         <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
       </Close>

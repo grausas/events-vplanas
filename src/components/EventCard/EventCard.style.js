@@ -24,10 +24,6 @@ export const Close = styled.div`
   background-color: var(--grey);
   width: 100%;
   border-radius: 5px 5px 0 0;
-
-  span {
-    font-weight: 600;
-  }
 `;
 
 export const Logo = styled.img`
@@ -43,6 +39,20 @@ export const CloseImage = styled.img`
   top: 10px;
   width: 22px;
   height: 22px;
+  border-radius: 5px;
+  padding: 3px;
+  cursor: pointer;
+
+  :hover {
+    background-color: var(--white);
+  }
+`;
+
+export const EditIcon = styled.img`
+  position: absolute;
+  width: 25px;
+  left: 10px;
+  top: 10px;
   border-radius: 5px;
   padding: 3px;
   cursor: pointer;
