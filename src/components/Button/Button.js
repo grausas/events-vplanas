@@ -1,7 +1,7 @@
 import { Wrapper } from "./Button.style";
 
-const Button = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>;
+const Button = ({ children, className }) => {
+  return <Wrapper className={className}>{children}</Wrapper>;
 };
 
 export default Button;
