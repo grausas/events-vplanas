@@ -199,6 +199,7 @@ function Map() {
           type="text"
           labelText="Pavadinimas"
           id="pavadinimas"
+          placeholder="Pavadinimas"
           required
           handleChange={(e) => {
             setAddNewFeature({
@@ -211,6 +212,7 @@ function Map() {
           type="text"
           labelText="Organizatorius"
           id="organizatorius"
+          placeholder="Organizatorius"
           required
           handleChange={(e) => {
             setAddNewFeature({
@@ -223,9 +225,21 @@ function Map() {
         <InputField
           type="datetime-local"
           format="MM-dd-yyyyTHH:mm"
-          // labelText="Pradžios data"
-          id="data"
+          labelText="Pradžios data"
+          // id="data"
           required
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              RENGINIO_PRADZIA: e.target.value,
+            });
+          }}
+        />
+        <InputField
+          type="longtext"
+          labelText="Pastabos"
+          placeholder="Pastabos"
+          id="pastabos"
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
@@ -298,7 +312,7 @@ function Map() {
                 ),
               });
             }}
-            labelText="Data"
+            labelText="Renginio pradžia"
           />
         </EventCard>
       )}

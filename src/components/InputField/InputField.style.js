@@ -4,41 +4,41 @@ export const Wrapper = styled.div`
   position: relative;
   width: 100%;
   margin-bottom: 10px;
-
-  && input:focus ~ label,
-  input:valid ~ label {
-    transform: translateY(-45px);
-    font-size: 11px;
-    text-transform: uppercase;
-    font-weight: 600;
-    opacity: 1;
-  }
 `;
 
 export const Label = styled.label`
-  position: absolute;
   cursor: text;
   font-size: 0.9rem;
-  transform: translate(20px, -20px);
-  transition: all 0.3s ease-in-out;
-  left: 0;
-  bottom: -12px;
-  opacity: 0.5;
 `;
 
 export const Input = styled.input`
   width: 100%;
   padding: 0 1rem;
   height: 40px;
-  border: none;
-  border-bottom: 1px solid var(--grey);
+  border: 1px solid var(--grey);
+  border-radius: 5px;
   background: var(--white);
   box-sizing: border-box;
   color: var(--dark);
   font-size: 14px;
 
   &:focus {
-    border-bottom: 2px solid var(--lightBlue);
+    border: 2px solid var(--lightBlue);
+    outline: none;
+  }
+`;
+
+export const TextArea = styled.textarea`
+  width: 100%;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  font-size: 14px;
+  resize: none;
+
+  &:focus {
+    border: 2px solid var(--lightBlue);
     outline: none;
   }
 `;
