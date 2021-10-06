@@ -16,8 +16,8 @@ import AddFeature from "../components/AddFeature/AddFeature";
 import InputField from "../components/InputField/InputField";
 
 // utils
-import { createMapView } from "../utils/Map";
-import { featureLayer, tileLayer } from "../utils/Layers";
+import { createMapView } from "../helpers/Map";
+import { featureLayer, tileLayer } from "../helpers/Layers";
 
 function Map() {
   const mapRef = useRef(null);

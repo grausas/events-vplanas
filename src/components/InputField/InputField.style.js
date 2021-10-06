@@ -20,7 +20,7 @@ export const Label = styled.label`
   cursor: text;
   font-size: 0.9rem;
   transform: translate(20px, -20px);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease-in-out;
   left: 0;
   bottom: -12px;
   opacity: 0.5;
