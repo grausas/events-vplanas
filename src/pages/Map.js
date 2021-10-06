@@ -201,6 +201,7 @@ function Map() {
         <InputField
           type="text"
           labelText="Pavadinimas"
+          id="pavadinimas"
           required
           handleChange={(e) => {
             setAddNewFeature({
@@ -212,6 +213,7 @@ function Map() {
         <InputField
           type="text"
           labelText="Organizatorius"
+          id="organizatorius"
           required
           handleChange={(e) => {
             setAddNewFeature({

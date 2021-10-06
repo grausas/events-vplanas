@@ -5,14 +5,13 @@ export const Wrapper = styled.div`
   width: 100%;
   margin-bottom: 10px;
 
-  // fix, kai paspaudi ant label neveikia transform
   && input:focus ~ label,
   input:valid ~ label {
     transform: translateY(-45px);
     font-size: 11px;
-    letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 600;
+    opacity: 1;
   }
 `;
 
@@ -23,12 +22,13 @@ export const Label = styled.label`
   transform: translate(20px, -20px);
   transition: transform 0.3s ease;
   left: 0;
-  bottom: -15px;
+  bottom: -12px;
+  opacity: 0.5;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 0 1em;
+  padding: 0 1rem;
   height: 40px;
   border: none;
   border-bottom: 1px solid var(--grey);
