@@ -1,5 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 // Styles
 import "./Map.css";
 // Modules
@@ -28,6 +31,8 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [startDate, setStartDate] = useState(new Date());
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -103,8 +108,6 @@ function Map() {
       .then((res) => {
         setData(res.features);
       });
-
-    console.log(data);
 
     view.on("click", function (event) {
       view.hitTest(event).then(function (response) {
@@ -222,10 +225,10 @@ function Map() {
           }}
         />
 
-        <InputField
-          type="datetime-local"
+        <input
+          type="date"
           format="MM-dd-yyyyTHH:mm"
-          labelText="Pradžios data"
+          // labelText="Pradžios data"
           // id="data"
           required
           handleChange={(e) => {
@@ -291,7 +294,7 @@ function Map() {
           />
           <InputField
             type="datetime-local"
-            defaultValue={date + time}
+            defaultValue={date + " " + time}
             handleChange={(e) => {
               console.log({
                 ...queryPoint,
@@ -313,6 +316,16 @@ function Map() {
               });
             }}
             labelText="Renginio pradžia"
+          />
+          {console.log(date)}
+          {console.log(queryPoint.RENGINIO_PRADZIA)}
+          <DatePicker
+            selected={startDate}
+            onChange={console.log((date) => setStartDate(date))}
+            imeInputLabel="Time:"
+            timeIntervals={1}
+            dateFormat="MM/dd/yyyy HH:mm "
+            showTimeSelect
           />
         </EventCard>
       )}
