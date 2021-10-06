@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Styles
 import {
   Wrapper,
@@ -11,6 +9,7 @@ import {
   Logo,
   ConfirmButton,
   EditIcon,
+  FormWrapper,
 } from "./EventCard.style";
 
 // Icon
@@ -20,6 +19,9 @@ import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
 import Edit from "../../assets/icons/edit.png";
+
+//hooks
+import { useOpenClose } from "../../hooks/useOpenClose";
 
 const EventCard = ({
   organization,
@@ -33,55 +35,70 @@ const EventCard = ({
   handleLocation,
   handleSubmit,
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleEditing = () => {
-    setIsEditing(!isEditing);
-  };
+  const { handleOpen, show } = useOpenClose();
 
   return (
-    <Wrapper>
-      <Close>
-        <EditIcon src={Edit} alt="edit-icon" onClick={handleEditing} />
-        <Logo src={VilniusLogo} alt="vilnius-logo" />
-        <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
-      </Close>
-      <Content>
-        {isEditing ? (
+    <>
+      {show ? (
+        <FormWrapper>
           <form onSubmit={handleSubmit}>
+            <h3>Redaguoti renginį</h3>
             {children}
             <ConfirmButton>Patvirtinti</ConfirmButton>
           </form>
-        ) : (
-          <div>
-            <Title>
-              <h3>{title}</h3>
-            </Title>
-            <Text>
-              <img src={Time} alt="time" />
-              <p>Pradžia: {startDate}</p>
-              <p>Pabaiga: {finishDate}</p>
-            </Text>
-            <Text>
-              <img src={Document} alt="document" />
-              <p>{organization}</p>
-            </Text>
-            <Text onClick={handleLocation}>
-              <img src={ExternalLink} alt="place" />
-              <a href={url} target="_blank" rel="noreferrer">
-                Renginio puslapis
-              </a>
-            </Text>
-            <Text>
-              <p>
-                Pastabos:
-                {comment && comment.length ? " " + comment : " Pastabų nėra"}
-              </p>
-            </Text>
-          </div>
-        )}
-      </Content>
-    </Wrapper>
+          <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
+        </FormWrapper>
+      ) : (
+        <Wrapper>
+          <Close>
+            <EditIcon src={Edit} alt="edit-icon" onClick={handleOpen} />
+            <Logo src={VilniusLogo} alt="vilnius-logo" />
+            <CloseImage
+              src={CloseIcon}
+              alt="close-icon"
+              onClick={handleChange}
+            />
+          </Close>
+          <Content>
+            {/* {isEditing ? (
+          <FormWrapper>
+            <form onSubmit={handleSubmit}>
+              {children}
+              <ConfirmButton>Patvirtinti</ConfirmButton>
+            </form>
+          </FormWrapper>
+        ) : ( */}
+            <div>
+              <Title>
+                <h3>{title}</h3>
+              </Title>
+              <Text>
+                <img src={Time} alt="time" />
+                <p>Pradžia: {startDate}</p>
+                <p>Pabaiga: {finishDate}</p>
+              </Text>
+              <Text>
+                <img src={Document} alt="document" />
+                <p>{organization}</p>
+              </Text>
+              <Text onClick={handleLocation}>
+                <img src={ExternalLink} alt="place" />
+                <a href={url} target="_blank" rel="noreferrer">
+                  Renginio puslapis
+                </a>
+              </Text>
+              <Text>
+                <p>
+                  Pastabos:
+                  {comment && comment.length ? " " + comment : " Pastabų nėra"}
+                </p>
+              </Text>
+            </div>
+            {/* )} */}
+          </Content>
+        </Wrapper>
+      )}
+    </>
   );
 };
 

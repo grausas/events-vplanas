@@ -17,7 +17,7 @@ export const Close = styled.div`
 export const FormWrapper = styled.div`
   position: absolute;
   margin: 0 auto;
-  width: 350px;
+  width: 400px;
   max-height: 600px;
   border-radius: 5px;
   top: 10%;

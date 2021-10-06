@@ -133,10 +133,6 @@ function Map() {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   };
 
-  // const tryDate = new Date(queryPoint.USER_RENGINIO_DATA).getTime();
-  // console.log(new Date(tryDate));
-  // console.log(queryPoint.USER_RENGINIO_DATA);
-
   const newDate = new Date(queryPoint.RENGINIO_PRADZIA);
   // console.log(newDate);
   const time = pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
@@ -304,21 +300,6 @@ function Map() {
             }}
             labelText="Data"
           />
-          {/* <InputField
-            type="text"
-            defaultValue={time}
-            handleChange={(e) => {
-              console.log({
-                ...queryPoint,
-                USER_RENGINIO_DATA: e.target.value,
-              });
-              setQueryPoint({
-                ...queryPoint,
-                USER_RENGINIO_DATA: e.target.value,
-              });
-            }}
-            labelText="Laikas"
-          /> */}
         </EventCard>
       )}
       {/* {console.log(new Date(queryPoint.USER_RENGINIO_DATA) + " nauja data")} */}

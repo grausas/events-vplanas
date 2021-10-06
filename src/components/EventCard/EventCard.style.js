@@ -18,6 +18,21 @@ export const Content = styled.div`
   padding: 20px;
 `;
 
+export const FormWrapper = styled.div`
+  position: absolute;
+  width: 400px;
+  top: 10%;
+  background: var(--white);
+  left: calc(50% - 200px);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+
+  h3 {
+    margin-bottom: 20px;
+  }
+`;
+
 export const Close = styled.div`
   position: relative;
   height: 170px;

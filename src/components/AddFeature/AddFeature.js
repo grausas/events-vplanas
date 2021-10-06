@@ -18,7 +18,7 @@ const AddFeature = ({ children, handleSubmit, titleText, buttonText }) => {
     <div>
       {!show ? (
         <Close>
-          <span onClick={() => handleOpen(show)}>Pridėti</span>
+          <span onClick={handleOpen}>Pridėti</span>
         </Close>
       ) : (
         <FormWrapper>
