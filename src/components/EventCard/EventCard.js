@@ -25,8 +25,9 @@ const EventCard = ({
   organization,
   url,
   title,
-  date,
-  time,
+  startDate,
+  finishDate,
+  comment,
   children,
   handleChange,
   handleLocation,
@@ -58,9 +59,8 @@ const EventCard = ({
             </Title>
             <Text>
               <img src={Time} alt="time" />
-              <p>
-                {date} | {time}
-              </p>
+              <p>Pradžia: {startDate}</p>
+              <p>Pabaiga: {finishDate}</p>
             </Text>
             <Text>
               <img src={Document} alt="document" />
@@ -71,6 +71,12 @@ const EventCard = ({
               <a href={url} target="_blank" rel="noreferrer">
                 Renginio puslapis
               </a>
+            </Text>
+            <Text>
+              <p>
+                Pastabos:
+                {comment && comment.length ? " " + comment : " Pastabų nėra"}
+              </p>
             </Text>
           </div>
         )}

@@ -171,6 +171,7 @@ function Map() {
                 pad(newDate.getMonth() + 1, 2) +
                 "-" +
                 pad(newDate.getDate(), 2);
+
               return (
                 <div key={item.OBJECTID}>
                   <p>
@@ -244,8 +245,8 @@ function Map() {
           organization={queryPoint.ORGANIZATORIUS}
           title={queryPoint.PAVADINIMAS}
           url={queryPoint.WEBPAGE}
-          date={date}
-          time={time}
+          comment={queryPoint.PASTABOS}
+          startDate={date + " | " + time}
           handleChange={handleOpen}
           handleSubmit={(e) => {
             e.preventDefault();
