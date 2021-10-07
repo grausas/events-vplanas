@@ -79,7 +79,9 @@ function Map() {
       attributes: {
         PAVADINIMAS: `${addNewFeature.PAVADINIMAS}`,
         ORGANIZATORIUS: `${addNewFeature.ORGANIZATORIUS}`,
-        RENGINIO_PRADZIA: `${addNewFeature.RENGINIO_PRADZIA}`,
+        RENGINIO_PRADZIA: `${new Date(
+          addNewFeature.RENGINIO_PRADZIA
+        ).toISOString()}`,
         PASTABOS: `${addNewFeature.PASTABOS}`,
       },
     });
@@ -230,20 +232,6 @@ function Map() {
             });
           }}
         />
-
-        {/* <input
-          type="date"
-          format="MM-dd-yyyyTHH:mm"
-          // labelText="Pradžios data"
-          // id="data"
-          required
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              RENGINIO_PRADZIA: e.target.value,
-            });
-          }}
-        /> */}
         <InputField
           type="longtext"
           labelText="Pastabos"
@@ -263,13 +251,12 @@ function Map() {
           dateFormat="yyyy/MM/dd hh:mm"
           showTimeSelect
           selected={startDate ? new Date(startDate) : null}
-          defaultValue={queryPoint.RENGINIO_PRADZIA}
           onChange={(date) => {
             console.log({
               ...addNewFeature,
               RENGINIO_PRADZIA: date,
             });
-            setQueryPoint({
+            setAddNewFeature({
               ...addNewFeature,
               RENGINIO_PRADZIA: date,
             });
@@ -317,33 +304,7 @@ function Map() {
             }}
             labelText="Organizatorius"
           />
-          {/* <InputField
-            type="datetime-local"
-            defaultValue={date + " " + time}
-            labelText="Renginio pradžia"
-            handleChange={(e) => {
-              console.log({
-                ...queryPoint,
-                RENGINIO_PRADZIA: new Date(e.target.value).toLocaleString(
-                  "lt-LT",
-                  {
-                    timeZone: "Etc/GMT-0",
-                  }
-                ),
-              });
-              setQueryPoint({
-                ...queryPoint,
-                RENGINIO_PRADZIA: new Date(e.target.value).toLocaleString(
-                  "lt-LT",
-                  {
-                    timeZone: "Etc/GMT-0",
-                  }
-                ),
-              });
-            }}
-          /> */}
 
-          {/* {console.log(typeof queryPoint.RENGINIO_PRADZIA)} */}
           <DatePicker
             imeInputLabel="Time:"
             timeFormat="HH:mm"
@@ -365,7 +326,6 @@ function Map() {
           />
         </EventCard>
       )}
-      {/* {console.log(new Date(queryPoint.USER_RENGINIO_DATA) + " nauja data")} */}
     </div>
   );
 }
