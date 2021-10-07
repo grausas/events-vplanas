@@ -10,6 +10,7 @@ import {
   ConfirmButton,
   EditIcon,
   FormWrapper,
+  EventDates,
 } from "./EventCard.style";
 
 // Icon
@@ -60,22 +61,16 @@ const EventCard = ({
             />
           </Close>
           <Content>
-            {/* {isEditing ? (
-          <FormWrapper>
-            <form onSubmit={handleSubmit}>
-              {children}
-              <ConfirmButton>Patvirtinti</ConfirmButton>
-            </form>
-          </FormWrapper>
-        ) : ( */}
             <div>
               <Title>
                 <h3>{title}</h3>
               </Title>
               <Text>
                 <img src={Time} alt="time" />
-                <p>Pradžia: {startDate}</p>
-                <p>Pabaiga: {finishDate}</p>
+                <EventDates>
+                  <p>Pradžia: {startDate}</p>
+                  <p>Pabaiga: {finishDate}</p>
+                </EventDates>
               </Text>
               <Text>
                 <img src={Document} alt="document" />
@@ -94,7 +89,6 @@ const EventCard = ({
                 </p>
               </Text>
             </div>
-            {/* )} */}
           </Content>
         </Wrapper>
       )}

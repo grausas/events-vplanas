@@ -57,6 +57,9 @@ function Map() {
         RENGINIO_PRADZIA: `${new Date(
           queryPoint.RENGINIO_PRADZIA
         ).toISOString()}`,
+        RENGINIO_PABAIGA: `${new Date(
+          queryPoint.RENGINIO_PABAIGA
+        ).toISOString()}`,
       },
     });
     console.log(editFeature.attributes.RENGINIO_PRADZIA);
@@ -145,14 +148,25 @@ function Map() {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   };
 
-  const newDate = new Date(queryPoint.RENGINIO_PRADZIA);
-  const time = pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
-  const date =
-    newDate.getFullYear() +
+  const newStartDate = new Date(queryPoint.RENGINIO_PRADZIA);
+  const newFinishDate = new Date(queryPoint.RENGINIO_PABAIGA);
+  const startEventTime =
+    pad(newStartDate.getHours(), 2) + ":" + pad(newStartDate.getMinutes(), 2);
+  const startEventDate =
+    newStartDate.getFullYear() +
     "-" +
-    pad(newDate.getMonth() + 1, 2) +
+    pad(newStartDate.getMonth() + 1, 2) +
     "-" +
-    pad(newDate.getDate(), 2);
+    pad(newStartDate.getDate(), 2);
+
+  const finishEventTime =
+    pad(newFinishDate.getHours(), 2) + ":" + pad(newFinishDate.getMinutes(), 2);
+  const finishEventDate =
+    newFinishDate.getFullYear() +
+    "-" +
+    pad(newFinishDate.getMonth() + 1, 2) +
+    "-" +
+    pad(newFinishDate.getDate(), 2);
 
   return (
     <div className="mapDiv" ref={mapRef}>
@@ -271,7 +285,8 @@ function Map() {
           title={queryPoint.PAVADINIMAS}
           url={queryPoint.WEBPAGE}
           comment={queryPoint.PASTABOS}
-          startDate={date + " | " + time}
+          startDate={startEventDate + " | " + startEventTime}
+          finishDate={finishEventDate + " | " + finishEventTime}
           handleChange={handleOpen}
           handleSubmit={(e) => {
             e.preventDefault();
@@ -309,18 +324,28 @@ function Map() {
             imeInputLabel="Time:"
             timeFormat="HH:mm"
             timeIntervals={1}
-            dateFormat="yyyy/MM/dd hh:mm"
+            dateFormat="yyyy/MM/dd HH:mm"
             showTimeSelect
-            selected={startDate ? new Date(startDate) : null}
-            defaultValue={queryPoint.RENGINIO_PRADZIA}
+            selected={queryPoint.RENGINIO_PRADZIA}
             onChange={(date) => {
-              console.log({
-                ...queryPoint,
-                RENGINIO_PRADZIA: date,
-              });
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PRADZIA: date,
+              });
+            }}
+          />
+          <DatePicker
+            imeInputLabel="Time:"
+            timeFormat="HH:mm"
+            timeIntervals={1}
+            dateFormat="yyyy/MM/dd HH:mm"
+            showTimeSelect
+            label="pradzoa"
+            selected={queryPoint.RENGINIO_PABAIGA}
+            onChange={(date) => {
+              setQueryPoint({
+                ...queryPoint,
+                RENGINIO_PABAIGA: date,
               });
             }}
           />

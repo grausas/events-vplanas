@@ -99,7 +99,6 @@ export const Text = styled.div`
       color: var(--lightBlue);
     }
   }
-
   img {
     margin-right: 7px;
     width: 20px;
@@ -116,3 +115,5 @@ export const ConfirmButton = styled(Button)`
     color: var(--white);
   }
 `;
+
+export const EventDates = styled.div``;
