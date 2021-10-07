@@ -5,8 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 // Styles
 import "./Map.css";
-// Modules
-import Graphic from "@arcgis/core/Graphic";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
 
@@ -21,6 +19,8 @@ import InputField from "../components/InputField/InputField";
 // utils
 import { createMapView } from "../helpers/Map";
 import { featureLayer, tileLayer } from "../helpers/Layers";
+import { addEventsFeature } from "../helpers/AddEvent";
+import { updateEventFeature } from "../helpers/EditEvent";
 
 function Map() {
   const mapRef = useRef(null);
@@ -47,62 +47,8 @@ function Map() {
           )
       );
 
-  const updateFeature = () => {
-    const editFeature = new Graphic({
-      attributes: {
-        OBJECTID: `${queryPoint.OBJECTID}`,
-        GlobalID: `${queryPoint.GlobalID}`,
-        PAVADINIMAS: `${queryPoint.PAVADINIMAS}`,
-        ORGANIZATORIUS: `${queryPoint.ORGANIZATORIUS}`,
-        RENGINIO_PRADZIA: `${new Date(
-          queryPoint.RENGINIO_PRADZIA
-        ).toISOString()}`,
-        RENGINIO_PABAIGA: `${new Date(
-          queryPoint.RENGINIO_PABAIGA
-        ).toISOString()}`,
-      },
-    });
-    console.log(editFeature.attributes.RENGINIO_PRADZIA);
-    const edits = {
-      updateFeatures: [editFeature],
-    };
-
-    layer
-      .applyEdits(edits)
-      .then((editResults) => {
-        console.log("edit results: ", editResults);
-      })
-      .catch((error) => {
-        console.error("Editing error: ", error);
-      });
-  };
-
-  const addEventsFeature = () => {
-    const addFeature = new Graphic({
-      attributes: {
-        PAVADINIMAS: `${addNewFeature.PAVADINIMAS}`,
-        ORGANIZATORIUS: `${addNewFeature.ORGANIZATORIUS}`,
-        RENGINIO_PRADZIA: `${new Date(
-          addNewFeature.RENGINIO_PRADZIA
-        ).toISOString()}`,
-        PASTABOS: `${addNewFeature.PASTABOS}`,
-      },
-    });
-    console.log(addFeature.attributes);
-
-    const add = {
-      addFeatures: [addFeature],
-    };
-
-    layer
-      .applyEdits(add)
-      .then((editResults) => {
-        console.log("edit results: ", editResults);
-      })
-      .catch((error) => {
-        console.error("Editing error: ", error);
-      });
-  };
+  const addEvents = () => addEventsFeature(addNewFeature, layer);
+  const updateEvent = () => updateEventFeature(queryPoint, layer);
 
   useEffect(() => {
     const layer = featureLayer();
@@ -217,7 +163,7 @@ function Map() {
         titleText="Pridėti renginį"
         handleSubmit={(e) => {
           e.preventDefault();
-          addEventsFeature(addNewFeature);
+          addEvents(addNewFeature);
         }}
       >
         <InputField
@@ -258,13 +204,19 @@ function Map() {
             });
           }}
         />
+        {console.log(addNewFeature.RENGINIO_PRADZIA)}
         <DatePicker
           imeInputLabel="Time:"
           timeFormat="HH:mm"
           timeIntervals={1}
-          dateFormat="yyyy/MM/dd hh:mm"
+          dateFormat="yyyy/MM/dd HH:mm"
           showTimeSelect
-          selected={startDate ? new Date(startDate) : null}
+          selected={
+            addNewFeature.RENGINIO_PRADZIA !== undefined
+              ? addNewFeature.RENGINIO_PRADZIA
+              : startDate
+          }
+          // placeholderText="Įvesti datą"
           onChange={(date) => {
             console.log({
               ...addNewFeature,
@@ -290,7 +242,7 @@ function Map() {
           handleChange={handleOpen}
           handleSubmit={(e) => {
             e.preventDefault();
-            updateFeature(queryPoint);
+            updateEvent(queryPoint);
           }}
         >
           <InputField
