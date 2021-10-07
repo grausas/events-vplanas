@@ -129,28 +129,24 @@ function Map() {
           results
             .map((items) => {
               const item = items.attributes;
-              const newDate = new Date(item.RENGINIO_PRADZIA);
-              const time =
-                pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
-              const date =
-                newDate.getFullYear() +
-                "-" +
-                pad(newDate.getMonth() + 1, 2) +
-                "-" +
-                pad(newDate.getDate(), 2);
+              const newStartDate = new Date(
+                item.RENGINIO_PRADZIA
+              ).toLocaleString();
+              const newFinishDate = new Date(
+                item.RENGINIO_PABAIGA
+              ).toLocaleString();
 
               return (
                 <div key={item.OBJECTID}>
-                  <p>
-                    {date} | {time}
-                  </p>
+                  <p>{newStartDate}</p>
+                  <p>{newFinishDate}</p>
                   <p>{item.PAVADINIMAS}</p>
                   <p>{item.ORGANIZATORIUS}</p>
                 </div>
               );
             })
             .slice()
-            .sort((a, b) => (b.date > a.date ? 1 : -1))
+            .sort((a, b) => (b.newStartDate > a.newStartDate ? 1 : -1))
         ) : (
           <span>Loading...</span>
         )}
@@ -216,7 +212,6 @@ function Map() {
               ? addNewFeature.RENGINIO_PRADZIA
               : startDate
           }
-          // placeholderText="Įvesti datą"
           onChange={(date) => {
             console.log({
               ...addNewFeature,
@@ -230,7 +225,7 @@ function Map() {
         />
       </AddFeature>
 
-      {/* Renginys ir jo editinimas */}
+      {/* Renginys ir jo redagavimas */}
       {show && (
         <EventCard
           organization={queryPoint.ORGANIZATORIUS}

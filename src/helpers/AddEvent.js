@@ -8,6 +8,12 @@ export const addEventsFeature = (addNewFeature, layer) => {
       RENGINIO_PRADZIA: `${new Date(
         addNewFeature.RENGINIO_PRADZIA
       ).toISOString()}`,
+      RENGINIO_PABAIGA: `${new Date(
+        addNewFeature.RENGINIO_PABAIGA
+      ).toISOString()}`,
+      APRASYMAS: `${addNewFeature.APRASYMAS}`,
+      WEBPAGE: `${addNewFeature.WEBPAGE}`,
+      KATEGORIJA: `${addNewFeature.KATEGORIJA}`,
       PASTABOS: `${addNewFeature.PASTABOS}`,
     },
   });
