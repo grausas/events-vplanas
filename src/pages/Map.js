@@ -51,11 +51,15 @@ function Map() {
     const editFeature = new Graphic({
       attributes: {
         OBJECTID: `${queryPoint.OBJECTID}`,
+        GlobalID: `${queryPoint.GlobalID}`,
         PAVADINIMAS: `${queryPoint.PAVADINIMAS}`,
         ORGANIZATORIUS: `${queryPoint.ORGANIZATORIUS}`,
-        RENGINIO_PRADZIA: `${queryPoint.RENGINIO_PRADZIA}`,
+        RENGINIO_PRADZIA: `${new Date(
+          queryPoint.RENGINIO_PRADZIA
+        ).toISOString()}`,
       },
     });
+    console.log(editFeature.attributes.RENGINIO_PRADZIA);
     const edits = {
       updateFeatures: [editFeature],
     };
@@ -70,14 +74,17 @@ function Map() {
       });
   };
 
-  const addFeature = () => {
+  const addEventsFeature = () => {
     const addFeature = new Graphic({
       attributes: {
         PAVADINIMAS: `${addNewFeature.PAVADINIMAS}`,
         ORGANIZATORIUS: `${addNewFeature.ORGANIZATORIUS}`,
         RENGINIO_PRADZIA: `${addNewFeature.RENGINIO_PRADZIA}`,
+        PASTABOS: `${addNewFeature.PASTABOS}`,
       },
     });
+    console.log(addFeature.attributes);
+
     const add = {
       addFeatures: [addFeature],
     };
@@ -137,7 +144,6 @@ function Map() {
   };
 
   const newDate = new Date(queryPoint.RENGINIO_PRADZIA);
-  // console.log(newDate);
   const time = pad(newDate.getHours(), 2) + ":" + pad(newDate.getMinutes(), 2);
   const date =
     newDate.getFullYear() +
@@ -195,7 +201,7 @@ function Map() {
         titleText="Pridėti renginį"
         handleSubmit={(e) => {
           e.preventDefault();
-          addFeature(addNewFeature);
+          addEventsFeature(addNewFeature);
         }}
       >
         <InputField
@@ -225,7 +231,7 @@ function Map() {
           }}
         />
 
-        <input
+        {/* <input
           type="date"
           format="MM-dd-yyyyTHH:mm"
           // labelText="Pradžios data"
@@ -237,7 +243,7 @@ function Map() {
               RENGINIO_PRADZIA: e.target.value,
             });
           }}
-        />
+        /> */}
         <InputField
           type="longtext"
           labelText="Pastabos"
@@ -246,7 +252,26 @@ function Map() {
           handleChange={(e) => {
             setAddNewFeature({
               ...addNewFeature,
-              RENGINIO_PRADZIA: e.target.value,
+              PASTABOS: e.target.value,
+            });
+          }}
+        />
+        <DatePicker
+          imeInputLabel="Time:"
+          timeFormat="HH:mm"
+          timeIntervals={1}
+          dateFormat="yyyy/MM/dd hh:mm"
+          showTimeSelect
+          selected={startDate ? new Date(startDate) : null}
+          defaultValue={queryPoint.RENGINIO_PRADZIA}
+          onChange={(date) => {
+            console.log({
+              ...addNewFeature,
+              RENGINIO_PRADZIA: date,
+            });
+            setQueryPoint({
+              ...addNewFeature,
+              RENGINIO_PRADZIA: date,
             });
           }}
         />
@@ -292,9 +317,10 @@ function Map() {
             }}
             labelText="Organizatorius"
           />
-          <InputField
+          {/* <InputField
             type="datetime-local"
             defaultValue={date + " " + time}
+            labelText="Renginio pradžia"
             handleChange={(e) => {
               console.log({
                 ...queryPoint,
@@ -315,17 +341,27 @@ function Map() {
                 ),
               });
             }}
-            labelText="Renginio pradžia"
-          />
-          {console.log(date)}
-          {console.log(queryPoint.RENGINIO_PRADZIA)}
+          /> */}
+
+          {/* {console.log(typeof queryPoint.RENGINIO_PRADZIA)} */}
           <DatePicker
-            selected={startDate}
-            onChange={console.log((date) => setStartDate(date))}
             imeInputLabel="Time:"
+            timeFormat="HH:mm"
             timeIntervals={1}
-            dateFormat="MM/dd/yyyy HH:mm "
+            dateFormat="yyyy/MM/dd hh:mm"
             showTimeSelect
+            selected={startDate ? new Date(startDate) : null}
+            defaultValue={queryPoint.RENGINIO_PRADZIA}
+            onChange={(date) => {
+              console.log({
+                ...queryPoint,
+                RENGINIO_PRADZIA: date,
+              });
+              setQueryPoint({
+                ...queryPoint,
+                RENGINIO_PRADZIA: date,
+              });
+            }}
           />
         </EventCard>
       )}
