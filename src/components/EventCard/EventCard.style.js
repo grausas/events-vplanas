@@ -20,7 +20,8 @@ export const Content = styled.div`
 
 export const FormWrapper = styled.div`
   position: absolute;
-  width: 400px;
+  max-width: 500px;
+  width: 100%;
   top: 10%;
   background: var(--white);
   left: calc(50% - 200px);
@@ -107,8 +108,8 @@ export const Text = styled.div`
 
 export const ConfirmButton = styled(Button)`
   background-color: var(--grey);
-  padding: 3px 8px;
-  margin-top: 10px;
+  padding: 5px 20px;
+  margin-top: 20px;
 
   :hover {
     background: var(--lightBlue);

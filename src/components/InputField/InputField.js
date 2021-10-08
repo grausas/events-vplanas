@@ -20,6 +20,7 @@ const InputField = ({
           <TextArea
             id={id}
             placeholder={placeholder}
+            defaultValue={defaultValue}
             onChange={handleChange}
             minLength={minLength}
             maxLength={maxLength}

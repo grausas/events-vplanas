@@ -253,28 +253,6 @@ function Map() {
             });
           }}
         />
-        {/* <DatePicker
-          imeInputLabel="Time:"
-          timeFormat="HH:mm"
-          timeIntervals={1}
-          dateFormat="yyyy/MM/dd HH:mm"
-          showTimeSelect
-          selected={
-            addNewFeature.RENGINIO_PRADZIA !== undefined
-              ? addNewFeature.RENGINIO_PRADZIA
-              : startDate
-          }
-          onChange={(date) => {
-            console.log({
-              ...addNewFeature,
-              RENGINIO_PRADZIA: date,
-            });
-            setAddNewFeature({
-              ...addNewFeature,
-              RENGINIO_PRADZIA: date,
-            });
-          }}
-        /> */}
       </AddFeature>
 
       {/* Renginys ir jo redagavimas */}
@@ -294,6 +272,7 @@ function Map() {
         >
           <InputField
             type="text"
+            labelText="Pavadinimas"
             defaultValue={queryPoint.PAVADINIMAS}
             handleChange={(e) => {
               setQueryPoint({
@@ -301,47 +280,57 @@ function Map() {
                 PAVADINIMAS: e.target.value,
               });
             }}
-            labelText="Pavadinimas"
           />
           <InputField
             type="text"
+            labelText="Organizatorius"
             defaultValue={queryPoint.ORGANIZATORIUS}
             handleChange={(e) => {
-              console.log({
-                ...queryPoint,
-                ORGANIZATORIUS: e.target.value,
-              });
               setQueryPoint({
                 ...queryPoint,
                 ORGANIZATORIUS: e.target.value,
               });
             }}
-            labelText="Organizatorius"
           />
-
-          <DatePicker
-            imeInputLabel="Time:"
-            timeFormat="HH:mm"
-            timeIntervals={1}
-            dateFormat="yyyy/MM/dd HH:mm"
-            showTimeSelect
+          <InputField
+            type="longtext"
+            labelText="Pastabos"
+            defaultValue={queryPoint.PASTABOS}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                PASTABOS: e.target.value,
+              });
+            }}
+          />
+          <SingleDatePicker
+            timeTitle="Pradžios laikas"
+            dateTitle="Pradžios data"
             selected={queryPoint.RENGINIO_PRADZIA}
-            onChange={(date) => {
+            handleChangeDate={(date) => {
+              setQueryPoint({
+                ...queryPoint,
+                RENGINIO_PRADZIA: date,
+              });
+            }}
+            handleChangeTime={(date) => {
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PRADZIA: date,
               });
             }}
           />
-          <DatePicker
-            imeInputLabel="Time:"
-            timeFormat="HH:mm"
-            timeIntervals={1}
-            dateFormat="yyyy/MM/dd HH:mm"
-            showTimeSelect
-            label="pradzoa"
+          <SingleDatePicker
+            timeTitle="Pabaigos laikas"
+            dateTitle="Pabaigos data"
             selected={queryPoint.RENGINIO_PABAIGA}
-            onChange={(date) => {
+            handleChangeDate={(date) => {
+              setQueryPoint({
+                ...queryPoint,
+                RENGINIO_PABAIGA: date,
+              });
+            }}
+            handleChangeTime={(date) => {
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PABAIGA: date,
