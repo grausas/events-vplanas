@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  /* position: relative; */
+  width: 100%;
+  display: flex;
+
+  .react-datepicker__input-container input {
+    width: 100%;
+  }
 `;

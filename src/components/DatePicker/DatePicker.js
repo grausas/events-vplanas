@@ -8,24 +8,34 @@ import { Wrapper } from "./DatePicker.style";
 
 registerLocale("lt", lt);
 
-const DatePicker = ({ selected, handleChange }) => {
+const DatePicker = ({ selected, handleChangeDate, handleChangeTime }) => {
   return (
     <Wrapper>
-      <SingleDatePicker
-        locale="lt"
-        timeInputLabel="Laikas:"
-        timeCaption="Laikas"
-        //   showMonthDropdown
-        //   showYearDropdown
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={1}
-        dateFormat="yyyy/MM/dd HH:mm"
-        show
-        selected={selected}
-        onChange={handleChange}
-        dropdownMode="select"
-      />
+      <div>
+        <span>Pradžios data</span>
+        <SingleDatePicker
+          locale="lt"
+          timeInputLabel="Laikas:"
+          timeCaption="Laikas"
+          timeIntervals={1}
+          dateFormat="yyyy/MM/dd"
+          selected={selected}
+          onChange={handleChangeDate}
+        />
+      </div>
+      <div>
+        <span>Pradžios laikas</span>
+        <SingleDatePicker
+          locale="lt"
+          timeInputLabel="Laikas:"
+          showTimeSelect
+          showTimeSelectOnly
+          timeIntervals={1}
+          dateFormat="HH:mm"
+          selected={selected}
+          onChange={handleChangeTime}
+        />
+      </div>
     </Wrapper>
   );
 };
