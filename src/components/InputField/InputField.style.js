@@ -30,10 +30,11 @@ export const Input = styled.input`
 
 export const TextArea = styled.textarea`
   width: 100%;
+  height: 60px;
   border: 1px solid var(--grey);
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 0 1rem;
+  padding: 5px 1rem;
   font-size: 14px;
   resize: none;
 

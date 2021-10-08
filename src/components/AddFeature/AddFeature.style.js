@@ -17,7 +17,8 @@ export const Close = styled.div`
 export const FormWrapper = styled.div`
   position: absolute;
   margin: 0 auto;
-  width: 400px;
+  max-width: 500px;
+  width: 100%;
   max-height: 600px;
   border-radius: 5px;
   top: 10%;
@@ -51,7 +52,7 @@ export const CloseImage = styled.img`
 
 export const ConfirmButton = styled(Button)`
   background-color: var(--grey);
-  padding: 3px 10px;
+  padding: 5px 20px;
 
   :hover {
     background: var(--lightBlue);

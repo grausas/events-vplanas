@@ -230,6 +230,29 @@ function Map() {
             });
           }}
         />
+        <SingleDatePicker
+          timeTitle="Pabaigos laikas"
+          dateTitle="Pabaigos data"
+          selected={
+            addNewFeature.RENGINIO_PABAIGA !== undefined
+              ? addNewFeature.RENGINIO_PABAIGA
+              : startDate
+          }
+          handleChangeTime={(date) => {
+            console.log(date);
+            setAddNewFeature({
+              ...addNewFeature,
+              RENGINIO_PABAIGA: date,
+            });
+          }}
+          handleChangeDate={(date) => {
+            console.log(date);
+            setAddNewFeature({
+              ...addNewFeature,
+              RENGINIO_PABAIGA: date,
+            });
+          }}
+        />
         {/* <DatePicker
           imeInputLabel="Time:"
           timeFormat="HH:mm"
