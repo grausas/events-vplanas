@@ -47,6 +47,13 @@ function Map() {
           )
       );
 
+  const shortResults = results.slice(0).sort((a, b) => {
+    const x = a.attributes.RENGINIO_PRADZIA;
+    const y = b.attributes.RENGINIO_PRADZIA;
+    console.log(x);
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
+
   const addEvents = () => addEventsFeature(addNewFeature, layer);
   const updateEvent = () => updateEventFeature(queryPoint, layer);
 
@@ -125,28 +132,26 @@ function Map() {
           }}
           placeholder="Ieškoti..."
         />
-        {results.length ? (
-          results
-            .map((items) => {
-              const item = items.attributes;
-              const newStartDate = new Date(
-                item.RENGINIO_PRADZIA
-              ).toLocaleString();
-              const newFinishDate = new Date(
-                item.RENGINIO_PABAIGA
-              ).toLocaleString();
+        {shortResults.length ? (
+          shortResults.map((items) => {
+            const item = items.attributes;
+            const newStartDate = new Date(item.RENGINIO_PRADZIA).toLocaleString(
+              "lt-LT",
+              { timeZone: "Europe/Vilnius" }
+            );
+            const newFinishDate = new Date(
+              item.RENGINIO_PABAIGA
+            ).toLocaleString("lt-LT", { timeZone: "Europe/Vilnius" });
 
-              return (
-                <div key={item.OBJECTID}>
-                  <p>{newStartDate}</p>
-                  <p>{newFinishDate}</p>
-                  <p>{item.PAVADINIMAS}</p>
-                  <p>{item.ORGANIZATORIUS}</p>
-                </div>
-              );
-            })
-            .slice()
-            .sort((a, b) => (b.newStartDate > a.newStartDate ? 1 : -1))
+            return (
+              <div key={item.OBJECTID}>
+                <p>{newStartDate}</p>
+                <p>{newFinishDate}</p>
+                <p>{item.PAVADINIMAS}</p>
+                <p>{item.ORGANIZATORIUS}</p>
+              </div>
+            );
+          })
         ) : (
           <span>Loading...</span>
         )}
