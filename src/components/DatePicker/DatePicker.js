@@ -4,27 +4,31 @@ import lt from "date-fns/locale/lt";
 import "react-datepicker/dist/react-datepicker.css";
 
 // styles
-import { Wrapper } from "./DatePicker.style";
+import { Wrapper, DatePickerWrapper } from "./DatePicker.style";
 
 registerLocale("lt", lt);
 
-const DatePicker = ({ selected, handleChangeDate, handleChangeTime }) => {
+const DatePicker = ({
+  timeTitle,
+  dateTitle,
+  selected,
+  handleChangeDate,
+  handleChangeTime,
+}) => {
   return (
     <Wrapper>
-      <div>
-        <span>Pradžios data</span>
+      <DatePickerWrapper>
+        <span>{dateTitle}</span>
         <SingleDatePicker
           locale="lt"
-          timeInputLabel="Laikas:"
-          timeCaption="Laikas"
           timeIntervals={1}
           dateFormat="yyyy/MM/dd"
           selected={selected}
           onChange={handleChangeDate}
         />
-      </div>
-      <div>
-        <span>Pradžios laikas</span>
+      </DatePickerWrapper>
+      <DatePickerWrapper>
+        <span>{timeTitle}</span>
         <SingleDatePicker
           locale="lt"
           timeInputLabel="Laikas:"
@@ -35,7 +39,7 @@ const DatePicker = ({ selected, handleChangeDate, handleChangeTime }) => {
           selected={selected}
           onChange={handleChangeTime}
         />
-      </div>
+      </DatePickerWrapper>
     </Wrapper>
   );
 };

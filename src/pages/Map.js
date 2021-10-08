@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 // Styles
 import "./Map.css";
@@ -9,12 +9,15 @@ import "./Map.css";
 import { useOpenClose } from "../hooks/useOpenClose";
 
 // Components
-import EventCard from "../components/EventCard/EventCard";
-import EventsSchedule from "../components/EventsSchedule/EventsSchedule";
-import SearchInput from "../components/SearchInput/SearchInput";
-import Filter from "../components/Filter/Filter";
-import AddFeature from "../components/AddFeature/AddFeature";
-import InputField from "../components/InputField/InputField";
+import {
+  EventCard,
+  EventsSchedule,
+  InputField,
+  AddFeature,
+  SearchInput,
+  Filter,
+  DatePicker as SingleDatePicker,
+} from "../components/index.js";
 
 // helpers
 import { createMapView } from "../helpers/Map";
@@ -204,7 +207,30 @@ function Map() {
             });
           }}
         />
-        <DatePicker
+        <SingleDatePicker
+          timeTitle="Pradžios laikas"
+          dateTitle="Pradžios data"
+          selected={
+            addNewFeature.RENGINIO_PRADZIA !== undefined
+              ? addNewFeature.RENGINIO_PRADZIA
+              : startDate
+          }
+          handleChangeTime={(date) => {
+            console.log(date);
+            setAddNewFeature({
+              ...addNewFeature,
+              RENGINIO_PRADZIA: date,
+            });
+          }}
+          handleChangeDate={(date) => {
+            console.log(date);
+            setAddNewFeature({
+              ...addNewFeature,
+              RENGINIO_PRADZIA: date,
+            });
+          }}
+        />
+        {/* <DatePicker
           imeInputLabel="Time:"
           timeFormat="HH:mm"
           timeIntervals={1}
@@ -225,7 +251,7 @@ function Map() {
               RENGINIO_PRADZIA: date,
             });
           }}
-        />
+        /> */}
       </AddFeature>
 
       {/* Renginys ir jo redagavimas */}
