@@ -16,7 +16,7 @@ import Filter from "../components/Filter/Filter";
 import AddFeature from "../components/AddFeature/AddFeature";
 import InputField from "../components/InputField/InputField";
 
-// utils
+// helpers
 import { createMapView } from "../helpers/Map";
 import { featureLayer, tileLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
@@ -50,7 +50,6 @@ function Map() {
   const shortResults = results.slice(0).sort((a, b) => {
     const x = a.attributes.RENGINIO_PRADZIA;
     const y = b.attributes.RENGINIO_PRADZIA;
-    console.log(x);
     return x < y ? -1 : x > y ? 1 : 0;
   });
 
@@ -158,7 +157,7 @@ function Map() {
       </EventsSchedule>
       <Filter />
 
-      {/* Pridėti naują renginį */}
+      {/* Pridėti naują renginį  */}
       <AddFeature
         buttonText="Pridėti"
         titleText="Pridėti renginį"
@@ -205,7 +204,6 @@ function Map() {
             });
           }}
         />
-        {console.log(addNewFeature.RENGINIO_PRADZIA)}
         <DatePicker
           imeInputLabel="Time:"
           timeFormat="HH:mm"
