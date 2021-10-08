@@ -207,6 +207,7 @@ function Map() {
             });
           }}
         />
+        {console.log(addNewFeature)}
         <SingleDatePicker
           timeTitle="Pradžios laikas"
           dateTitle="Pradžios data"
@@ -215,14 +216,7 @@ function Map() {
               ? addNewFeature.RENGINIO_PRADZIA
               : startDate
           }
-          handleChangeTime={(date) => {
-            console.log(date);
-            setAddNewFeature({
-              ...addNewFeature,
-              RENGINIO_PRADZIA: date,
-            });
-          }}
-          handleChangeDate={(date) => {
+          handleChange={(date) => {
             console.log(date);
             setAddNewFeature({
               ...addNewFeature,
@@ -238,15 +232,7 @@ function Map() {
               ? addNewFeature.RENGINIO_PABAIGA
               : startDate
           }
-          handleChangeTime={(date) => {
-            console.log(date);
-            setAddNewFeature({
-              ...addNewFeature,
-              RENGINIO_PABAIGA: date,
-            });
-          }}
-          handleChangeDate={(date) => {
-            console.log(date);
+          handleChange={(date) => {
             setAddNewFeature({
               ...addNewFeature,
               RENGINIO_PABAIGA: date,
@@ -307,13 +293,8 @@ function Map() {
             timeTitle="Pradžios laikas"
             dateTitle="Pradžios data"
             selected={queryPoint.RENGINIO_PRADZIA}
-            handleChangeDate={(date) => {
-              setQueryPoint({
-                ...queryPoint,
-                RENGINIO_PRADZIA: date,
-              });
-            }}
-            handleChangeTime={(date) => {
+            handleChange={(date, e) => {
+              console.log("data: " + date);
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PRADZIA: date,
@@ -324,13 +305,7 @@ function Map() {
             timeTitle="Pabaigos laikas"
             dateTitle="Pabaigos data"
             selected={queryPoint.RENGINIO_PABAIGA}
-            handleChangeDate={(date) => {
-              setQueryPoint({
-                ...queryPoint,
-                RENGINIO_PABAIGA: date,
-              });
-            }}
-            handleChangeTime={(date) => {
+            handleChange={(date) => {
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PABAIGA: date,
