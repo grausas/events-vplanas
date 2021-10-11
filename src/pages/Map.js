@@ -32,10 +32,11 @@ function Map() {
   const [view, setView] = useState();
   const [layer, setLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const [startDate, setStartDate] = useState(new Date());
 
-  console.log(addNewFeature);
+  // console.log(addNewFeature);
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -60,6 +61,17 @@ function Map() {
   const updateEvent = () => updateEventFeature(queryPoint, layer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
+
+  // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
+  useEffect(() => {
+    if (addNewFeature.geometry === undefined) {
+      console.log("und");
+      setIsEditing(false);
+    } else {
+      console.log("def");
+      setIsEditing(true);
+    }
+  }, [addNewFeature.geometry]);
 
   useEffect(() => {
     const layer = featureLayer();
@@ -167,9 +179,12 @@ function Map() {
 
       {/* Pridėti naują renginį  */}
       <AddEvent
+        isEditing={!isEditing}
         buttonText="Pridėti"
         titleText="Pridėti renginį"
-        handleCordinates={addPolygon}
+        handleCordinates={() => {
+          addPolygon();
+        }}
         handleSubmit={(e) => {
           e.preventDefault();
           addEvents(addNewFeature);
@@ -327,7 +342,6 @@ function Map() {
             dateTitle="Pradžios data"
             selected={queryPoint.RENGINIO_PRADZIA}
             handleChange={(date, e) => {
-              console.log("data: " + date);
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PRADZIA: date,
