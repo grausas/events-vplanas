@@ -5,10 +5,6 @@ import "./Map.css";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
 
-// modules
-import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
-import Sketch from "@arcgis/core/widgets/Sketch/SketchViewModel";
-
 // Components
 import {
   EventCard,
@@ -25,6 +21,7 @@ import { createMapView } from "../helpers/Map";
 import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
+import { drawNewPolygon } from "../helpers/DrawPolygon";
 
 function Map() {
   const mapRef = useRef(null);
@@ -61,28 +58,8 @@ function Map() {
 
   const addEvents = () => addEventsFeature(addNewFeature, layer);
   const updateEvent = () => updateEventFeature(queryPoint, layer);
-
-  const graphicsLayer = new GraphicsLayer();
-
-  const drawNewFeature = () => {
-    let sketchVM = new Sketch({
-      layer: graphicsLayer,
-      view: view,
-    });
-
-    sketchVM.create("polygon", { mode: "click" });
-
-    sketchVM.on("create", function (event) {
-      if (event.state === "complete") {
-        const sketchGeometry = event.graphic.geometry;
-        // console.log(sketchGeometry);
-        setAddNewFeature({
-          ...addNewFeature,
-          geometry: sketchGeometry,
-        });
-      }
-    });
-  };
+  const addPolygon = () =>
+    drawNewPolygon(view, addNewFeature, setAddNewFeature);
 
   useEffect(() => {
     const layer = featureLayer();
@@ -118,19 +95,6 @@ function Map() {
         }
       });
     });
-
-    // view.on("click", function () {
-    //   const area = Polygon.fromExtent(view.extent);
-    //   // console.log(area);
-    //   setAddNewFeature({
-    //     ...addNewFeature,
-    //     rings: area,
-    //   });
-    //   const graphic = new Graphic({
-    //     geometry: area,
-    //     symbol: { type: "simple-fill" },
-    //   });
-    // });
 
     return () => {
       view && view.destroy();
@@ -201,12 +165,11 @@ function Map() {
       </EventsSchedule>
       <Filter />
 
-      <button onClick={drawNewFeature}>Add Event Location</button>
-
       {/* Pridėti naują renginį  */}
       <AddEvent
         buttonText="Pridėti"
         titleText="Pridėti renginį"
+        handleCordinates={addPolygon}
         handleSubmit={(e) => {
           e.preventDefault();
           addEvents(addNewFeature);

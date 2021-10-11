@@ -11,7 +11,13 @@ import { useOpenClose } from "../../hooks/useOpenClose";
 //icons
 import CloseIcon from "../../assets/icons/close.png";
 
-const AddEvent = ({ children, handleSubmit, titleText, buttonText }) => {
+const AddEvent = ({
+  children,
+  handleSubmit,
+  handleCordinates,
+  titleText,
+  buttonText,
+}) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
@@ -22,6 +28,7 @@ const AddEvent = ({ children, handleSubmit, titleText, buttonText }) => {
         </Close>
       ) : (
         <FormWrapper>
+          <button onClick={handleCordinates}>Pažymėti kordinates</button>
           <form onSubmit={handleSubmit}>
             <h3>{titleText}</h3>
             <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
