@@ -38,7 +38,7 @@ function Map() {
 
   const [startDate, setStartDate] = useState(new Date());
 
-  // console.log(addNewFeature);
+  console.log(addNewFeature);
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -62,11 +62,32 @@ function Map() {
   const addEvents = () => addEventsFeature(addNewFeature, layer);
   const updateEvent = () => updateEventFeature(queryPoint, layer);
 
+  const graphicsLayer = new GraphicsLayer();
+
+  const drawNewFeature = () => {
+    let sketchVM = new Sketch({
+      layer: graphicsLayer,
+      view: view,
+    });
+
+    sketchVM.create("polygon", { mode: "click" });
+
+    sketchVM.on("create", function (event) {
+      if (event.state === "complete") {
+        const sketchGeometry = event.graphic.geometry;
+        // console.log(sketchGeometry);
+        setAddNewFeature({
+          ...addNewFeature,
+          geometry: sketchGeometry,
+        });
+      }
+    });
+  };
+
   useEffect(() => {
     const layer = featureLayer();
     const tile = tileLayer();
     const vector = vectorLayer();
-    const graphicsLayer = new GraphicsLayer();
 
     const view = createMapView(mapRef.current, vector, layer);
 
@@ -110,19 +131,6 @@ function Map() {
     //     symbol: { type: "simple-fill" },
     //   });
     // });
-
-    let sketchVM = new Sketch({
-      layer: graphicsLayer,
-      view: view,
-    });
-
-    sketchVM.create("polygon", { mode: "click" });
-
-    sketchVM.on("create", function (event) {
-      if (event.state === "complete") {
-        console.log(event);
-      }
-    });
 
     return () => {
       view && view.destroy();
@@ -193,7 +201,7 @@ function Map() {
       </EventsSchedule>
       <Filter />
 
-      {/* <button onClick={openSketch}>Add Event Location</button> */}
+      <button onClick={drawNewFeature}>Add Event Location</button>
 
       {/* Pridėti naują renginį  */}
       <AddEvent

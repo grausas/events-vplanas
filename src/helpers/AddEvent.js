@@ -16,6 +16,7 @@ export const addEventsFeature = (addNewFeature, layer) => {
       // KATEGORIJA: `${addNewFeature.KATEGORIJA}`,
       PASTABOS: `${addNewFeature.PASTABOS}`,
     },
+    geometry: addNewFeature.geometry,
   });
 
   console.log(addFeature);
