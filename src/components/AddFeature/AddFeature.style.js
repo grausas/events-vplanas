@@ -19,7 +19,6 @@ export const FormWrapper = styled.div`
   margin: 0 auto;
   max-width: 500px;
   width: 100%;
-  max-height: 600px;
   border-radius: 5px;
   top: 10%;
   left: calc(50% - 175px);

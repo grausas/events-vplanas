@@ -206,6 +206,18 @@ function Map() {
             });
           }}
         />
+        <InputField
+          type="longtext"
+          labelText="Aprašymas"
+          placeholder="Aprašymas"
+          id="aprasymas"
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              APRASYMAS: e.target.value,
+            });
+          }}
+        />
         {console.log(addNewFeature)}
         <SingleDatePicker
           placeholderTextDate="Data"
@@ -226,17 +238,32 @@ function Map() {
           }}
         />
         <SingleDatePicker
+          placeholderTextDate="Data"
+          placeholderTextTime="Laikas"
           timeTitle="Pabaigos laikas"
           dateTitle="Pabaigos data"
           selected={
             addNewFeature.RENGINIO_PABAIGA !== undefined
               ? addNewFeature.RENGINIO_PABAIGA
-              : startDate
+              : null
           }
           handleChange={(date) => {
             setAddNewFeature({
               ...addNewFeature,
               RENGINIO_PABAIGA: date,
+            });
+          }}
+        />
+        <InputField
+          type="text"
+          labelText="Renginio puslapis"
+          id="puslapis"
+          placeholder="Renginio puslapis"
+          required
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              WEBPAGE: e.target.value,
             });
           }}
         />

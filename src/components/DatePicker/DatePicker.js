@@ -14,6 +14,7 @@ const DatePicker = ({
   placeholderTextTime,
   placeholderTextDate,
   selected,
+  required,
   handleChange,
 }) => {
   return (
@@ -27,6 +28,7 @@ const DatePicker = ({
           dateFormat="yyyy/MM/dd"
           selected={selected}
           onChange={handleChange}
+          required={required}
         />
       </DatePickerWrapper>
       <DatePickerWrapper>
@@ -41,6 +43,7 @@ const DatePicker = ({
           dateFormat="HH:mm"
           selected={selected}
           onChange={handleChange}
+          required={required}
         />
       </DatePickerWrapper>
     </Wrapper>
