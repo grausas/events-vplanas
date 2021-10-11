@@ -1,6 +1,6 @@
 import Graphic from "@arcgis/core/Graphic";
 
-export const addEventsFeature = (addNewFeature, layer, geometry) => {
+export const addEventsFeature = (addNewFeature, layer) => {
   const addFeature = new Graphic({
     attributes: {
       PAVADINIMAS: `${addNewFeature.PAVADINIMAS}`,
@@ -13,12 +13,12 @@ export const addEventsFeature = (addNewFeature, layer, geometry) => {
       ).toISOString()}`,
       APRASYMAS: `${addNewFeature.APRASYMAS}`,
       WEBPAGE: `${addNewFeature.WEBPAGE}`,
-      KATEGORIJA: `${addNewFeature.KATEGORIJA}`,
+      // KATEGORIJA: `${addNewFeature.KATEGORIJA}`,
       PASTABOS: `${addNewFeature.PASTABOS}`,
     },
-    geometry: geometry,
   });
-  console.log(addFeature.attributes);
+
+  console.log(addFeature);
 
   const add = {
     addFeatures: [addFeature],

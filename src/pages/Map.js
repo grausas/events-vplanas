@@ -5,12 +5,16 @@ import "./Map.css";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
 
+// modules
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
+import Sketch from "@arcgis/core/widgets/Sketch/SketchViewModel";
+
 // Components
 import {
   EventCard,
   EventsSchedule,
   InputField,
-  AddFeature,
+  AddEvent,
   SearchInput,
   Filter,
   DatePicker as SingleDatePicker,
@@ -33,6 +37,8 @@ function Map() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [startDate, setStartDate] = useState(new Date());
+
+  // console.log(addNewFeature);
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -60,6 +66,7 @@ function Map() {
     const layer = featureLayer();
     const tile = tileLayer();
     const vector = vectorLayer();
+    const graphicsLayer = new GraphicsLayer();
 
     const view = createMapView(mapRef.current, vector, layer);
 
@@ -77,7 +84,8 @@ function Map() {
 
     view.on("click", function (event) {
       view.hitTest(event).then(function (response) {
-        if (response.results.length) {
+        // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+        if (response.results.length > 1) {
           const graphic = response.results.filter(function (result) {
             // check if the graphic belongs to the layer of interest
             return result.graphic.layer === layer;
@@ -88,6 +96,32 @@ function Map() {
           return null;
         }
       });
+    });
+
+    // view.on("click", function () {
+    //   const area = Polygon.fromExtent(view.extent);
+    //   // console.log(area);
+    //   setAddNewFeature({
+    //     ...addNewFeature,
+    //     rings: area,
+    //   });
+    //   const graphic = new Graphic({
+    //     geometry: area,
+    //     symbol: { type: "simple-fill" },
+    //   });
+    // });
+
+    let sketchVM = new Sketch({
+      layer: graphicsLayer,
+      view: view,
+    });
+
+    sketchVM.create("polygon", { mode: "click" });
+
+    sketchVM.on("create", function (event) {
+      if (event.state === "complete") {
+        console.log(event);
+      }
     });
 
     return () => {
@@ -159,8 +193,10 @@ function Map() {
       </EventsSchedule>
       <Filter />
 
+      {/* <button onClick={openSketch}>Add Event Location</button> */}
+
       {/* Pridėti naują renginį  */}
-      <AddFeature
+      <AddEvent
         buttonText="Pridėti"
         titleText="Pridėti renginį"
         handleSubmit={(e) => {
@@ -218,7 +254,6 @@ function Map() {
             });
           }}
         />
-        {console.log(addNewFeature)}
         <SingleDatePicker
           placeholderTextDate="Data"
           placeholderTextTime="Laikas"
@@ -230,7 +265,6 @@ function Map() {
               : null
           }
           handleChange={(date) => {
-            console.log(date);
             setAddNewFeature({
               ...addNewFeature,
               RENGINIO_PRADZIA: date,
@@ -267,7 +301,7 @@ function Map() {
             });
           }}
         />
-      </AddFeature>
+      </AddEvent>
 
       {/* Renginys ir jo redagavimas */}
       {show && (
@@ -337,6 +371,17 @@ function Map() {
               setQueryPoint({
                 ...queryPoint,
                 RENGINIO_PABAIGA: date,
+              });
+            }}
+          />
+          <InputField
+            type="text"
+            labelText="Renginio puslapis"
+            defaultValue={queryPoint.WEBPAGE}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                WEBPAGE: e.target.value,
               });
             }}
           />
