@@ -30,6 +30,16 @@ export const FormWrapper = styled.div`
   h3 {
     margin-bottom: 10px;
   }
+
+  p {
+    color: var(--lightBlue);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  span {
+    margin-left: 10px;
+  }
 `;
 
 export const InputWrapper = styled.div`

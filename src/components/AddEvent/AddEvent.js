@@ -30,25 +30,28 @@ const AddEvent = ({
       ) : (
         <>
           <FormWrapper>
-            <button
-              onClick={() => {
-                handleCordinates();
-              }}
-            >
-              Pažymėti kordinates
-            </button>
+            <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
             {!isEditing ? (
-              <form onSubmit={handleSubmit}>
-                <h3>{titleText}</h3>
-                <CloseImage
-                  src={CloseIcon}
-                  alt="close-icon"
-                  onClick={handleOpen}
-                />
-                <InputWrapper>{children}</InputWrapper>
-                <ConfirmButton>{buttonText}</ConfirmButton>
-              </form>
-            ) : null}
+              <>
+                <p>Kordinatės pasirinktos</p>
+                <form onSubmit={handleSubmit}>
+                  <h3>{titleText}</h3>
+                  <InputWrapper>{children}</InputWrapper>
+                  <ConfirmButton>{buttonText}</ConfirmButton>
+                </form>
+              </>
+            ) : (
+              <>
+                <ConfirmButton
+                  handleClick={() => {
+                    handleCordinates();
+                  }}
+                >
+                  Pažymėti kordinates
+                </ConfirmButton>
+                <span>Pasirinkite kordinates kur vyks renginys</span>
+              </>
+            )}
           </FormWrapper>
         </>
       )}
