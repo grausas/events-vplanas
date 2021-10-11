@@ -8,12 +8,20 @@ import { Wrapper, DatePickerWrapper } from "./DatePicker.style";
 
 registerLocale("lt", lt);
 
-const DatePicker = ({ timeTitle, dateTitle, selected, handleChange }) => {
+const DatePicker = ({
+  timeTitle,
+  dateTitle,
+  placeholderTextTime,
+  placeholderTextDate,
+  selected,
+  handleChange,
+}) => {
   return (
     <Wrapper>
       <DatePickerWrapper>
         <span>{dateTitle}</span>
         <SingleDatePicker
+          placeholderText={placeholderTextDate}
           locale="lt"
           timeIntervals={1}
           dateFormat="yyyy/MM/dd"
@@ -24,6 +32,7 @@ const DatePicker = ({ timeTitle, dateTitle, selected, handleChange }) => {
       <DatePickerWrapper>
         <span>{timeTitle}</span>
         <SingleDatePicker
+          placeholderText={placeholderTextTime}
           locale="lt"
           timeCaption="Laikas"
           showTimeSelect

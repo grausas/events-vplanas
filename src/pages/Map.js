@@ -1,8 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 
-import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-
 // Styles
 import "./Map.css";
 // Hooks
@@ -21,7 +18,7 @@ import {
 
 // helpers
 import { createMapView } from "../helpers/Map";
-import { featureLayer, tileLayer } from "../helpers/Layers";
+import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 
@@ -62,7 +59,9 @@ function Map() {
   useEffect(() => {
     const layer = featureLayer();
     const tile = tileLayer();
-    const view = createMapView(mapRef.current, tile, layer);
+    const vector = vectorLayer();
+
+    const view = createMapView(mapRef.current, vector, layer);
 
     setLayer(layer);
     setView(view);
@@ -209,12 +208,14 @@ function Map() {
         />
         {console.log(addNewFeature)}
         <SingleDatePicker
+          placeholderTextDate="Data"
+          placeholderTextTime="Laikas"
           timeTitle="Pradžios laikas"
           dateTitle="Pradžios data"
           selected={
             addNewFeature.RENGINIO_PRADZIA !== undefined
               ? addNewFeature.RENGINIO_PRADZIA
-              : startDate
+              : null
           }
           handleChange={(date) => {
             console.log(date);

@@ -1,5 +1,6 @@
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import TileLayer from "@arcgis/core/layers/TileLayer";
+import VectorLayer from "@arcgis/core/layers/VectorTileLayer";
 
 export const featureLayer = () => {
   const textSymbol = {
@@ -30,4 +31,11 @@ export const tileLayer = () => {
   });
 
   return tile;
+};
+
+export const vectorLayer = () => {
+  const vector = new VectorLayer({
+    url: "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer",
+  });
+  return vector;
 };
