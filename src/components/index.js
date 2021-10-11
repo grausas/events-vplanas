@@ -1,4 +1,4 @@
-export { default as AddFeature } from "./AddFeature/AddFeature";
+export { default as AddEvent } from "./AddEvent/AddEvent";
 export { default as Button } from "./Button/Button";
 export { default as CheckBox } from "./CheckBox/Checkbox";
 export { default as DatePicker } from "./DatePicker/DatePicker";

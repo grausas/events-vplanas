@@ -5,13 +5,13 @@ import {
   InputWrapper,
   CloseImage,
   ConfirmButton,
-} from "./AddFeature.style";
+} from "./AddEvent.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
 //icons
 import CloseIcon from "../../assets/icons/close.png";
 
-const AddFeature = ({ children, handleSubmit, titleText, buttonText }) => {
+const AddEvent = ({ children, handleSubmit, titleText, buttonText }) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
@@ -34,4 +34,4 @@ const AddFeature = ({ children, handleSubmit, titleText, buttonText }) => {
   );
 };
 
-export default AddFeature;
+export default AddEvent;
