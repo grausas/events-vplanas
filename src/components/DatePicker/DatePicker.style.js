@@ -25,6 +25,8 @@ export const Wrapper = styled.div`
 
 export const DatePickerWrapper = styled.div`
   margin-bottom: 10px;
+  flex-grow: 2;
+
   :not(:last-child) {
     margin-right: 10px;
   }
