@@ -47,9 +47,9 @@ const AddEvent = ({
                     handleCordinates();
                   }}
                 >
-                  Pažymėti kordinates
+                  Pažymėti objektą
                 </ConfirmButton>
-                <span>Pasirinkite kordinates kur vyks renginys</span>
+                <span>Pažymėti objektą kur vyks renginys</span>
               </>
             )}
           </FormWrapper>

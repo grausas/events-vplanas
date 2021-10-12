@@ -65,10 +65,8 @@ function Map() {
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {
     if (addNewFeature.geometry === undefined) {
-      console.log("und");
       setIsEditing(false);
     } else {
-      console.log("def");
       setIsEditing(true);
     }
   }, [addNewFeature.geometry]);
