@@ -44,6 +44,7 @@ const DatePicker = ({
           selected={selected}
           onChange={handleChange}
           required={required}
+          popperPlacement="left-end"
         />
       </DatePickerWrapper>
     </Wrapper>

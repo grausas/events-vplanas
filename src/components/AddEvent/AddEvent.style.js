@@ -27,7 +27,8 @@ export const FormWrapper = styled.div`
   color: var(--dark);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   padding: 20px;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   h3 {
     margin-bottom: 10px;
