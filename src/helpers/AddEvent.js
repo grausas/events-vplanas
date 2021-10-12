@@ -13,7 +13,7 @@ export const addEventsFeature = (addNewFeature, layer) => {
       ).toISOString()}`,
       APRASYMAS: `${addNewFeature.APRASYMAS}`,
       WEBPAGE: `${addNewFeature.WEBPAGE}`,
-      // KATEGORIJA: `${addNewFeature.KATEGORIJA}`,
+      KATEGORIJA: `${addNewFeature.KATEGORIJA}`,
       PASTABOS: `${addNewFeature.PASTABOS}`,
     },
     geometry: addNewFeature.geometry,

@@ -37,6 +37,7 @@ export const TextArea = styled.textarea`
   padding: 5px 1rem;
   font-size: 14px;
   resize: none;
+  color: var(--dark);
 
   &:focus {
     border: 2px solid var(--lightBlue);

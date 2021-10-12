@@ -24,9 +24,6 @@ export const Wrapper = styled.div`
 `;
 
 export const DatePickerWrapper = styled.div`
-  .react-datepicker-popper {
-    /* inset: auto auto -17px -207px; */
-  }
   margin-bottom: 10px;
   :not(:last-child) {
     margin-right: 10px;

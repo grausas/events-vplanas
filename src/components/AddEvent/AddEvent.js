@@ -33,7 +33,7 @@ const AddEvent = ({
             <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
             {!isEditing ? (
               <>
-                <p>Kordinatės pasirinktos</p>
+                <p>Objektas pasirinktas</p>
                 <form onSubmit={handleSubmit}>
                   <h3>{titleText}</h3>
                   <InputWrapper>{children}</InputWrapper>
