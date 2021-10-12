@@ -215,6 +215,19 @@ function Map() {
           }}
         />
         <InputField
+          type="dropdown"
+          labelText="Kategorija"
+          id="kategorija"
+          placeholder="Kategorija"
+          required
+          handleChange={(e) => {
+            setAddNewFeature({
+              ...addNewFeature,
+              KATEGORIJA: e.target.value,
+            });
+          }}
+        />
+        <InputField
           type="longtext"
           labelText="Pastabos"
           placeholder="Pastabos"

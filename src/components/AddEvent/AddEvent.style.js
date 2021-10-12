@@ -18,14 +18,16 @@ export const FormWrapper = styled.div`
   position: absolute;
   margin: 0 auto;
   max-width: 500px;
+  max-height: 80vh;
   width: 100%;
   border-radius: 5px;
-  top: 10%;
+  top: 5%;
   left: calc(50% - 175px);
   background-color: var(--white);
   color: var(--dark);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   padding: 20px;
+  overflow: auto;
 
   h3 {
     margin-bottom: 10px;

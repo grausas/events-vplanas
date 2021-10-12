@@ -47,6 +47,7 @@ export const TextArea = styled.textarea`
 export const Select = styled.select`
   width: 100%;
   padding: 0 1rem;
+  height: 40px;
   border: 1px solid var(--grey);
   border-radius: 5px;
   box-sizing: border-box;
