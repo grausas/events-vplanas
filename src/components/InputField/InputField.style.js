@@ -43,3 +43,17 @@ export const TextArea = styled.textarea`
     outline: none;
   }
 `;
+
+export const Select = styled.select`
+  width: 100%;
+  padding: 0 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-transform: capitalize;
+
+  &:focus {
+    border: 2px solid var(--lightBlue);
+    outline: none;
+  }
+`;

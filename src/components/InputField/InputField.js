@@ -1,5 +1,5 @@
 // Styles
-import { Wrapper, Label, Input, TextArea } from "./InputField.style";
+import { Wrapper, Label, Input, TextArea, Select } from "./InputField.style";
 
 const InputField = ({
   type,
@@ -8,6 +8,8 @@ const InputField = ({
   required,
   minLength,
   id,
+  options,
+  selectName,
   maxLength,
   handleChange,
   defaultValue,
@@ -27,6 +29,29 @@ const InputField = ({
             required={required}
           ></TextArea>
         </Wrapper>
+      );
+    case "dropdown":
+      return (
+        <>
+          <Label htmlFor={id}>{labelText}</Label>
+          <Select
+            id={id}
+            name={selectName}
+            defaultValue
+            required={required}
+            onChange={handleChange}
+          >
+            <option disabled value>
+              Pasirinkti kategoriją
+            </option>
+            {options &&
+              options.map((option) => (
+                <option key={option.id} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
+          </Select>
+        </>
       );
 
     default:
