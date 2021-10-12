@@ -266,7 +266,7 @@ function Map() {
           selected={
             addNewFeature.RENGINIO_PRADZIA !== undefined
               ? addNewFeature.RENGINIO_PRADZIA
-              : null
+              : startDate
           }
           handleChange={(date) => {
             setAddNewFeature({
@@ -283,7 +283,7 @@ function Map() {
           selected={
             addNewFeature.RENGINIO_PABAIGA !== undefined
               ? addNewFeature.RENGINIO_PABAIGA
-              : null
+              : startDate
           }
           handleChange={(date) => {
             setAddNewFeature({

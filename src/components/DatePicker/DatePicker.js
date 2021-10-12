@@ -4,7 +4,7 @@ import lt from "date-fns/locale/lt";
 import "react-datepicker/dist/react-datepicker.css";
 
 // styles
-import { Wrapper, DatePickerWrapper } from "./DatePicker.style";
+import { Wrapper, DatePickerWrapper, CustomButton } from "./DatePicker.style";
 
 registerLocale("lt", lt);
 
@@ -17,6 +17,10 @@ const DatePicker = ({
   required,
   handleChange,
 }) => {
+  const CustomInput = ({ value, onClick }) => (
+    <CustomButton onClick={onClick}>{value}</CustomButton>
+  );
+
   return (
     <Wrapper>
       <DatePickerWrapper>
@@ -45,6 +49,7 @@ const DatePicker = ({
           onChange={handleChange}
           required={required}
           popperPlacement="left-end"
+          customInput={<CustomInput />}
         />
       </DatePickerWrapper>
     </Wrapper>

@@ -29,3 +29,18 @@ export const DatePickerWrapper = styled.div`
     margin-right: 10px;
   }
 `;
+
+export const CustomButton = styled.div`
+  width: 100%;
+  text-align: left;
+  padding: 0.45rem 1rem;
+  background: var(--white);
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:focus {
+    border: 2px solid var(--lightBlue);
+    outline: none;
+  }
+`;
