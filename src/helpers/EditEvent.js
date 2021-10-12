@@ -7,6 +7,7 @@ export const updateEventFeature = (queryPoint, layer) => {
       GlobalID: `${queryPoint.GlobalID}`,
       PAVADINIMAS: `${queryPoint.PAVADINIMAS}`,
       ORGANIZATORIUS: `${queryPoint.ORGANIZATORIUS}`,
+      KATEGORIJA: `${queryPoint.KATEGORIJA}`,
       RENGINIO_PRADZIA: `${new Date(
         queryPoint.RENGINIO_PRADZIA
       ).toISOString()}`,

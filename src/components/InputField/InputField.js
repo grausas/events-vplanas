@@ -44,6 +44,7 @@ const InputField = ({
             <option disabled value>
               Pasirinkti kategoriją
             </option>
+
             {options &&
               options.map((option) => (
                 <option key={option.id} value={option.value}>
