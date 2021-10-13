@@ -15,7 +15,7 @@ export const Input = styled.input`
   width: 100%;
   padding: 0 1rem;
   height: 40px;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--silver);
   border-radius: 5px;
   background: var(--white);
   box-sizing: border-box;
@@ -31,7 +31,7 @@ export const Input = styled.input`
 export const TextArea = styled.textarea`
   width: 100%;
   height: 60px;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--silver);
   border-radius: 5px;
   box-sizing: border-box;
   padding: 5px 1rem;
@@ -49,7 +49,7 @@ export const Select = styled.select`
   width: 100%;
   padding: 0 1rem;
   height: 40px;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--silver);
   border-radius: 5px;
   box-sizing: border-box;
   text-transform: capitalize;

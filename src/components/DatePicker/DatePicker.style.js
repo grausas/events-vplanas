@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
     width: 100%;
     padding: 0 1rem;
     height: 40px;
-    border: 1px solid var(--grey);
+    border: 1px solid var(--silver);
     border-radius: 5px;
     background: var(--white);
     box-sizing: border-box;
@@ -37,7 +37,7 @@ export const CustomButton = styled.div`
   text-align: left;
   padding: 0.45rem 1rem;
   background: var(--white);
-  border: 1px solid var(--grey);
+  border: 1px solid var(--silver);
   border-radius: 5px;
   cursor: pointer;
 

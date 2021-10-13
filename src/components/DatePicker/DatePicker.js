@@ -1,3 +1,5 @@
+import React from "react";
+
 // date picker
 import SingleDatePicker, { registerLocale } from "react-datepicker";
 import lt from "date-fns/locale/lt";
@@ -17,10 +19,11 @@ const DatePicker = ({
   required,
   handleChange,
 }) => {
-  // fix meta ref error
-  const CustomInput = ({ value, onClick }) => (
-    <CustomButton onClick={onClick}>{value}</CustomButton>
-  );
+  const CustomInput = React.forwardRef(({ onClick, value }, ref) => (
+    <CustomButton onClick={onClick} ref={ref}>
+      {value}
+    </CustomButton>
+  ));
 
   return (
     <Wrapper>
