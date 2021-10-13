@@ -21,16 +21,16 @@ export const addEventsFeature = (addNewFeature, layer) => {
 
   console.log(addFeature);
 
-  const add = {
-    addFeatures: [addFeature],
-  };
+  // const add = {
+  //   addFeatures: [addFeature],
+  // };
 
-  layer
-    .applyEdits(add)
-    .then((editResults) => {
-      console.log("edit results: ", editResults);
-    })
-    .catch((error) => {
-      console.error("Editing error: ", error);
-    });
+  // layer
+  //   .applyEdits(add)
+  //   .then((editResults) => {
+  //     console.log("edit results: ", editResults);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Editing error: ", error);
+  //   });
 };

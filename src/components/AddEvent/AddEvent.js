@@ -16,8 +16,11 @@ const AddEvent = ({
   handleSubmit,
   handleCordinates,
   titleText,
+  buttonTitle,
+  spanText,
   buttonText,
   isEditing,
+  handleUpdate,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -33,7 +36,14 @@ const AddEvent = ({
             <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
             {!isEditing ? (
               <>
-                <p>Objektas pasirinktas</p>
+                <span>Objektas pasirinktas</span>
+                <button
+                  onClick={() => {
+                    handleUpdate();
+                  }}
+                >
+                  Redaguoti Objekta
+                </button>
                 <form onSubmit={handleSubmit}>
                   <h3>{titleText}</h3>
                   <InputWrapper>{children}</InputWrapper>
@@ -47,9 +57,9 @@ const AddEvent = ({
                     handleCordinates();
                   }}
                 >
-                  Pažymėti objektą
+                  {buttonTitle}
                 </ConfirmButton>
-                <span>Pažymėti objektą kur vyks renginys</span>
+                <span>{spanText}</span>
               </>
             )}
           </FormWrapper>

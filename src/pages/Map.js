@@ -22,6 +22,7 @@ import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon } from "../helpers/DrawPolygon";
+import { updatePolygon } from "../helpers/UpdatePolygon";
 
 function Map() {
   const mapRef = useRef(null);
@@ -61,6 +62,7 @@ function Map() {
   const updateEvent = () => updateEventFeature(queryPoint, layer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
+  const updateCurrentPolygon = () => updatePolygon(view);
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {
@@ -75,6 +77,8 @@ function Map() {
     const layer = featureLayer();
     const tile = tileLayer();
     const vector = vectorLayer();
+
+    // console.log(vector);
 
     const view = createMapView(mapRef.current, vector, layer);
 
@@ -180,12 +184,25 @@ function Map() {
         isEditing={!isEditing}
         buttonText="Pridėti"
         titleText="Pridėti renginį"
+        buttonTitle={
+          addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
+        }
+        spanText={
+          addNewFeature.geometry === undefined
+            ? "Pasirinkite pridėti objektą"
+            : "Pildykite objekto duomenis"
+        }
         handleCordinates={() => {
           addPolygon();
+        }}
+        handleUpdate={() => {
+          updateCurrentPolygon();
+          setIsEditing(!isEditing);
         }}
         handleSubmit={(e) => {
           e.preventDefault();
           addEvents(addNewFeature);
+          setAddNewFeature("");
         }}
       >
         <InputField
@@ -312,8 +329,10 @@ function Map() {
         <EventCard
           organization={queryPoint.ORGANIZATORIUS}
           title={queryPoint.PAVADINIMAS}
+          // category={category}
           url={queryPoint.WEBPAGE}
           comment={queryPoint.PASTABOS}
+          description={queryPoint.APRASYMAS}
           startDate={startEventDate + " | " + startEventTime}
           finishDate={finishEventDate + " | " + finishEventTime}
           handleChange={handleOpen}
