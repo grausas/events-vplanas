@@ -193,7 +193,9 @@ function Map() {
             : "Pildykite objekto duomenis"
         }
         handleCordinates={() => {
-          addPolygon();
+          addNewFeature.geometry === undefined
+            ? addPolygon()
+            : setIsEditing(!isEditing);
         }}
         handleUpdate={() => {
           updateCurrentPolygon();
