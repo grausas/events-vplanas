@@ -86,7 +86,7 @@ export const Title = styled.div`
 
 export const Text = styled.div`
   display: flex;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   align-items: flex-start;
 
   p,

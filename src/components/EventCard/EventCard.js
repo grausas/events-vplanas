@@ -20,6 +20,7 @@ import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
 import Edit from "../../assets/icons/edit.png";
+import Category from "../../assets/icons/category.png";
 
 //hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -28,9 +29,11 @@ const EventCard = ({
   organization,
   url,
   title,
+  category,
   startDate,
   finishDate,
   comment,
+  description,
   children,
   handleChange,
   handleLocation,
@@ -76,6 +79,10 @@ const EventCard = ({
                 <img src={Document} alt="document" />
                 <p>{organization}</p>
               </Text>
+              {/* <Text>
+                <img src={Category} alt="category" />
+                <p>{category}</p>
+              </Text> */}
               <Text onClick={handleLocation}>
                 <img src={ExternalLink} alt="place" />
                 <a href={url} target="_blank" rel="noreferrer">
@@ -86,6 +93,14 @@ const EventCard = ({
                 <p>
                   Pastabos:
                   {comment && comment.length ? " " + comment : " Pastabų nėra"}
+                </p>
+              </Text>
+              <Text>
+                <p>
+                  Aprašymas:
+                  {description && description.length
+                    ? " " + description
+                    : " Aprašymo nėra"}
                 </p>
               </Text>
             </div>
