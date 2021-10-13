@@ -1,12 +1,13 @@
 import WebMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
+import { graphicsLayer } from "./DrawPolygon";
 
-export const createMapView = (ref, baselayer, layer) => {
+export const createMapView = (ref, baselayer, layers) => {
   const webmap = new WebMap({
     basemap: {
       baseLayers: baselayer,
     },
-    layers: layer,
+    layers: [layers, graphicsLayer],
   });
 
   const view = new MapView({
