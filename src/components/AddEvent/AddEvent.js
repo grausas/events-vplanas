@@ -28,22 +28,21 @@ const AddEvent = ({
     <div>
       {!show ? (
         <Close>
-          <span onClick={handleOpen}>Pridėti</span>
+          <span onClick={handleOpen}>Pridėti objektą</span>
         </Close>
       ) : (
         <>
-          <FormWrapper>
+          <FormWrapper isEditing={isEditing}>
             <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
             {!isEditing ? (
               <>
-                <span>Objektas pasirinktas</span>
-                <button
-                  onClick={() => {
+                <ConfirmButton
+                  handleClick={() => {
                     handleUpdate();
                   }}
                 >
-                  Redaguoti Objekta
-                </button>
+                  Redaguoti objektą
+                </ConfirmButton>
                 <form onSubmit={handleSubmit}>
                   <h3>{titleText}</h3>
                   <InputWrapper>{children}</InputWrapper>
@@ -52,6 +51,7 @@ const AddEvent = ({
               </>
             ) : (
               <>
+                <p>{spanText}</p>
                 <ConfirmButton
                   handleClick={() => {
                     handleCordinates();
@@ -59,7 +59,6 @@ const AddEvent = ({
                 >
                   {buttonTitle}
                 </ConfirmButton>
-                <span>{spanText}</span>
               </>
             )}
           </FormWrapper>

@@ -19,29 +19,25 @@ export const FormWrapper = styled.div`
   margin: 0 auto;
   max-width: 500px;
   max-height: 80vh;
-  width: 100%;
+  width: ${(props) => (props.isEditing ? "22%" : "100%")};
   border-radius: 5px;
   top: 5%;
   left: calc(50% - 175px);
   background-color: var(--white);
   color: var(--dark);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  padding: 20px;
+  padding: 10px;
   overflow-y: auto;
   overflow-x: hidden;
 
   h3 {
-    margin-bottom: 10px;
+    margin: 10px 0;
   }
 
   p {
-    color: var(--lightBlue);
+    font-size: var(--big);
     font-weight: 600;
-    text-decoration: underline;
-  }
-
-  span {
-    margin-left: 10px;
+    margin-bottom: 5px;
   }
 `;
 

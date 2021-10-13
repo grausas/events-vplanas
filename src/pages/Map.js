@@ -182,7 +182,7 @@ function Map() {
       {/* Pridėti naują renginį  */}
       <AddEvent
         isEditing={!isEditing}
-        buttonText="Pridėti"
+        buttonText="Pridėti renginį"
         titleText="Pridėti renginį"
         buttonTitle={
           addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
@@ -190,7 +190,7 @@ function Map() {
         spanText={
           addNewFeature.geometry === undefined
             ? "Pasirinkite pridėti objektą"
-            : "Pildykite objekto duomenis"
+            : "Užpildykite objekto duomenis"
         }
         handleCordinates={() => {
           addNewFeature.geometry === undefined
