@@ -14,8 +14,8 @@ export const drawNewPolygon = (view, state, setState) => {
   sketchVM.on("create", function (event) {
     if (event.state === "complete") {
       const sketchGeometry = event.graphic.geometry;
-      console.log(sketchGeometry);
-      console.log(graphicsLayer);
+      // console.log(sketchGeometry);
+      // console.log(graphicsLayer);
       setState({
         ...state,
         geometry: sketchGeometry,

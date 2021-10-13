@@ -37,7 +37,7 @@ function Map() {
 
   const [startDate, setStartDate] = useState(new Date());
 
-  // console.log(addNewFeature);
+  console.log(addNewFeature.geometry);
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -62,7 +62,8 @@ function Map() {
   const updateEvent = () => updateEventFeature(queryPoint, layer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
-  const updateCurrentPolygon = () => updatePolygon(view);
+  const updateCurrentPolygon = () =>
+    updatePolygon(view, addNewFeature, setAddNewFeature);
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {

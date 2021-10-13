@@ -21,8 +21,9 @@ export const FormWrapper = styled.div`
   max-height: 80vh;
   width: ${(props) => (props.isEditing ? "22%" : "100%")};
   border-radius: 5px;
-  top: 5%;
-  left: calc(50% - 175px);
+  top: 2%;
+  right: ${(props) => (props.isEditing ? "20px" : "")};
+  left: ${(props) => (props.isEditing ? "" : "calc(50% - 175px)")};
   background-color: var(--white);
   color: var(--dark);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);

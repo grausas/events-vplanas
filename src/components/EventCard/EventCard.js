@@ -20,7 +20,7 @@ import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
 import Edit from "../../assets/icons/edit.png";
-import Category from "../../assets/icons/category.png";
+// import Category from "../../assets/icons/category.png";
 
 //hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -45,12 +45,12 @@ const EventCard = ({
     <>
       {show ? (
         <FormWrapper>
+          <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
           <form onSubmit={handleSubmit}>
             <h3>Redaguoti renginį</h3>
             {children}
             <ConfirmButton>Patvirtinti</ConfirmButton>
           </form>
-          <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
         </FormWrapper>
       ) : (
         <Wrapper>

@@ -4,7 +4,7 @@ import { graphicsLayer } from "./DrawPolygon";
 
 // export const graphicsLayer = new GraphicsLayer();
 
-export const updatePolygon = (view) => {
+export const updatePolygon = (view, state, setState) => {
   let sketchVM = new Sketch({
     layer: graphicsLayer,
     view: view,
@@ -15,6 +15,17 @@ export const updatePolygon = (view) => {
     enableRotation: true,
     enableScaling: true,
     preserveAspectRatio: true,
-    toggleToolOnClick: true,
+    toggleToolOnClick: false,
+  });
+
+  sketchVM.on("update", function (event) {
+    console.log(event.state);
+    if (event.state === "complete") {
+      const sketchGeometry = event.graphics[0].geometry;
+      setState({
+        ...state,
+        geometry: sketchGeometry,
+      });
+    }
   });
 };
