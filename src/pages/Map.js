@@ -58,7 +58,8 @@ function Map() {
     return x < y ? -1 : x > y ? 1 : 0;
   });
 
-  const addEvents = () => addEventsFeature(addNewFeature, layer);
+  const addEvents = () =>
+    addEventsFeature(addNewFeature, layer, setAddNewFeature);
   const updateEvent = () => updateEventFeature(queryPoint, layer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
@@ -96,9 +97,9 @@ function Map() {
       });
 
     view.on("click", function (event) {
-      view.hitTest(event).then(function (response) {
+      view.hitTest(event, { include: layer }).then(function (response) {
         // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-        if (response.results.length > 1) {
+        if (response.results.length === 1) {
           const graphic = response.results.filter(function (result) {
             // check if the graphic belongs to the layer of interest
             return result.graphic.layer === layer;
