@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 // Styles
-import { Wrapper } from "./CheckBox.style";
+import { Wrapper, CheckInput } from "./CheckBox.style";
 
-const Checkbox = ({ label }) => {
+const Checkbox = ({ label, value }) => {
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = (e) => {
@@ -13,10 +13,11 @@ const Checkbox = ({ label }) => {
   return (
     <Wrapper>
       <label>{label}</label>
-      <input
+      <CheckInput
         type="checkbox"
         checked={checked}
         onChange={handleCheckboxChange}
+        value={value}
       />
     </Wrapper>
   );
