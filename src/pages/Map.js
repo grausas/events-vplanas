@@ -42,20 +42,28 @@ function Map() {
   // filtravimas pagal kategoriją
   const handleFilterChange = (e) => {
     if (e.target.checked) {
-      console.log("checked");
       setFeatureLayerViewFilter(e.target.value);
-
+      console.log("checked", e);
       function setFeatureLayerViewFilter(expression) {
         view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
-          featureLayerView.filter = {
-            where: expression ? "KATEGORIJA = " + expression : null,
-            excludedEffect: "opacity(0%)",
+          featureLayerView.effect = {
+            filter: {
+              where: expression ? "KATEGORIJA = " + expression : null,
+            },
+            excludedEffect: "grayscale(100%) opacity(20%)",
           };
         });
       }
     } else {
-      console.log("unchecked");
-      eventsFeatureLayer.visible = true;
+      console.log("unchecked", e);
+      view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
+        featureLayerView.effect = {
+          filter: {
+            where: "KATEGORIJA ",
+          },
+          excludedEffect: "opacity(100%)",
+        };
+      });
     }
   };
 
