@@ -4,11 +4,13 @@ import { Wrapper, Content, IconFilter } from "./Filter.style";
 import { useOpenClose } from "../../hooks/useOpenClose";
 // Icons
 import FilterIcon from "../../assets/icons/filter.png";
+// components
+import { CheckBox } from "../index";
 
 // notes: onclick open filter by organization, date and type
 // take info from data state and filter on map
 
-const Filter = () => {
+const Filter = ({ data }) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
@@ -25,7 +27,12 @@ const Filter = () => {
       </IconFilter>
       {show && (
         <Content>
-          <div>Filtras</div>
+          {data &&
+            data.map((item) => {
+              return (
+                <CheckBox key={item.id} value={item.id} label={item.name} />
+              );
+            })}
         </Content>
       )}
     </Wrapper>

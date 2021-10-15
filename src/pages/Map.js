@@ -180,7 +180,15 @@ function Map() {
           <span>Loading...</span>
         )}
       </EventsSchedule>
-      <Filter />
+      <Filter
+        data={[
+          { id: 1, value: 1, name: "Susitikimas" },
+          { id: 2, value: 2, name: "Festivalis" },
+          { id: 3, value: 3, name: "Viešas renginys" },
+          { id: 4, value: 4, name: "Filmavimas" },
+          { id: 5, value: 5, name: "Mugė" },
+        ]}
+      />
 
       {/* Pridėti naują renginį  */}
       <AddEvent
