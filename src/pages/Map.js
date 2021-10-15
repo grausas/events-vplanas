@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 // Styles
 import "./Map.css";
@@ -33,53 +33,31 @@ function Map() {
   const [queryPoint, setQueryPoint] = useState([]);
   const [addNewFeature, setAddNewFeature] = useState([]);
   const [view, setView] = useState();
-  const [fetaureLayer, setFeatureLayer] = useState();
+  const [eventsFeatureLayer, setEventsFeatureLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [isChecked, setIsChecked] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
 
-  // console.log(addNewFeature.geometry);
-  // console.log(isChecked);
-  // console.log(data);
-
-  const handleSelectFilter = (e) => {
-    // console.log(e);
+  // filtravimas pagal kategoriją
+  const handleFilterChange = (e) => {
     if (e.target.checked) {
-      const categoryFilter = data.filter(
-        (item) => item.attributes.KATEGORIJA === Number(e.target.value)
-      );
-      isChecked.push(Number(e.target.value));
-      setIsChecked([...isChecked]);
-      setData(categoryFilter);
-    } else {
-      for (var i = 0; i < isChecked.length; i++) {
-        if (isChecked[i] === Number(e.target.value)) {
-          isChecked.splice(i, 1);
-        }
+      console.log("checked");
+      setFeatureLayerViewFilter(e.target.value);
+
+      function setFeatureLayerViewFilter(expression) {
+        view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
+          featureLayerView.filter = {
+            where: expression ? "KATEGORIJA = " + expression : null,
+            excludedEffect: "opacity(0%)",
+          };
+        });
       }
-      setIsChecked(isChecked);
-      // console.log(setData((prev) => prev - e.target.value));
+    } else {
+      console.log("unchecked");
+      eventsFeatureLayer.visible = true;
     }
   };
-
-  // const handleSelectFilter = (e, checked) => {
-  //   console.log(shortResults);
-  //   if (e.target.checked) {
-  //     const categoryId = data.filter(
-  //       (item) => item.attributes.KATEGORIJA === Number(e.target.value)
-  //     );
-  //     console.log(categoryId);
-  //     setData(categoryId);
-  //   } else {
-  //     const unselected = data.filter(
-  //       (item) => item.attributes.KATEGORIJA === Number(e.target.value)
-  //     );
-  //     console.log("unselected ", unselected);
-  //     setData(unselected);
-  //   }
-  // };
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -102,26 +80,12 @@ function Map() {
   });
 
   const addEvents = () =>
-    addEventsFeature(addNewFeature, fetaureLayer, setAddNewFeature);
-  const updateEvent = () => updateEventFeature(queryPoint, fetaureLayer);
+    addEventsFeature(addNewFeature, eventsFeatureLayer, setAddNewFeature);
+  const updateEvent = () => updateEventFeature(queryPoint, eventsFeatureLayer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
   const updateCurrentPolygon = () =>
     updatePolygon(view, addNewFeature, setAddNewFeature);
-
-  const handleLayerFilter = () => {
-    //   layer.queryFeatures().then(function (feature) {
-    //     // prints the total count to the console
-    //     // feature.filter((item) => item.attributes.KATEGORIJA === 1);
-    //     const filtered = feature.features.filter(
-    //       (item) => item.attributes.KATEGORIJA === 1
-    //     );
-    //     setLayer(filtered);
-    //     console.log(
-    //       feature.features.filter((item) => item.attributes.KATEGORIJA === 1)
-    //     );
-    //   });
-  };
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {
@@ -133,6 +97,8 @@ function Map() {
   }, [addNewFeature.geometry]);
 
   useEffect(() => {
+    // handleFilterChange(console.log("hello"));
+
     const layer = featureLayer();
     const tile = tileLayer();
     const vector = vectorLayer();
@@ -141,7 +107,7 @@ function Map() {
 
     const view = createMapView(mapRef.current, vector, layer);
 
-    setFeatureLayer(layer);
+    setEventsFeatureLayer(layer);
     setView(view);
 
     layer
@@ -153,22 +119,6 @@ function Map() {
         setData(res.features);
       });
 
-    // filtravimas pagal kategoriją
-    var selectFilter = document.getElementById("filter");
-
-    function setFeatureLayerViewFilter(expression) {
-      view.whenLayerView(layer).then((featureLayerView) => {
-        featureLayerView.filter = {
-          where: expression ? "KATEGORIJA = " + expression : null,
-          excludedEffect: "opacity(0%)",
-        };
-      });
-    }
-
-    selectFilter.addEventListener("change", function (event) {
-      setFeatureLayerViewFilter(event.target.value);
-    });
-
     // renginio popup atvaizdavimas
     view.on("click", function (event) {
       view.hitTest(event, { include: layer }).then(function (response) {
@@ -179,7 +129,7 @@ function Map() {
             return result.graphic.layer === layer;
           })[0].graphic.attributes;
           setQueryPoint(graphic);
-          handleOpen(true);
+          handleOpen(show);
         } else {
           return null;
         }
@@ -221,14 +171,14 @@ function Map() {
   return (
     <div className="mapDiv" ref={mapRef}>
       {/* Fix this. Too much code here. Reuse time date */}
-      <select id="filter">
+      {/* <select id="filter" onChange={handleFilterChange}>
         <option value="">All</option>
         <option value="1">Pirmas</option>
         <option value="2">Hindu</option>
         <option value="3">Christian</option>
         <option value="4">Muslim</option>
         <option value="5">Buddhist</option>
-      </select>
+      </select> */}
       <EventsSchedule>
         <SearchInput
           value={searchTerm}
@@ -261,7 +211,7 @@ function Map() {
           <span>Loading...</span>
         )}
       </EventsSchedule>
-      <Filter data={CategoryData} onChange={handleSelectFilter} />
+      <Filter id="filtras" data={CategoryData} onChange={handleFilterChange} />
 
       {/* Pridėti naują renginį  */}
       <AddEvent
