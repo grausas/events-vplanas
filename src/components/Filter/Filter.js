@@ -10,7 +10,7 @@ import { CheckBox } from "../index";
 // notes: onclick open filter by organization, date and type
 // take info from data state and filter on map
 
-const Filter = ({ data }) => {
+const Filter = ({ data, onChange }) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
@@ -26,11 +26,16 @@ const Filter = ({ data }) => {
         )}
       </IconFilter>
       {show && (
-        <Content>
+        <Content onChange={onChange}>
           {data &&
             data.map((item) => {
               return (
-                <CheckBox key={item.id} value={item.id} label={item.name} />
+                <CheckBox
+                  key={item.id}
+                  value={item.id}
+                  id={item.id}
+                  label={item.text}
+                />
               );
             })}
         </Content>

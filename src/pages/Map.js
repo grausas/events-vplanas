@@ -14,8 +14,9 @@ import {
   SearchInput,
   Filter,
   DatePicker as SingleDatePicker,
-  Loading,
 } from "../components/index.js";
+// utils
+import { CategoryData } from "../utils/CategoryData";
 
 // helpers
 import { createMapView } from "../helpers/Map";
@@ -32,17 +33,58 @@ function Map() {
   const [queryPoint, setQueryPoint] = useState([]);
   const [addNewFeature, setAddNewFeature] = useState([]);
   const [view, setView] = useState();
-  const [layer, setLayer] = useState();
+  const [fetaureLayer, setFeatureLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [isChecked, setIsChecked] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
 
-  console.log(addNewFeature.geometry);
+  // console.log(addNewFeature.geometry);
+  // console.log(isChecked);
+  // console.log(data);
+
+  const handleSelectFilter = (e) => {
+    // console.log(e);
+    if (e.target.checked) {
+      const categoryFilter = data.filter(
+        (item) => item.attributes.KATEGORIJA === Number(e.target.value)
+      );
+      isChecked.push(Number(e.target.value));
+      setIsChecked([...isChecked]);
+      setData(categoryFilter);
+    } else {
+      for (var i = 0; i < isChecked.length; i++) {
+        if (isChecked[i] === Number(e.target.value)) {
+          isChecked.splice(i, 1);
+        }
+      }
+      setIsChecked(isChecked);
+      // console.log(setData((prev) => prev - e.target.value));
+    }
+  };
+
+  // const handleSelectFilter = (e, checked) => {
+  //   console.log(shortResults);
+  //   if (e.target.checked) {
+  //     const categoryId = data.filter(
+  //       (item) => item.attributes.KATEGORIJA === Number(e.target.value)
+  //     );
+  //     console.log(categoryId);
+  //     setData(categoryId);
+  //   } else {
+  //     const unselected = data.filter(
+  //       (item) => item.attributes.KATEGORIJA === Number(e.target.value)
+  //     );
+  //     console.log("unselected ", unselected);
+  //     setData(unselected);
+  //   }
+  // };
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
 
+  // paieška renginių juostoje
   const results = !searchTerm
     ? data
     : data.filter(
@@ -60,12 +102,26 @@ function Map() {
   });
 
   const addEvents = () =>
-    addEventsFeature(addNewFeature, layer, setAddNewFeature);
-  const updateEvent = () => updateEventFeature(queryPoint, layer);
+    addEventsFeature(addNewFeature, fetaureLayer, setAddNewFeature);
+  const updateEvent = () => updateEventFeature(queryPoint, fetaureLayer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
   const updateCurrentPolygon = () =>
     updatePolygon(view, addNewFeature, setAddNewFeature);
+
+  const handleLayerFilter = () => {
+    //   layer.queryFeatures().then(function (feature) {
+    //     // prints the total count to the console
+    //     // feature.filter((item) => item.attributes.KATEGORIJA === 1);
+    //     const filtered = feature.features.filter(
+    //       (item) => item.attributes.KATEGORIJA === 1
+    //     );
+    //     setLayer(filtered);
+    //     console.log(
+    //       feature.features.filter((item) => item.attributes.KATEGORIJA === 1)
+    //     );
+    //   });
+  };
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {
@@ -85,7 +141,7 @@ function Map() {
 
     const view = createMapView(mapRef.current, vector, layer);
 
-    setLayer(layer);
+    setFeatureLayer(layer);
     setView(view);
 
     layer
@@ -97,6 +153,23 @@ function Map() {
         setData(res.features);
       });
 
+    // filtravimas pagal kategoriją
+    var selectFilter = document.getElementById("filter");
+
+    function setFeatureLayerViewFilter(expression) {
+      view.whenLayerView(layer).then((featureLayerView) => {
+        featureLayerView.filter = {
+          where: expression ? "KATEGORIJA = " + expression : null,
+          excludedEffect: "opacity(0%)",
+        };
+      });
+    }
+
+    selectFilter.addEventListener("change", function (event) {
+      setFeatureLayerViewFilter(event.target.value);
+    });
+
+    // renginio popup atvaizdavimas
     view.on("click", function (event) {
       view.hitTest(event, { include: layer }).then(function (response) {
         // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
@@ -148,6 +221,14 @@ function Map() {
   return (
     <div className="mapDiv" ref={mapRef}>
       {/* Fix this. Too much code here. Reuse time date */}
+      <select id="filter">
+        <option value="">All</option>
+        <option value="1">Pirmas</option>
+        <option value="2">Hindu</option>
+        <option value="3">Christian</option>
+        <option value="4">Muslim</option>
+        <option value="5">Buddhist</option>
+      </select>
       <EventsSchedule>
         <SearchInput
           value={searchTerm}
@@ -180,15 +261,7 @@ function Map() {
           <span>Loading...</span>
         )}
       </EventsSchedule>
-      <Filter
-        data={[
-          { id: 1, value: 1, name: "Susitikimas" },
-          { id: 2, value: 2, name: "Festivalis" },
-          { id: 3, value: 3, name: "Viešas renginys" },
-          { id: 4, value: 4, name: "Filmavimas" },
-          { id: 5, value: 5, name: "Mugė" },
-        ]}
-      />
+      <Filter data={CategoryData} onChange={handleSelectFilter} />
 
       {/* Pridėti naują renginį  */}
       <AddEvent
@@ -245,13 +318,7 @@ function Map() {
           }}
         />
         <InputField
-          options={[
-            { id: 1, value: 1, text: "Susitikimas" },
-            { id: 2, value: 2, text: "Festivalis" },
-            { id: 3, value: 3, text: "Viešas renginys" },
-            { id: 4, value: 4, text: "Filmavimas" },
-            { id: 5, value: 5, text: "Mugė" },
-          ]}
+          options={CategoryData}
           type="dropdown"
           labelText="Kategorija"
           id="kategorija"
