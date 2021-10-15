@@ -14,6 +14,7 @@ import {
   SearchInput,
   Filter,
   DatePicker as SingleDatePicker,
+  Loading,
 } from "../components/index.js";
 
 // helpers

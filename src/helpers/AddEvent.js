@@ -20,16 +20,15 @@ export const addEventsFeature = (addNewFeature, layer, setState) => {
     geometry: addNewFeature.geometry,
   });
 
-  console.log(addFeature);
-
   const add = {
     addFeatures: [addFeature],
   };
 
   layer
     .applyEdits(add)
-    .then((editResults) => {
+    .then((editResults, response) => {
       console.log("edit results: ", editResults);
+      console.log(response);
       graphicsLayer.removeAll();
       setState([]);
     })

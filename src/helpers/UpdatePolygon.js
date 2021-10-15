@@ -7,6 +7,7 @@ export const updatePolygon = (view, state, setState) => {
   const sketchVM = new Sketch({
     view: view,
     layer: graphicsLayer,
+
     // updateOnGraphicClick: false,
     defaultUpdateOptions: {
       tool: "reshape",

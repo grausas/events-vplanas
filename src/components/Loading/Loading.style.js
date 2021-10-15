@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  position: relative;
+  /* position: relative; */
   top: 50px;
   left: 0;
   /* width: 100vw;
@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 33;
 `;
 
 export const LoadingBlock = styled.div`

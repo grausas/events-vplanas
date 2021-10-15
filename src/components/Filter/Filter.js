@@ -14,22 +14,18 @@ const Filter = () => {
   return (
     <Wrapper close={show}>
       <IconFilter onClick={handleOpen}>
-        {!show ? <img src={FilterIcon} alt="filter" /> : "Filtruoti pagal:"}
+        {!show ? (
+          <div>
+            <img src={FilterIcon} alt="filter" />
+            <span>Filtras</span>
+          </div>
+        ) : (
+          "Filtruoti pagal:"
+        )}
       </IconFilter>
       {show && (
         <Content>
-          <div>
-            <p>Organizacija</p>
-            <span>+</span>
-          </div>
-          <div>
-            <p>Tipas</p>
-            <span>+</span>
-          </div>
-          <div>
-            <p>Data</p>
-            <span>+</span>
-          </div>
+          <div>Filtras</div>
         </Content>
       )}
     </Wrapper>

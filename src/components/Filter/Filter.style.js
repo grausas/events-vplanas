@@ -25,6 +25,10 @@ export const IconFilter = styled.div`
     width: 23px;
     user-select: none;
   }
+
+  div {
+    display: flex;
+  }
 `;
 
 export const Content = styled.div`
