@@ -36,7 +36,7 @@ function Map() {
   const [eventsFeatureLayer, setEventsFeatureLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-
+  const [filterArray, setfilterArray] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
 
   // filtravimas pagal kategoriją
@@ -47,36 +47,108 @@ function Map() {
     console.log(isChecked, itemValue);
 
     // prideti i arr visus value
-    let arr = [];
-    arr.push(itemValue);
-    console.log("arr pradzia", arr);
 
     if (e.target.checked) {
-      setFeatureLayerViewFilter(e.target.value);
-      function setFeatureLayerViewFilter(expression) {
-        view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
-          featureLayerView.effect = {
-            filter: {
-              where: expression ? "KATEGORIJA = " + expression : null,
-            },
-            excludedEffect: "grayscale(100%) opacity(20%)",
-          };
+      console.log("pirmas checked kai tik yra");
+
+      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+        const queryEvents = eventsFeatureLayer.createQuery();
+        queryEvents.where = `KATEGORIJA = ${itemValue}`;
+        console.log(queryEvents);
+
+        eventsFeatureLayer.queryFeatures(queryEvents).then((result) => {
+          console.log(result);
+          if (isChecked) {
+            isChecked.remove();
+          }
+
+          // the feature to be highlighted
+          const feature = result.features[0];
+
+          // use the objectID to highlight the feature
+          layerView.highlight(feature.attributes["OBJECTID"]);
         });
-      }
-      console.log("arr", arr);
-    } else {
-      // sita dalis resetina visus value, perasyti
-      view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
-        featureLayerView.effect = {
-          filter: {
-            where: "KATEGORIJA",
-          },
-          excludedEffect: "opacity(100%)",
-        };
       });
-      console.log("hello");
+      // Server-side filter
+
+      // Event listener
+
+      // setFeatureLayerViewFilter(e.target.value);
+      // function setFeatureLayerViewFilter(expression) {
+      //   console.log("expression", expression);
+      //   view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
+      //     console.log("pirmas: ", expression);
+      //     console.log("eventsFeatureLayer", eventsFeatureLayer);
+      //     // const tryValue = ;
+      //     featureLayerView.filter = {
+      //       where: `KATEGORIJA = ${[1, 5]}`,
+      //     };
+      //     console.log(featureLayerView.filter);
+      //   });
+      // }
+      // setfilterArray([...filterArray, Number(itemValue)]);
+      // console.log("pirmas variantas");
+    } else if (e.target.checked && filterArray.length >= 1) {
+      setfilterArray([...filterArray, Number(itemValue)]);
+      console.log("filter array daugiua 1");
+
+      const filteredArray = filterArray.map((item, index) => {
+        return "KATEGORIJA = " + item;
+      });
+      console.log("filterarray", filteredArray);
+
+      view
+        .whenLayerView(eventsFeatureLayer)
+        .then((featureLayerView) => {
+          featureLayerView.filter = {
+            where: 1 ? "KATEGORIJA = " + 1 : null,
+          };
+          console.log(featureLayerView.filter);
+        })
+        .catch((error) => console.log("results", error));
+    } else {
+      console.log("else");
+      // sita dalis resetina visus value, perasyti
+      //   const filteredArray = filterArray.filter((item) => item !== itemValue);
+      //   setfilterArray(filteredArray);
+      //   console.log("itemValue", itemValue);
+      //   console.log("filteredArray", filteredArray);
+      //   view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
+      //     featureLayerView.effect = {
+      //       filter: {
+      //         where: "KATEGORIJA",
+      //       },
+      //       excludedEffect: "opacity(100%)",
+      //     };
+      //   });
+      //   console.log("hello");
+      // }
+      // console.log("filterArray second:", filterArray);
+      // const filteredArray = filterArray.filter((item) => item !== itemValue);
+      // setfilterArray(filteredArray);
+      // -----------------------
+      // const index = filterArray.indexOf(e.target.value);
+      // const filteredArray = filterArray.splice(index, 1);
+      // setfilterArray(filteredArray);
+      // filteredArray.map((item) => {
+      //   console.log("item first", item);
+      //   return view
+      //     .whenLayerView(eventsFeatureLayer)
+      //     .then((featureLayerView) => {
+      //       console.log("item second", item);
+      //       featureLayerView.effect = {
+      //         filter: {
+      //           where: item ? "KATEGORIJA = " + item : null,
+      //         },
+      //         excludedEffect: "opacity(100%)",
+      //       };
+      //       // console.log("hello", featureLayerView.effect);
+      //     });
+      // });
     }
   };
+
+  console.log("filter array", filterArray);
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
