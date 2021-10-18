@@ -33,8 +33,31 @@ export const IconFilter = styled.div`
 
 export const Content = styled.div`
   max-width: 400px;
-  margin-top: 5px;
   padding: 0 10px;
+
+  span {
+    font-weight: 600;
+    font-size: var(--big);
+  }
+`;
+
+export const FilterContent = styled.div`
+  margin-top: 5px;
   display: flex;
   flex-wrap: wrap;
+`;
+
+export const CloseImage = styled.img`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  padding: 3px;
+  cursor: pointer;
+
+  :hover {
+    background-color: var(--white);
+  }
 `;

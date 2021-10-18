@@ -14,7 +14,6 @@ const Checkbox = ({ label, value, id }) => {
 
   return (
     <Wrapper>
-      <label htmlFor={id}>{label}</label>
       <CheckInput
         id={id}
         type="checkbox"
@@ -22,6 +21,7 @@ const Checkbox = ({ label, value, id }) => {
         onChange={handleCheckboxChange}
         value={value}
       />
+      <label htmlFor={id}>{label}</label>
     </Wrapper>
   );
 };

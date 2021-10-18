@@ -41,9 +41,18 @@ function Map() {
 
   // filtravimas pagal kategoriją
   const handleFilterChange = (e) => {
+    const isChecked = e.target.checked;
+    const itemValue = e.target.value;
+
+    console.log(isChecked, itemValue);
+
+    // prideti i arr visus value
+    let arr = [];
+    arr.push(itemValue);
+    console.log("arr pradzia", arr);
+
     if (e.target.checked) {
       setFeatureLayerViewFilter(e.target.value);
-      console.log("checked", e);
       function setFeatureLayerViewFilter(expression) {
         view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
           featureLayerView.effect = {
@@ -54,16 +63,18 @@ function Map() {
           };
         });
       }
+      console.log("arr", arr);
     } else {
-      console.log("unchecked", e);
+      // sita dalis resetina visus value, perasyti
       view.whenLayerView(eventsFeatureLayer).then((featureLayerView) => {
         featureLayerView.effect = {
           filter: {
-            where: "KATEGORIJA ",
+            where: "KATEGORIJA",
           },
           excludedEffect: "opacity(100%)",
         };
       });
+      console.log("hello");
     }
   };
 
