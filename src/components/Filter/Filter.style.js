@@ -56,7 +56,6 @@ export const CloseImage = styled.img`
   position: absolute;
   right: 10px;
   top: 10px;
-  width: 22px;
   height: 22px;
   border-radius: 5px;
   padding: 3px;

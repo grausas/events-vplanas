@@ -19,6 +19,7 @@ const DatePicker = ({
   required,
   handleChange,
   displayTime,
+  onChangeRaw,
 }) => {
   const CustomInput = React.forwardRef(({ onClick, value }, ref) => (
     <CustomButton onClick={onClick} ref={ref}>
@@ -38,6 +39,8 @@ const DatePicker = ({
           selected={selected}
           onChange={handleChange}
           required={required}
+          customInput={<CustomInput />}
+          onChangeRaw={onChangeRaw}
         />
       </DatePickerWrapper>
       <DatePickerWrapper display={displayTime}>

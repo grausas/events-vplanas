@@ -37,6 +37,7 @@ export const CustomButton = styled.div`
   width: 100%;
   text-align: left;
   padding: 0.45rem 1rem;
+  font-size: 0.9rem;
   background: var(--white);
   border: 1px solid var(--silver);
   border-radius: 5px;

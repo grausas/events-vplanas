@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // Styles
 import {
   Wrapper,
@@ -27,6 +29,7 @@ const Filter = ({
   handleChangeFinish,
 }) => {
   const { handleOpen, show } = useOpenClose();
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <Wrapper close={show}>
@@ -41,25 +44,25 @@ const Filter = ({
         )}
       </IconFilter>
       {show && (
-        <Content>
+        <Content onChange={onChange}>
           <DateFilter>
             <DatePicker
               placeholderTextDate="Pasirinkti pradžios datą"
               dateTitle="Pradžios data"
               displayTime="none"
-              selected={selected}
-              handleChange={handleChangeStart}
+              selected={startDate}
+              handleChange={(date) => setStartDate(date)}
             />
             <DatePicker
               placeholderTextDate="Pasirinkti pradžios datą"
               dateTitle="Pabaigos data"
               displayTime="none"
-              selected={selected}
-              handleChange={handleChangeFinish}
+              selected={startDate}
+              handleChange={(date) => setStartDate(date)}
             />
           </DateFilter>
           <span>Kategorijos</span>
-          <FilterContent onChange={onChange}>
+          <FilterContent>
             {data &&
               data.map((item) => {
                 return (
