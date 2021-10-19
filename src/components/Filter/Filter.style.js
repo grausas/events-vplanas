@@ -42,6 +42,10 @@ export const Content = styled.div`
   }
 `;
 
+export const DateFilter = styled.div`
+  display: flex;
+`;
+
 export const FilterContent = styled.div`
   margin-top: 5px;
   display: flex;

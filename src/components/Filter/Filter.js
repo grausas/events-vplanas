@@ -5,6 +5,7 @@ import {
   IconFilter,
   FilterContent,
   CloseImage,
+  DateFilter,
 } from "./Filter.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -13,11 +14,18 @@ import FilterIcon from "../../assets/icons/filter.png";
 import CloseIcon from "../../assets/icons/close.png";
 // components
 import { CheckBox } from "../index";
+import { DatePicker } from "../index";
 
 // notes: onclick open filter by organization, date and type
 // take info from data state and filter on map
 
-const Filter = ({ data, onChange }) => {
+const Filter = ({
+  data,
+  onChange,
+  selected,
+  handleChangeStart,
+  handleChangeFinish,
+}) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
@@ -34,6 +42,22 @@ const Filter = ({ data, onChange }) => {
       </IconFilter>
       {show && (
         <Content>
+          <DateFilter>
+            <DatePicker
+              placeholderTextDate="Pasirinkti pradžios datą"
+              dateTitle="Pradžios data"
+              displayTime="none"
+              selected={selected}
+              handleChange={handleChangeStart}
+            />
+            <DatePicker
+              placeholderTextDate="Pasirinkti pradžios datą"
+              dateTitle="Pabaigos data"
+              displayTime="none"
+              selected={selected}
+              handleChange={handleChangeFinish}
+            />
+          </DateFilter>
           <span>Kategorijos</span>
           <FilterContent onChange={onChange}>
             {data &&
