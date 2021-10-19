@@ -18,7 +18,6 @@ export const IconFilter = styled.div`
   display: flex;
   flex-direction: column;
   padding: 9px 8px;
-  cursor: pointer;
   font-weight: 600;
 
   img {
@@ -28,12 +27,14 @@ export const IconFilter = styled.div`
 
   div {
     display: flex;
+    cursor: pointer;
   }
 `;
 
 export const Content = styled.div`
   max-width: 400px;
   padding: 0 10px;
+  user-select: none;
 
   span {
     font-weight: 600;
