@@ -23,7 +23,7 @@ import { createMapView } from "../helpers/Map";
 import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
-import { drawNewPolygon } from "../helpers/DrawPolygon";
+import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
 import { updatePolygon } from "../helpers/UpdatePolygon";
 
 function Map() {
@@ -122,13 +122,9 @@ function Map() {
   }, [addNewFeature.geometry]);
 
   useEffect(() => {
-    // handleFilterChange(console.log("hello"));
-
     const layer = featureLayer();
     const tile = tileLayer();
     const vector = vectorLayer();
-
-    // console.log(vector);
 
     const view = createMapView(mapRef.current, vector, layer);
 
@@ -234,6 +230,7 @@ function Map() {
         isEditing={!isEditing}
         buttonText="Pridėti renginį"
         titleText="Pridėti renginį"
+        buttonTitleCancel="Atšaukti"
         buttonTitle={
           addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
         }
@@ -254,6 +251,10 @@ function Map() {
         handleSubmit={(e) => {
           e.preventDefault();
           addEvents(addNewFeature);
+          setAddNewFeature("");
+        }}
+        handleCancel={() => {
+          graphicsLayer.removeAll();
           setAddNewFeature("");
         }}
       >

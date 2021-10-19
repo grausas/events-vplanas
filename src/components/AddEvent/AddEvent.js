@@ -17,10 +17,12 @@ const AddEvent = ({
   handleCordinates,
   titleText,
   buttonTitle,
+  buttonTitleCancel,
   spanText,
   buttonText,
   isEditing,
   handleUpdate,
+  handleCancel,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -47,6 +49,13 @@ const AddEvent = ({
                   <h3>{titleText}</h3>
                   <InputWrapper>{children}</InputWrapper>
                   <ConfirmButton>{buttonText}</ConfirmButton>
+                  <ConfirmButton
+                    handleClick={() => {
+                      handleCancel();
+                    }}
+                  >
+                    {buttonTitleCancel}
+                  </ConfirmButton>
                 </form>
               </>
             ) : (

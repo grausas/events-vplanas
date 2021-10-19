@@ -62,6 +62,7 @@ export const CloseImage = styled.img`
 export const ConfirmButton = styled(Button)`
   background-color: var(--grey);
   padding: 5px 20px;
+  margin-right: 10px;
 
   :hover {
     background: var(--lightBlue);
