@@ -4,9 +4,7 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const createMapView = (ref, baselayer, layers) => {
   const webmap = new WebMap({
-    basemap: {
-      baseLayers: baselayer,
-    },
+    basemap: "gray-vector",
     layers: [layers, graphicsLayer],
   });
 

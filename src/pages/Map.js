@@ -223,7 +223,16 @@ function Map() {
           <span>Loading...</span>
         )}
       </EventsSchedule>
-      <Filter id="filtras" data={CategoryData} onChange={handleFilterChange} />
+
+      {/* Filtravimas pagal data ir kategorijas */}
+      <Filter
+        selected={startDate}
+        handleChangeStart={(date) => setStartDate(date)}
+        handleChangeFinish={(date) => setStartDate(date)}
+        id="filtras"
+        data={CategoryData}
+        onChange={handleFilterChange}
+      />
 
       {/* Pridėti naują renginį  */}
       <AddEvent
