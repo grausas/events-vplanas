@@ -448,6 +448,17 @@ function Map() {
               });
             }}
           />
+          <InputField
+            type="longtext"
+            labelText="Aprašymas"
+            defaultValue={queryPoint.APRASYMAS}
+            handleChange={(e) => {
+              setQueryPoint({
+                ...queryPoint,
+                APRASYMAS: e.target.value,
+              });
+            }}
+          />
           <SingleDatePicker
             timeTitle="Pradžios laikas"
             dateTitle="Pradžios data"

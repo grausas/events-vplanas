@@ -8,6 +8,7 @@ export const updateEventFeature = (queryPoint, layer) => {
       PAVADINIMAS: `${queryPoint.PAVADINIMAS}`,
       ORGANIZATORIUS: `${queryPoint.ORGANIZATORIUS}`,
       PASTABOS: `${queryPoint.PASTABOS}`,
+      APRASYMAS: `${queryPoint.APRASYMAS}`,
       WEBPAGE: `${queryPoint.WEBPAGE}`,
       KATEGORIJA: `${queryPoint.KATEGORIJA}`,
       RENGINIO_PRADZIA: `${new Date(
