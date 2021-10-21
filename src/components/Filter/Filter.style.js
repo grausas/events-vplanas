@@ -33,7 +33,7 @@ export const IconFilter = styled.div`
 
 export const Content = styled.div`
   max-width: 400px;
-  padding: 0 10px;
+  padding: 10px;
   user-select: none;
 
   h5 {

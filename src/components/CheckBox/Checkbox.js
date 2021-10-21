@@ -13,6 +13,7 @@ const Checkbox = ({ label, value, id }) => {
   return (
     <Wrapper>
       <Label htmlFor={id}>
+        {label}
         <CheckInput
           id={id}
           type="checkbox"
@@ -20,7 +21,7 @@ const Checkbox = ({ label, value, id }) => {
           onChange={handleCheckboxChange}
           value={value}
         />
-        <Span>{label}</Span>
+        <Span></Span>
       </Label>
     </Wrapper>
   );
