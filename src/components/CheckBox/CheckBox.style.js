@@ -35,10 +35,10 @@ export const CheckInput = styled.input`
 
 export const Span = styled.span`
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 0;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
   background-color: #eee;
   border-radius: 5px;
 
@@ -48,8 +48,8 @@ export const Span = styled.span`
     display: none;
     left: 6px;
     top: 2px;
-    width: 5px;
-    height: 10px;
+    width: 4px;
+    height: 9px;
     border: solid white;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);

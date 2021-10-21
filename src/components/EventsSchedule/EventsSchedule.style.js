@@ -40,7 +40,7 @@ export const Events = styled.div`
   margin-bottom: 20px;
 
   div {
-    border-bottom: 1px solid var(--grey);
+    border-bottom: 1px solid var(--silver);
     padding: 10px 0;
   }
 `;
