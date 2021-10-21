@@ -12,10 +12,11 @@ export const Wrapper = styled.div`
   overflow: auto;
   background-color: ${(props) => (props.close ? "var(--grey)" : "none")};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
+  opacity: 0.9;
 `;
 
 export const Content = styled.div`
-  padding: 0 20px;
+  padding: 0 10px;
   overflow: auto;
 `;
 
@@ -24,7 +25,7 @@ export const Text = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 0;
+  padding: 3px 0;
   cursor: pointer;
   user-select: none;
 

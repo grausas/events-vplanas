@@ -12,12 +12,13 @@ export const Wrapper = styled.div`
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   background-color: ${(props) => (props.close ? "var(--white)" : "none")};
   color: ${(props) => (props.close ? "var(--dark)" : "none")};
+  opacity: 0.9;
 `;
 
 export const IconFilter = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 9px 8px;
+  padding: 7px 8px;
   font-weight: 600;
 
   img {
