@@ -28,6 +28,10 @@ export const DatePickerWrapper = styled.div`
   flex-grow: 2;
   display: ${(props) => (props.display ? "none" : "block")};
 
+  span {
+    font-weight: 600;
+  }
+
   :not(:last-child) {
     margin-right: 10px;
   }

@@ -61,7 +61,7 @@ const Filter = ({
               handleChange={(date) => setStartDate(date)}
             />
           </DateFilter>
-          <span>Kategorijos</span>
+          <h5>Kategorijos</h5>
           <FilterContent>
             {data &&
               data.map((item) => {

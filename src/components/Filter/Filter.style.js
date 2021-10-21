@@ -36,9 +36,9 @@ export const Content = styled.div`
   padding: 0 10px;
   user-select: none;
 
-  span {
+  h5 {
     font-weight: 600;
-    font-size: var(--big);
+    /* font-size: var(--big); */
   }
 `;
 
@@ -47,7 +47,6 @@ export const DateFilter = styled.div`
 `;
 
 export const FilterContent = styled.div`
-  margin-top: 5px;
   display: flex;
   flex-wrap: wrap;
 `;
