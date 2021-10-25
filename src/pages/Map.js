@@ -37,12 +37,12 @@ function Map() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+  const [finishDate, setFinishDate] = useState(new Date());
 
   let valuesArr = [];
 
   // filtravimas pagal kategoriją
   const handleFilterChange = (e) => {
-    console.log(e);
     const isChecked = e.target.checked;
     const itemValue = e.target.value;
     let newArr = [];
@@ -79,11 +79,22 @@ function Map() {
           where: valuesArr.length ? "KATEGORIJA IN (" + newArrStr + ")" : null,
         };
       });
-    } else {
     }
-
-    // });
   };
+
+  const handleFilterDate = () => {
+    view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+      console.log("hello");
+      layerView.filter = {
+        where: "RENGINIO_PRADZIA >= " + startDate,
+      };
+      console.log("layerView", layerView);
+    });
+  };
+
+  // filtravimas pagal datą
+
+  console.log(startDate);
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -192,6 +203,7 @@ function Map() {
 
   return (
     <div className="mapDiv" ref={mapRef}>
+      <button onClick={handleFilterDate}>Filter Date</button>
       <EventsSchedule>
         <SearchInput
           value={searchTerm}
@@ -226,7 +238,19 @@ function Map() {
       </EventsSchedule>
 
       {/* Filtravimas pagal data ir kategorijas */}
-      <Filter id="filtras" data={CategoryData} onChange={handleFilterChange} />
+      <Filter
+        id="filtras"
+        data={CategoryData}
+        onChange={handleFilterChange}
+        selectedStart={startDate}
+        selectedFinish={finishDate}
+        handleChangeStart={(date) =>
+          setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
+        }
+        handleChangeFinish={(date) =>
+          setFinishDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
+        }
+      />
 
       {/* Pridėti naują renginį  */}
       <AddEvent
@@ -415,13 +439,7 @@ function Map() {
           />
           <InputField
             type="dropdown"
-            options={[
-              { id: 1, value: 1, text: "Susitikimas" },
-              { id: 2, value: 2, text: "Festivalis" },
-              { id: 3, value: 3, text: "Viešas renginys" },
-              { id: 4, value: 4, text: "Filmavimas" },
-              { id: 5, value: 5, text: "Mugė" },
-            ]}
+            options={CategoryData}
             labelText="Kategorija"
             defaultValue={queryPoint.KATEGORIJA}
             handleChange={(e) => {

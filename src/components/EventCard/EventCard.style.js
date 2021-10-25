@@ -62,7 +62,7 @@ export const CloseImage = styled.img`
   cursor: pointer;
 
   :hover {
-    background-color: var(--white);
+    background-color: var(--silver);
   }
 `;
 
@@ -76,7 +76,7 @@ export const EditIcon = styled.img`
   cursor: pointer;
 
   :hover {
-    background-color: var(--white);
+    background-color: var(--silver);
   }
 `;
 

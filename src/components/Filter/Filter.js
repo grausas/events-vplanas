@@ -24,12 +24,14 @@ import { DatePicker } from "../index";
 const Filter = ({
   data,
   onChange,
-  selected,
+  selectedStart,
+  selectedFinish,
   handleChangeStart,
   handleChangeFinish,
 }) => {
   const { handleOpen, show } = useOpenClose();
-  const [startDate, setStartDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
+  // const [finishDate, setFinishDate] = useState(new Date());
 
   return (
     <Wrapper close={show}>
@@ -44,25 +46,25 @@ const Filter = ({
         )}
       </IconFilter>
       {show && (
-        <Content onChange={onChange}>
+        <Content>
           <DateFilter>
             <DatePicker
               placeholderTextDate="Pasirinkti pradžios datą"
               dateTitle="Pradžios data"
               displayTime="none"
-              selected={startDate}
-              handleChange={(date) => setStartDate(date)}
+              selected={selectedStart}
+              handleChange={handleChangeStart}
             />
             <DatePicker
               placeholderTextDate="Pasirinkti pradžios datą"
               dateTitle="Pabaigos data"
               displayTime="none"
-              selected={startDate}
-              handleChange={(date) => setStartDate(date)}
+              selected={selectedFinish}
+              handleChange={handleChangeFinish}
             />
           </DateFilter>
           <h5>Kategorijos</h5>
-          <FilterContent>
+          <FilterContent onChange={onChange}>
             {data &&
               data.map((item) => {
                 return (
