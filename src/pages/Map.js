@@ -36,8 +36,8 @@ function Map() {
   const [eventsFeatureLayer, setEventsFeatureLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [finishDate, setFinishDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date().getTime());
+  const [finishDate, setFinishDate] = useState(new Date().getTime());
 
   let valuesArr = [];
 
@@ -86,7 +86,11 @@ function Map() {
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
       console.log("hello");
       layerView.filter = {
-        where: "RENGINIO_PRADZIA >= " + startDate,
+        where:
+          "RENGINIO_PRADZIA >= " +
+          startDate +
+          " AND RENGINIO_PABAIGA <= " +
+          finishDate,
       };
       console.log("layerView", layerView);
     });
