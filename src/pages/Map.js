@@ -48,7 +48,7 @@ function Map() {
     let newArr = [];
     console.log("filter", e);
     console.log("startDate", startDate);
-    console.log("finishDate", finishDate);
+    console.log("finishDate", finishDate.length);
 
     if (startDate && finishDate) {
       console.log("elseeee wdwefwegwgrg");
@@ -81,13 +81,15 @@ function Map() {
 
         layerView.filter = {
           where:
-            "KATEGORIJA IN (" +
-            newArrStr +
-            ") AND " +
-            "RENGINIO_PRADZIA >= " +
-            startDate +
-            " AND RENGINIO_PRADZIA <= " +
-            finishDate,
+            startDate.length > 0 && finishDate.length > 0
+              ? "KATEGORIJA IN (" +
+                newArrStr +
+                ") AND " +
+                "RENGINIO_PRADZIA >= " +
+                startDate +
+                " AND RENGINIO_PRADZIA <= " +
+                finishDate
+              : "KATEGORIJA IN (" + newArrStr + ")",
         };
         console.log("layerView", layerView);
       });
@@ -106,15 +108,18 @@ function Map() {
         const newArrStr = newArr.join();
 
         layerView.filter = {
-          where: valuesArr.length
-            ? "KATEGORIJA IN (" +
-              newArrStr +
-              ") AND " +
-              "RENGINIO_PRADZIA >= " +
-              startDate +
-              " AND RENGINIO_PRADZIA <= " +
-              finishDate
-            : null,
+          where:
+            startDate.length > 0 && finishDate.length > 0
+              ? "KATEGORIJA IN (" +
+                newArrStr +
+                ") AND " +
+                "RENGINIO_PRADZIA >= " +
+                startDate +
+                " AND RENGINIO_PRADZIA <= " +
+                finishDate
+              : valuesArr.length
+              ? "KATEGORIJA IN (" + newArrStr + ") AND "
+              : null,
         };
       });
     }
