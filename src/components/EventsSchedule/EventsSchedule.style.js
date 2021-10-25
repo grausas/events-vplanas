@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow: auto;
-  background-color: ${(props) => (props.close ? "var(--grey)" : "none")};
+  background-color: ${(props) =>
+    props.close ? "var(--grey)" : "var(--white)"};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
   opacity: 0.9;
 `;
@@ -23,9 +24,9 @@ export const Content = styled.div`
 export const Text = styled.div`
   position: sticky;
   top: 0;
-  background-color: var(--white);
   display: flex;
   align-items: center;
+  background-color: ${(props) => (props.text ? "var(--white)" : "var(--grey)")};
   justify-content: space-between;
   padding: 3px 0;
   cursor: pointer;

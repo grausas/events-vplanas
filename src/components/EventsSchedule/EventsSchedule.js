@@ -10,7 +10,7 @@ const EventsSchedule = ({ children }) => {
   return (
     <Wrapper close={!show}>
       <Content>
-        <Text onClick={handleOpen}>
+        <Text onClick={handleOpen} text={show}>
           <h3>Renginiai</h3>
           <span>{show ? "-" : "+"}</span>
         </Text>

@@ -46,25 +46,25 @@ const Filter = ({
         )}
       </IconFilter>
       {show && (
-        <Content>
+        <Content onChange={onChange}>
           <DateFilter>
             <DatePicker
-              placeholderTextDate="Pasirinkti pradžios datą"
-              dateTitle="Pradžios data"
+              dateTitle="Nuo"
               displayTime="none"
               selected={selectedStart}
               handleChange={handleChangeStart}
+              title="Pasirinkti pradžios datą"
             />
             <DatePicker
-              placeholderTextDate="Pasirinkti pradžios datą"
-              dateTitle="Pabaigos data"
+              dateTitle="Iki"
               displayTime="none"
               selected={selectedFinish}
               handleChange={handleChangeFinish}
+              title="Pasirinkti pabaigos datą"
             />
           </DateFilter>
           <h5>Kategorijos</h5>
-          <FilterContent onChange={onChange}>
+          <FilterContent>
             {data &&
               data.map((item) => {
                 return (

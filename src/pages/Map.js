@@ -36,8 +36,8 @@ function Map() {
   const [eventsFeatureLayer, setEventsFeatureLayer] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [startDate, setStartDate] = useState(new Date().getTime());
-  const [finishDate, setFinishDate] = useState(new Date().getTime());
+  const [startDate, setStartDate] = useState("");
+  const [finishDate, setFinishDate] = useState("");
 
   let valuesArr = [];
 
@@ -46,6 +46,8 @@ function Map() {
     const isChecked = e.target.checked;
     const itemValue = e.target.value;
     let newArr = [];
+    console.log("filter", e);
+    console.log("startDate", startDate);
 
     if (isChecked) {
       valuesArr.push(itemValue);
@@ -82,9 +84,13 @@ function Map() {
     }
   };
 
-  const handleFilterDate = () => {
+  // filtravimas pagal datą
+  // pakeisti, kad rodytu kai uzkrauna tik ateinancius events nuo dabartines datos
+  // jeigu nuo data didesne negu iki, tai pritaikyti nuo data iki
+  const handleFormData = (event) => {
+    // console.log("hello e", event);
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-      console.log("hello");
+      // console.log("hello");
       layerView.filter = {
         where:
           "RENGINIO_PRADZIA >= " +
@@ -95,8 +101,6 @@ function Map() {
       console.log("layerView", layerView);
     });
   };
-
-  // filtravimas pagal datą
 
   console.log(startDate);
 
@@ -207,7 +211,7 @@ function Map() {
 
   return (
     <div className="mapDiv" ref={mapRef}>
-      <button onClick={handleFilterDate}>Filter Date</button>
+      <button onClick={handleFormData}>Filter Date</button>
       <EventsSchedule>
         <SearchInput
           value={searchTerm}

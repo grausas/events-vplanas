@@ -20,10 +20,11 @@ const DatePicker = ({
   handleChange,
   displayTime,
   onChangeRaw,
+  title,
 }) => {
   const CustomInput = React.forwardRef(({ onClick, value }, ref) => (
     <CustomButton onClick={onClick} ref={ref}>
-      {value}
+      {value.length > 0 ? value : title}
     </CustomButton>
   ));
 
