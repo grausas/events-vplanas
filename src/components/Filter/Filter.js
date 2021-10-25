@@ -18,9 +18,6 @@ import CloseIcon from "../../assets/icons/close.png";
 import { CheckBox } from "../index";
 import { DatePicker } from "../index";
 
-// notes: onclick open filter by organization, date and type
-// take info from data state and filter on map
-
 const Filter = ({
   data,
   onChange,

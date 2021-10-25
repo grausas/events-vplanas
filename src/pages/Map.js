@@ -93,16 +93,17 @@ function Map() {
       // console.log("hello");
       layerView.filter = {
         where:
-          "RENGINIO_PRADZIA >= " +
+          "RENGINIO_PRADZIA > " +
           startDate +
-          " AND RENGINIO_PABAIGA <= " +
+          " AND RENGINIO_PABAIGA < " +
           finishDate,
       };
       console.log("layerView", layerView);
     });
   };
 
-  console.log(startDate);
+  console.log("start", new Date(startDate));
+  console.log("finish", new Date(finishDate));
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -256,7 +257,7 @@ function Map() {
           setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
         }
         handleChangeFinish={(date) =>
-          setFinishDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
+          setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
         }
       />
 
