@@ -48,6 +48,26 @@ function Map() {
     let newArr = [];
     console.log("filter", e);
     console.log("startDate", startDate);
+    console.log("finishDate", finishDate);
+
+    if (startDate && finishDate) {
+      console.log("elseeee wdwefwegwgrg");
+      console.log("elseeee wdwefwegwgrg");
+      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+        console.log("startDate", startDate);
+        console.log("finishDate", finishDate);
+        // console.log("hello");
+        layerView.filter = {
+          where:
+            "RENGINIO_PRADZIA >= " +
+            startDate +
+            " AND RENGINIO_PRADZIA <= " +
+            finishDate,
+        };
+        console.log("layerViewElse", layerView.filter);
+        console.log("layerViewElse", layerView);
+      });
+    }
 
     if (isChecked) {
       valuesArr.push(itemValue);
@@ -60,8 +80,16 @@ function Map() {
         const newArrStr = newArr.join();
 
         layerView.filter = {
-          where: "KATEGORIJA IN (" + newArrStr + ")",
+          where:
+            "KATEGORIJA IN (" +
+            newArrStr +
+            ") AND " +
+            "RENGINIO_PRADZIA >= " +
+            startDate +
+            " AND RENGINIO_PRADZIA <= " +
+            finishDate,
         };
+        console.log("layerView", layerView);
       });
     } else if (!isChecked) {
       const index = valuesArr.indexOf(itemValue);
@@ -78,7 +106,15 @@ function Map() {
         const newArrStr = newArr.join();
 
         layerView.filter = {
-          where: valuesArr.length ? "KATEGORIJA IN (" + newArrStr + ")" : null,
+          where: valuesArr.length
+            ? "KATEGORIJA IN (" +
+              newArrStr +
+              ") AND " +
+              "RENGINIO_PRADZIA >= " +
+              startDate +
+              " AND RENGINIO_PRADZIA <= " +
+              finishDate
+            : null,
         };
       });
     }
@@ -88,22 +124,22 @@ function Map() {
   // pakeisti, kad rodytu kai uzkrauna tik ateinancius events nuo dabartines datos
   // jeigu nuo data didesne negu iki, tai pritaikyti nuo data iki
   const handleFormData = (event) => {
-    // console.log("hello e", event);
+    console.log("hello e", event);
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
       // console.log("hello");
       layerView.filter = {
         where:
-          "RENGINIO_PRADZIA > " +
+          "RENGINIO_PRADZIA >= " +
           startDate +
-          " AND RENGINIO_PABAIGA < " +
+          " AND RENGINIO_PRADZIA <= " +
           finishDate,
       };
       console.log("layerView", layerView);
     });
   };
 
-  console.log("start", new Date(startDate));
-  console.log("finish", new Date(finishDate));
+  // console.log("start", new Date(startDate));
+  // console.log("finish", new Date(finishDate));
 
   // Event modal open
   const { handleOpen, show } = useOpenClose();
@@ -251,6 +287,7 @@ function Map() {
         id="filtras"
         data={CategoryData}
         onChange={handleFilterChange}
+        onClick={handleFilterChange}
         selectedStart={startDate}
         selectedFinish={finishDate}
         handleChangeStart={(date) =>

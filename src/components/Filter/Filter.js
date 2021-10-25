@@ -25,6 +25,7 @@ const Filter = ({
   selectedFinish,
   handleChangeStart,
   handleChangeFinish,
+  onClick,
 }) => {
   const { handleOpen, show } = useOpenClose();
   // const [startDate, setStartDate] = useState(new Date());
@@ -43,7 +44,7 @@ const Filter = ({
         )}
       </IconFilter>
       {show && (
-        <Content onChange={onChange}>
+        <Content onChange={onChange} onClick={onClick}>
           <DateFilter>
             <DatePicker
               dateTitle="Nuo"

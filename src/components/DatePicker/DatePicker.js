@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 // date picker
 import SingleDatePicker, { registerLocale } from "react-datepicker";
@@ -22,11 +22,29 @@ const DatePicker = ({
   onChangeRaw,
   title,
 }) => {
-  const CustomInput = React.forwardRef(({ onClick, value }, ref) => (
-    <CustomButton onClick={onClick} ref={ref}>
-      {value.length > 0 ? value : title}
-    </CustomButton>
+  const CustomInput = forwardRef(({ onChange, onClick, value }, ref) => (
+    // <CustomButton
+    //   onChange={onChange}
+    //   // onClick={onClick}
+    //   readOnly={true}
+    //   ref={ref}
+    // >
+    //   {console.log("value", value)}
+    //   {value.length > 0 ? value : title}
+    // </CustomButton>
+    <CustomButton
+      // onChange={onChange}
+      readOnly={true}
+      onClick={onClick}
+      ref={ref}
+      value={value}
+      // type="text"
+    />
   ));
+
+  const handleChangeRaw = (e) => {
+    console.log("raw", e.target, e.target.value, e.target.text);
+  };
 
   return (
     <Wrapper>
@@ -38,10 +56,10 @@ const DatePicker = ({
           timeIntervals={1}
           dateFormat="yyyy/MM/dd"
           selected={selected}
-          onChange={handleChange}
+          onChange={(value, e) => handleChange(value, e)}
           required={required}
           customInput={<CustomInput />}
-          onChangeRaw={onChangeRaw}
+          onChangeRaw={handleChangeRaw}
         />
       </DatePickerWrapper>
       <DatePickerWrapper display={displayTime}>

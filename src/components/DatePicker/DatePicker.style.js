@@ -33,7 +33,7 @@ export const DatePickerWrapper = styled.div`
   }
 `;
 
-export const CustomButton = styled.div`
+export const CustomButton = styled.input`
   width: 100%;
   text-align: left;
   padding: 0.45rem 1rem;
