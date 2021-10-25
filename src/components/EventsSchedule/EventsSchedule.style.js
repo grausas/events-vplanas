@@ -17,17 +17,20 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   padding: 0 10px;
-  overflow: auto;
+  position: relative;
 `;
 
 export const Text = styled.div`
-  position: relative;
+  position: sticky;
+  top: 0;
+  background-color: var(--white);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 3px 0;
   cursor: pointer;
   user-select: none;
+  z-index: 22;
 
   h3,
   span {
@@ -39,6 +42,7 @@ export const Text = styled.div`
 
 export const Events = styled.div`
   margin-bottom: 20px;
+  overflow: auto;
 
   div {
     border-bottom: 1px solid var(--silver);
