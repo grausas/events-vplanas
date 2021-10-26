@@ -254,7 +254,7 @@ function Map() {
   return (
     <div className="mapDiv" ref={mapRef}>
       <button onClick={handleFormData}>Filter Date</button>
-      <EventsSchedule>
+      <EventsSchedule events={shortResults}>
         <SearchInput
           value={searchTerm}
           handleChange={(event) => {
@@ -262,7 +262,7 @@ function Map() {
           }}
           placeholder="Ieškoti..."
         />
-        {shortResults.length ? (
+        {/* {shortResults.length ? (
           shortResults.map((items) => {
             const item = items.attributes;
             const newStartDate = new Date(item.RENGINIO_PRADZIA).toLocaleString(
@@ -284,7 +284,7 @@ function Map() {
           })
         ) : (
           <span>Loading...</span>
-        )}
+        )} */}
       </EventsSchedule>
 
       {/* Filtravimas pagal data ir kategorijas */}
