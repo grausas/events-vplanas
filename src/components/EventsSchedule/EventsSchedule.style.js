@@ -41,9 +41,9 @@ export const Text = styled.div`
 `;
 
 export const Events = styled.div`
-  border-bottom: 1px solid var(--silver);
   position: relative;
-  border-top: 3px solid var(--lightBlue);
+  border-top: 2px solid var(--lightBlue);
+  margin: 5px 0;
 `;
 
 export const EventsTimestamp = styled.div`

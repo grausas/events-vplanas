@@ -234,7 +234,13 @@ function Map() {
       console.log(features);
 
       view.goTo(
-        features.filter((item) => item.attributes.OBJECTID === Number(eventId))
+        {
+          target: features.filter(
+            (item) => item.attributes.OBJECTID === Number(eventId)
+          ),
+          zoom: 15,
+        },
+        { duration: 1000 }
       );
 
       // view.goTo(features[0].geometry);
