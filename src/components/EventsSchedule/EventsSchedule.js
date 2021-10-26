@@ -3,6 +3,8 @@ import { Wrapper, Content, Text, Events } from "./EventsSchedule.style";
 
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
+//helpers
+import { changeDate, changeTime } from "../../helpers/DateChange";
 
 const EventsSchedule = ({ children, events }) => {
   const { handleOpen, show } = useOpenClose();
@@ -19,15 +21,19 @@ const EventsSchedule = ({ children, events }) => {
             {children}
             {events &&
               events.map((event) => {
-                const eventDate = new Date(
-                  event.attributes.RENGINIO_PRADZIA
-                ).toLocaleString("lt-LT", {
-                  timeZone: "Europe/Vilnius",
-                });
+                const eventDate = changeDate(
+                  new Date(event.attributes.RENGINIO_PRADZIA)
+                );
+                const eventTime = changeTime(
+                  new Date(event.attributes.RENGINIO_PRADZIA)
+                );
+
+                console.log(eventDate);
 
                 return (
                   <div key={event.attributes.OBJECTID}>
                     <p>{eventDate}</p>
+                    <p>{eventTime}</p>
                     <p>{event.attributes.PAVADINIMAS}</p>
                     <p>Daugiau...</p>
                   </div>

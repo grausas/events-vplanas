@@ -25,6 +25,7 @@ import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
 import { updatePolygon } from "../helpers/UpdatePolygon";
+import { changeTime, changeDate } from "../helpers/DateChange";
 
 function Map() {
   const mapRef = useRef(null);
@@ -224,32 +225,10 @@ function Map() {
     };
   }, []);
 
-  // Datos formatavimas
-  const pad = function (n, width, z) {
-    z = z || "0";
-    n = n + "";
-    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-  };
-
-  const newStartDate = new Date(queryPoint.RENGINIO_PRADZIA);
-  const newFinishDate = new Date(queryPoint.RENGINIO_PABAIGA);
-  const startEventTime =
-    pad(newStartDate.getHours(), 2) + ":" + pad(newStartDate.getMinutes(), 2);
-  const startEventDate =
-    newStartDate.getFullYear() +
-    "-" +
-    pad(newStartDate.getMonth() + 1, 2) +
-    "-" +
-    pad(newStartDate.getDate(), 2);
-
-  const finishEventTime =
-    pad(newFinishDate.getHours(), 2) + ":" + pad(newFinishDate.getMinutes(), 2);
-  const finishEventDate =
-    newFinishDate.getFullYear() +
-    "-" +
-    pad(newFinishDate.getMonth() + 1, 2) +
-    "-" +
-    pad(newFinishDate.getDate(), 2);
+  const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
+  const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
+  const startEventTime = changeTime(new Date(queryPoint.RENGINIO_PRADZIA));
+  const finishEventTime = changeTime(new Date(queryPoint.RENGINIO_PABAIGA));
 
   return (
     <div className="mapDiv" ref={mapRef}>
@@ -262,29 +241,6 @@ function Map() {
           }}
           placeholder="Ieškoti..."
         />
-        {/* {shortResults.length ? (
-          shortResults.map((items) => {
-            const item = items.attributes;
-            const newStartDate = new Date(item.RENGINIO_PRADZIA).toLocaleString(
-              "lt-LT",
-              { timeZone: "Europe/Vilnius" }
-            );
-            const newFinishDate = new Date(
-              item.RENGINIO_PABAIGA
-            ).toLocaleString("lt-LT", { timeZone: "Europe/Vilnius" });
-
-            return (
-              <div key={item.OBJECTID}>
-                <p>{newStartDate}</p>
-                <p>{newFinishDate}</p>
-                <p>{item.PAVADINIMAS}</p>
-                <p>{item.ORGANIZATORIUS}</p>
-              </div>
-            );
-          })
-        ) : (
-          <span>Loading...</span>
-        )} */}
       </EventsSchedule>
 
       {/* Filtravimas pagal data ir kategorijas */}
