@@ -18,7 +18,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   outline: none;
   border-radius: 5px;
-  border: 1px solid var(--silver);
+  border: 1px solid var(--darkSilver);
 
   &&:focus {
     outline: none;

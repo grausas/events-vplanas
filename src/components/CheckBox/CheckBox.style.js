@@ -39,7 +39,7 @@ export const Span = styled.span`
   left: 0;
   height: 18px;
   width: 18px;
-  background-color: #eee;
+  background-color: var(--darkSilver);
   border-radius: 5px;
 
   :after {
