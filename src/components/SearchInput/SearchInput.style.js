@@ -6,11 +6,12 @@ export const InputDiv = styled.div`
   justify-content: center;
   align-items: center;
   background-color: unset;
+  padding: 10px;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 0.3rem 2.2rem;
+  padding: 0.3rem 1.8rem;
   font-size: 1em;
   border: none;
   color: var(--dark);
@@ -27,7 +28,7 @@ export const Input = styled.input`
 
 export const Icon = styled.img`
   position: absolute;
-  left: 0;
+  left: 3px;
   z-index: 1;
   width: 40px;
   padding: 0 0.7rem;

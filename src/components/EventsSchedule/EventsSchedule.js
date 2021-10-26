@@ -1,5 +1,12 @@
 // Style
-import { Wrapper, Content, Text, Events } from "./EventsSchedule.style";
+import {
+  Wrapper,
+  Content,
+  Text,
+  Events,
+  EventsTimestamp,
+  EventsText,
+} from "./EventsSchedule.style";
 
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -17,7 +24,7 @@ const EventsSchedule = ({ children, events }) => {
           <span>{show ? "-" : "+"}</span>
         </Text>
         {show && (
-          <Events>
+          <>
             {children}
             {events &&
               events.map((event) => {
@@ -27,19 +34,33 @@ const EventsSchedule = ({ children, events }) => {
                 const eventTime = changeTime(
                   new Date(event.attributes.RENGINIO_PRADZIA)
                 );
-
-                console.log(eventDate);
+                const eventFinishDate = changeDate(
+                  new Date(event.attributes.RENGINIO_PABAIGA)
+                );
+                const eventFinishTime = changeTime(
+                  new Date(event.attributes.RENGINIO_PABAIGA)
+                );
 
                 return (
-                  <div key={event.attributes.OBJECTID}>
-                    <p>{eventDate}</p>
-                    <p>{eventTime}</p>
-                    <p>{event.attributes.PAVADINIMAS}</p>
-                    <p>Daugiau...</p>
-                  </div>
+                  <Events key={event.attributes.OBJECTID}>
+                    <EventsTimestamp>
+                      <div>
+                        <p>{eventDate}</p>
+                        <p>{eventTime}</p>
+                      </div>
+                      <div>
+                        <p>{eventFinishDate}</p>
+                        <p>{eventFinishTime}</p>
+                      </div>
+                    </EventsTimestamp>
+                    <EventsText>
+                      <p>{event.attributes.PAVADINIMAS}</p>
+                      <p>Daugiau...</p>
+                    </EventsText>
+                  </Events>
                 );
               })}
-          </Events>
+          </>
         )}
       </Content>
     </Wrapper>

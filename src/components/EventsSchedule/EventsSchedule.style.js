@@ -17,7 +17,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 0 10px;
   position: relative;
 `;
 
@@ -28,7 +27,7 @@ export const Text = styled.div`
   align-items: center;
   background-color: ${(props) => (props.text ? "var(--white)" : "var(--grey)")};
   justify-content: space-between;
-  padding: 3px 0;
+  padding: 3px 10px;
   cursor: pointer;
   user-select: none;
   z-index: 22;
@@ -42,11 +41,33 @@ export const Text = styled.div`
 `;
 
 export const Events = styled.div`
-  margin-bottom: 20px;
-  overflow: auto;
+  border-bottom: 1px solid var(--silver);
+  position: relative;
 
-  div {
-    border-bottom: 1px solid var(--silver);
-    padding: 10px 0;
+  &&:hover {
+    opacity: 0.9;
   }
+
+  :nth-child(odd) {
+    border-left: 5px solid var(--lightBlue);
+  }
+
+  :nth-child(even) {
+    border-right: 5px solid var(--lightBlue);
+  }
+`;
+
+export const EventsTimestamp = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background: var(--silver);
+  padding: 3px 10px;
+
+  p {
+    font-size: 0.9rem;
+  }
+`;
+
+export const EventsText = styled.div`
+  padding: 0 10px;
 `;
