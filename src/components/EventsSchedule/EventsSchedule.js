@@ -13,7 +13,7 @@ import { useOpenClose } from "../../hooks/useOpenClose";
 //helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
 
-const EventsSchedule = ({ children, events }) => {
+const EventsSchedule = ({ children, events, handleZoom }) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
@@ -55,7 +55,12 @@ const EventsSchedule = ({ children, events }) => {
                     </EventsTimestamp>
                     <EventsText>
                       <p>{event.attributes.PAVADINIMAS}</p>
-                      <p>Daugiau...</p>
+                      <button
+                        id={event.attributes.OBJECTID}
+                        onClick={handleZoom}
+                      >
+                        Daugiau...
+                      </button>
                     </EventsText>
                   </Events>
                 );

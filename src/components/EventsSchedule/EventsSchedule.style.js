@@ -43,18 +43,7 @@ export const Text = styled.div`
 export const Events = styled.div`
   border-bottom: 1px solid var(--silver);
   position: relative;
-
-  &&:hover {
-    opacity: 0.9;
-  }
-
-  :nth-child(odd) {
-    border-left: 5px solid var(--lightBlue);
-  }
-
-  :nth-child(even) {
-    border-right: 5px solid var(--lightBlue);
-  }
+  border-top: 3px solid var(--lightBlue);
 `;
 
 export const EventsTimestamp = styled.div`

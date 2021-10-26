@@ -225,6 +225,22 @@ function Map() {
     };
   }, []);
 
+  const handleZoom = (e) => {
+    const eventId = e.target.id;
+    console.log(eventId);
+
+    eventsFeatureLayer.queryFeatures().then(function (results) {
+      const features = results.features;
+      console.log(features);
+
+      view.goTo(
+        features.filter((item) => item.attributes.OBJECTID === Number(eventId))
+      );
+
+      // view.goTo(features[0].geometry);
+    });
+  };
+
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
   const startEventTime = changeTime(new Date(queryPoint.RENGINIO_PRADZIA));
@@ -232,8 +248,8 @@ function Map() {
 
   return (
     <div className="mapDiv" ref={mapRef}>
-      <button onClick={handleFormData}>Filter Date</button>
-      <EventsSchedule events={shortResults}>
+      {/* <button onClick={handleFormData}>Filter Date</button> */}
+      <EventsSchedule events={shortResults} handleZoom={handleZoom}>
         <SearchInput
           value={searchTerm}
           handleChange={(event) => {
