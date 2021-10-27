@@ -45,8 +45,6 @@ function Map() {
 
   const { handleOpen, show } = useOpenClose();
 
-  let valuesArr = [];
-
   const handleZoom = (e) => {
     const eventId = e;
 
@@ -66,21 +64,21 @@ function Map() {
   };
 
   // filtravimas pagal kategoriją
+  let valuesArr = [];
   const handleFilterChange = (e) => {
     const isChecked = e.target.checked;
     const itemValue = e.target.value;
     let newArr = [];
+    console.log("valueArr", valuesArr);
+    console.log("newArr", newArr);
     console.log("filter", e);
     console.log("startDateeeeee", startDate);
-    console.log("finishDateeeeeee", finishDate.length);
+    console.log("finishDateeeeeee", finishDate);
 
-    if (startDate && finishDate) {
-      console.log("elseeee wdwefwegwgrg");
-      console.log("elseeee wdwefwegwgrg");
+    if (startDate && finishDate && valuesArr.length === 0) {
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         console.log("startDate", startDate);
         console.log("finishDate", finishDate);
-        // console.log("hello");
         layerView.filter = {
           where:
             "RENGINIO_PRADZIA >= " +
@@ -105,7 +103,7 @@ function Map() {
 
         layerView.filter = {
           where:
-            startDate.length > 0 && finishDate.length > 0
+            startDate && finishDate
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
@@ -142,7 +140,7 @@ function Map() {
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
               : valuesArr.length
-              ? "KATEGORIJA IN (" + newArrStr + ") AND "
+              ? "KATEGORIJA IN (" + newArrStr + ")"
               : null,
         };
       });
