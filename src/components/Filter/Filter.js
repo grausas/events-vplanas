@@ -44,20 +44,20 @@ const Filter = ({
         )}
       </IconFilter>
       {show && (
-        <Content onChange={onChange} onClick={onClick}>
+        <Content onClick={onChange}>
           <DateFilter>
             <DatePicker
               dateTitle="Nuo"
               displayTime="none"
               selected={selectedStart}
-              handleChange={handleChangeStart}
+              handleChange={(value) => handleChangeStart(value)}
               title="Pasirinkti pradžios datą"
             />
             <DatePicker
               dateTitle="Iki"
               displayTime="none"
               selected={selectedFinish}
-              handleChange={handleChangeFinish}
+              handleChange={(value) => handleChangeFinish(value)}
               title="Pasirinkti pabaigos datą"
             />
           </DateFilter>

@@ -19,32 +19,10 @@ const DatePicker = ({
   required,
   handleChange,
   displayTime,
-  onChangeRaw,
-  title,
 }) => {
-  const CustomInput = forwardRef(({ onChange, onClick, value }, ref) => (
-    // <CustomButton
-    //   onChange={onChange}
-    //   // onClick={onClick}
-    //   readOnly={true}
-    //   ref={ref}
-    // >
-    //   {console.log("value", value)}
-    //   {value.length > 0 ? value : title}
-    // </CustomButton>
-    <CustomButton
-      // onChange={onChange}
-      readOnly={true}
-      onClick={onClick}
-      ref={ref}
-      value={value}
-      // type="text"
-    />
+  const CustomInput = forwardRef(({ onClick, value }, ref) => (
+    <CustomButton readOnly onClick={onClick} ref={ref} value={value} />
   ));
-
-  const handleChangeRaw = (e) => {
-    console.log("raw", e.target, e.target.value, e.target.text);
-  };
 
   return (
     <Wrapper>
@@ -56,10 +34,9 @@ const DatePicker = ({
           timeIntervals={1}
           dateFormat="yyyy/MM/dd"
           selected={selected}
-          onChange={(value, e) => handleChange(value, e)}
+          onChange={handleChange}
           required={required}
           customInput={<CustomInput />}
-          onChangeRaw={handleChangeRaw}
         />
       </DatePickerWrapper>
       <DatePickerWrapper display={displayTime}>
