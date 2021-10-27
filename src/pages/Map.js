@@ -68,6 +68,7 @@ function Map() {
   const handleFilterChange = (e) => {
     const isChecked = e.target.checked;
     const itemValue = e.target.value;
+    console.log("event", e);
     let newArr = [];
     console.log("valueArr", valuesArr);
     console.log("newArr", newArr);
@@ -75,19 +76,21 @@ function Map() {
     console.log("startDateeeeee", startDate);
     console.log("finishDateeeeeee", finishDate);
 
-    if (startDate && finishDate && valuesArr.length === 0) {
+    if (startDate && finishDate && newArr.length === 0) {
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         console.log("startDate", startDate);
         console.log("finishDate", finishDate);
         layerView.filter = {
           where:
-            "RENGINIO_PRADZIA >= " +
-            startDate +
-            " AND RENGINIO_PRADZIA <= " +
-            finishDate,
+            startDate && finishDate
+              ? "RENGINIO_PRADZIA >= " +
+                startDate +
+                " AND RENGINIO_PRADZIA <= " +
+                finishDate
+              : null,
         };
-        console.log("layerViewElse", layerView.filter);
         console.log("layerViewElse", layerView);
+        console.log("layerViewElseFilter", layerView.filter);
       });
     }
 
@@ -116,6 +119,7 @@ function Map() {
         console.log("layerView", layerView);
       });
     } else if (!isChecked) {
+      console.log("elseif");
       const index = valuesArr.indexOf(itemValue);
       if (index > -1) {
         valuesArr.splice(index, 1);
@@ -131,7 +135,7 @@ function Map() {
 
         layerView.filter = {
           where:
-            startDate.length > 0 && finishDate.length > 0
+            startDate && finishDate && valuesArr.length > 0
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
@@ -139,11 +143,13 @@ function Map() {
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
-              : valuesArr.length
+              : null || valuesArr.length
               ? "KATEGORIJA IN (" + newArrStr + ")"
               : null,
         };
       });
+    } else {
+      console.log("just else");
     }
   };
 
