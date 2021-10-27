@@ -47,14 +47,32 @@ function Map() {
 
   let valuesArr = [];
 
+  const handleZoom = (e) => {
+    const eventId = e;
+
+    eventsFeatureLayer.queryFeatures().then(function (results) {
+      const features = results.features;
+      // console.log(features);
+      view.goTo(
+        {
+          target: features.filter(
+            (item) => item.attributes.OBJECTID === Number(eventId)
+          ),
+          zoom: 14,
+        },
+        { duration: 1000 }
+      );
+    });
+  };
+
   // filtravimas pagal kategoriją
   const handleFilterChange = (e) => {
     const isChecked = e.target.checked;
     const itemValue = e.target.value;
     let newArr = [];
     console.log("filter", e);
-    console.log("startDate", startDate);
-    console.log("finishDate", finishDate.length);
+    console.log("startDateeeeee", startDate);
+    console.log("finishDateeeeeee", finishDate.length);
 
     if (startDate && finishDate) {
       console.log("elseeee wdwefwegwgrg");
@@ -134,20 +152,20 @@ function Map() {
   // filtravimas pagal datą
   // pakeisti, kad rodytu kai uzkrauna tik ateinancius events nuo dabartines datos
   // jeigu nuo data didesne negu iki, tai pritaikyti nuo data iki
-  const handleFormData = (event) => {
-    console.log("hello e", event);
-    view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-      // console.log("hello");
-      layerView.filter = {
-        where:
-          "RENGINIO_PRADZIA >= " +
-          startDate +
-          " AND RENGINIO_PRADZIA <= " +
-          finishDate,
-      };
-      console.log("layerView", layerView);
-    });
-  };
+  // const handleFormData = (event) => {
+  //   console.log("hello e", event);
+  //   view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+  //     // console.log("hello");
+  //     layerView.filter = {
+  //       where:
+  //         "RENGINIO_PRADZIA >= " +
+  //         startDate +
+  //         " AND RENGINIO_PRADZIA <= " +
+  //         finishDate,
+  //     };
+  //     console.log("layerView", layerView);
+  //   });
+  // };
 
   // console.log("start", new Date(startDate));
   // console.log("finish", new Date(finishDate));
@@ -234,28 +252,6 @@ function Map() {
       view && view.destroy();
     };
   }, []);
-
-  const handleZoom = (e) => {
-    const eventId = e.target.id;
-    console.log(eventId);
-
-    eventsFeatureLayer.queryFeatures().then(function (results) {
-      const features = results.features;
-      console.log(features);
-
-      view.goTo(
-        {
-          target: features.filter(
-            (item) => item.attributes.OBJECTID === Number(eventId)
-          ),
-          zoom: 15,
-        },
-        { duration: 1000 }
-      );
-
-      // view.goTo(features[0].geometry);
-    });
-  };
 
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));

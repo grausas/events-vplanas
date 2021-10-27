@@ -56,8 +56,7 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
                     <EventsText>
                       <p>{event.attributes.PAVADINIMAS}</p>
                       <button
-                        id={event.attributes.OBJECTID}
-                        onClick={handleZoom}
+                        onClick={() => handleZoom(event.attributes.OBJECTID)}
                       >
                         Daugiau...
                       </button>
