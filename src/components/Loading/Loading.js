@@ -1,9 +1,9 @@
 // styles
 import { Wrapper, LoadingBlock } from "./Loading.style";
 
-function Loading() {
+function Loading({ id }) {
   return (
-    <Wrapper>
+    <Wrapper id={id}>
       <LoadingBlock></LoadingBlock>
     </Wrapper>
   );

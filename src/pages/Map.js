@@ -4,6 +4,8 @@ import React, { useRef, useEffect, useState } from "react";
 import "./Map.css";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
+// esri modules
+import * as watchUtils from "@arcgis/core/core/watchUtils";
 
 // Components
 import {
@@ -14,6 +16,7 @@ import {
   SearchInput,
   Filter,
   DatePicker as SingleDatePicker,
+  Loading,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -33,12 +36,14 @@ function Map() {
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
   const [addNewFeature, setAddNewFeature] = useState([]);
-  const [view, setView] = useState();
-  const [eventsFeatureLayer, setEventsFeatureLayer] = useState();
+  const [view, setView] = useState("");
+  const [eventsFeatureLayer, setEventsFeatureLayer] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
+
+  const { handleOpen, show } = useOpenClose();
 
   let valuesArr = [];
 
@@ -148,7 +153,6 @@ function Map() {
   // console.log("finish", new Date(finishDate));
 
   // Event modal open
-  const { handleOpen, show } = useOpenClose();
 
   // paieška renginių juostoje
   const results = !searchTerm
@@ -220,6 +224,12 @@ function Map() {
       });
     });
 
+    // rodo loading kol neužsikrautas view, reikia pataisymo
+    watchUtils.whenFalse(view, "updating", function (evt) {
+      const loader = document.getElementById("loading");
+      loader.style.display = "none";
+    });
+
     return () => {
       view && view.destroy();
     };
@@ -253,204 +263,78 @@ function Map() {
   const finishEventTime = changeTime(new Date(queryPoint.RENGINIO_PABAIGA));
 
   return (
-    <div className="mapDiv" ref={mapRef}>
-      {/* <button onClick={handleFormData}>Filter Date</button> */}
-      <EventsSchedule events={shortResults} handleZoom={handleZoom}>
-        <SearchInput
-          value={searchTerm}
-          handleChange={(event) => {
-            setSearchTerm(event.target.value);
-          }}
-          placeholder="Ieškoti..."
-        />
-      </EventsSchedule>
+    <>
+      <div className="mapDiv" ref={mapRef}>
+        <Loading id="loading" />
+        {/* <button onClick={handleFormData}>Filter Date</button> */}
+        <EventsSchedule events={shortResults} handleZoom={handleZoom}>
+          <SearchInput
+            value={searchTerm}
+            handleChange={(event) => {
+              setSearchTerm(event.target.value);
+            }}
+            placeholder="Ieškoti..."
+          />
+        </EventsSchedule>
 
-      {/* Filtravimas pagal data ir kategorijas */}
-      <Filter
-        id="filtras"
-        data={CategoryData}
-        onChange={handleFilterChange}
-        onClick={handleFilterChange}
-        selectedStart={startDate}
-        selectedFinish={finishDate}
-        handleChangeStart={(date) =>
-          setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
-        }
-        handleChangeFinish={(date) =>
-          setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
-        }
-      />
-
-      {/* Pridėti naują renginį  */}
-      <AddEvent
-        isEditing={!isEditing}
-        buttonText="Pridėti renginį"
-        titleText="Pridėti renginį"
-        buttonTitleCancel="Atšaukti"
-        buttonTitle={
-          addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
-        }
-        spanText={
-          addNewFeature.geometry === undefined
-            ? "Pasirinkite pridėti objektą"
-            : "Užpildykite objekto duomenis"
-        }
-        handleCordinates={() => {
-          addNewFeature.geometry === undefined
-            ? addPolygon()
-            : setIsEditing(!isEditing);
-        }}
-        handleUpdate={() => {
-          updateCurrentPolygon();
-          setIsEditing(!isEditing);
-        }}
-        handleSubmit={(e) => {
-          e.preventDefault();
-          addEvents(addNewFeature);
-          setAddNewFeature("");
-        }}
-        handleCancel={() => {
-          graphicsLayer.removeAll();
-          setAddNewFeature("");
-        }}
-      >
-        <InputField
-          type="text"
-          labelText="Pavadinimas"
-          id="pavadinimas"
-          placeholder="Pavadinimas"
-          required
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              PAVADINIMAS: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="text"
-          labelText="Organizatorius"
-          id="organizatorius"
-          placeholder="Organizatorius"
-          required
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              ORGANIZATORIUS: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          options={CategoryData}
-          type="dropdown"
-          labelText="Kategorija"
-          id="kategorija"
-          placeholder="Kategorija"
-          required
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              KATEGORIJA: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="longtext"
-          labelText="Pastabos"
-          placeholder="Pastabos"
-          id="pastabos"
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              PASTABOS: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="longtext"
-          labelText="Aprašymas"
-          placeholder="Aprašymas"
-          id="aprasymas"
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              APRASYMAS: e.target.value,
-            });
-          }}
-        />
-        <SingleDatePicker
-          placeholderTextDate="Data"
-          placeholderTextTime="Laikas"
-          timeTitle="Pradžios laikas"
-          dateTitle="Pradžios data"
-          selected={
-            addNewFeature.RENGINIO_PRADZIA !== undefined
-              ? addNewFeature.RENGINIO_PRADZIA
-              : startDate
+        {/* Filtravimas pagal data ir kategorijas */}
+        <Filter
+          id="filtras"
+          data={CategoryData}
+          onChange={handleFilterChange}
+          onClick={handleFilterChange}
+          selectedStart={startDate}
+          selectedFinish={finishDate}
+          handleChangeStart={(date) =>
+            setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
           }
-          handleChange={(date) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              RENGINIO_PRADZIA: date,
-            });
-          }}
-        />
-        <SingleDatePicker
-          placeholderTextDate="Data"
-          placeholderTextTime="Laikas"
-          timeTitle="Pabaigos laikas"
-          dateTitle="Pabaigos data"
-          selected={
-            addNewFeature.RENGINIO_PABAIGA !== undefined
-              ? addNewFeature.RENGINIO_PABAIGA
-              : startDate
+          handleChangeFinish={(date) =>
+            setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
           }
-          handleChange={(date) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              RENGINIO_PABAIGA: date,
-            });
-          }}
         />
-        <InputField
-          type="text"
-          labelText="Renginio puslapis"
-          id="puslapis"
-          placeholder="Renginio puslapis"
-          required
-          handleChange={(e) => {
-            setAddNewFeature({
-              ...addNewFeature,
-              WEBPAGE: e.target.value,
-            });
-          }}
-        />
-      </AddEvent>
 
-      {/* Renginys ir jo redagavimas */}
-      {show && (
-        <EventCard
-          organization={queryPoint.ORGANIZATORIUS}
-          title={queryPoint.PAVADINIMAS}
-          // category={category}
-          url={queryPoint.WEBPAGE}
-          comment={queryPoint.PASTABOS}
-          description={queryPoint.APRASYMAS}
-          startDate={startEventDate + " | " + startEventTime}
-          finishDate={finishEventDate + " | " + finishEventTime}
-          handleChange={handleOpen}
+        {/* Pridėti naują renginį  */}
+        <AddEvent
+          isEditing={!isEditing}
+          buttonText="Pridėti renginį"
+          titleText="Pridėti renginį"
+          buttonTitleCancel="Atšaukti"
+          buttonTitle={
+            addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
+          }
+          spanText={
+            addNewFeature.geometry === undefined
+              ? "Pasirinkite pridėti objektą"
+              : "Užpildykite objekto duomenis"
+          }
+          handleCordinates={() => {
+            addNewFeature.geometry === undefined
+              ? addPolygon()
+              : setIsEditing(!isEditing);
+          }}
+          handleUpdate={() => {
+            updateCurrentPolygon();
+            setIsEditing(!isEditing);
+          }}
           handleSubmit={(e) => {
             e.preventDefault();
-            updateEvent(queryPoint);
+            addEvents(addNewFeature);
+            setAddNewFeature("");
+          }}
+          handleCancel={() => {
+            graphicsLayer.removeAll();
+            setAddNewFeature("");
           }}
         >
           <InputField
             type="text"
             labelText="Pavadinimas"
-            defaultValue={queryPoint.PAVADINIMAS}
+            id="pavadinimas"
+            placeholder="Pavadinimas"
+            required
             handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 PAVADINIMAS: e.target.value,
               });
             }}
@@ -458,22 +342,26 @@ function Map() {
           <InputField
             type="text"
             labelText="Organizatorius"
-            defaultValue={queryPoint.ORGANIZATORIUS}
+            id="organizatorius"
+            placeholder="Organizatorius"
+            required
             handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 ORGANIZATORIUS: e.target.value,
               });
             }}
           />
           <InputField
-            type="dropdown"
             options={CategoryData}
+            type="dropdown"
             labelText="Kategorija"
-            defaultValue={queryPoint.KATEGORIJA}
+            id="kategorija"
+            placeholder="Kategorija"
+            required
             handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 KATEGORIJA: e.target.value,
               });
             }}
@@ -481,10 +369,11 @@ function Map() {
           <InputField
             type="longtext"
             labelText="Pastabos"
-            defaultValue={queryPoint.PASTABOS}
+            placeholder="Pastabos"
+            id="pastabos"
             handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 PASTABOS: e.target.value,
               });
             }}
@@ -492,32 +381,45 @@ function Map() {
           <InputField
             type="longtext"
             labelText="Aprašymas"
-            defaultValue={queryPoint.APRASYMAS}
+            placeholder="Aprašymas"
+            id="aprasymas"
             handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 APRASYMAS: e.target.value,
               });
             }}
           />
           <SingleDatePicker
+            placeholderTextDate="Data"
+            placeholderTextTime="Laikas"
             timeTitle="Pradžios laikas"
             dateTitle="Pradžios data"
-            selected={queryPoint.RENGINIO_PRADZIA}
-            handleChange={(date, e) => {
-              setQueryPoint({
-                ...queryPoint,
+            selected={
+              addNewFeature.RENGINIO_PRADZIA !== undefined
+                ? addNewFeature.RENGINIO_PRADZIA
+                : startDate
+            }
+            handleChange={(date) => {
+              setAddNewFeature({
+                ...addNewFeature,
                 RENGINIO_PRADZIA: date,
               });
             }}
           />
           <SingleDatePicker
+            placeholderTextDate="Data"
+            placeholderTextTime="Laikas"
             timeTitle="Pabaigos laikas"
             dateTitle="Pabaigos data"
-            selected={queryPoint.RENGINIO_PABAIGA}
+            selected={
+              addNewFeature.RENGINIO_PABAIGA !== undefined
+                ? addNewFeature.RENGINIO_PABAIGA
+                : startDate
+            }
             handleChange={(date) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 RENGINIO_PABAIGA: date,
               });
             }}
@@ -525,17 +427,128 @@ function Map() {
           <InputField
             type="text"
             labelText="Renginio puslapis"
-            defaultValue={queryPoint.WEBPAGE}
+            id="puslapis"
+            placeholder="Renginio puslapis"
+            required
             handleChange={(e) => {
-              setQueryPoint({
-                ...queryPoint,
+              setAddNewFeature({
+                ...addNewFeature,
                 WEBPAGE: e.target.value,
               });
             }}
           />
-        </EventCard>
-      )}
-    </div>
+        </AddEvent>
+
+        {/* Renginys ir jo redagavimas */}
+        {show && (
+          <EventCard
+            organization={queryPoint.ORGANIZATORIUS}
+            title={queryPoint.PAVADINIMAS}
+            // category={category}
+            url={queryPoint.WEBPAGE}
+            comment={queryPoint.PASTABOS}
+            description={queryPoint.APRASYMAS}
+            startDate={startEventDate + " | " + startEventTime}
+            finishDate={finishEventDate + " | " + finishEventTime}
+            handleChange={handleOpen}
+            handleSubmit={(e) => {
+              e.preventDefault();
+              updateEvent(queryPoint);
+            }}
+          >
+            <InputField
+              type="text"
+              labelText="Pavadinimas"
+              defaultValue={queryPoint.PAVADINIMAS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  PAVADINIMAS: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="text"
+              labelText="Organizatorius"
+              defaultValue={queryPoint.ORGANIZATORIUS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  ORGANIZATORIUS: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="dropdown"
+              options={CategoryData}
+              labelText="Kategorija"
+              defaultValue={queryPoint.KATEGORIJA}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  KATEGORIJA: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="longtext"
+              labelText="Pastabos"
+              defaultValue={queryPoint.PASTABOS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  PASTABOS: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="longtext"
+              labelText="Aprašymas"
+              defaultValue={queryPoint.APRASYMAS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  APRASYMAS: e.target.value,
+                });
+              }}
+            />
+            <SingleDatePicker
+              timeTitle="Pradžios laikas"
+              dateTitle="Pradžios data"
+              selected={queryPoint.RENGINIO_PRADZIA}
+              handleChange={(date, e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  RENGINIO_PRADZIA: date,
+                });
+              }}
+            />
+            <SingleDatePicker
+              timeTitle="Pabaigos laikas"
+              dateTitle="Pabaigos data"
+              selected={queryPoint.RENGINIO_PABAIGA}
+              handleChange={(date) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  RENGINIO_PABAIGA: date,
+                });
+              }}
+            />
+            <InputField
+              type="text"
+              labelText="Renginio puslapis"
+              defaultValue={queryPoint.WEBPAGE}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  WEBPAGE: e.target.value,
+                });
+              }}
+            />
+          </EventCard>
+        )}
+      </div>
+    </>
   );
 }
 
