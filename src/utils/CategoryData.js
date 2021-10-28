@@ -1,4 +1,5 @@
 export const CategoryData = [
+  { id: 0, value: 0, text: "Visi" },
   { id: 1, value: 1, text: "Susitikimas" },
   { id: 2, value: 2, text: "Festivalis" },
   { id: 3, value: 3, text: "Viešas renginys" },

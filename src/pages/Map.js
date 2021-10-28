@@ -69,6 +69,7 @@ function Map() {
 
   useEffect(() => {
     if (startDate && finishDate) {
+      console.log("useEffect filter");
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where:
@@ -84,11 +85,12 @@ function Map() {
   }, [startDate, finishDate]);
 
   const handleFilterChange = (e) => {
-    var itemValue = e.target.value;
+    var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
     let newArr = [];
+    console.log(typeof itemValue);
 
-    if (isChecked) {
+    if (isChecked && itemValue !== 0) {
       valuesArr.push(itemValue);
       const values = valuesArr.map((el) => el);
 
@@ -124,6 +126,9 @@ function Map() {
           newArr.push(values[i]);
         }
         const newArrStr = newArr.join();
+        console.log("startDate", startDate);
+        console.log("finishDate", finishDate);
+        console.log("valuesArr", valuesArr.length);
 
         layerView.filter = {
           where:
@@ -135,14 +140,25 @@ function Map() {
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
-              : null || valuesArr.length
-              ? "KATEGORIJA IN (" + newArrStr + ")"
-              : "RENGINIO_PRADZIA >= " +
+              : startDate && finishDate && valuesArr.length === 0
+              ? "RENGINIO_PRADZIA >= " +
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
-                finishDate,
+                finishDate
+              : valuesArr.length > 0 && !startDate && !finishDate
+              ? "KATEGORIJA IN (" + newArrStr + ")"
+              : null,
         };
       });
+    } else if (itemValue === 0) {
+      console.log("itemValue = 0");
+      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+        layerView.filter = {
+          where: "1=1",
+        };
+      });
+      setStartDate("");
+      setFinishDate("");
     }
   };
 
