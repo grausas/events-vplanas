@@ -51,7 +51,6 @@ function Map() {
 
     eventsFeatureLayer.queryFeatures().then(function (results) {
       const features = results.features;
-      // console.log(features);
       view.goTo(
         {
           target: features.filter(
@@ -64,12 +63,12 @@ function Map() {
     });
   };
 
-  // filtravimas pagal kategoriją
+  // filtravimas pagal kategoriją ir datą
+  // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
 
   useEffect(() => {
     if (startDate && finishDate) {
-      console.log("useEffect filter");
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where:
@@ -88,7 +87,6 @@ function Map() {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
     let newArr = [];
-    console.log(typeof itemValue);
 
     if (isChecked && itemValue !== 0) {
       valuesArr.push(itemValue);
@@ -114,6 +112,7 @@ function Map() {
         };
       });
     } else if (!isChecked && valuesArr.length > 0) {
+      console.log("itemvalue", itemValue);
       const index = valuesArr.indexOf(itemValue);
       if (index > -1) {
         valuesArr.splice(index, 1);
@@ -126,10 +125,6 @@ function Map() {
           newArr.push(values[i]);
         }
         const newArrStr = newArr.join();
-        console.log("startDate", startDate);
-        console.log("finishDate", finishDate);
-        console.log("valuesArr", valuesArr.length);
-
         layerView.filter = {
           where:
             startDate && finishDate && valuesArr.length > 0
@@ -151,7 +146,6 @@ function Map() {
         };
       });
     } else if (itemValue === 0) {
-      console.log("itemValue = 0");
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where: "1=1",
@@ -159,6 +153,7 @@ function Map() {
       });
       setStartDate("");
       setFinishDate("");
+      valuesArr = [];
     }
   };
 

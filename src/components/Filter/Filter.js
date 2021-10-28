@@ -25,11 +25,8 @@ const Filter = ({
   selectedFinish,
   handleChangeStart,
   handleChangeFinish,
-  onClick,
 }) => {
   const { handleOpen, show } = useOpenClose();
-  // const [startDate, setStartDate] = useState(new Date());
-  // const [finishDate, setFinishDate] = useState(new Date());
 
   return (
     <Wrapper close={show}>
@@ -68,7 +65,7 @@ const Filter = ({
                 return (
                   <CheckBox
                     key={item.id}
-                    value={item.id}
+                    value={item.value}
                     id={item.id}
                     label={item.text}
                   />
