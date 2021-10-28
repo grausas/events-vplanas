@@ -23,7 +23,7 @@ import { CategoryData } from "../utils/CategoryData";
 
 // helpers
 import { createMapView } from "../helpers/Map";
-import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
+import { featureLayer, vectorLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
@@ -32,7 +32,6 @@ import { changeTime, changeDate } from "../helpers/DateChange";
 
 function Map() {
   const mapRef = useRef(null);
-  const isMounted = useRef(false);
 
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
@@ -81,7 +80,7 @@ function Map() {
         };
       });
     }
-  }, [startDate, finishDate]);
+  }, [startDate, finishDate, view, eventsFeatureLayer]);
 
   const handleFilterChange = (e) => {
     var itemValue = Number(e.target.value);
@@ -195,7 +194,6 @@ function Map() {
 
   useEffect(() => {
     const layer = featureLayer();
-    const tile = tileLayer();
     const vector = vectorLayer();
 
     const view = createMapView(mapRef.current, vector, layer);
