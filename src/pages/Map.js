@@ -32,6 +32,7 @@ import { changeTime, changeDate } from "../helpers/DateChange";
 
 function Map() {
   const mapRef = useRef(null);
+  const isMounted = useRef(false);
 
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
@@ -65,21 +66,10 @@ function Map() {
 
   // filtravimas pagal kategoriją
   let valuesArr = [];
-  const handleFilterChange = (e) => {
-    const isChecked = e.target.checked;
-    const itemValue = e.target.value;
-    console.log("event", e);
-    let newArr = [];
-    console.log("valueArr", valuesArr);
-    console.log("newArr", newArr);
-    console.log("filter", e);
-    console.log("startDateeeeee", startDate);
-    console.log("finishDateeeeeee", finishDate);
 
-    if (startDate && finishDate && newArr.length === 0) {
+  useEffect(() => {
+    if (startDate && finishDate) {
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-        console.log("startDate", startDate);
-        console.log("finishDate", finishDate);
         layerView.filter = {
           where:
             startDate && finishDate
@@ -89,10 +79,14 @@ function Map() {
                 finishDate
               : null,
         };
-        console.log("layerViewElse", layerView);
-        console.log("layerViewElseFilter", layerView.filter);
       });
     }
+  }, [startDate, finishDate]);
+
+  const handleFilterChange = (e) => {
+    var itemValue = e.target.value;
+    var isChecked = e.target.checked;
+    let newArr = [];
 
     if (isChecked) {
       valuesArr.push(itemValue);
@@ -116,10 +110,8 @@ function Map() {
                 finishDate
               : "KATEGORIJA IN (" + newArrStr + ")",
         };
-        console.log("layerView", layerView);
       });
-    } else if (!isChecked) {
-      console.log("elseif");
+    } else if (!isChecked && valuesArr.length > 0) {
       const index = valuesArr.indexOf(itemValue);
       if (index > -1) {
         valuesArr.splice(index, 1);
@@ -145,34 +137,14 @@ function Map() {
                 finishDate
               : null || valuesArr.length
               ? "KATEGORIJA IN (" + newArrStr + ")"
-              : null,
+              : "RENGINIO_PRADZIA >= " +
+                startDate +
+                " AND RENGINIO_PRADZIA <= " +
+                finishDate,
         };
       });
-    } else {
-      console.log("just else");
     }
   };
-
-  // filtravimas pagal datą
-  // pakeisti, kad rodytu kai uzkrauna tik ateinancius events nuo dabartines datos
-  // jeigu nuo data didesne negu iki, tai pritaikyti nuo data iki
-  // const handleFormData = (event) => {
-  //   console.log("hello e", event);
-  //   view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-  //     // console.log("hello");
-  //     layerView.filter = {
-  //       where:
-  //         "RENGINIO_PRADZIA >= " +
-  //         startDate +
-  //         " AND RENGINIO_PRADZIA <= " +
-  //         finishDate,
-  //     };
-  //     console.log("layerView", layerView);
-  //   });
-  // };
-
-  // console.log("start", new Date(startDate));
-  // console.log("finish", new Date(finishDate));
 
   // Event modal open
 
@@ -281,8 +253,6 @@ function Map() {
         <Filter
           id="filtras"
           data={CategoryData}
-          onChange={handleFilterChange}
-          onClick={handleFilterChange}
           selectedStart={startDate}
           selectedFinish={finishDate}
           handleChangeStart={(date) =>
@@ -291,6 +261,7 @@ function Map() {
           handleChangeFinish={(date) =>
             setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
           }
+          onChange={handleFilterChange}
         />
 
         {/* Pridėti naują renginį  */}
