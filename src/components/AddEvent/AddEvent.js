@@ -1,6 +1,6 @@
 // Styles
 import {
-  Close,
+  AddObjectButton,
   FormWrapper,
   InputWrapper,
   CloseImage,
@@ -29,9 +29,9 @@ const AddEvent = ({
   return (
     <div>
       {!show ? (
-        <Close>
+        <AddObjectButton>
           <span onClick={handleOpen}>Pridėti objektą</span>
-        </Close>
+        </AddObjectButton>
       ) : (
         <FormWrapper isEditing={isEditing}>
           <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />

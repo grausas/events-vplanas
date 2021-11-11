@@ -18,6 +18,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   position: relative;
+  padding: 0 10px;
 `;
 
 export const Text = styled.div`
@@ -27,7 +28,7 @@ export const Text = styled.div`
   align-items: center;
   background-color: ${(props) => (props.text ? "var(--white)" : "var(--grey)")};
   justify-content: space-between;
-  padding: 3px 10px;
+  padding: 3px 0;
   cursor: pointer;
   user-select: none;
   z-index: 22;
@@ -42,21 +43,35 @@ export const Text = styled.div`
 
 export const Events = styled.div`
   position: relative;
-  border-top: 2px solid var(--lightBlue);
-  margin: 5px 0;
+  padding: 5px 10px;
+  border: 1px solid var(--silver);
+  border-radius: 5px;
+  margin-top: 10px;
 `;
 
 export const EventsTimestamp = styled.div`
-  display: flex;
-  justify-content: space-between;
-  background: var(--silver);
-  padding: 3px 10px;
-
   p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    margin: 0;
   }
 `;
 
 export const EventsText = styled.div`
-  padding: 0 10px;
+  p {
+    font-weight: 600;
+  }
+`;
+
+export const MoreButtonWrapper = styled.div`
+  text-align: right;
+`;
+
+export const MoreButton = styled.button`
+  border: none;
+  color: var(--darkGrey);
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--darkSilver);
+  }
 `;

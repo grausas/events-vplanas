@@ -6,12 +6,11 @@ export const InputDiv = styled.div`
   justify-content: center;
   align-items: center;
   background-color: unset;
-  padding: 10px;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 0.3rem 1.8rem;
+  padding: 0.3rem 2rem;
   font-size: 1em;
   border: none;
   color: var(--dark);

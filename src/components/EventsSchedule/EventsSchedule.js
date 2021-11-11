@@ -6,6 +6,8 @@ import {
   Events,
   EventsTimestamp,
   EventsText,
+  MoreButtonWrapper,
+  MoreButton,
 } from "./EventsSchedule.style";
 
 // hooks
@@ -44,22 +46,22 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
                 return (
                   <Events key={event.attributes.OBJECTID}>
                     <EventsTimestamp>
-                      <div>
-                        <p>{eventDate}</p>
-                        <p>{eventTime}</p>
-                      </div>
-                      <div>
-                        <p>{eventFinishDate}</p>
-                        <p>{eventFinishTime}</p>
-                      </div>
+                      <p>
+                        Pradžia: {eventDate} | {eventTime}
+                      </p>
+                      <p>
+                        Pabaiga: {eventFinishDate} | {eventFinishTime}
+                      </p>
                     </EventsTimestamp>
                     <EventsText>
                       <p>{event.attributes.PAVADINIMAS}</p>
-                      <button
-                        onClick={() => handleZoom(event.attributes.OBJECTID)}
-                      >
-                        Daugiau...
-                      </button>
+                      <MoreButtonWrapper>
+                        <MoreButton
+                          onClick={() => handleZoom(event.attributes.OBJECTID)}
+                        >
+                          Daugiau
+                        </MoreButton>
+                      </MoreButtonWrapper>
                     </EventsText>
                   </Events>
                 );

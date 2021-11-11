@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button from "../Button/Button";
 
-export const Close = styled.div`
+export const AddObjectButton = styled.div`
   position: absolute;
   max-height: 600px;
   top: 2%;
@@ -20,7 +20,7 @@ export const FormWrapper = styled.div`
   margin: 0 auto;
   max-width: 500px;
   max-height: 80vh;
-  width: ${(props) => (props.isEditing ? "22%" : "100%")};
+  width: ${(props) => (props.isEditing ? "220px" : "100%")};
   border-radius: 5px;
   top: 2%;
   right: ${(props) => (props.isEditing ? "20px" : "")};

@@ -247,7 +247,6 @@ function Map() {
     <>
       <div className="mapDiv" ref={mapRef}>
         <Loading id="loading" />
-        {/* <button onClick={handleFormData}>Filter Date</button> */}
         <EventsSchedule events={shortResults} handleZoom={handleZoom}>
           <SearchInput
             value={searchTerm}
