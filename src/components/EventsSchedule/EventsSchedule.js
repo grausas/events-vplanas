@@ -44,7 +44,14 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
                 );
 
                 return (
-                  <Events key={event.attributes.OBJECTID}>
+                  <Events
+                    key={event.attributes.OBJECTID}
+                    backgroundColor={event.attributes.KATEGORIJA}
+                  >
+                    <EventsText>
+                      <p>{event.attributes.PAVADINIMAS}</p>
+                      <p>{event.attributes.ORGANIZATORIUS}</p>
+                    </EventsText>
                     <EventsTimestamp>
                       <p>
                         Pradžia: {eventDate} | {eventTime}
@@ -53,16 +60,13 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
                         Pabaiga: {eventFinishDate} | {eventFinishTime}
                       </p>
                     </EventsTimestamp>
-                    <EventsText>
-                      <p>{event.attributes.PAVADINIMAS}</p>
-                      <MoreButtonWrapper>
-                        <MoreButton
-                          onClick={() => handleZoom(event.attributes.OBJECTID)}
-                        >
-                          Daugiau
-                        </MoreButton>
-                      </MoreButtonWrapper>
-                    </EventsText>
+                    <MoreButtonWrapper>
+                      <MoreButton
+                        onClick={() => handleZoom(event.attributes.OBJECTID)}
+                      >
+                        Daugiau
+                      </MoreButton>
+                    </MoreButtonWrapper>
                   </Events>
                 );
               })}
