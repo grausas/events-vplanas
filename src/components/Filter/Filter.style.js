@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   border-radius: 5px;
   color: var(--white);
   left: 310px;
+  padding: 10px;
   top: 2%;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   background-color: ${(props) => (props.close ? "var(--white)" : "none")};
@@ -18,11 +19,11 @@ export const Wrapper = styled.div`
 export const IconFilter = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 7px 8px;
+  /* padding: 7px 8px; */
   font-weight: 600;
 
   img {
-    width: 23px;
+    width: 21px;
     user-select: none;
   }
 

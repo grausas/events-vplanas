@@ -28,10 +28,10 @@ export const Text = styled.div`
   align-items: center;
   background-color: ${(props) => (props.text ? "var(--white)" : "var(--grey)")};
   justify-content: space-between;
-  padding: 3px 0;
   cursor: pointer;
   user-select: none;
   z-index: 22;
+  padding: 5px 10px;
 
   h3,
   span {
@@ -47,6 +47,10 @@ export const Events = styled.div`
   border: 1px solid var(--silver);
   border-radius: 5px;
   margin-top: 10px;
+
+  &:last-child {
+    margin-bottom: 10px;
+  }
 
   &::after {
     content: "";

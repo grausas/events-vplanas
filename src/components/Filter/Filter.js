@@ -32,7 +32,6 @@ const Filter = ({
         {!show ? (
           <div onClick={handleOpen}>
             <img src={FilterIcon} alt="filter" />
-            <span>Filtras</span>
           </div>
         ) : (
           <CloseImage src={CloseIcon} alt="close" onClick={handleOpen} />

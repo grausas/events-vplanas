@@ -20,11 +20,11 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
 
   return (
     <Wrapper close={!show}>
+      <Text onClick={handleOpen} text={show}>
+        <h3>Renginiai</h3>
+        <span>{show ? "-" : "+"}</span>
+      </Text>
       <Content>
-        <Text onClick={handleOpen} text={show}>
-          <h3>Renginiai</h3>
-          <span>{show ? "-" : "+"}</span>
-        </Text>
         {show && (
           <>
             {children}
