@@ -69,6 +69,7 @@ const Filter = ({
                 );
               })}
           </FilterContent>
+          <button>Išvalyti</button>
         </Content>
       )}
     </Wrapper>
