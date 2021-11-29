@@ -239,7 +239,6 @@ function Map() {
     // renginio popup atvaizdavimas
     view.on("click", function (event) {
       // view.hitTest(event, { include: layer }).then(function (response) {
-      //   console.log("response", response);
       //   // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
       //   if (response.results.length === 1) {
       //     const graphic = response.results.filter(function (result) {
@@ -256,16 +255,18 @@ function Map() {
       //-------------------- query multiple objects in same place
       // console.log(event);
       let query = layer.createQuery();
-      console.log(view.toMap(event));
+      // console.log(view.toMap(event));
       query.geometry = view.toMap(event);
       query.outFields = ["*"];
 
       layer.queryFeatures(query).then(function (response) {
-        // returns a feature set with features containing the
-        // POPULATION attribute and each feature's geometry
-        const graphics = response.features[0].attributes;
-        console.log("response", response.features[0].attributes);
-        setQueryPoint(graphics);
+        console.log("response", response);
+        if (response.features.length > 0) {
+          const graphics = response.features[0].attributes;
+          console.log("response", response.features[0].attributes);
+          setQueryPoint(graphics);
+          handleOpen(show);
+        }
       });
     });
 
