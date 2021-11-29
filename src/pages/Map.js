@@ -6,6 +6,7 @@ import "./Map.css";
 import { useOpenClose } from "../hooks/useOpenClose";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
+import Query from "@arcgis/core/rest/support/Query";
 
 // Components
 import {
@@ -42,6 +43,7 @@ function Map() {
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
+  //checkboxes
 
   const { handleOpen, show } = useOpenClose();
 
@@ -85,9 +87,16 @@ function Map() {
   const handleFilterChange = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
+    const optionId = e.target.checked;
+    console.log(optionId);
     let newArr = [];
-
     if (isChecked && itemValue !== 0) {
+      // setCheckBoxes((prevState) => ({
+      //   checkBoxes: {
+      //     ...prevState.checkBoxes,
+      //     [optionId.id]: !prevState.checkBoxes[optionId.id],
+      //   },
+      // }));
       valuesArr.push(itemValue);
       const values = valuesArr.map((el) => el);
 
@@ -145,6 +154,7 @@ function Map() {
         };
       });
     } else if (itemValue === 0) {
+      console.log("e", e);
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where: "1=1",
@@ -154,6 +164,22 @@ function Map() {
       setFinishDate("");
       valuesArr = [];
     }
+  };
+
+  // clear filter
+  const handleClearFilter = (checkbox) => {
+    // console.log("hello", checkbox);
+    // valuesArr = [];
+    for (var a = 0; a < valuesArr.length; a++) {
+      console.log(valuesArr[a]);
+    }
+    view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+      layerView.filter = {
+        where: "1=1",
+      };
+    });
+    setStartDate("");
+    setFinishDate("");
   };
 
   // Event modal open
@@ -212,18 +238,34 @@ function Map() {
 
     // renginio popup atvaizdavimas
     view.on("click", function (event) {
-      view.hitTest(event, { include: layer }).then(function (response) {
-        // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-        if (response.results.length === 1) {
-          const graphic = response.results.filter(function (result) {
-            // check if the graphic belongs to the layer of interest
-            return result.graphic.layer === layer;
-          })[0].graphic.attributes;
-          setQueryPoint(graphic);
-          handleOpen(show);
-        } else {
-          return null;
-        }
+      // view.hitTest(event, { include: layer }).then(function (response) {
+      //   console.log("response", response);
+      //   // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+      //   if (response.results.length === 1) {
+      //     const graphic = response.results.filter(function (result) {
+      //       // check if the graphic belongs to the layer of interest
+      //       // console.log("results", result.graphic.layer);
+      //       return result.graphic.layer === layer;
+      //     })[0].graphic.attributes;
+      //     setQueryPoint(graphic);
+      //     handleOpen(show);
+      //   } else {
+      //     return null;
+      //   }
+      // });
+      //-------------------- query multiple objects in same place
+      // console.log(event);
+      let query = layer.createQuery();
+      console.log(view.toMap(event));
+      query.geometry = view.toMap(event);
+      query.outFields = ["*"];
+
+      layer.queryFeatures(query).then(function (response) {
+        // returns a feature set with features containing the
+        // POPULATION attribute and each feature's geometry
+        const graphics = response.features[0].attributes;
+        console.log("response", response.features[0].attributes);
+        setQueryPoint(graphics);
       });
     });
 
@@ -270,6 +312,7 @@ function Map() {
             setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
           }
           onChange={handleFilterChange}
+          handleClear={handleClearFilter}
         />
 
         {/* Pridėti naują renginį  */}
@@ -419,6 +462,7 @@ function Map() {
         </AddEvent>
 
         {/* Renginys ir jo redagavimas */}
+        {console.log("querypoint", queryPoint)}
         {show && (
           <EventCard
             organization={queryPoint.ORGANIZATORIUS}

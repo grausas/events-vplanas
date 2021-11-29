@@ -70,7 +70,9 @@ const Filter = ({
                 );
               })}
           </FilterContent>
-          <ClearButton onClick={handleClear}>Išvalyti</ClearButton>
+          <ClearButton handleClick={handleClear} value="clear">
+            Išvalyti
+          </ClearButton>
         </Content>
       )}
     </Wrapper>
