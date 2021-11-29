@@ -6,6 +6,7 @@ import {
   FilterContent,
   CloseImage,
   DateFilter,
+  ClearButton,
 } from "./Filter.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -13,8 +14,7 @@ import { useOpenClose } from "../../hooks/useOpenClose";
 import FilterIcon from "../../assets/icons/filter.png";
 import CloseIcon from "../../assets/icons/close.png";
 // components
-import { CheckBox } from "../index";
-import { DatePicker } from "../index";
+import { CheckBox, DatePicker } from "../index";
 
 const Filter = ({
   data,
@@ -23,6 +23,7 @@ const Filter = ({
   selectedFinish,
   handleChangeStart,
   handleChangeFinish,
+  handleClear,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -69,7 +70,7 @@ const Filter = ({
                 );
               })}
           </FilterContent>
-          <button>Išvalyti</button>
+          <ClearButton onClick={handleClear}>Išvalyti</ClearButton>
         </Content>
       )}
     </Wrapper>

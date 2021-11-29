@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Button } from "../index";
+
 export const Wrapper = styled.div`
   position: absolute;
   display: flex;
@@ -64,5 +66,17 @@ export const CloseImage = styled.img`
 
   :hover {
     background-color: var(--white);
+  }
+`;
+
+export const ClearButton = styled(Button)`
+  float: right;
+  padding: 3px 7px;
+  background-color: var(--darkSilver);
+  color: var(--dark);
+
+  &:hover {
+    background-color: var(--dark);
+    color: var(--white);
   }
 `;
