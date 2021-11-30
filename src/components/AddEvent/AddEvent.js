@@ -48,11 +48,7 @@ const AddEvent = ({
                 <h3>{titleText}</h3>
                 <InputWrapper>{children}</InputWrapper>
                 <ConfirmButton>{buttonText}</ConfirmButton>
-                <ConfirmButton
-                  handleClick={() => {
-                    handleCancel();
-                  }}
-                >
+                <ConfirmButton handleClick={handleCancel}>
                   {buttonTitleCancel}
                 </ConfirmButton>
               </form>
@@ -60,11 +56,7 @@ const AddEvent = ({
           ) : (
             <>
               <p>{spanText}</p>
-              <ConfirmButton
-                handleClick={() => {
-                  handleCordinates();
-                }}
-              >
+              <ConfirmButton handleClick={handleCordinates}>
                 {buttonTitle}
               </ConfirmButton>
             </>

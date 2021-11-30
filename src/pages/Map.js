@@ -6,7 +6,6 @@ import "./Map.css";
 import { useOpenClose } from "../hooks/useOpenClose";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
-import Query from "@arcgis/core/rest/support/Query";
 
 // Components
 import {
@@ -342,11 +341,11 @@ function Map() {
           handleSubmit={(e) => {
             e.preventDefault();
             addEvents(addNewFeature);
-            setAddNewFeature("");
+            setAddNewFeature([]);
           }}
           handleCancel={() => {
+            setAddNewFeature([]);
             graphicsLayer.removeAll();
-            setAddNewFeature("");
           }}
         >
           <InputField
@@ -463,7 +462,6 @@ function Map() {
         </AddEvent>
 
         {/* Renginys ir jo redagavimas */}
-        {console.log("querypoint", queryPoint)}
         {show && (
           <EventCard
             organization={queryPoint.ORGANIZATORIUS}

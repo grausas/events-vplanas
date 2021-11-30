@@ -29,7 +29,7 @@ export const updatePolygon = (view, state, setState) => {
     console.log("firssss", event);
     if (event.state === "cancel" || event.state === "complete") {
       console.log("event second", event);
-      const sketchGeometry = event.graphics[0].geometry;
+      var sketchGeometry = event.graphics[0].geometry;
       const graphic = event.graphics[0];
       graphicsLayer.graphics = [graphic];
       sketchVM.update([graphic]);
