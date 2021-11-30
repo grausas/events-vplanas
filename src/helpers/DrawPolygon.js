@@ -18,7 +18,7 @@ export const drawNewPolygon = (view, state, setState) => {
         width: 1,
       },
     },
-    defaultCreateOptions: { hasZ: false },
+    defaultCreateOptions: { mode: "click" },
     updateOnGraphicClick: false,
   });
 
@@ -27,7 +27,7 @@ export const drawNewPolygon = (view, state, setState) => {
   sketchVM.on("create", function (event) {
     if (event.state === "complete") {
       const sketchGeometry = event.graphic.geometry;
-      // console.log(sketchGeometry);
+      console.log("sketchGeometry", sketchGeometry);
       // console.log(graphicsLayer);
       setState({
         ...state,
@@ -35,4 +35,6 @@ export const drawNewPolygon = (view, state, setState) => {
       });
     }
   });
+
+  sketchVM.complete();
 };

@@ -344,8 +344,10 @@ function Map() {
             setAddNewFeature([]);
           }}
           handleCancel={() => {
-            setAddNewFeature([]);
             graphicsLayer.removeAll();
+            // setIsEditing(!isEditing);
+            setAddNewFeature([]);
+            console.log(graphicsLayer);
           }}
         >
           <InputField

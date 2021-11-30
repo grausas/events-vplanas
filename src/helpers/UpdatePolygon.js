@@ -27,19 +27,31 @@ export const updatePolygon = (view, state, setState) => {
 
   sketchVM.on("update", function (event) {
     console.log("firssss", event);
-    if (event.state === "cancel" || event.state === "complete") {
+    if (event.state === "complete") {
       console.log("event second", event);
-      var sketchGeometry = event.graphics[0].geometry;
+      // var sketchGeometry = event.graphics[0].geometry;
       const graphic = event.graphics[0];
       graphicsLayer.graphics = [graphic];
-      sketchVM.update([graphic]);
+      console.log("graphicsLayer.graphics", graphicsLayer.graphics);
+      // sketchVM.update([graphic]);
+      console.log("graphic", graphic);
 
       setState({
         ...state,
-        geometry: sketchGeometry,
+        geometry: graphic,
+      });
+    } else if (event.state === "start") {
+      view.on("key-up", function (evt) {
+        if (evt.key === "Delete") {
+          sketchVM.delete();
+          setState([]);
+          graphicsLayer.removeAll();
+        }
       });
     } else {
-      console.log("elseeese", event);
+      console.log("elseee", event);
     }
   });
+
+  sketchVM.complete();
 };
