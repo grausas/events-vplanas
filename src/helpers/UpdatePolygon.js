@@ -12,6 +12,7 @@ export const updatePolygon = (view, state, setState) => {
     defaultUpdateOptions: {
       tool: "reshape",
       toggleToolOnClick: false,
+      mode: "click",
     },
     polygonSymbol: {
       type: "simple-fill",
@@ -26,15 +27,12 @@ export const updatePolygon = (view, state, setState) => {
   });
 
   sketchVM.on("update", function (event) {
-    console.log("firssss", event);
     if (event.state === "complete") {
       console.log("event second", event);
       // var sketchGeometry = event.graphics[0].geometry;
-      const graphic = event.graphics[0];
-      graphicsLayer.graphics = [graphic];
-      console.log("graphicsLayer.graphics", graphicsLayer.graphics);
+      const graphic = event.graphics[0].geometry;
+      graphicsLayer.graphics.geometry = [graphic];
       // sketchVM.update([graphic]);
-      console.log("graphic", graphic);
 
       setState({
         ...state,
@@ -48,8 +46,6 @@ export const updatePolygon = (view, state, setState) => {
           graphicsLayer.removeAll();
         }
       });
-    } else {
-      console.log("elseee", event);
     }
   });
 

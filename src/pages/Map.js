@@ -342,6 +342,7 @@ function Map() {
             e.preventDefault();
             addEvents(addNewFeature);
             setAddNewFeature([]);
+            setIsEditing(!isEditing);
           }}
           handleCancel={() => {
             graphicsLayer.removeAll();
