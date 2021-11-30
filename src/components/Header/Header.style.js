@@ -18,35 +18,17 @@ export const Content = styled.div`
   margin: 0 auto;
 `;
 
+export const LogoDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const Logo = styled.img`
   width: 45px;
 `;
 
-export const LinksDiv = styled.div`
-  position: absolute;
-  background-color: var(--white);
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  top: 45px;
-  right: 0;
-
-  a {
-    text-decoration: none;
-    color: var(--dark);
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-    list-style-type: none;
-
-    &:hover {
-      color: var(--lightBlue);
-      text-decoration: underline;
-    }
-  }
+export const Text = styled.span`
+  color: var(--silver);
+  font-size: var(--big);
+  margin-left: 1rem;
 `;
