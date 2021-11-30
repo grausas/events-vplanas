@@ -21,7 +21,6 @@ export const Wrapper = styled.div`
 export const IconFilter = styled.div`
   display: flex;
   flex-direction: column;
-  /* padding: 7px 8px; */
   font-weight: 600;
 
   img {
@@ -37,12 +36,10 @@ export const IconFilter = styled.div`
 
 export const Content = styled.div`
   max-width: 400px;
-  padding: 10px;
   user-select: none;
 
   h5 {
     font-weight: 600;
-    /* font-size: var(--big); */
   }
 `;
 
@@ -57,15 +54,17 @@ export const FilterContent = styled.div`
 
 export const CloseImage = styled.img`
   position: absolute;
-  right: 10px;
-  top: 10px;
-  height: 22px;
+  right: 5px;
+  top: 5px;
+  background-color: var(--silver);
+  /* height: 18px; */
+  /* width: 15px; */
   border-radius: 5px;
-  padding: 3px;
+  padding: 5px;
   cursor: pointer;
 
   :hover {
-    background-color: var(--white);
+    background-color: var(--darkSilver);
   }
 `;
 
@@ -76,7 +75,7 @@ export const ClearButton = styled(Button)`
   color: var(--dark);
 
   &:hover {
-    background-color: var(--dark);
+    background-color: var(--grey);
     color: var(--white);
   }
 `;
