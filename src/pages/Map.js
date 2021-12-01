@@ -17,6 +17,7 @@ import {
   Filter,
   DatePicker as SingleDatePicker,
   Loading,
+  Notification,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -42,7 +43,6 @@ function Map() {
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
-  //checkboxes
 
   const { handleOpen, show } = useOpenClose();
 
@@ -66,6 +66,7 @@ function Map() {
   // filtravimas pagal kategoriją ir datą
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
+  console.log(valuesArr);
 
   useEffect(() => {
     if (startDate && finishDate) {
@@ -86,7 +87,7 @@ function Map() {
   const handleFilterChange = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
-    const optionId = e.target.checked;
+    const optionId = e.target;
     console.log(optionId);
     let newArr = [];
     if (isChecked && itemValue !== 0) {
@@ -98,6 +99,7 @@ function Map() {
       // }));
       valuesArr.push(itemValue);
       const values = valuesArr.map((el) => el);
+      console.log("values", values);
 
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         for (let i = 0; i < values.length; i++) {
@@ -171,6 +173,7 @@ function Map() {
     // valuesArr = [];
     for (var a = 0; a < valuesArr.length; a++) {
       console.log(valuesArr[a]);
+      valuesArr[a] = [];
     }
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
       layerView.filter = {
@@ -288,6 +291,7 @@ function Map() {
   return (
     <>
       <div className="mapDiv" ref={mapRef}>
+        <Notification type="" message="Renginys sėkmingai pridėtas" />
         <Loading id="loading" />
         <EventsSchedule events={shortResults} handleZoom={handleZoom}>
           <SearchInput

@@ -3,11 +3,11 @@ import styled from "styled-components";
 export const NotificationText = styled.div`
   position: absolute;
   display: flex;
-  left: 50%;
+  left: 40%;
   top: 10px;
   color: #fff;
   background-color: ${(props) =>
-    props.type === "error" ? "var(--red)" : "var(--grey)"};
+    props.type === "error" ? "var(--red)" : "var(--green)"};
   text-align: center;
   margin: 0;
   border-radius: 5px;
@@ -18,7 +18,7 @@ export const NotificationText = styled.div`
 export const IconDiv = styled.div`
   background-color: var(--white);
   display: flex;
-  margin-right: 10px;
+  margin-right: 5px;
 
   padding: 0;
 
