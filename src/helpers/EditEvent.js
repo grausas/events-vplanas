@@ -26,8 +26,8 @@ export const updateEventFeature = (queryPoint, layer) => {
 
   layer
     .applyEdits(edits)
-    .then((editResults) => {
-      console.log("edit results: ", editResults);
+    .then((response) => {
+      console.log("edit results: ", response);
     })
     .catch((error) => {
       console.error("Editing error: ", error);
