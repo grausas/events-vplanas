@@ -44,6 +44,10 @@ function Map() {
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
+  const [error, setError] = useState();
+  const [type, setType] = useState();
+  console.log("error state", error);
+  console.log("type state", type);
 
   const { handleOpen, show } = useOpenClose();
 
@@ -204,7 +208,13 @@ function Map() {
   });
 
   const addEvents = () =>
-    addEventsFeature(addNewFeature, eventsFeatureLayer, setAddNewFeature);
+    addEventsFeature(
+      addNewFeature,
+      eventsFeatureLayer,
+      setAddNewFeature,
+      setType,
+      setError
+    );
   const updateEvent = () => updateEventFeature(queryPoint, eventsFeatureLayer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
@@ -291,7 +301,7 @@ function Map() {
   return (
     <>
       <div className="mapDiv" ref={mapRef}>
-        <Notification type="" message="Renginys sėkmingai pridėtas" />
+        {error && <Notification type={type} message={error} />}
         <Loading id="loading" />
         <EventsSchedule events={shortResults} handleZoom={handleZoom}>
           <SearchInput
@@ -302,7 +312,6 @@ function Map() {
             placeholder="Ieškoti..."
           />
         </EventsSchedule>
-
         {/* Filtravimas pagal data ir kategorijas */}
         <Filter
           id="filtras"
@@ -318,7 +327,6 @@ function Map() {
           onChange={handleFilterChange}
           handleClear={handleClearFilter}
         />
-
         {/* Pridėti naują renginį  */}
         {console.log("data", data)}
         <AddEvent
@@ -425,6 +433,7 @@ function Map() {
             placeholderTextTime="Laikas"
             timeTitle="Pradžios laikas"
             dateTitle="Pradžios data"
+            required
             selected={
               addNewFeature.RENGINIO_PRADZIA !== undefined
                 ? addNewFeature.RENGINIO_PRADZIA
@@ -442,6 +451,7 @@ function Map() {
             placeholderTextTime="Laikas"
             timeTitle="Pabaigos laikas"
             dateTitle="Pabaigos data"
+            required
             selected={
               addNewFeature.RENGINIO_PABAIGA !== undefined
                 ? addNewFeature.RENGINIO_PABAIGA
@@ -468,7 +478,6 @@ function Map() {
             }}
           />
         </AddEvent>
-
         {/* Renginys ir jo redagavimas */}
         {show && (
           <EventCard
@@ -489,6 +498,7 @@ function Map() {
               e.preventDefault();
               deleteEvent(queryPoint.OBJECTID);
               console.log(e.target);
+              handleOpen(!show);
             }}
           >
             <InputField

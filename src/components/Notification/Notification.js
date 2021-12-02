@@ -19,22 +19,18 @@ function Notification({ message, type }) {
   }, []);
 
   return (
-    <div>
-      {show && (
-        <NotificationText type={type}>
-          {type === "error" ? (
-            <IconDiv>
-              <img src={ImportantIcon} alt="error" />
-            </IconDiv>
-          ) : (
-            <IconDiv>
-              <img src={OkIcon} alt="Okay" />
-            </IconDiv>
-          )}
-          {message}
-        </NotificationText>
+    <NotificationText type={type}>
+      {type === "error" ? (
+        <IconDiv>
+          <img src={ImportantIcon} alt="error" />
+        </IconDiv>
+      ) : (
+        <IconDiv>
+          <img src={OkIcon} alt="Okay" />
+        </IconDiv>
       )}
-    </div>
+      {message}
+    </NotificationText>
   );
 }
 
