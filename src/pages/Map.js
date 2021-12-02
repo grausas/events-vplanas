@@ -30,6 +30,7 @@ import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
 import { updatePolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
+import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 
 function Map() {
   const mapRef = useRef(null);
@@ -208,6 +209,7 @@ function Map() {
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
   const updateCurrentPolygon = () => updatePolygon(view, addNewFeature);
+  const deleteEvent = () => deleteFeatureEvent(eventsFeatureLayer, queryPoint);
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {
@@ -318,6 +320,7 @@ function Map() {
         />
 
         {/* Pridėti naują renginį  */}
+        {console.log("data", data)}
         <AddEvent
           isEditing={!isEditing}
           buttonText="Pridėti renginį"
@@ -481,6 +484,11 @@ function Map() {
             handleSubmit={(e) => {
               e.preventDefault();
               updateEvent(queryPoint);
+            }}
+            handleDelete={(e) => {
+              e.preventDefault();
+              deleteEvent(queryPoint.OBJECTID);
+              console.log(e.target);
             }}
           >
             <InputField

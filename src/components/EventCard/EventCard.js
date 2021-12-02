@@ -38,6 +38,7 @@ const EventCard = ({
   handleChange,
   handleLocation,
   handleSubmit,
+  handleDelete,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -50,6 +51,7 @@ const EventCard = ({
             <h3>Redaguoti renginį</h3>
             {children}
             <ConfirmButton>Patvirtinti</ConfirmButton>
+            <ConfirmButton handleClick={handleDelete}>Ištrinti</ConfirmButton>
           </form>
         </FormWrapper>
       ) : (
