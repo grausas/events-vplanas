@@ -53,18 +53,19 @@ export const FilterContent = styled.div`
 `;
 
 export const CloseImage = styled.img`
+  padding: 5px;
+`;
+
+export const CloseImageDiv = styled.div`
   position: absolute;
   right: 5px;
   top: 5px;
-  background-color: var(--silver);
-  /* height: 18px; */
-  /* width: 15px; */
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 50%;
+  padding: 3px;
   cursor: pointer;
 
   :hover {
-    background-color: var(--darkSilver);
+    background-color: var(--silver);
   }
 `;
 

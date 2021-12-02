@@ -66,7 +66,6 @@ function Map() {
   // filtravimas pagal kategoriją ir datą
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
-  console.log(valuesArr);
 
   useEffect(() => {
     if (startDate && finishDate) {

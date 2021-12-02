@@ -5,6 +5,7 @@ import {
   IconFilter,
   FilterContent,
   CloseImage,
+  CloseImageDiv,
   DateFilter,
   ClearButton,
 } from "./Filter.style";
@@ -35,7 +36,9 @@ const Filter = ({
             <img src={FilterIcon} alt="filter" />
           </div>
         ) : (
-          <CloseImage src={CloseIcon} alt="close" onClick={handleOpen} />
+          <CloseImageDiv>
+            <CloseImage src={CloseIcon} alt="close" onClick={handleOpen} />
+          </CloseImageDiv>
         )}
       </IconFilter>
       {show && (
