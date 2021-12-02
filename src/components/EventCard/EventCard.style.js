@@ -57,7 +57,7 @@ export const CloseImage = styled.img`
   top: 10px;
   width: 22px;
   height: 22px;
-  border-radius: 5px;
+  border-radius: 50%;
   padding: 3px;
   cursor: pointer;
 
@@ -71,7 +71,7 @@ export const EditIcon = styled.img`
   width: 25px;
   left: 10px;
   top: 10px;
-  border-radius: 5px;
+  border-radius: 50%;
   padding: 3px;
   cursor: pointer;
 
