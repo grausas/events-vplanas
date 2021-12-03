@@ -1,9 +1,9 @@
 import Graphic from "@arcgis/core/Graphic";
 
-export const deleteFeatureEvent = (layer, queryPoint) => {
+export const deleteFeatureEvent = (layer, params) => {
   const deleteFeature = new Graphic({
     attributes: {
-      OBJECTID: `${queryPoint.OBJECTID}`,
+      OBJECTID: `${params.OBJECTID}`,
     },
   });
   const add = {

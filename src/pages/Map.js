@@ -218,7 +218,8 @@ function Map() {
   const updateEvent = () => updateEventFeature(queryPoint, eventsFeatureLayer);
   const addPolygon = () =>
     drawNewPolygon(view, addNewFeature, setAddNewFeature);
-  const updateCurrentPolygon = () => updatePolygon(view, addNewFeature);
+  const updateCurrentPolygon = () =>
+    updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () => deleteFeatureEvent(eventsFeatureLayer, queryPoint);
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
