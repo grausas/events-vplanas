@@ -48,6 +48,7 @@ function Map() {
   const [finishDate, setFinishDate] = useState("");
   const [error, setError] = useState();
   const [type, setType] = useState();
+  const [shortResults, setShortResults] = useState("");
   console.log("error state", error);
   console.log("type state", type);
 
@@ -194,21 +195,26 @@ function Map() {
   // Event modal open
 
   // paieška renginių juostoje
-  const results = !searchTerm
-    ? data
-    : data.filter(
-        (item) =>
-          item.attributes.PAVADINIMAS &&
-          item.attributes.PAVADINIMAS.toLowerCase().includes(
-            searchTerm.toLocaleLowerCase()
-          )
-      );
 
-  const shortResults = results.slice(0).sort((a, b) => {
-    const x = a.attributes.RENGINIO_PRADZIA;
-    const y = b.attributes.RENGINIO_PRADZIA;
-    return x < y ? -1 : x > y ? 1 : 0;
-  });
+  useEffect(() => {
+    const results = !searchTerm
+      ? data
+      : data.filter(
+          (item) =>
+            item.attributes.PAVADINIMAS &&
+            item.attributes.PAVADINIMAS.toLowerCase().includes(
+              searchTerm.toLocaleLowerCase()
+            )
+        );
+
+    setShortResults(
+      results.slice(0).sort((a, b) => {
+        const x = a.attributes.RENGINIO_PRADZIA;
+        const y = b.attributes.RENGINIO_PRADZIA;
+        return x < y ? -1 : x > y ? 1 : 0;
+      })
+    );
+  }, [data, searchTerm]);
 
   const addEvents = () =>
     addEventsFeature(
@@ -382,7 +388,6 @@ function Map() {
             handleDelete={(e) => {
               e.preventDefault();
               deleteEvent(queryPoint.OBJECTID);
-              console.log(e.target);
               handleOpen(!show);
             }}
           >
