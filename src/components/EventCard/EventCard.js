@@ -7,7 +7,6 @@ import {
   Text,
   CloseImage,
   Logo,
-  ConfirmButton,
   EditIcon,
   FormWrapper,
   EventDates,
@@ -37,8 +36,6 @@ const EventCard = ({
   children,
   handleChange,
   handleLocation,
-  handleSubmit,
-  handleDelete,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -47,12 +44,7 @@ const EventCard = ({
       {show ? (
         <FormWrapper>
           <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
-          <form onSubmit={handleSubmit}>
-            <h3>Redaguoti renginį</h3>
-            {children}
-            <ConfirmButton>Patvirtinti</ConfirmButton>
-            <ConfirmButton handleClick={handleDelete}>Ištrinti</ConfirmButton>
-          </form>
+          {children}
         </FormWrapper>
       ) : (
         <Wrapper>

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import Button from "../Button/Button";
-
 export const Wrapper = styled.div`
   position: absolute;
   width: 350px;
@@ -104,18 +102,6 @@ export const Text = styled.div`
   img {
     margin-right: 7px;
     width: 20px;
-  }
-`;
-
-export const ConfirmButton = styled(Button)`
-  background-color: var(--grey);
-  padding: 5px 20px;
-  margin-top: 20px;
-  margin-right: 10px;
-
-  :hover {
-    background: var(--lightBlue);
-    color: var(--white);
   }
 `;
 

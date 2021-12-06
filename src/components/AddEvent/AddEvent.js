@@ -18,11 +18,6 @@ import { CategoryData } from "../../utils/CategoryData";
 const AddEvent = ({
   handleSubmit,
   handleCordinates,
-  titleText,
-  buttonTitle,
-  buttonTitleCancel,
-  spanText,
-  buttonText,
   isEditing,
   handleUpdate,
   handleCancel,
