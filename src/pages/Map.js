@@ -329,23 +329,11 @@ function Map() {
           handleClear={handleClearFilter}
         />
         {/* Pridėti naują renginį  */}
-        {console.log("data", data)}
         <AddEvent
           setAddNewFeature={setAddNewFeature}
           addNewFeature={addNewFeature}
           isEditing={!isEditing}
-          buttonText="Pridėti renginį"
-          titleText="Pridėti renginį"
-          buttonTitleCancel="Atšaukti"
           startDate={startDate}
-          buttonTitle={
-            addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
-          }
-          spanText={
-            addNewFeature.geometry === undefined
-              ? "Pasirinkite pridėti objektą"
-              : "Užpildykite objekto duomenis"
-          }
           handleCordinates={() => {
             addNewFeature.geometry === undefined
               ? addPolygon()

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Styles
 import {
   AddObjectButton,
@@ -53,7 +51,7 @@ const AddEvent = ({
                 Redaguoti objektą
               </ConfirmButton>
               <form onSubmit={handleSubmit}>
-                <h3>{titleText}</h3>
+                <h3>Pridėti renginį</h3>
                 <InputWrapper>
                   <InputField
                     type="text"
@@ -169,17 +167,23 @@ const AddEvent = ({
                     }}
                   />
                 </InputWrapper>
-                <ConfirmButton>{buttonText}</ConfirmButton>
+                <ConfirmButton>Pridėti renginį</ConfirmButton>
                 <ConfirmButton handleClick={handleCancel}>
-                  {buttonTitleCancel}
+                  Atšaukti
                 </ConfirmButton>
               </form>
             </>
           ) : (
             <>
-              <p>{spanText}</p>
+              <p>
+                {addNewFeature.geometry === undefined
+                  ? "Pasirinkite pridėti objektą"
+                  : "Užpildykite objekto duomenis"}
+              </p>
               <ConfirmButton handleClick={handleCordinates}>
-                {buttonTitle}
+                {addNewFeature.geometry === undefined
+                  ? "Pridėti objektą"
+                  : "Pildyti"}
               </ConfirmButton>
             </>
           )}
