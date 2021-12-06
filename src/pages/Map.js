@@ -32,6 +32,7 @@ import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
 import { updatePolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
+import { zoomIn, zoomOut } from "../helpers/Zoom";
 
 function Map() {
   const mapRef = useRef(null);
@@ -52,6 +53,7 @@ function Map() {
 
   const { handleOpen, show } = useOpenClose();
 
+  // zoom to clicked event
   const handleZoom = (e) => {
     const eventId = e;
 
@@ -305,7 +307,10 @@ function Map() {
       <div className="mapDiv" ref={mapRef}>
         {error && <Notification type={type} message={error} />}
         <Loading id="loading" />
-        <Zoom />
+        <Zoom
+          handleZoomIn={() => zoomIn(view)}
+          handleZoomOut={() => zoomOut(view)}
+        />
         <EventsSchedule events={shortResults} handleZoom={handleZoom}>
           <SearchInput
             value={searchTerm}

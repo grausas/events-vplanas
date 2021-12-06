@@ -1,10 +1,10 @@
 //styles
 import { Wrapper } from "./Zoom.style";
-const Zoom = () => {
+const Zoom = ({ handleZoomIn, handleZoomOut }) => {
   return (
     <Wrapper>
-      <button>+</button>
-      <button>-</button>
+      <button onClick={handleZoomIn}>+</button>
+      <button onClick={handleZoomOut}>-</button>
     </Wrapper>
   );
 };
