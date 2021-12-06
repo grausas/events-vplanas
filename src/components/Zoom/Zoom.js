@@ -1,10 +1,11 @@
 //styles
-import { Wrapper } from "./Zoom.style";
+import { Wrapper, Button } from "./Zoom.style";
+
 const Zoom = ({ handleZoomIn, handleZoomOut }) => {
   return (
     <Wrapper>
-      <button onClick={handleZoomIn}>+</button>
-      <button onClick={handleZoomOut}>-</button>
+      <Button onClick={handleZoomIn}>+</Button>
+      <Button onClick={handleZoomOut}>-</Button>
     </Wrapper>
   );
 };
