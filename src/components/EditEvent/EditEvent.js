@@ -1,5 +1,5 @@
 // styles
-import { Wrapper, Button } from "./EditEvent.style";
+import { Wrapper, Button, ButtonsDiv } from "./EditEvent.style";
 // components
 import { InputField, DatePicker } from "../index";
 //utils
@@ -104,8 +104,12 @@ const EditEvent = ({
             });
           }}
         />
-        <Button>Patvirtinti</Button>
-        <Button handleClick={handleDelete}>Ištrinti</Button>
+        <ButtonsDiv>
+          <Button>Patvirtinti</Button>
+          <Button handleClick={handleDelete} type="delete">
+            Ištrinti
+          </Button>
+        </ButtonsDiv>
       </form>
     </Wrapper>
   );

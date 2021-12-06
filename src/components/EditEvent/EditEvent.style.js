@@ -2,6 +2,10 @@ import styled from "styled-components";
 import Btn from "../Button/Button";
 
 export const Wrapper = styled.div``;
+export const ButtonsDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export const Button = styled(Btn)`
   background-color: var(--grey);
@@ -10,7 +14,8 @@ export const Button = styled(Btn)`
   margin-right: 10px;
 
   :hover {
-    background: var(--lightBlue);
+    background: ${(props) =>
+      props.type === "delete" ? "var(--red)" : "var(--lightBlue)"};
     color: var(--white);
   }
 `;
