@@ -18,6 +18,7 @@ import {
   DatePicker as SingleDatePicker,
   Loading,
   Notification,
+  Zoom,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -304,6 +305,7 @@ function Map() {
       <div className="mapDiv" ref={mapRef}>
         {error && <Notification type={type} message={error} />}
         <Loading id="loading" />
+        <Zoom />
         <EventsSchedule events={shortResults} handleZoom={handleZoom}>
           <SearchInput
             value={searchTerm}
