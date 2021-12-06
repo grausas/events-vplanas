@@ -94,7 +94,9 @@ const EventCard = ({
               <Text>
                 <p>
                   Pastabos:
-                  {comment && comment.length ? " " + comment : " Pastabų nėra"}
+                  {comment && comment.length && comment !== undefined
+                    ? " " + comment
+                    : " Pastabų nėra"}
                 </p>
               </Text>
               <Text>

@@ -6,12 +6,12 @@ export const addEventsFeature = (params, layer, setState) => {
     attributes: {
       PAVADINIMAS: `${params.PAVADINIMAS}`,
       ORGANIZATORIUS: `${params.ORGANIZATORIUS}`,
-      RENGINIO_PRADZIA: `${new Date(params.RENGINIO_PRADZIA).toISOString()} `,
+      RENGINIO_PRADZIA: `${new Date(params.RENGINIO_PRADZIA).toISOString()}`,
       RENGINIO_PABAIGA: `${new Date(params.RENGINIO_PABAIGA).toISOString()}`,
-      APRASYMAS: `${params.APRASYMAS}`,
+      APRASYMAS: `${params.APRASYMAS !== undefined ? params.APRASYMAS : ""}`,
       WEBPAGE: `${params.WEBPAGE}`,
       KATEGORIJA: `${params.KATEGORIJA}`,
-      PASTABOS: `${params.PASTABOS}`,
+      PASTABOS: `${params.PASTABOS !== undefined ? params.PASTABOS : ""}`,
     },
     geometry: params.geometry,
   });
@@ -24,7 +24,7 @@ export const addEventsFeature = (params, layer, setState) => {
     .applyEdits(add)
     .then((response) => {
       if (response) {
-        console.log(response + "is very good");
+        console.log(response + "Renginys pridėtas");
       }
       graphicsLayer.removeAll();
       setState([]);
