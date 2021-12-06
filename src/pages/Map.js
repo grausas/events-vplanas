@@ -55,24 +55,6 @@ function Map() {
 
   const { handleOpen, show } = useOpenClose();
 
-  // zoom to clicked event
-  // const handleZoom = (e) => {
-  //   const eventId = e;
-
-  //   eventsFeatureLayer.queryFeatures().then(function (results) {
-  //     const features = results.features;
-  //     view.goTo(
-  //       {
-  //         target: features.filter(
-  //           (item) => item.attributes.OBJECTID === Number(eventId)
-  //         ),
-  //         zoom: 14,
-  //       },
-  //       { duration: 1000 }
-  //     );
-  //   });
-  // };
-
   // filtravimas pagal kategoriją ir datą
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
@@ -193,10 +175,7 @@ function Map() {
     setFinishDate("");
   };
 
-  // Event modal open
-
   // paieška renginių juostoje
-
   useEffect(() => {
     const results = !searchTerm
       ? data

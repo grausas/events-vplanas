@@ -11,3 +11,4 @@ export { default as Loading } from "./Loading/Loading";
 export { default as Notification } from "./Notification/Notification";
 export { default as SearchInput } from "./SearchInput/SearchInput";
 export { default as Zoom } from "./Zoom/Zoom";
+export { default as EditEvent } from "./EditEvent/EditEvent";
