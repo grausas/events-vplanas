@@ -3,7 +3,7 @@ import Graphic from "@arcgis/core/Graphic";
 export const deleteFeatureEvent = (layer, params) => {
   const deleteFeature = new Graphic({
     attributes: {
-      OBJECTID: `${params.OBJECTID}`,
+      OBJECTID: params.OBJECTID,
     },
   });
   const add = {
