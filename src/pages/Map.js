@@ -331,10 +331,13 @@ function Map() {
         {/* Pridėti naują renginį  */}
         {console.log("data", data)}
         <AddEvent
+          setAddNewFeature={setAddNewFeature}
+          addNewFeature={addNewFeature}
           isEditing={!isEditing}
           buttonText="Pridėti renginį"
           titleText="Pridėti renginį"
           buttonTitleCancel="Atšaukti"
+          startDate={startDate}
           buttonTitle={
             addNewFeature.geometry === undefined ? "Pridėti objektą" : "Pildyti"
           }
@@ -364,121 +367,7 @@ function Map() {
             setAddNewFeature([]);
             console.log(graphicsLayer);
           }}
-        >
-          <InputField
-            type="text"
-            labelText="Pavadinimas"
-            id="pavadinimas"
-            placeholder="Pavadinimas"
-            required
-            handleChange={(e) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                PAVADINIMAS: e.target.value,
-              });
-            }}
-          />
-          <InputField
-            type="text"
-            labelText="Organizatorius"
-            id="organizatorius"
-            placeholder="Organizatorius"
-            required
-            handleChange={(e) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                ORGANIZATORIUS: e.target.value,
-              });
-            }}
-          />
-          <InputField
-            options={CategoryData}
-            type="dropdown"
-            labelText="Kategorija"
-            id="kategorija"
-            placeholder="Kategorija"
-            required
-            handleChange={(e) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                KATEGORIJA: e.target.value,
-              });
-            }}
-          />
-          <InputField
-            type="longtext"
-            labelText="Pastabos"
-            placeholder="Pastabos"
-            id="pastabos"
-            handleChange={(e) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                PASTABOS: e.target.value,
-              });
-            }}
-          />
-          <InputField
-            type="longtext"
-            labelText="Aprašymas"
-            placeholder="Aprašymas"
-            id="aprasymas"
-            handleChange={(e) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                APRASYMAS: e.target.value,
-              });
-            }}
-          />
-          <SingleDatePicker
-            placeholderTextDate="Data"
-            placeholderTextTime="Laikas"
-            timeTitle="Pradžios laikas"
-            dateTitle="Pradžios data"
-            required
-            selected={
-              addNewFeature.RENGINIO_PRADZIA !== undefined
-                ? addNewFeature.RENGINIO_PRADZIA
-                : startDate
-            }
-            handleChange={(date) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                RENGINIO_PRADZIA: date,
-              });
-            }}
-          />
-          <SingleDatePicker
-            placeholderTextDate="Data"
-            placeholderTextTime="Laikas"
-            timeTitle="Pabaigos laikas"
-            dateTitle="Pabaigos data"
-            required
-            selected={
-              addNewFeature.RENGINIO_PABAIGA !== undefined
-                ? addNewFeature.RENGINIO_PABAIGA
-                : startDate
-            }
-            handleChange={(date) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                RENGINIO_PABAIGA: date,
-              });
-            }}
-          />
-          <InputField
-            type="text"
-            labelText="Renginio puslapis"
-            id="puslapis"
-            placeholder="Renginio puslapis"
-            required
-            handleChange={(e) => {
-              setAddNewFeature({
-                ...addNewFeature,
-                WEBPAGE: e.target.value,
-              });
-            }}
-          />
-        </AddEvent>
+        />
         {/* Renginys ir jo redagavimas */}
         {show && (
           <EventCard
