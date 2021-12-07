@@ -1,6 +1,6 @@
 import Graphic from "@arcgis/core/Graphic";
 
-export const updateEventFeature = (params, layer) => {
+export const updateEventFeature = (params, layer, type, message) => {
   const editFeature = new Graphic({
     attributes: {
       OBJECTID: params.OBJECTID,
@@ -23,9 +23,13 @@ export const updateEventFeature = (params, layer) => {
   layer
     .applyEdits(edits)
     .then((response) => {
+      type("");
+      message("Renginys sėkmingai redaguotas");
       console.log("edit results: ", response);
     })
     .catch((error) => {
+      type("error");
+      message("Įvyko klaida, nepavyko redaguoti renginio");
       console.error("Editing error: ", error);
     });
 };
