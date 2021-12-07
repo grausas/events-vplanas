@@ -205,10 +205,11 @@ function Map() {
     );
   const updateEvent = () => updateEventFeature(queryPoint, eventsFeatureLayer);
   const addPolygon = () =>
-    drawNewPolygon(view, addNewFeature, setAddNewFeature);
+    drawNewPolygon(view, addNewFeature, setAddNewFeature, setType, setError);
   const updateCurrentPolygon = () =>
     updatePolygon(view, addNewFeature, setAddNewFeature);
-  const deleteEvent = () => deleteFeatureEvent(eventsFeatureLayer, queryPoint);
+  const deleteEvent = () =>
+    deleteFeatureEvent(eventsFeatureLayer, queryPoint, setType, setError);
 
   // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
   useEffect(() => {
@@ -289,8 +290,8 @@ function Map() {
 
   return (
     <>
+      {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
-        {error && <Notification type={type} message={error} />}
         <Loading id="loading" />
         <Zoom
           handleZoomIn={() => zoomIn(view)}

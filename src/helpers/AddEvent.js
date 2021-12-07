@@ -1,7 +1,7 @@
 import Graphic from "@arcgis/core/Graphic";
 import { graphicsLayer } from "./DrawPolygon";
 
-export const addEventsFeature = (params, layer, setState) => {
+export const addEventsFeature = (params, layer, setState, type, message) => {
   const addFeature = new Graphic({
     attributes: {
       PAVADINIMAS: params.PAVADINIMAS,
@@ -25,12 +25,16 @@ export const addEventsFeature = (params, layer, setState) => {
     .then((response) => {
       if (response) {
         console.log(response + "Renginys pridėtas");
+        type("");
+        message("Renginys sėkmingai pridėtas");
       }
       graphicsLayer.removeAll();
       setState([]);
     })
     .catch((error) => {
       if (error) {
+        type("error");
+        message("Įvyko klaida pridedant renginį");
         console.error("Editing error: ", error);
       }
     });

@@ -1,6 +1,6 @@
 import Graphic from "@arcgis/core/Graphic";
 
-export const deleteFeatureEvent = (layer, params) => {
+export const deleteFeatureEvent = (layer, params, type, message) => {
   const deleteFeature = new Graphic({
     attributes: {
       OBJECTID: params.OBJECTID,
@@ -13,9 +13,13 @@ export const deleteFeatureEvent = (layer, params) => {
   layer
     .applyEdits(add)
     .then((response) => {
+      type("");
+      message("Renginys sėkmingai ištrintas");
       console.log("delete results: ", response);
     })
     .catch((error) => {
+      type("error");
+      error("Įvyko klaida bandant ištrinti renginį");
       console.error("Delete error: ", error);
     });
 };

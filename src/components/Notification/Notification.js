@@ -16,7 +16,7 @@ function Notification({ message, type }) {
     return () => {
       clearTimeout(timeId);
     };
-  }, []);
+  }, [message]);
 
   return (
     <>
