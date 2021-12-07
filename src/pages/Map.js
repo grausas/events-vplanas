@@ -46,13 +46,24 @@ function Map() {
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
-  const [error, setError] = useState();
-  const [type, setType] = useState();
+  const [error, setError] = useState("");
+  const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
   console.log("error state", error);
   console.log("type state", type);
 
   const { handleOpen, show } = useOpenClose();
+
+  // clear error state after some time
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      setError("");
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, [error]);
 
   // filtravimas pagal kategoriją ir datą
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini

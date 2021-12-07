@@ -16,25 +16,23 @@ function Notification({ message, type }) {
     return () => {
       clearTimeout(timeId);
     };
-  }, [message]);
+  }, []);
 
   return (
-    <>
-      {show && (
-        <NotificationText type={type}>
-          {type === "error" ? (
-            <IconDiv>
-              <img src={ImportantIcon} alt="error" />
-            </IconDiv>
-          ) : (
-            <IconDiv>
-              <img src={OkIcon} alt="Okay" />
-            </IconDiv>
-          )}
-          {message}
-        </NotificationText>
-      )}
-    </>
+    show && (
+      <NotificationText type={type}>
+        {type === "error" ? (
+          <IconDiv>
+            <img src={ImportantIcon} alt="error" />
+          </IconDiv>
+        ) : (
+          <IconDiv>
+            <img src={OkIcon} alt="Okay" />
+          </IconDiv>
+        )}
+        {message}
+      </NotificationText>
+    )
   );
 }
 
