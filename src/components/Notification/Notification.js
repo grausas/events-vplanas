@@ -11,7 +11,7 @@ function Notification({ message, type }) {
   useEffect(() => {
     const timeId = setTimeout(() => {
       setShow(false);
-    }, 5000);
+    }, 4000);
 
     return () => {
       clearTimeout(timeId);
@@ -19,18 +19,22 @@ function Notification({ message, type }) {
   }, []);
 
   return (
-    <NotificationText type={type}>
-      {type === "error" ? (
-        <IconDiv>
-          <img src={ImportantIcon} alt="error" />
-        </IconDiv>
-      ) : (
-        <IconDiv>
-          <img src={OkIcon} alt="Okay" />
-        </IconDiv>
+    <>
+      {show && (
+        <NotificationText type={type}>
+          {type === "error" ? (
+            <IconDiv>
+              <img src={ImportantIcon} alt="error" />
+            </IconDiv>
+          ) : (
+            <IconDiv>
+              <img src={OkIcon} alt="Okay" />
+            </IconDiv>
+          )}
+          {message}
+        </NotificationText>
       )}
-      {message}
-    </NotificationText>
+    </>
   );
 }
 
