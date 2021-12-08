@@ -385,7 +385,6 @@ function Map() {
                 updateEvent(queryPoint);
               }}
               handleDelete={(e) => {
-                e.preventDefault();
                 deleteEvent(queryPoint.OBJECTID);
                 handleOpen(!show);
               }}

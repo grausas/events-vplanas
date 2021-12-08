@@ -1,3 +1,4 @@
+// styles
 import { Wrapper } from "./Button.style";
 
 const Button = ({ children, className, handleClick }) => {
