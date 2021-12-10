@@ -18,6 +18,7 @@ import {
   Loading,
   Notification,
   Zoom,
+  Home,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -86,7 +87,6 @@ function Map() {
   const handleFilterChange = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
-    const optionId = e.target;
     let newArr = [];
     if (isChecked && itemValue !== 0) {
       // setCheckBoxes((prevState) => ({
@@ -292,6 +292,7 @@ function Map() {
       {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
         <Loading id="loading" />
+        <Home />
         <Zoom
           handleZoomIn={() => zoomIn(view)}
           handleZoomOut={() => zoomOut(view)}
