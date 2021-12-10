@@ -32,8 +32,7 @@ import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
 import { updatePolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
-import { zoomIn, zoomOut } from "../helpers/Zoom";
-import { handleZoom } from "../helpers/ZoomToEvent";
+import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
 
 function Map() {
   const mapRef = useRef(null);
@@ -292,7 +291,7 @@ function Map() {
       {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
         <Loading id="loading" />
-        <Home />
+        <Home handleClick={() => zoomDefault(view)} />
         <Zoom
           handleZoomIn={() => zoomIn(view)}
           handleZoomOut={() => zoomOut(view)}
