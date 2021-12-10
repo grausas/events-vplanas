@@ -15,7 +15,6 @@ export const updateEventFeature = (params, layer, type, message) => {
       RENGINIO_PABAIGA: new Date(params.RENGINIO_PABAIGA).toISOString(),
     },
   });
-  console.log(editFeature.attributes);
   const edits = {
     updateFeatures: [editFeature],
   };
@@ -25,11 +24,9 @@ export const updateEventFeature = (params, layer, type, message) => {
     .then((response) => {
       type("");
       message("Renginys sėkmingai redaguotas");
-      console.log("edit results: ", response);
     })
     .catch((error) => {
       type("error");
-      message("Įvyko klaida, nepavyko redaguoti renginio");
-      console.error("Editing error: ", error);
+      message("Įvyko klaida, nepavyko redaguoti renginio", error);
     });
 };

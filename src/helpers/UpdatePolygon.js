@@ -28,7 +28,6 @@ export const updatePolygon = (view, state, setState) => {
 
   sketchVM.on("update", function (event) {
     if (event.state === "complete") {
-      console.log("event second", event);
       // var sketchGeometry = event.graphics[0].geometry;
       const graphic = event.graphics[0].geometry;
       graphicsLayer.graphics.geometry = [graphic];

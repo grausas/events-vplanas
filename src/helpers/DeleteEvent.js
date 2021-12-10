@@ -15,11 +15,9 @@ export const deleteFeatureEvent = (layer, params, type, message) => {
     .then((response) => {
       type("");
       message("Renginys sėkmingai ištrintas");
-      console.log("delete results: ", response);
     })
     .catch((error) => {
       type("error");
-      error("Įvyko klaida bandant ištrinti renginį");
-      console.error("Delete error: ", error);
+      error("Įvyko klaida bandant ištrinti renginį", error);
     });
 };

@@ -24,7 +24,6 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
     .applyEdits(add)
     .then((response) => {
       if (response) {
-        console.log(response + "Renginys pridėtas");
         type("");
         message("Renginys sėkmingai pridėtas");
       }
@@ -34,8 +33,7 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
     .catch((error) => {
       if (error) {
         type("error");
-        message("Įvyko klaida pridedant renginį");
-        console.error("Editing error: ", error);
+        message("Įvyko klaida pridedant renginį:", error);
       }
     });
 };

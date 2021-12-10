@@ -49,8 +49,6 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
-  console.log("error state", error);
-  console.log("type state", type);
 
   const { handleOpen, show } = useOpenClose();
 
@@ -89,7 +87,6 @@ function Map() {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
     const optionId = e.target;
-    console.log(optionId);
     let newArr = [];
     if (isChecked && itemValue !== 0) {
       // setCheckBoxes((prevState) => ({
@@ -100,7 +97,6 @@ function Map() {
       // }));
       valuesArr.push(itemValue);
       const values = valuesArr.map((el) => el);
-      console.log("values", values);
 
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         for (let i = 0; i < values.length; i++) {
@@ -122,7 +118,6 @@ function Map() {
         };
       });
     } else if (!isChecked && valuesArr.length > 0) {
-      console.log("itemvalue", itemValue);
       const index = valuesArr.indexOf(itemValue);
       if (index > -1) {
         valuesArr.splice(index, 1);
@@ -156,7 +151,6 @@ function Map() {
         };
       });
     } else if (itemValue === 0) {
-      console.log("e", e);
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where: "1=1",
@@ -170,10 +164,8 @@ function Map() {
 
   // clear filter
   const handleClearFilter = (checkbox) => {
-    // console.log("hello", checkbox);
     // valuesArr = [];
     for (var a = 0; a < valuesArr.length; a++) {
-      console.log(valuesArr[a]);
       valuesArr[a] = [];
     }
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
@@ -257,7 +249,6 @@ function Map() {
       //   if (response.results.length === 1) {
       //     const graphic = response.results.filter(function (result) {
       //       // check if the graphic belongs to the layer of interest
-      //       // console.log("results", result.graphic.layer);
       //       return result.graphic.layer === layer;
       //     })[0].graphic.attributes;
       //     setQueryPoint(graphic);
@@ -267,17 +258,13 @@ function Map() {
       //   }
       // });
       //-------------------- query multiple objects in same place
-      // console.log(event);
       let query = layer.createQuery();
-      // console.log(view.toMap(event));
       query.geometry = view.toMap(event);
       query.outFields = ["*"];
 
       layer.queryFeatures(query).then(function (response) {
-        console.log("response", response);
         if (response.features.length > 0) {
           const graphics = response.features[0].attributes;
-          console.log("response", response.features[0].attributes);
           setQueryPoint(graphics);
           handleOpen(show);
         }
@@ -361,7 +348,6 @@ function Map() {
             graphicsLayer.removeAll();
             // setIsEditing(!isEditing);
             setAddNewFeature([]);
-            console.log(graphicsLayer);
           }}
         />
         {/* Renginys ir jo redagavimas */}

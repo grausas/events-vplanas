@@ -64,7 +64,7 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
                       <MoreButton
                         onClick={() => handleZoom(event.attributes.OBJECTID)}
                       >
-                        Daugiau
+                        Peržiūrėti
                       </MoreButton>
                     </MoreButtonWrapper>
                   </Events>
