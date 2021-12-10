@@ -178,23 +178,25 @@ function Map() {
 
   // paieška renginių juostoje
   useEffect(() => {
-    const results = !searchTerm
-      ? data
-      : data.filter(
-          (item) =>
-            item.attributes.PAVADINIMAS &&
-            item.attributes.PAVADINIMAS.toLowerCase().includes(
-              searchTerm.toLocaleLowerCase()
-            )
-        );
+    if (data.features) {
+      const results = !searchTerm
+        ? data.features
+        : data.features.filter(
+            (item) =>
+              item.attributes.PAVADINIMAS &&
+              item.attributes.PAVADINIMAS.toLowerCase().includes(
+                searchTerm.toLocaleLowerCase()
+              )
+          );
 
-    setShortResults(
-      results.slice(0).sort((a, b) => {
-        const x = a.attributes.RENGINIO_PRADZIA;
-        const y = b.attributes.RENGINIO_PRADZIA;
-        return x < y ? -1 : x > y ? 1 : 0;
-      })
-    );
+      setShortResults(
+        results.slice(0).sort((a, b) => {
+          const x = a.attributes.RENGINIO_PRADZIA;
+          const y = b.attributes.RENGINIO_PRADZIA;
+          return x < y ? -1 : x > y ? 1 : 0;
+        })
+      );
+    }
   }, [data, searchTerm]);
 
   const addEvents = () =>
@@ -238,7 +240,7 @@ function Map() {
         outFields: ["*"],
       })
       .then((res) => {
-        setData(res.features);
+        setData(res);
       });
 
     // renginio popup atvaizdavimas
