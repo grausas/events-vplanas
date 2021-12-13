@@ -36,7 +36,7 @@ import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
 
 function Map() {
   const mapRef = useRef(null);
-
+  // states
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
   const [addNewFeature, setAddNewFeature] = useState([]);
@@ -298,6 +298,7 @@ function Map() {
           handleZoomIn={() => zoomIn(view)}
           handleZoomOut={() => zoomOut(view)}
         />
+        {/* Renginių juosta */}
         <EventsSchedule
           events={shortResults}
           handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
