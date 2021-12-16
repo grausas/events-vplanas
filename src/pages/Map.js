@@ -6,6 +6,7 @@ import "./Map.css";
 import { useOpenClose } from "../hooks/useOpenClose";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
+import * as locator from "@arcgis/core/rest/locator";
 
 // Components
 import {
@@ -51,6 +52,31 @@ function Map() {
   const [shortResults, setShortResults] = useState("");
 
   const { handleOpen, show } = useOpenClose();
+
+  // global search
+  // pabandyti ieskoti pagal attributes o ne pagal address
+  // panaudoti searchViewModel
+  const serviceUrl =
+    "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
+
+  const handleSearchResult = (e) => {
+    const result = e.target.value;
+
+    const params = {
+      outFields: "*",
+      // text: result,
+    };
+    locator.addressToLocations(serviceUrl, params).then(function (response) {
+      console.log("result", result);
+      console.log(response);
+      const address = response.filter((item) =>
+        item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
+      );
+      console.log(address);
+    });
+  };
+
+  // ------------------
 
   // clear error state after some time
   useEffect(() => {
@@ -292,6 +318,11 @@ function Map() {
     <>
       {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
+        <input
+          type="text"
+          placeholder="paieska"
+          onChange={handleSearchResult}
+        ></input>
         <Loading id="loading" />
         <Home handleClick={() => zoomDefault(view)} />
         <Zoom
@@ -372,6 +403,7 @@ function Map() {
               handleSubmit={(e) => {
                 e.preventDefault();
                 updateEvent(queryPoint);
+                handleOpen(!show);
               }}
               handleDelete={(e) => {
                 deleteEvent(queryPoint.OBJECTID);

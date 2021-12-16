@@ -11,7 +11,7 @@ const Header = () => {
       <Content>
         <LogoDiv>
           <Logo src={VilniusLogo} alt="vilnius-logo" />
-          <Text> Vilniaus renginių žemėlapis</Text>
+          <Text> Vilniaus miesto renginių žemėlapis</Text>
         </LogoDiv>
         <SearchInput placeholder="Paieška" />
       </Content>
