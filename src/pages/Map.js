@@ -374,6 +374,7 @@ function Map() {
             setIsEditing(!isEditing);
           }}
           handleSubmit={(e) => {
+            eventsFeatureLayer.opacity = 1;
             e.preventDefault();
             addEvents(addNewFeature);
             setAddNewFeature([]);
