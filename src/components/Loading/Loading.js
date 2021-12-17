@@ -1,10 +1,12 @@
 // styles
-import { Wrapper, LoadingBlock } from "./Loading.style";
+import { Wrapper, Content, LoadingBlock } from "./Loading.style";
 
 function Loading({ id }) {
   return (
     <Wrapper id={id}>
-      <LoadingBlock></LoadingBlock>
+      <Content>
+        <LoadingBlock></LoadingBlock>
+      </Content>
     </Wrapper>
   );
 }
