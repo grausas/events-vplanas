@@ -364,6 +364,7 @@ function Map() {
           isEditing={!isEditing}
           startDate={startDate}
           handleCordinates={() => {
+            eventsFeatureLayer.opacity = 0.3;
             addNewFeature.geometry === undefined
               ? addPolygon()
               : setIsEditing(!isEditing);
@@ -379,6 +380,7 @@ function Map() {
             setIsEditing(!isEditing);
           }}
           handleCancel={() => {
+            eventsFeatureLayer.opacity = 1;
             graphicsLayer.removeAll();
             // setIsEditing(!isEditing);
             setAddNewFeature([]);

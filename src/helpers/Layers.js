@@ -10,7 +10,6 @@ export const featureLayer = () => {
     // definitionExpression:
     //   "RENGINIO_PRADZIA > date'" + new Date().toISOString().slice(0, 10) + "'",
   });
-
   return layer;
 };
 
