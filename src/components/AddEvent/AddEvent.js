@@ -1,3 +1,5 @@
+import { useState } from "react";
+import AutoSuggest from "react-autosuggest";
 // Styles
 import {
   AddObjectButton,
@@ -24,9 +26,23 @@ const AddEvent = ({
   setAddNewFeature,
   addNewFeature,
   startDate,
+  events,
 }) => {
   const { handleOpen, show } = useOpenClose();
+  const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
+  const lowerEvents =
+    events.features &&
+    events.features.map((item) => item.attributes.ORGANIZATORIUS.toLowerCase());
+
+  console.log(lowerEvents);
+
+  function getSuggestions(value) {
+    return lowerEvents.filter((language) =>
+      language.startsWith(value.trim().toLowerCase())
+    );
+  }
   return (
     <div>
       {!show ? (
@@ -48,6 +64,28 @@ const AddEvent = ({
               <form onSubmit={handleSubmit}>
                 <h3>Pridėti renginį</h3>
                 <InputWrapper>
+                  <AutoSuggest
+                    suggestions={suggestions}
+                    onSuggestionsClearRequested={() => setSuggestions([])}
+                    onSuggestionsFetchRequested={({ value }) => {
+                      setValue(value);
+                      setSuggestions(getSuggestions(value));
+                    }}
+                    getSuggestionValue={(suggestion) => suggestion}
+                    renderSuggestion={(suggestion) => <span>{suggestion}</span>}
+                    inputProps={{
+                      placeholder: "Pavadinimas",
+                      value: value,
+                      onChange: (_, { newValue, method }) => {
+                        setValue(newValue);
+                        setAddNewFeature({
+                          ...addNewFeature,
+                          PAVADINIMAS: newValue,
+                        });
+                      },
+                    }}
+                    highlightFirstSuggestion={true}
+                  />
                   <InputField
                     type="text"
                     labelText="Pavadinimas"

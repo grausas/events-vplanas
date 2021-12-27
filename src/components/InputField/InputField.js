@@ -12,6 +12,7 @@ const InputField = ({
   selectName,
   maxLength,
   handleChange,
+  value,
   defaultValue,
 }) => {
   switch (type) {
@@ -27,6 +28,7 @@ const InputField = ({
             minLength={minLength}
             maxLength={maxLength}
             required={required}
+            value={value}
           ></TextArea>
         </Wrapper>
       );

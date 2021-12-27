@@ -363,6 +363,7 @@ function Map() {
           addNewFeature={addNewFeature}
           isEditing={!isEditing}
           startDate={startDate}
+          events={data}
           handleCordinates={() => {
             eventsFeatureLayer.opacity = 0.3;
             addNewFeature.geometry === undefined
