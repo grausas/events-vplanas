@@ -5,7 +5,7 @@ export const graphicsLayer = new GraphicsLayer({
   id: "tempGraphics",
 });
 
-export const drawNewPolygon = (view, state, setState) => {
+export const drawNewPolygon = (view, state, setState, eventsFeatureLayer) => {
   const sketchVM = new SketchViewModel({
     layer: graphicsLayer,
     view: view,
@@ -22,9 +22,16 @@ export const drawNewPolygon = (view, state, setState) => {
     updateOnGraphicClick: false,
   });
 
-  sketchVM.create("polygon", { mode: "click" });
+  sketchVM
+    .create("polygon", { mode: "click" })
+    .then((eventsFeatureLayer.opacity = 0.3));
 
   sketchVM.on("create", function (event) {
+    view.on("key-up", function (evt) {
+      if (evt.key === "Escape") {
+        eventsFeatureLayer.opacity = 1;
+      }
+    });
     if (event.state === "complete") {
       const sketchGeometry = event.graphic.geometry;
       setState({

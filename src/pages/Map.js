@@ -236,7 +236,7 @@ function Map() {
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
   const addPolygon = () =>
-    drawNewPolygon(view, addNewFeature, setAddNewFeature, setType, setError);
+    drawNewPolygon(view, addNewFeature, setAddNewFeature, eventsFeatureLayer);
   const updateCurrentPolygon = () =>
     updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () =>
@@ -365,7 +365,7 @@ function Map() {
           startDate={startDate}
           events={data}
           handleCordinates={() => {
-            eventsFeatureLayer.opacity = 0.3;
+            // eventsFeatureLayer.opacity = 0.3;
             addNewFeature.geometry === undefined
               ? addPolygon()
               : setIsEditing(!isEditing);
