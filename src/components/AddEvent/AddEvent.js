@@ -76,7 +76,7 @@ const AddEvent = ({
                     inputProps={{
                       placeholder: "Pavadinimas",
                       value: value,
-                      onChange: (_, { newValue, method }) => {
+                      onChange: (_, { newValue }) => {
                         setValue(newValue);
                         setAddNewFeature({
                           ...addNewFeature,
