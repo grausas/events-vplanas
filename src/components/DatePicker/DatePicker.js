@@ -47,7 +47,7 @@ const DatePicker = ({
           timeCaption="Laikas"
           showTimeSelect
           showTimeSelectOnly
-          timeIntervals={1}
+          timeIntervals={5}
           dateFormat="HH:mm"
           selected={selected}
           onChange={handleChange}
