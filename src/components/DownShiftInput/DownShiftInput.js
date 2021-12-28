@@ -1,8 +1,8 @@
 // styles
-import {} from "./DownShiftInput.style";
+import { Wrapper } from "./DownShiftInput.style";
 
 const DownShiftInput = () => {
-  return <div>downshift</div>;
+  return <Wrapper>downshift</Wrapper>;
 };
 
 export default DownShiftInput;
