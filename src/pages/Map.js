@@ -56,23 +56,30 @@ function Map() {
   // global search
   // pabandyti ieskoti pagal attributes o ne pagal address
   // panaudoti searchViewModel
-  const serviceUrl =
-    "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
 
+  const locatorUrl =
+    "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
   const handleSearchResult = (e) => {
     const result = e.target.value;
+    console.log(typeof result);
+
+    var address = {
+      SingleLine: result,
+    };
 
     const params = {
-      outFields: "*",
-      // text: result,
+      address: address,
+      outFields: ["*"],
+      text: result,
     };
-    locator.addressToLocations(serviceUrl, params).then(function (response) {
-      console.log("result", result);
-      console.log(response);
-      const address = response.filter((item) =>
-        item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
-      );
-      console.log(address);
+
+    locator.suggestLocations(locatorUrl, params).then(function (response) {
+      console.log(typeof params.address);
+      console.log("response", response);
+      // const address = response.filter((item) =>
+      //   item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
+      // );
+      // console.log("address", address);
     });
   };
 
