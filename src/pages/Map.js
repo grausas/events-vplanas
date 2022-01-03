@@ -7,6 +7,8 @@ import { useOpenClose } from "../hooks/useOpenClose";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import * as locator from "@arcgis/core/rest/locator";
+import Point from "@arcgis/core/geometry/Point";
+import Graphic from "@arcgis/core/Graphic";
 
 // Components
 import {
@@ -60,11 +62,32 @@ function Map() {
   const locatorUrl =
     "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
   const handleSearchResult = (e) => {
+    // let point = {
+    //   type: "point",
+    //   x: 581869.375771,
+    //   y: 6066568.205726,
+    //   spatialReference: { wkid: 3346 },
+    // };
+
+    // let g = new Graphic({
+    //   geometry: point,
+    //   symbol: {
+    //     type: "simple-marker",
+    //     size: 7,
+    //     color: [111, 111, 111],
+    //     outline: null,
+    //   },
+    // });
+    // view.goTo({
+    //   target: g,
+    //   zoom: 15,
+    // });
+    // view.graphics.add(g);
     const result = e.target.value;
-    console.log(typeof result);
 
     var address = {
-      SingleLine: result,
+      SingleLine: "Didlaukio 80",
+      f: "json",
     };
 
     const params = {
@@ -80,6 +103,38 @@ function Map() {
       //   item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
       // );
       // console.log("address", address);
+    });
+    locator.addressToLocations(locatorUrl, params).then(function (results) {
+      console.log("addressToLocations for Madrid=", results);
+      if (results.length > 0) {
+        let point = {
+          type: "point",
+          x: 581869.375771,
+          y: 6066568.205726,
+          spatialReference: { wkid: 2600 },
+        };
+
+        let g = new Graphic({
+          geometry: point,
+          symbol: {
+            type: "simple-marker",
+            size: 7,
+            color: [111, 111, 111],
+            outline: null,
+          },
+        });
+
+        view.goTo(
+          {
+            target: g,
+            // target: results,
+            zoom: 12,
+          },
+          { duration: 1000 }
+        );
+
+        view.graphics.add(g);
+      }
     });
   };
 
