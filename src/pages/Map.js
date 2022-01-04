@@ -58,31 +58,11 @@ function Map() {
   // global search
   // pabandyti ieskoti pagal attributes o ne pagal address
   // panaudoti searchViewModel
+  // ismesti pasirinkimus su suggest i dropdown
 
   const locatorUrl =
     "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
   const handleSearchResult = (e) => {
-    // let point = {
-    //   type: "point",
-    //   x: 581869.375771,
-    //   y: 6066568.205726,
-    //   spatialReference: { wkid: 3346 },
-    // };
-
-    // let g = new Graphic({
-    //   geometry: point,
-    //   symbol: {
-    //     type: "simple-marker",
-    //     size: 7,
-    //     color: [111, 111, 111],
-    //     outline: null,
-    //   },
-    // });
-    // view.goTo({
-    //   target: g,
-    //   zoom: 15,
-    // });
-    // view.graphics.add(g);
     const result = e.target.value;
 
     var address = {
