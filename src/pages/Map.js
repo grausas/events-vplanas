@@ -7,7 +7,6 @@ import { useOpenClose } from "../hooks/useOpenClose";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import * as locator from "@arcgis/core/rest/locator";
-import Point from "@arcgis/core/geometry/Point";
 import Graphic from "@arcgis/core/Graphic";
 
 // Components
@@ -62,11 +61,12 @@ function Map() {
 
   const locatorUrl =
     "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
+
   const handleSearchResult = (e) => {
     const result = e.target.value;
 
     var address = {
-      SingleLine: "Didlaukio 80",
+      SingleLine: result,
       f: "json",
     };
 
@@ -76,17 +76,18 @@ function Map() {
       text: result,
     };
 
-    locator.suggestLocations(locatorUrl, params).then(function (response) {
-      console.log(typeof params.address);
-      console.log("response", response);
-      // const address = response.filter((item) =>
-      //   item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
-      // );
-      // console.log("address", address);
-    });
+    // locator.suggestLocations(locatorUrl, params).then(function (response) {
+    //   console.log(typeof params.address);
+    //   console.log("response", response);
+    //   // const address = response.filter((item) =>
+    //   //   item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
+    //   // );
+    //   // console.log("address", address);
+    // });
     locator.addressToLocations(locatorUrl, params).then(function (results) {
       console.log("addressToLocations for Madrid=", results);
       if (results.length > 0) {
+        console.log(results);
         let point = {
           type: "point",
           x: 581869.375771,
@@ -100,20 +101,22 @@ function Map() {
             type: "simple-marker",
             size: 7,
             color: [111, 111, 111],
-            outline: null,
           },
         });
 
-        view.goTo(
-          {
-            target: g,
-            // target: results,
-            zoom: 12,
-          },
-          { duration: 1000 }
-        );
-
         view.graphics.add(g);
+        // reikai pakisti wkid, kad centruotų
+        view.center = point;
+        view.zoom = 12;
+
+        // view.goTo(
+        //   {
+        //     target: g,
+        //     // target: results,
+        //     zoom: 12,
+        //   },
+        //   { duration: 1000 }
+        // );
       }
     });
   };
