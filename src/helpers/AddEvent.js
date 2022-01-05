@@ -10,7 +10,7 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
       RENGINIO_PABAIGA: new Date(params.RENGINIO_PABAIGA).toISOString(),
       APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
       WEBPAGE: params.WEBPAGE,
-      KATEGORIJA: params.KATEGORIJA,
+      KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
       PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
     },
     geometry: params.geometry,
