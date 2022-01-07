@@ -4,10 +4,14 @@ export const Wrapper = styled.div`
   position: absolute;
   top: 40px;
   right: 10px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 80%;
   background: var(--silver);
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   opacity: 0.9;
+  overflow: auto;
 `;
 
 export const TimelineContainer = styled.div`
@@ -17,7 +21,7 @@ export const TimelineContainer = styled.div`
   margin: 10px;
 
   &&:after {
-    background-color: #e17b77;
+    background-color: var(--red);
     content: "";
     position: absolute;
     left: calc(50% - 2px);
@@ -45,14 +49,13 @@ export const TimelineItem = styled.div`
 export const ItemContent = styled.div`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
-  background-color: #fff;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   padding: 15px;
   position: relative;
-  width: 400px;
-  max-width: 100%;
+  width: 100%;
   text-align: right;
 
   ${TimelineItem}:nth-child(odd) & {
@@ -62,7 +65,7 @@ export const ItemContent = styled.div`
 
   ${TimelineItem}:nth-child(odd) &:after {
     right: auto;
-    left: -7.5px;
+    left: -5.5px;
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
   }
 
@@ -71,23 +74,23 @@ export const ItemContent = styled.div`
     background-color: #fff;
     box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
     position: absolute;
-    right: -7.5px;
+    right: -5.5px;
     top: calc(50% - 7.5px);
     transform: rotate(45deg);
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
   }
 `;
 
 export const Category = styled.span`
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
+  position: absolute;
   top: 5px;
   left: 5px;
+  font-size: 12px;
+  font-weight: bold;
   letter-spacing: 1px;
   padding: 5px;
-  position: absolute;
+  color: var(--white);
   text-transform: uppercase;
   background-color: ${(props) =>
     props.backgroundColor === 1
@@ -107,32 +110,32 @@ export const Category = styled.span`
 `;
 
 export const Date = styled.span`
-  color: #777;
+  color: var(--grey);
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 export const Text = styled.p`
-  font-size: 16px;
+  font-size: var(--small);
   line-height: 24px;
   margin: 15px 0;
   max-width: 250px;
 `;
 
 export const Circle = styled.span`
-  background-color: #fff;
-  border: 3px solid #e17b77;
+  background-color: var(--white);
+  border: 3px solid var(--red);
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);
-  right: -30px;
-  width: 20px;
-  height: 20px;
+  right: -28px;
+  width: 16px;
+  height: 16px;
   z-index: 100;
 
   ${TimelineItem}:nth-child(odd) & {
     right: auto;
-    left: -30px;
+    left: -28px;
   }
 `;
 // fix close button
@@ -150,5 +153,15 @@ export const Close = styled.div`
 
   :hover {
     background-color: var(--silver);
+  }
+`;
+
+export const MoreButton = styled.span`
+  font-weight: 600;
+  cursor: pointer;
+
+  &::after {
+    content: " ►";
+    font-size: 12px;
   }
 `;

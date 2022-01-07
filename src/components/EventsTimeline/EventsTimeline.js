@@ -9,9 +9,10 @@ import {
   Text,
   Circle,
   Close,
+  MoreButton,
 } from "./EventsTimeline.style";
 
-const EventsTimeline = ({ events, handleClose }) => {
+const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
   return (
     <>
       <Wrapper>
@@ -28,6 +29,11 @@ const EventsTimeline = ({ events, handleClose }) => {
                     <Date>{event.attributes.RENGINIO_PRADZIA}</Date>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
                     <Circle />
+                    <MoreButton
+                      onClick={() => handleEventOpen(event.attributes.OBJECTID)}
+                    >
+                      Perziureti rengini
+                    </MoreButton>
                   </ItemContent>
                 </TimelineItem>
               );

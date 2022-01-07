@@ -339,9 +339,9 @@ function Map() {
       layer.queryFeatures(query).then(function (response) {
         if (response.features.length > 0) {
           console.log("response", response);
-          // const graphics = response.features[0].attributes;
+          const graphics = response.features[0].attributes;
           setClickedEvents(response.features);
-          // setQueryPoint(graphics);
+          setQueryPoint(graphics);
         }
         handleOpen(show);
       });
@@ -444,10 +444,14 @@ function Map() {
         />
         {/* Renginys ir jo redagavimas */}
 
-        {
-          show && (
-            <EventsTimeline events={clickedEvents} handleClose={handleOpen} />
-          )
+        {show && (
+          <EventsTimeline
+            events={clickedEvents}
+            handleClose={handleOpen}
+            handleEventOpen={(event) => {
+              console.log(event);
+            }}
+          />
           // <EventCard
           //   organization={queryPoint.ORGANIZATORIUS}
           //   title={queryPoint.PAVADINIMAS}
@@ -472,7 +476,7 @@ function Map() {
           //     }}
           //   />
           // </EventCard>
-        }
+        )}
       </div>
     </>
   );
