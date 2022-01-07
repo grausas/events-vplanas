@@ -1,17 +1,30 @@
 // styles
-import { Wrapper } from "./EventsTimeline.style";
+import {
+  Wrapper,
+  TimelineContainer,
+  TimelineItem,
+  ItemContent,
+  Circle,
+} from "./EventsTimeline.style";
 
 const EventsTimeline = ({ events }) => {
   return (
     <Wrapper>
-      {events &&
-        events.map((event) => {
-          return (
-            <ul key={event.attributes.OBJECTID}>
-              <li>{event.attributes.PAVADINIMAS}</li>
-            </ul>
-          );
-        })}
+      <TimelineContainer>
+        {events &&
+          events.map((event) => {
+            return (
+              <TimelineItem key={event.attributes.OBJECTID}>
+                <ItemContent>
+                  <span>{event.attributes.KATEGORIJA}</span>
+                  <time>{event.attributes.RENGINIO_PRADZIA}</time>
+                  <span>{event.attributes.PAVADINIMAS}</span>
+                  <Circle />
+                </ItemContent>
+              </TimelineItem>
+            );
+          })}
+      </TimelineContainer>
     </Wrapper>
   );
 };

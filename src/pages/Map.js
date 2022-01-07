@@ -367,11 +367,11 @@ function Map() {
     <>
       {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
-        <input
+        {/* <input
           type="text"
           placeholder="paieska"
           onChange={handleSearchResult}
-        ></input>
+        ></input> */}
         <EventsTimeline events={clickedEvents} />
         {console.log("clickedEvents", clickedEvents)}
         <Loading id="loading" />
