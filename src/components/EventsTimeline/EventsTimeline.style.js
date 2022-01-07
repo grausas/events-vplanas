@@ -5,6 +5,9 @@ export const Wrapper = styled.div`
   top: 40px;
   right: 10px;
   background: var(--silver);
+  border-radius: 5px;
+  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+  opacity: 0.9;
 `;
 
 export const TimelineContainer = styled.div`
@@ -76,6 +79,46 @@ export const ItemContent = styled.div`
   }
 `;
 
+export const Category = styled.span`
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  top: 5px;
+  left: 5px;
+  letter-spacing: 1px;
+  padding: 5px;
+  position: absolute;
+  text-transform: uppercase;
+  background-color: ${(props) =>
+    props.backgroundColor === 1
+      ? "rgb(237,81,81,255)"
+      : props.backgroundColor === 2
+      ? "rgb(20,158,206,255)"
+      : props.backgroundColor === 3
+      ? "rgb(158,85,156,255)"
+      : props.backgroundColor === 4
+      ? "rgb(252,146,31,255)"
+      : "rgb(167,198,54,255)"};
+
+  ${TimelineItem}:nth-child(odd) & {
+    left: auto;
+    right: 5px;
+  }
+`;
+
+export const Date = styled.span`
+  color: #777;
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+export const Text = styled.p`
+  font-size: 16px;
+  line-height: 24px;
+  margin: 15px 0;
+  max-width: 250px;
+`;
+
 export const Circle = styled.span`
   background-color: #fff;
   border: 3px solid #e17b77;
@@ -86,4 +129,9 @@ export const Circle = styled.span`
   width: 20px;
   height: 20px;
   z-index: 100;
+
+  ${TimelineItem}:nth-child(odd) & {
+    right: auto;
+    left: -30px;
+  }
 `;

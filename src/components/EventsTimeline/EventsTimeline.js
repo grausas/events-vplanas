@@ -4,28 +4,40 @@ import {
   TimelineContainer,
   TimelineItem,
   ItemContent,
+  Category,
+  Date,
+  Text,
   Circle,
 } from "./EventsTimeline.style";
+//hooks
+import { useOpenClose } from "../../hooks/useOpenClose";
 
-const EventsTimeline = ({ events }) => {
+const EventsTimeline = ({ events, handleClose }) => {
+  const { handleOpen, show } = useOpenClose();
+
   return (
-    <Wrapper>
-      <TimelineContainer>
-        {events &&
-          events.map((event) => {
-            return (
-              <TimelineItem key={event.attributes.OBJECTID}>
-                <ItemContent>
-                  <span>{event.attributes.KATEGORIJA}</span>
-                  <time>{event.attributes.RENGINIO_PRADZIA}</time>
-                  <span>{event.attributes.PAVADINIMAS}</span>
-                  <Circle />
-                </ItemContent>
-              </TimelineItem>
-            );
-          })}
-      </TimelineContainer>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <span onClick={handleClose}>X</span>
+        <TimelineContainer>
+          {events &&
+            events.map((event) => {
+              return (
+                <TimelineItem key={event.attributes.OBJECTID}>
+                  <ItemContent>
+                    <Category backgroundColor={event.attributes.KATEGORIJA}>
+                      {event.attributes.KATEGORIJA}
+                    </Category>
+                    <Date>{event.attributes.RENGINIO_PRADZIA}</Date>
+                    <Text>{event.attributes.PAVADINIMAS}</Text>
+                    <Circle />
+                  </ItemContent>
+                </TimelineItem>
+              );
+            })}
+        </TimelineContainer>
+      </Wrapper>
+    </>
   );
 };
 

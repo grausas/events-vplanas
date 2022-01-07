@@ -339,11 +339,11 @@ function Map() {
       layer.queryFeatures(query).then(function (response) {
         if (response.features.length > 0) {
           console.log("response", response);
-          const graphics = response.features[0].attributes;
+          // const graphics = response.features[0].attributes;
           setClickedEvents(response.features);
-          setQueryPoint(graphics);
-          handleOpen(show);
+          // setQueryPoint(graphics);
         }
+        handleOpen(show);
       });
     });
 
@@ -366,15 +366,18 @@ function Map() {
   return (
     <>
       {error && <Notification type={type} message={error} />}
+
       <div className="mapDiv" ref={mapRef}>
         {/* <input
           type="text"
           placeholder="paieska"
           onChange={handleSearchResult}
         ></input> */}
-        <EventsTimeline events={clickedEvents} />
+
         {console.log("clickedEvents", clickedEvents)}
+
         <Loading id="loading" />
+
         <Home handleClick={() => zoomDefault(view)} />
         <Zoom
           handleZoomIn={() => zoomIn(view)}
@@ -440,32 +443,36 @@ function Map() {
           }}
         />
         {/* Renginys ir jo redagavimas */}
-        {show && (
-          <EventCard
-            organization={queryPoint.ORGANIZATORIUS}
-            title={queryPoint.PAVADINIMAS}
-            url={queryPoint.WEBPAGE}
-            comment={queryPoint.PASTABOS}
-            description={queryPoint.APRASYMAS}
-            startDate={startEventDate + " | " + startEventTime}
-            finishDate={finishEventDate + " | " + finishEventTime}
-            handleChange={handleOpen}
-          >
-            <EditEvent
-              setQueryPoint={setQueryPoint}
-              queryPoint={queryPoint}
-              handleSubmit={(e) => {
-                e.preventDefault();
-                updateEvent(queryPoint);
-                handleOpen(!show);
-              }}
-              handleDelete={(e) => {
-                deleteEvent(queryPoint.OBJECTID);
-                handleOpen(!show);
-              }}
-            />
-          </EventCard>
-        )}
+
+        {
+          show && (
+            <EventsTimeline events={clickedEvents} handleClose={handleOpen} />
+          )
+          // <EventCard
+          //   organization={queryPoint.ORGANIZATORIUS}
+          //   title={queryPoint.PAVADINIMAS}
+          //   url={queryPoint.WEBPAGE}
+          //   comment={queryPoint.PASTABOS}
+          //   description={queryPoint.APRASYMAS}
+          //   startDate={startEventDate + " | " + startEventTime}
+          //   finishDate={finishEventDate + " | " + finishEventTime}
+          //   handleChange={handleOpen}
+          // >
+          //   <EditEvent
+          //     setQueryPoint={setQueryPoint}
+          //     queryPoint={queryPoint}
+          //     handleSubmit={(e) => {
+          //       e.preventDefault();
+          //       updateEvent(queryPoint);
+          //       handleOpen(!show);
+          //     }}
+          //     handleDelete={(e) => {
+          //       deleteEvent(queryPoint.OBJECTID);
+          //       handleOpen(!show);
+          //     }}
+          //   />
+          // </EventCard>
+        }
       </div>
     </>
   );
