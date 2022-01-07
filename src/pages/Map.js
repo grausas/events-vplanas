@@ -336,6 +336,7 @@ function Map() {
 
       layer.queryFeatures(query).then(function (response) {
         if (response.features.length > 0) {
+          console.log("response", response);
           const graphics = response.features[0].attributes;
           setQueryPoint(graphics);
           handleOpen(show);
@@ -438,7 +439,6 @@ function Map() {
           <EventCard
             organization={queryPoint.ORGANIZATORIUS}
             title={queryPoint.PAVADINIMAS}
-            // category={category}
             url={queryPoint.WEBPAGE}
             comment={queryPoint.PASTABOS}
             description={queryPoint.APRASYMAS}

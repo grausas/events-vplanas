@@ -14,3 +14,4 @@ export { default as Zoom } from "./Zoom/Zoom";
 export { default as Home } from "./Home/Home";
 export { default as EditEvent } from "./EditEvent/EditEvent";
 export { default as ConfirmModal } from "./ConfirmModal/ConfirmModal";
+export { default as EventsTimeline } from "./EventsTimeline/EventsTimeline";
