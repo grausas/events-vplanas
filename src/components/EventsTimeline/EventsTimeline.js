@@ -8,17 +8,14 @@ import {
   Date,
   Text,
   Circle,
+  Close,
 } from "./EventsTimeline.style";
-//hooks
-import { useOpenClose } from "../../hooks/useOpenClose";
 
 const EventsTimeline = ({ events, handleClose }) => {
-  const { handleOpen, show } = useOpenClose();
-
   return (
     <>
       <Wrapper>
-        <span onClick={handleClose}>X</span>
+        <Close onClick={handleClose}>X</Close>
         <TimelineContainer>
           {events &&
             events.map((event) => {

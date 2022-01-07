@@ -135,3 +135,20 @@ export const Circle = styled.span`
     left: -30px;
   }
 `;
+// fix close button
+export const Close = styled.div`
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  padding: 0 5px;
+  font-weight: 600;
+  font-size: var(--medium);
+  background: var(--white);
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 5;
+
+  :hover {
+    background-color: var(--silver);
+  }
+`;
