@@ -21,6 +21,7 @@ import {
   Notification,
   Zoom,
   Home,
+  EventsTimeline,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -51,6 +52,7 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
+  const [clickedEvents, setClickedEvents] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
 
@@ -338,6 +340,7 @@ function Map() {
         if (response.features.length > 0) {
           console.log("response", response);
           const graphics = response.features[0].attributes;
+          setClickedEvents(response.features);
           setQueryPoint(graphics);
           handleOpen(show);
         }
@@ -369,6 +372,8 @@ function Map() {
           placeholder="paieska"
           onChange={handleSearchResult}
         ></input>
+        <EventsTimeline events={clickedEvents} />
+        {console.log("clickedEvents", clickedEvents)}
         <Loading id="loading" />
         <Home handleClick={() => zoomDefault(view)} />
         <Zoom
