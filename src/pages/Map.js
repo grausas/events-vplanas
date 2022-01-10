@@ -137,8 +137,6 @@ function Map() {
     handleOpenModal(openModal);
   };
 
-  console.log("queryPoint", queryPoint);
-
   // clear error state after some time
   useEffect(() => {
     const timeId = setTimeout(() => {
@@ -357,10 +355,7 @@ function Map() {
 
       layer.queryFeatures(query).then(function (response) {
         if (response.features.length > 0) {
-          console.log("response", response);
-          // const graphics = response.features[0].attributes;
           setClickedEvents(response.features);
-          // setQueryPoint(graphics);
           handleOpen(show);
         }
       });
@@ -392,8 +387,6 @@ function Map() {
           placeholder="paieska"
           onChange={handleSearchResult}
         ></input> */}
-
-        {console.log("clickedEvents", clickedEvents)}
 
         <Loading id="loading" />
 
@@ -470,7 +463,6 @@ function Map() {
             handleEventOpen={openEvent}
           />
         )}
-        {console.log("querylength", queryPoint.length)}
         {openModal && (
           <EventCard
             organization={queryPoint.ORGANIZATORIUS}

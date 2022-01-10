@@ -72,7 +72,7 @@ export const ItemContent = styled.div`
 
   &:after {
     content: " ";
-    background-color: #fff;
+    background-color: var(--white);
     box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
     position: absolute;
     right: -5.5px;
@@ -166,7 +166,7 @@ export const MoreButton = styled.span`
     font-size: 12px;
   }
   &:hover {
-    color: var(--blue);
+    color: var(--lightBlue);
   }
 `;
 
