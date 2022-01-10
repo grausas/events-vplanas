@@ -11,6 +11,8 @@ import {
   Close,
   MoreButton,
 } from "./EventsTimeline.style";
+// utils
+import { CategoryData } from "../../utils/CategoryData";
 
 const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
   return (
@@ -20,11 +22,14 @@ const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
         <TimelineContainer>
           {events &&
             events.map((event) => {
+              const result = CategoryData.find(
+                ({ id }) => id === event.attributes.KATEGORIJA
+              );
               return (
                 <TimelineItem key={event.attributes.OBJECTID}>
                   <ItemContent>
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
-                      {event.attributes.KATEGORIJA}
+                      {result.text}
                     </Category>
                     <Date>{event.attributes.RENGINIO_PRADZIA}</Date>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
