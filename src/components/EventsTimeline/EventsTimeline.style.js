@@ -42,7 +42,7 @@ export const TimelineItem = styled.div`
     align-self: flex-end;
     justify-content: flex-start;
     padding-left: 20px;
-    padding-right: 10px;
+    padding-right: 0px;
   }
 `;
 

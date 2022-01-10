@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "./Map.css";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
+import { useOpenCloseModal } from "../hooks/openModal";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import * as locator from "@arcgis/core/rest/locator";
@@ -55,6 +56,7 @@ function Map() {
   const [clickedEvents, setClickedEvents] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
+  const { handleOpenModal, openModal } = useOpenCloseModal();
 
   // global search
   // pabandyti ieskoti pagal attributes o ne pagal address
@@ -124,6 +126,17 @@ function Map() {
   };
 
   // ------------------
+
+  // open event
+  const openEvent = (event) => {
+    const filterResult = clickedEvents.filter(
+      (item) => item.attributes.OBJECTID === event
+    );
+    setQueryPoint(filterResult[0].attributes);
+    handleOpenModal(openModal);
+  };
+
+  console.log("queryPoint", queryPoint);
 
   // clear error state after some time
   useEffect(() => {
@@ -309,6 +322,11 @@ function Map() {
 
     layer
       .queryFeatures({
+        // where: [
+        //   "RENGINIO_PRADZIA > date'" +
+        //     new Date().toISOString().slice(0, 10) +
+        //     "'",
+        // ],
         where: ["1=1"],
         outFields: ["*"],
       })
@@ -339,9 +357,9 @@ function Map() {
       layer.queryFeatures(query).then(function (response) {
         if (response.features.length > 0) {
           console.log("response", response);
-          const graphics = response.features[0].attributes;
+          // const graphics = response.features[0].attributes;
           setClickedEvents(response.features);
-          setQueryPoint(graphics);
+          // setQueryPoint(graphics);
           handleOpen(show);
         }
       });
@@ -448,34 +466,35 @@ function Map() {
           <EventsTimeline
             events={clickedEvents}
             handleClose={handleOpen}
-            handleEventOpen={(event) => {
-              console.log(event);
-            }}
+            handleEventOpen={openEvent}
           />
-          // <EventCard
-          //   organization={queryPoint.ORGANIZATORIUS}
-          //   title={queryPoint.PAVADINIMAS}
-          //   url={queryPoint.WEBPAGE}
-          //   comment={queryPoint.PASTABOS}
-          //   description={queryPoint.APRASYMAS}
-          //   startDate={startEventDate + " | " + startEventTime}
-          //   finishDate={finishEventDate + " | " + finishEventTime}
-          //   handleChange={handleOpen}
-          // >
-          //   <EditEvent
-          //     setQueryPoint={setQueryPoint}
-          //     queryPoint={queryPoint}
-          //     handleSubmit={(e) => {
-          //       e.preventDefault();
-          //       updateEvent(queryPoint);
-          //       handleOpen(!show);
-          //     }}
-          //     handleDelete={(e) => {
-          //       deleteEvent(queryPoint.OBJECTID);
-          //       handleOpen(!show);
-          //     }}
-          //   />
-          // </EventCard>
+        )}
+        {console.log("querylength", queryPoint.length)}
+        {openModal && (
+          <EventCard
+            organization={queryPoint.ORGANIZATORIUS}
+            title={queryPoint.PAVADINIMAS}
+            url={queryPoint.WEBPAGE}
+            comment={queryPoint.PASTABOS}
+            description={queryPoint.APRASYMAS}
+            startDate={startEventDate + " | " + startEventTime}
+            finishDate={finishEventDate + " | " + finishEventTime}
+            handleChange={handleOpenModal}
+          >
+            <EditEvent
+              setQueryPoint={setQueryPoint}
+              queryPoint={queryPoint}
+              handleSubmit={(e) => {
+                e.preventDefault();
+                updateEvent(queryPoint);
+                handleOpenModal(!openModal);
+              }}
+              handleDelete={(e) => {
+                deleteEvent(queryPoint.OBJECTID);
+                handleOpenModal(!openModal);
+              }}
+            />
+          </EventCard>
         )}
       </div>
     </>
