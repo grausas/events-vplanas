@@ -135,7 +135,7 @@ const EditEvent = ({
       ) : (
         popup.show && (
           <ConfirmModal
-            text={`Ar tikrai norite ištrinti "${queryPoint.PAVADINIMAS}" renginį?`}
+            text={`Ar tikrai norite ištrinti renginį "${queryPoint.PAVADINIMAS}"?`}
             confirmText="Ištrinti"
             cancelText="Atšaukti"
             handleCancel={handleDeleteFalse}

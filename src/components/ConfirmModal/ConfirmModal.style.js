@@ -22,14 +22,18 @@ export const Wrapper = styled.div`
 export const ButtonDiv = styled(Btn)`
   padding: 5px 10px;
 
-  &:hover {
-    background: var(--red);
-    color: var(--white);
+  opacity: 0.8;
+
+  &:nth-child(odd) {
+    background-color: var(--red);
+  }
+  &:nth-child(even) {
+    background-color: var(--grey);
   }
 
-  &:hover:nth-child(even) {
-    background: var(--grey);
+  &:hover {
     color: var(--white);
+    opacity: 1;
   }
 `;
 
