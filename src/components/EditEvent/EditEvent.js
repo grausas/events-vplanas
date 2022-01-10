@@ -1,117 +1,149 @@
+import { useState } from "react";
 // styles
-import { Wrapper, Button, ButtonsDiv } from "./EditEvent.style";
+import { Wrapper, Button, ButtonsDiv, CloseImage } from "./EditEvent.style";
 // components
-import { InputField, DatePicker } from "../index";
+import { InputField, DatePicker, ConfirmModal } from "../index";
 //utils
 import { CategoryData } from "../../utils/CategoryData";
+// Icon
+import CloseIcon from "../../assets/icons/close.png";
 
 const EditEvent = ({
   handleSubmit,
-  handleDelete,
+  handleDeleteConfirm,
   setQueryPoint,
   queryPoint,
+  handleChange,
 }) => {
+  const [popup, setPopup] = useState({
+    show: false,
+  });
+
+  const handleDelete = (id) => {
+    setPopup({
+      show: true,
+    });
+  };
+
+  const handleDeleteFalse = () => {
+    setPopup({
+      show: false,
+    });
+  };
   return (
-    <Wrapper>
-      <form onSubmit={handleSubmit}>
-        <h3>Redaguoti renginį</h3>
-        <InputField
-          type="text"
-          labelText="Pavadinimas"
-          defaultValue={queryPoint.PAVADINIMAS}
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              PAVADINIMAS: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="text"
-          labelText="Organizatorius"
-          defaultValue={queryPoint.ORGANIZATORIUS}
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              ORGANIZATORIUS: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="dropdown"
-          options={CategoryData}
-          labelText="Kategorija"
-          defaultValue={queryPoint.KATEGORIJA}
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              KATEGORIJA: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="longtext"
-          labelText="Pastabos"
-          defaultValue={queryPoint.PASTABOS}
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              PASTABOS: e.target.value,
-            });
-          }}
-        />
-        <InputField
-          type="longtext"
-          labelText="Aprašymas"
-          defaultValue={queryPoint.APRASYMAS}
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              APRASYMAS: e.target.value,
-            });
-          }}
-        />
-        <DatePicker
-          timeTitle="Pradžios laikas"
-          dateTitle="Pradžios data"
-          selected={queryPoint.RENGINIO_PRADZIA}
-          handleChange={(date, e) => {
-            setQueryPoint({
-              ...queryPoint,
-              RENGINIO_PRADZIA: date,
-            });
-          }}
-        />
-        <DatePicker
-          timeTitle="Pabaigos laikas"
-          dateTitle="Pabaigos data"
-          selected={queryPoint.RENGINIO_PABAIGA}
-          handleChange={(date) => {
-            setQueryPoint({
-              ...queryPoint,
-              RENGINIO_PABAIGA: date,
-            });
-          }}
-        />
-        <InputField
-          type="text"
-          labelText="Renginio puslapis"
-          defaultValue={queryPoint.WEBPAGE}
-          handleChange={(e) => {
-            setQueryPoint({
-              ...queryPoint,
-              WEBPAGE: e.target.value,
-            });
-          }}
-        />
-        <ButtonsDiv>
-          <Button>Patvirtinti</Button>
-          <Button handleClick={handleDelete} type="delete">
-            Ištrinti
-          </Button>
-        </ButtonsDiv>
-      </form>
-    </Wrapper>
+    <>
+      {!popup.show ? (
+        <Wrapper>
+          <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
+          <form>
+            <h3>Redaguoti renginį</h3>
+            <InputField
+              type="text"
+              labelText="Pavadinimas"
+              defaultValue={queryPoint.PAVADINIMAS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  PAVADINIMAS: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="text"
+              labelText="Organizatorius"
+              defaultValue={queryPoint.ORGANIZATORIUS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  ORGANIZATORIUS: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="dropdown"
+              options={CategoryData}
+              labelText="Kategorija"
+              defaultValue={queryPoint.KATEGORIJA}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  KATEGORIJA: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="longtext"
+              labelText="Pastabos"
+              defaultValue={queryPoint.PASTABOS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  PASTABOS: e.target.value,
+                });
+              }}
+            />
+            <InputField
+              type="longtext"
+              labelText="Aprašymas"
+              defaultValue={queryPoint.APRASYMAS}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  APRASYMAS: e.target.value,
+                });
+              }}
+            />
+            <DatePicker
+              timeTitle="Pradžios laikas"
+              dateTitle="Pradžios data"
+              selected={queryPoint.RENGINIO_PRADZIA}
+              handleChange={(date, e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  RENGINIO_PRADZIA: date,
+                });
+              }}
+            />
+            <DatePicker
+              timeTitle="Pabaigos laikas"
+              dateTitle="Pabaigos data"
+              selected={queryPoint.RENGINIO_PABAIGA}
+              handleChange={(date) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  RENGINIO_PABAIGA: date,
+                });
+              }}
+            />
+            <InputField
+              type="text"
+              labelText="Renginio puslapis"
+              defaultValue={queryPoint.WEBPAGE}
+              handleChange={(e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  WEBPAGE: e.target.value,
+                });
+              }}
+            />
+          </form>
+          <ButtonsDiv>
+            <Button handleClick={handleSubmit}>Patvirtinti</Button>
+            <Button handleClick={handleDelete}>Ištrinti</Button>
+          </ButtonsDiv>
+        </Wrapper>
+      ) : (
+        popup.show && (
+          <ConfirmModal
+            text={`Ar tikrai norite ištrinti "${queryPoint.PAVADINIMAS}" renginį?`}
+            confirmText="Ištrinti"
+            cancelText="Atšaukti"
+            handleCancel={handleDeleteFalse}
+            handleSubmit={handleDeleteConfirm}
+          />
+        )
+      )}
+    </>
   );
 };
 

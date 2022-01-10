@@ -23,6 +23,7 @@ import {
   Zoom,
   Home,
   EventsTimeline,
+  ConfirmModal,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -454,7 +455,7 @@ function Map() {
             setAddNewFeature([]);
           }}
         />
-        {/* Renginys ir jo redagavimas */}
+        {/* Renginių ir renginio atvaizdavimas, redagavimas */}
 
         {show && (
           <EventsTimeline
@@ -480,12 +481,16 @@ function Map() {
             <EditEvent
               setQueryPoint={setQueryPoint}
               queryPoint={queryPoint}
+              handleChange={() => {
+                handleOpenModal();
+                handleOpen(show);
+              }}
               handleSubmit={(e) => {
                 e.preventDefault();
                 updateEvent(queryPoint);
                 handleOpenModal(!openModal);
               }}
-              handleDelete={(e) => {
+              handleDeleteConfirm={(e) => {
                 deleteEvent(queryPoint.OBJECTID);
                 handleOpenModal(!openModal);
               }}

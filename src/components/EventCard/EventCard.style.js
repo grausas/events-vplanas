@@ -15,25 +15,6 @@ export const Content = styled.div`
   padding: 20px;
 `;
 
-export const FormWrapper = styled.div`
-  position: absolute;
-  max-width: 500px;
-  max-height: 80%;
-  width: 100%;
-  top: 5%;
-  background: var(--white);
-  left: calc(50% - 200px);
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  h3 {
-    margin-bottom: 20px;
-  }
-`;
-
 export const Close = styled.div`
   position: relative;
   height: 170px;

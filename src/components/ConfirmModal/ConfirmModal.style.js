@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Btn from "../Button/Button";
 
 export const Wrapper = styled.div`
-  width: 300px;
+  max-width: 300px;
   padding: 1rem;
   position: fixed;
   top: 0;
@@ -20,13 +20,21 @@ export const Wrapper = styled.div`
 `;
 
 export const ButtonDiv = styled(Btn)`
-  &:hover:nth-child(odd) {
+  padding: 5px 10px;
+
+  &:hover {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  &:hover:nth-child(even) {
     background: var(--grey);
     color: var(--white);
   }
 `;
 
 export const ButtonWrapper = styled.div`
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 `;

@@ -8,7 +8,6 @@ import {
   CloseImage,
   Logo,
   EditIcon,
-  FormWrapper,
   EventDates,
 } from "./EventCard.style";
 
@@ -42,10 +41,7 @@ const EventCard = ({
   return (
     <>
       {show ? (
-        <FormWrapper>
-          <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
-          {children}
-        </FormWrapper>
+        <>{children}</>
       ) : (
         <Wrapper>
           <Close>
