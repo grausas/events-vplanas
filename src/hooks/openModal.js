@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-export const useOpenClose = () => {
+export const useOpenCloseModal = () => {
   const [openModal, setOpenModal] = useState(false);
 
-  const handleOpen = () => {
+  const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
 
   return {
-    handleOpen,
+    handleOpenModal,
     openModal,
   };
 };
