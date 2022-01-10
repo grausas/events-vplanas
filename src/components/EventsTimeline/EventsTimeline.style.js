@@ -109,7 +109,7 @@ export const Category = styled.span`
   }
 `;
 
-export const Date = styled.span`
+export const EventDate = styled.span`
   color: var(--grey);
   font-size: 12px;
   font-weight: 700;

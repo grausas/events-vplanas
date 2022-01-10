@@ -5,7 +5,7 @@ import {
   TimelineItem,
   ItemContent,
   Category,
-  Date,
+  EventDate,
   Text,
   Circle,
   Close,
@@ -13,6 +13,8 @@ import {
 } from "./EventsTimeline.style";
 // utils
 import { CategoryData } from "../../utils/CategoryData";
+// helpers
+import { changeDate, changeTime } from "../../helpers/DateChange";
 
 const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
   return (
@@ -25,13 +27,19 @@ const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
               const result = CategoryData.find(
                 ({ id }) => id === event.attributes.KATEGORIJA
               );
+              const eventDate = changeDate(
+                new Date(event.attributes.RENGINIO_PRADZIA)
+              );
+              const eventTime = changeTime(
+                new Date(event.attributes.RENGINIO_PRADZIA)
+              );
               return (
                 <TimelineItem key={event.attributes.OBJECTID}>
                   <ItemContent>
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
                       {result.text}
                     </Category>
-                    <Date>{event.attributes.RENGINIO_PRADZIA}</Date>
+                    <EventDate>{eventDate + " " + eventTime}</EventDate>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
                     <Circle />
                     <MoreButton
