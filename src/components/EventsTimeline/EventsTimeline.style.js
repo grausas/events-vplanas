@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  /* display: ${(props) => (props.display !== "show" ? "block" : "none")}; */
   top: 10px;
   right: 10px;
   max-width: 700px;
@@ -38,8 +37,9 @@ export const TimelineItem = styled.div`
   position: relative;
   margin: 10px 0;
   width: 50%;
+  /* align-self: flex-start; */
 
-  &:nth-child(odd) {
+  &:nth-child(even) {
     align-self: flex-end;
     justify-content: flex-start;
     padding-left: 20px;
@@ -54,17 +54,17 @@ export const ItemContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  padding: 15px;
+  padding: 10px 15px;
   position: relative;
   width: 100%;
   text-align: right;
 
-  ${TimelineItem}:nth-child(odd) & {
+  ${TimelineItem}:nth-child(even) & {
     text-align: left;
     align-items: flex-start;
   }
 
-  ${TimelineItem}:nth-child(odd) &:after {
+  ${TimelineItem}:nth-child(even) &:after {
     right: auto;
     left: -5.5px;
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -104,7 +104,7 @@ export const Category = styled.span`
       ? "rgb(252,146,31,255)"
       : "rgb(167,198,54,255)"};
 
-  ${TimelineItem}:nth-child(odd) & {
+  ${TimelineItem}:nth-child(even) & {
     left: auto;
     right: 5px;
   }
@@ -134,7 +134,7 @@ export const Circle = styled.span`
   height: 16px;
   z-index: 100;
 
-  ${TimelineItem}:nth-child(odd) & {
+  ${TimelineItem}:nth-child(even) & {
     right: auto;
     left: -28px;
   }
