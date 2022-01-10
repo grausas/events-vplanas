@@ -32,7 +32,7 @@ const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
                     <MoreButton
                       onClick={() => handleEventOpen(event.attributes.OBJECTID)}
                     >
-                      Perziureti rengini
+                      Peržiūrėti renginį
                     </MoreButton>
                   </ItemContent>
                 </TimelineItem>

@@ -342,8 +342,8 @@ function Map() {
           const graphics = response.features[0].attributes;
           setClickedEvents(response.features);
           setQueryPoint(graphics);
+          handleOpen(show);
         }
-        handleOpen(show);
       });
     });
 
