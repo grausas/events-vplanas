@@ -1,3 +1,4 @@
+import { useState } from "react";
 // styles
 import {
   Wrapper,
@@ -19,7 +20,14 @@ import { changeDate, changeTime } from "../../helpers/DateChange";
 // icons
 import CloseIcon from "../../assets/icons/close.png";
 
-const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
+const EventsTimeline = ({
+  events,
+  handleClose,
+  handleEventOpen,
+  handleShowClose,
+}) => {
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <Wrapper>

@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  top: 40px;
+  /* display: ${(props) => (props.display !== "show" ? "block" : "none")}; */
+  top: 10px;
   right: 10px;
   max-width: 700px;
   width: 100%;
@@ -163,6 +164,9 @@ export const MoreButton = styled.span`
   &::after {
     content: " ►";
     font-size: 12px;
+  }
+  &:hover {
+    color: var(--blue);
   }
 `;
 

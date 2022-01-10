@@ -133,6 +133,7 @@ function Map() {
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
+    handleOpen(!show);
     handleOpenModal(openModal);
   };
 
@@ -479,7 +480,10 @@ function Map() {
             description={queryPoint.APRASYMAS}
             startDate={startEventDate + " | " + startEventTime}
             finishDate={finishEventDate + " | " + finishEventTime}
-            handleChange={handleOpenModal}
+            handleChange={() => {
+              handleOpenModal();
+              handleOpen(show);
+            }}
           >
             <EditEvent
               setQueryPoint={setQueryPoint}
