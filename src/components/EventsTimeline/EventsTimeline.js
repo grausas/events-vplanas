@@ -1,4 +1,3 @@
-import { useState } from "react";
 // styles
 import {
   Wrapper,
@@ -20,21 +19,14 @@ import { changeDate, changeTime } from "../../helpers/DateChange";
 // icons
 import CloseIcon from "../../assets/icons/close.png";
 
-const EventsTimeline = ({
-  events,
-  handleClose,
-  handleEventOpen,
-  handleShowClose,
-}) => {
-  const [show, setShow] = useState(false);
-
+const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
   return (
     <>
-      <Wrapper>
+      <Wrapper maxWidth={events.length > 1 ? 0 : 1}>
         <Close onClick={handleClose}>
           <CloseImage src={CloseIcon} alt="close-icon" />
         </Close>
-        <TimelineContainer>
+        <TimelineContainer left={events.length > 1 ? 0 : 1}>
           {events &&
             events.map((event) => {
               const result = CategoryData.find(
@@ -47,7 +39,11 @@ const EventsTimeline = ({
                 new Date(event.attributes.RENGINIO_PRADZIA)
               );
               return (
-                <TimelineItem key={event.attributes.OBJECTID}>
+                <TimelineItem
+                  key={event.attributes.OBJECTID}
+                  color={events.length > 1 ? 0 : 1}
+                  width={events.length > 1 ? 1 : 0}
+                >
                   <ItemContent>
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
                       {result.text}
