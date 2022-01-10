@@ -23,18 +23,24 @@ export const Wrapper = styled.div`
 export const ButtonsDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 export const Button = styled(Btn)`
   background-color: var(--grey);
   padding: 5px 20px;
-  margin-top: 20px;
-  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:nth-child(even) {
+    padding-left: 10px;
+  }
 
   :hover {
-    background: ${(props) =>
-      props.type === "delete" ? "var(--red)" : "var(--lightBlue)"};
+    background-color: var(--grey);
     color: var(--white);
+    opacity: 0.9;
   }
 `;
 
@@ -50,4 +56,9 @@ export const CloseImage = styled.img`
     border-radius: 50%;
     background-color: var(--silver);
   }
+`;
+
+export const DeleteImage = styled.img`
+  width: 20px;
+  margin-right: 5px;
 `;

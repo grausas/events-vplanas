@@ -1,12 +1,19 @@
 import { useState } from "react";
 // styles
-import { Wrapper, Button, ButtonsDiv, CloseImage } from "./EditEvent.style";
+import {
+  Wrapper,
+  Button,
+  ButtonsDiv,
+  CloseImage,
+  DeleteImage,
+} from "./EditEvent.style";
 // components
 import { InputField, DatePicker, ConfirmModal } from "../index";
 //utils
 import { CategoryData } from "../../utils/CategoryData";
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
+import DeleteIcon from "../../assets/icons/delete.svg";
 
 const EditEvent = ({
   handleSubmit,
@@ -128,16 +135,19 @@ const EditEvent = ({
             />
           </form>
           <ButtonsDiv>
-            <Button handleClick={handleSubmit}>Patvirtinti</Button>
-            <Button handleClick={handleDelete}>Ištrinti</Button>
+            <Button handleClick={handleSubmit}>PATVIRTINTI</Button>
+            <Button handleClick={handleDelete}>
+              <DeleteImage src={DeleteIcon} alt="delete-icon" />
+              IŠTRINTI
+            </Button>
           </ButtonsDiv>
         </Wrapper>
       ) : (
         popup.show && (
           <ConfirmModal
             text={`Ar tikrai norite ištrinti renginį "${queryPoint.PAVADINIMAS}"?`}
-            confirmText="Ištrinti"
-            cancelText="Atšaukti"
+            confirmText="IŠTRINTI"
+            cancelText="ATŠAUKTI"
             handleCancel={handleDeleteFalse}
             handleSubmit={handleDeleteConfirm}
           />
