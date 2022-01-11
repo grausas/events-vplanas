@@ -1,5 +1,12 @@
 //styles
-import { Wrapper, ButtonDiv, ButtonWrapper } from "./ConfirmModal.style";
+import {
+  Wrapper,
+  ButtonDiv,
+  ButtonWrapper,
+  DeleteImage,
+} from "./ConfirmModal.style";
+// Icons
+import DeleteIcon from "../../assets/icons/delete.svg";
 
 const ConfirmModal = ({
   text,
@@ -12,7 +19,10 @@ const ConfirmModal = ({
     <Wrapper>
       <span>{text}</span>
       <ButtonWrapper>
-        <ButtonDiv handleClick={handleSubmit}>{confirmText}</ButtonDiv>
+        <ButtonDiv handleClick={handleSubmit}>
+          <DeleteImage src={DeleteIcon} alt="delete-icon" />
+          {confirmText}
+        </ButtonDiv>
         <ButtonDiv handleClick={handleCancel}>{cancelText}</ButtonDiv>
       </ButtonWrapper>
     </Wrapper>

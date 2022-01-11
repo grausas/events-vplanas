@@ -20,20 +20,27 @@ export const Wrapper = styled.div`
 `;
 
 export const ButtonDiv = styled(Btn)`
-  padding: 5px 10px;
+  background-color: var(--grey);
+  padding: 3px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: var(--fontSmall);
-  opacity: 0.8;
 
   &:nth-child(odd) {
+    padding-left: 8px;
     background-color: var(--red);
-  }
-  &:nth-child(even) {
-    background-color: var(--grey);
+    color: var(--white);
+    border: 1px solid var(--white);
   }
 
   &:hover {
+    opacity: 0.8;
+  }
+
+  &:hover:nth-child(even) {
+    background-color: var(--grey);
     color: var(--white);
-    opacity: 1;
   }
 `;
 
@@ -41,4 +48,9 @@ export const ButtonWrapper = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
+`;
+
+export const DeleteImage = styled.img`
+  width: 18px;
+  margin-right: 5px;
 `;
