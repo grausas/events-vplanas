@@ -117,7 +117,7 @@ export const EventDate = styled.span`
 `;
 
 export const Text = styled.p`
-  font-size: var(--small);
+  font-size: var(--fontMed);
   line-height: 24px;
   margin: 15px 0;
   max-width: 250px;
@@ -139,12 +139,11 @@ export const Circle = styled.span`
     left: -28px;
   }
 `;
-// fix close button
 export const Close = styled.div`
   position: absolute;
-  top: 2px;
-  right: 2px;
-  padding: 2px;
+  top: 0px;
+  right: 0px;
+  padding: 3px;
   font-weight: 600;
   border-radius: 50%;
   display: flex;
@@ -153,7 +152,7 @@ export const Close = styled.div`
   z-index: 5;
 
   :hover {
-    background-color: var(--white);
+    background-color: var(--darkSilver);
   }
 `;
 

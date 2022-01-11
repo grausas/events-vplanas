@@ -71,7 +71,8 @@ export const CloseImageDiv = styled.div`
 
 export const ClearButton = styled(Button)`
   float: right;
-  padding: 3px 7px;
+  padding: 1px 7px;
+  font-size: var(--fontSmall);
   background-color: var(--darkSilver);
   color: var(--dark);
 

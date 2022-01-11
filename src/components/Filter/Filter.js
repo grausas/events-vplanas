@@ -74,7 +74,7 @@ const Filter = ({
               })}
           </FilterContent>
           <ClearButton handleClick={handleClear} value="clear">
-            Išvalyti
+            IŠVALYTI
           </ClearButton>
         </Content>
       )}

@@ -59,7 +59,7 @@ const AddEvent = ({
                   handleUpdate();
                 }}
               >
-                Redaguoti objektą
+                REDAGUOTI OBJEKTĄ
               </ConfirmButton>
               <form onSubmit={handleSubmit}>
                 <h3>Pridėti renginį</h3>
@@ -200,9 +200,9 @@ const AddEvent = ({
                     }}
                   />
                 </InputWrapper>
-                <ConfirmButton>Pridėti renginį</ConfirmButton>
+                <ConfirmButton>PRIDĖTI RENGINĮ</ConfirmButton>
                 <ConfirmButton handleClick={handleCancel}>
-                  Atšaukti
+                  ATŠAUKTI
                 </ConfirmButton>
               </form>
             </>

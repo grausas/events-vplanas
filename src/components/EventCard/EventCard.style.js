@@ -34,27 +34,27 @@ export const CloseImage = styled.img`
   position: absolute;
   right: 10px;
   top: 10px;
-  width: 20px;
-  padding: 3px;
+  width: 24px;
+  padding: 4px;
+  border-radius: 50%;
   cursor: pointer;
 
   :hover {
-    border-radius: 50%;
     background-color: var(--silver);
   }
 `;
 
 export const EditIcon = styled.img`
   position: absolute;
-  width: 25px;
+  width: 26px;
   left: 10px;
   top: 10px;
-  padding: 3px;
+  padding: 4px;
+  border-radius: 20%;
   cursor: pointer;
 
   :hover {
     background-color: var(--silver);
-    border-radius: 50%;
   }
 `;
 

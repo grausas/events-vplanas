@@ -12,9 +12,9 @@ export const GlobalStyle = createGlobalStyle`
     --dark: #302B27;
     --green: #38a169;
     --red: #ed1c24;
-    --fontSuperBig: 2.5rem;
-    --fontBig: 1.5rem;
-    --fontMed: 1.2rem;
+    --fontSuperBig: 1.5rem;
+    --fontBig: 1.3rem;
+    --fontMed: 1rem;
     --fontSmall: 0.9rem;
   }
 

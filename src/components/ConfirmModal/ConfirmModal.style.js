@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
 
 export const ButtonDiv = styled(Btn)`
   padding: 5px 10px;
-
+  font-size: var(--fontSmall);
   opacity: 0.8;
 
   &:nth-child(odd) {

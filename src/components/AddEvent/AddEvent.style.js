@@ -81,7 +81,7 @@ export const InputWrapper = styled.div`
   .react-autosuggest__suggestions-container--open {
     display: block;
     position: absolute;
-    top: 51px;
+    top: 40px;
     width: 280px;
     border: 1px solid var(--darkSilver);
     background-color: var(--white);
@@ -125,8 +125,9 @@ export const CloseImage = styled.img`
 
 export const ConfirmButton = styled(Button)`
   background-color: var(--grey);
-  padding: 5px 20px;
+  padding: 5px 10px;
   margin-right: 10px;
+  font-size: var(--fontSmall);
 
   :hover {
     background: var(--lightBlue);
