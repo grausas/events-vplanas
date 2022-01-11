@@ -34,13 +34,19 @@ export const Button = styled(Btn)`
   font-size: var(--fontSmall);
 
   &:nth-child(even) {
-    padding-left: 5px;
+    padding-left: 8px;
+    background-color: var(--red);
+    color: var(--white);
+    border: 1px solid var(--white);
   }
 
-  :hover {
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:hover:nth-child(odd) {
     background-color: var(--grey);
     color: var(--white);
-    opacity: 0.9;
   }
 `;
 
@@ -60,4 +66,5 @@ export const CloseImage = styled.img`
 
 export const DeleteImage = styled.img`
   width: 18px;
+  margin-right: 5px;
 `;
