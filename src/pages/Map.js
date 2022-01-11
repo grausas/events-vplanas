@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 
 // Styles
 import "./Map.css";
@@ -23,7 +24,6 @@ import {
   Zoom,
   Home,
   EventsTimeline,
-  ConfirmModal,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -359,6 +359,35 @@ function Map() {
           setClickedEvents(response.features);
           handleOpen(show);
         }
+      });
+    });
+
+    // Keičia cursor kai užvestas ant feature layer ir yra response
+    function changeMouseCursor(response) {
+      if (
+        response.results.length > 0 &&
+        response.results[0].graphic.layer.type === "feature"
+      ) {
+        mapRef.current.style.cursor = "pointer";
+      } else {
+        mapRef.current.style.cursor = "default";
+      }
+    }
+
+    view.when(function () {
+      view.whenLayerView(layer).then(function (lview) {
+        watchUtils.whenFalseOnce(lview, "updating", function () {
+          // Set up a click event handler and retrieve the screen x, y coordinates
+          view.on("pointer-move", function (evt) {
+            var screenPoint = {
+              x: evt.x,
+              y: evt.y,
+            };
+            view.hitTest(screenPoint).then(function (response) {
+              changeMouseCursor(response);
+            });
+          });
+        });
       });
     });
 
