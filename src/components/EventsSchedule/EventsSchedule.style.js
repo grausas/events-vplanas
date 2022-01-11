@@ -95,7 +95,6 @@ export const MoreButtonWrapper = styled.div`
 
 export const MoreButton = styled.button`
   border: none;
-  color: var(--darkGrey);
   border-radius: 5px;
   cursor: pointer;
 

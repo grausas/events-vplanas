@@ -34,7 +34,7 @@ export const Button = styled(Btn)`
   align-items: center;
 
   &:nth-child(even) {
-    padding-left: 10px;
+    padding-left: 5px;
   }
 
   :hover {
@@ -60,5 +60,4 @@ export const CloseImage = styled.img`
 
 export const DeleteImage = styled.img`
   width: 20px;
-  margin-right: 5px;
 `;

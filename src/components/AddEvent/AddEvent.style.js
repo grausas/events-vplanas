@@ -83,8 +83,8 @@ export const InputWrapper = styled.div`
     position: absolute;
     top: 51px;
     width: 280px;
-    border: 1px solid #aaa;
-    background-color: #fff;
+    border: 1px solid var(--darkSilver);
+    background-color: var(--white);
     font-family: Helvetica, sans-serif;
     font-weight: 300;
     font-size: 16px;
@@ -105,17 +105,17 @@ export const InputWrapper = styled.div`
   }
 
   .react-autosuggest__suggestion--highlighted {
-    background-color: #ddd;
+    background-color: var(--silver);
   }
 `;
 
 export const CloseImage = styled.img`
   position: absolute;
+  width: 22px;
   right: 5px;
   top: 5px;
-  height: 30px;
   border-radius: 50%;
-  padding: 7px;
+  padding: 3px;
   cursor: pointer;
 
   &:hover {

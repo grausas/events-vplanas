@@ -10,7 +10,7 @@ export const InputDiv = styled.div`
 
 export const Input = styled.input`
   width: 100%;
-  padding: 0.3rem 2rem;
+  padding: 0.1rem 0.4rem 0.1rem 1.5rem;
   font-size: 1rem;
   border: none;
   color: var(--dark);
@@ -29,6 +29,6 @@ export const Icon = styled.img`
   position: absolute;
   left: 0px;
   z-index: 1;
-  width: 40px;
-  padding: 0 0.7rem;
+  width: 28px;
+  padding: 0 0.3rem;
 `;
