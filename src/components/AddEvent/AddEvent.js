@@ -36,7 +36,32 @@ const AddEvent = ({
     events.features &&
     events.features.map((item) => item.attributes.ORGANIZATORIUS.toLowerCase());
 
-  console.log(lowerEvents);
+  console.log("lowerEvents", lowerEvents);
+
+  const weekday = [
+    { day: "Pirmadienis", value: 0 },
+    { day: "Antradienis", value: 1 },
+    { day: "Treciadienis", value: 2 },
+    { day: "Ketvirtadinis", value: 3 },
+    { day: "Penktadienis", value: 4 },
+    { day: "Sestadienis", value: 5 },
+    { day: "Sekmadienis", value: 6 },
+  ];
+
+  const d = new Date();
+  const day = (d.getDay(), 2);
+  if (day !== 1) d.setHours(-24 * (day - 1));
+  console.log(day);
+
+  const handleChangeTest = (e) => {
+    console.log(e.target.value);
+    const date = new Date();
+    // console.log("newDate", date.setDate(date.getDate() + value));
+    const formateDate = date.setDate(
+      date.getDate() + Number(e.target.value - day)
+    );
+    console.log("formateDate", new Date(formateDate));
+  };
 
   function getSuggestions(value) {
     return lowerEvents.filter((language) =>
@@ -64,6 +89,20 @@ const AddEvent = ({
               <form onSubmit={handleSubmit}>
                 <h3>Pridėti renginį</h3>
                 <InputWrapper>
+                  <InputField
+                    type="text"
+                    labelText="Pavadinimas"
+                    id="pavadinimas"
+                    placeholder="Pavadinimas"
+                    required
+                    handleChange={(e) => {
+                      setAddNewFeature({
+                        ...addNewFeature,
+                        PAVADINIMAS: e.target.value,
+                      });
+                    }}
+                  />
+                  <span>Organizatorius</span>
                   <AutoSuggest
                     suggestions={suggestions}
                     onSuggestionsClearRequested={() => setSuggestions([])}
@@ -86,20 +125,7 @@ const AddEvent = ({
                     }}
                     highlightFirstSuggestion={true}
                   />
-                  <InputField
-                    type="text"
-                    labelText="Pavadinimas"
-                    id="pavadinimas"
-                    placeholder="Pavadinimas"
-                    required
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        PAVADINIMAS: e.target.value,
-                      });
-                    }}
-                  />
-                  <InputField
+                  {/* <InputField
                     type="text"
                     labelText="Organizatorius"
                     id="organizatorius"
@@ -111,7 +137,7 @@ const AddEvent = ({
                         ORGANIZATORIUS: e.target.value,
                       });
                     }}
-                  />
+                  /> */}
                   <InputField
                     options={CategoryData}
                     type="dropdown"
@@ -186,6 +212,23 @@ const AddEvent = ({
                       });
                     }}
                   />
+                  {weekday &&
+                    weekday.map((item) => {
+                      return (
+                        <span key={item.value}>
+                          {console.log(item)}
+                          <label htmlFor="date">{item.day}</label>
+                          <input
+                            type="checkbox"
+                            id="date"
+                            defaultChecked={item.value === day ? "checked" : ""}
+                            onChange={handleChangeTest}
+                            value={item.value}
+                          />
+                        </span>
+                      );
+                    })}
+
                   <InputField
                     type="text"
                     labelText="Renginio puslapis"
