@@ -1,6 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-
 // Styles
 import "./Map.css";
 // Hooks
@@ -73,6 +71,7 @@ function Map() {
     var address = {
       SingleLine: result,
       f: "json",
+      // outSpatialReference: { wkid: 3857 },
     };
 
     const params = {
@@ -92,13 +91,17 @@ function Map() {
     locator.addressToLocations(locatorUrl, params).then(function (results) {
       console.log("addressToLocations for Madrid=", results);
       if (results.length > 0) {
-        console.log(results);
+        const grapics = results[0].location;
         let point = {
           type: "point",
-          x: 581869.375771,
-          y: 6066568.205726,
-          spatialReference: { wkid: 2600 },
+          x: grapics.x,
+          y: grapics.x,
+          spatialReference: { wkid: 102100 },
+          // pakeisti out spatial, kad butu vienodi
+          outSpatialReference: { wkid: 102100 },
         };
+
+        console.log("point", point);
 
         let g = new Graphic({
           geometry: point,
@@ -180,6 +183,7 @@ function Map() {
       //     [optionId.id]: !prevState.checkBoxes[optionId.id],
       //   },
       // }));
+      //----
       valuesArr.push(itemValue);
       const values = valuesArr.map((el) => el);
 
@@ -412,11 +416,11 @@ function Map() {
       {error && <Notification type={type} message={error} />}
 
       <div className="mapDiv" ref={mapRef}>
-        {/* <input
+        <input
           type="text"
           placeholder="paieska"
           onChange={handleSearchResult}
-        ></input> */}
+        ></input>
 
         <Loading id="loading" />
 

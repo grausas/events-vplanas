@@ -7,6 +7,10 @@ export const Wrapper = styled.div`
   z-index: 2;
   padding: 0 20px;
   height: 50px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 10px;
+  }
 `;
 
 export const Content = styled.div`
@@ -21,6 +25,7 @@ export const Content = styled.div`
 export const LogoDiv = styled.div`
   display: flex;
   align-items: center;
+  margin-right: 5px;
 `;
 
 export const Logo = styled.img`
@@ -29,6 +34,10 @@ export const Logo = styled.img`
 
 export const Text = styled.span`
   color: var(--silver);
-  font-size: var(--big);
+  font-size: var(--fontBig);
   margin-left: 1rem;
+
+  @media screen and (max-width: 768px) {
+    font-size: var(--fontSmall);
+  }
 `;
