@@ -11,8 +11,8 @@ export const Wrapper = styled.button`
   cursor: pointer;
 
   :hover {
-    background: var(--white);
-    color: var(--lightBlue);
+    background: var(--grey);
+    color: var(--white);
     border: 1px solid var(--color-dark);
     transition: ease-in-out 0.2s;
   }
