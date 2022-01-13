@@ -363,30 +363,35 @@ function Map() {
 
     // renginio popup atvaizdavimas
     view.on("click", function (event) {
-      // view.hitTest(event, { include: layer }).then(function (response) {
-      //   // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-      //   if (response.results.length === 1) {
-      //     const graphic = response.results.filter(function (result) {
-      //       // check if the graphic belongs to the layer of interest
-      //       return result.graphic.layer === layer;
-      //     })[0].graphic.attributes;
-      //     setQueryPoint(graphic);
-      //     handleOpen(show);
-      //   } else {
-      //     return null;
-      //   }
-      // });
-      //-------------------- query multiple objects in same place
-      let query = layer.createQuery();
-      query.geometry = view.toMap(event);
-      query.outFields = ["*"];
+      view.hitTest(event, { include: layer }).then(function (response) {
+        console.log(response);
+        // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+        if (response.results.length !== 0) {
+          let query = layer.createQuery();
+          query.geometry = view.toMap(event);
+          query.outFields = ["*"];
 
-      layer.queryFeatures(query).then(function (response) {
-        if (response.features.length > 0) {
-          setClickedEvents(response.features);
-          handleOpen(show);
+          layer.queryFeatures(query).then(function (response) {
+            if (response.features.length > 0) {
+              setClickedEvents(response.features);
+              handleOpen(show);
+            }
+          });
+        } else {
+          return null;
         }
       });
+      //-------------------- query multiple objects in same place
+      // let query = layer.createQuery();
+      // query.geometry = view.toMap(event);
+      // query.outFields = ["*"];
+
+      // layer.queryFeatures(query).then(function (response) {
+      //   if (response.features.length > 0) {
+      //     setClickedEvents(response.features);
+      //     handleOpen(show);
+      //   }
+      // });
     });
 
     // Keičia cursor kai užvestas ant feature layer ir yra response
@@ -428,6 +433,9 @@ function Map() {
     const timeSlider = new TimeSlider({
       container: "timeSlider",
       mode: "time-window",
+      // tickConfigs: {
+      //   labelVisible: false,
+      // },
     });
     view.ui.add(timeSlider, "manual");
 

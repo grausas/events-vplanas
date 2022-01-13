@@ -34,7 +34,11 @@ const AddEvent = ({
 
   const lowerEvents =
     events.features &&
-    events.features.map((item) => item.attributes.ORGANIZATORIUS.toLowerCase());
+    events.features.map(
+      (item) =>
+        item.attributes.ORGANIZATORIUS &&
+        item.attributes.ORGANIZATORIUS.toLowerCase()
+    );
 
   console.log("lowerEvents", lowerEvents);
 
