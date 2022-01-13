@@ -8,6 +8,9 @@ import { useOpenCloseModal } from "../hooks/openModal";
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import * as locator from "@arcgis/core/rest/locator";
 import Graphic from "@arcgis/core/Graphic";
+import * as GeometryService from "@arcgis/core/rest/geometryService";
+import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
+import Point from "@arcgis/core/geometry/Point";
 
 // Components
 import {
@@ -28,7 +31,7 @@ import { CategoryData } from "../utils/CategoryData";
 
 // helpers
 import { createMapView } from "../helpers/Map";
-import { featureLayer, vectorLayer } from "../helpers/Layers";
+import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
@@ -71,13 +74,13 @@ function Map() {
     var address = {
       SingleLine: result,
       f: "json",
-      // outSpatialReference: { wkid: 3857 },
     };
 
     const params = {
       address: address,
       outFields: ["*"],
       text: result,
+      outSpatialReference: { wkid: 102100 },
     };
 
     // locator.suggestLocations(locatorUrl, params).then(function (response) {
@@ -92,39 +95,50 @@ function Map() {
       console.log("addressToLocations for Madrid=", results);
       if (results.length > 0) {
         const grapics = results[0].location;
-        let point = {
+
+        var point = new Point({
           type: "point",
           x: grapics.x,
-          y: grapics.x,
+          y: grapics.y,
           spatialReference: { wkid: 102100 },
-          // pakeisti out spatial, kad butu vienodi
-          outSpatialReference: { wkid: 102100 },
-        };
-
-        console.log("point", point);
-
-        let g = new Graphic({
-          geometry: point,
-          symbol: {
-            type: "simple-marker",
-            size: 7,
-            color: [111, 111, 111],
-          },
         });
 
-        view.graphics.add(g);
-        // reikai pakisti wkid, kad centruotų
-        view.center = point;
-        view.zoom = 12;
+        var simpleMarkerSymbol = {
+          type: "simple-marker",
+          color: [226, 119, 40],
+          outline: {
+            color: [255, 255, 255],
+            width: 1,
+          },
+        };
 
-        // view.goTo(
-        //   {
-        //     target: g,
-        //     // target: results,
-        //     zoom: 12,
-        //   },
-        //   { duration: 1000 }
-        // );
+        var geomSer =
+          "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
+
+        var params = new ProjectParameters({
+          geometries: [point],
+          outSpatialReference: { wkid: 102100 },
+        });
+
+        GeometryService.project(geomSer, params).then(function (geom) {
+          console.log("geom", geom);
+          var pointGraphic = new Graphic({
+            geometry: point,
+            symbol: simpleMarkerSymbol,
+          });
+
+          graphicsLayer.add(pointGraphic);
+          console.log("pointGraphic", pointGraphic);
+          console.log("center", (view.center = pointGraphic.geometry));
+
+          view.goTo(
+            {
+              target: pointGraphic,
+              zoom: 16,
+            },
+            { duration: 1000 }
+          );
+        });
       }
     });
   };
@@ -318,8 +332,9 @@ function Map() {
   useEffect(() => {
     const layer = featureLayer();
     const vector = vectorLayer();
+    const tile = tileLayer();
 
-    const view = createMapView(mapRef.current, vector, layer);
+    const view = createMapView(mapRef.current, [vector, tile], layer);
 
     setEventsFeatureLayer(layer);
     setView(view);
