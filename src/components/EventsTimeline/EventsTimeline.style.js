@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
-  max-width: ${(props) => (props.maxWidth === 1 ? "350px" : "700px")};
+  max-width: 500px;
   width: 100%;
   max-height: 80%;
   background: var(--silver);
@@ -24,8 +24,7 @@ export const TimelineContainer = styled.div`
     background-color: var(--red);
     content: "";
     position: absolute;
-    left: ${(props) =>
-      props.left === 1 ? "calc(0% - 2px)" : "calc(50% - 2px)"};
+    left: calc(0% -2px);
     width: 4px;
     height: 100%;
   }
@@ -34,17 +33,10 @@ export const TimelineContainer = styled.div`
 export const TimelineItem = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-right: 20px;
+  padding-left: 20px;
   position: relative;
   margin: 10px 0;
-  width: ${(props) => (props.width === 1 ? "50%" : "100%")};
-
-  &:nth-child(odd) {
-    align-self: flex-end;
-    justify-content: flex-start;
-    padding-left: 20px;
-    padding-right: 0px;
-  }
+  width: 100%;
 `;
 
 export const ItemContent = styled.div`
@@ -53,29 +45,19 @@ export const ItemContent = styled.div`
   background-color: var(--white);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   padding: 10px 15px;
   position: relative;
   width: 100%;
   text-align: right;
 
-  ${TimelineItem}:nth-child(odd) & {
-    text-align: left;
-    align-items: flex-start;
-  }
-
-  ${TimelineItem}:nth-child(odd) &:after {
-    right: auto;
-    left: -5.5px;
-    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
-  }
-
   &:after {
     content: " ";
     background-color: var(--white);
-    box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
     position: absolute;
-    right: -5.5px;
+    left: -5.5px;
+    right: auto;
     top: calc(50% - 7.5px);
     transform: rotate(45deg);
     width: 12px;
@@ -86,7 +68,7 @@ export const ItemContent = styled.div`
 export const Category = styled.span`
   position: absolute;
   top: 5px;
-  left: 5px;
+  right: 5px;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -103,11 +85,6 @@ export const Category = styled.span`
       : props.backgroundColor === 4
       ? "rgb(252,146,31,255)"
       : "rgb(167,198,54,255)"};
-
-  ${TimelineItem}:nth-child(odd) & {
-    left: auto;
-    right: 5px;
-  }
 `;
 
 export const EventDate = styled.span`
@@ -120,7 +97,6 @@ export const Text = styled.p`
   font-size: var(--fontMed);
   line-height: 24px;
   margin: 15px 0;
-  max-width: 250px;
 `;
 
 export const Circle = styled.span`
@@ -129,15 +105,10 @@ export const Circle = styled.span`
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);
-  right: -28px;
+  left: -26px;
   width: 16px;
   height: 16px;
   z-index: 100;
-
-  ${TimelineItem}:nth-child(odd) & {
-    right: auto;
-    left: -28px;
-  }
 `;
 export const Close = styled.div`
   position: absolute;
