@@ -11,6 +11,7 @@ import Graphic from "@arcgis/core/Graphic";
 import * as GeometryService from "@arcgis/core/rest/geometryService";
 import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
 import Point from "@arcgis/core/geometry/Point";
+import TimeSlider from "@arcgis/core/widgets/TimeSlider";
 
 // Components
 import {
@@ -56,6 +57,8 @@ function Map() {
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
   const [clickedEvents, setClickedEvents] = useState([]);
+  const [timeLineStart, setTimeLineStart] = useState(new Date());
+  const [timeLineFinish, setTimeLineFinish] = useState();
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -170,8 +173,13 @@ function Map() {
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
 
+  console.log("timeLineStartLength", timeLineStart.length);
+  console.log("timeLineStart", timeLineStart);
+
   useEffect(() => {
     if (startDate && finishDate) {
+      console.log("startDate22", new Date(startDate));
+      setTimeLineStart(new Date(startDate));
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where:
@@ -416,6 +424,93 @@ function Map() {
       loader.style.display = "none";
     });
 
+    // Create a time slider to update layerView filter
+    const timeSlider = new TimeSlider({
+      container: "timeSlider",
+      mode: "time-window",
+    });
+    view.ui.add(timeSlider, "manual");
+
+    // wait until the layer view is loaded
+    let timeLayerView;
+    view.whenLayerView(layer).then((layerView) => {
+      timeLayerView = layerView;
+      const fullTimeExtent = layer.timeInfo.fullTimeExtent;
+      const start =
+        timeLineStart.length === 0 ? fullTimeExtent.start : timeLineStart;
+      const end = fullTimeExtent.end;
+
+      console.log("fulltimeextent", fullTimeExtent);
+
+      // set up time slider properties based on layer timeInfo
+      timeSlider.fullTimeExtent = fullTimeExtent;
+      timeSlider.timeExtent = {
+        start: start,
+        end: end,
+      };
+      timeSlider.stops = {
+        interval: layer.timeInfo.interval,
+      };
+
+      console.log(
+        "timeSlider",
+        (timeSlider.timeExtent = {
+          start: start,
+          end: end,
+        })
+      );
+    });
+    console.log("startdate111", timeLineStart);
+
+    timeSlider.watch("timeExtent", (value) => {
+      console.log("timSliderVAlue", value.start);
+      value.start = timeLineStart.length > 0 ? timeLineStart : value.start;
+      // update layer view filter to reflect current timeExtent
+      timeLayerView.filter = {
+        timeExtent: value,
+      };
+    });
+
+    // Tim slider
+    // time slider widget initialization
+    // const timeSlider = new TimeSlider({
+    //   container: "timeSliderDiv",
+    //   // show data within a given time range
+    //   // in this case data within one year
+    //   mode: "cumulative-from-start",
+    //   timeVisible: true,
+    //   // loop: true,
+    // });
+    // view.ui.add(timeSlider, "top-right");
+    // wait until the layer view is loaded
+    // let timeLayerView;
+    // view.whenLayerView(layer).then((layerView) => {
+    //   console.log("layer");
+    //   timeLayerView = layerView;
+    //   const fullTimeExtent = layer.timeInfo.fullTimeExtent;
+    //   const end = fullTimeExtent.end;
+    //   const start = fullTimeExtent.start;
+
+    // set up time slider properties based on layer timeInfo
+    //   timeSlider.fullTimeExtent = fullTimeExtent;
+    //   timeSlider.timeExtent = {
+    //     start: start,
+    //     end: end,
+    //   };
+    //   timeSlider.stops = {
+    //     interval: layer.timeInfo.interval,
+    //   };
+    // });
+
+    // timeSlider.watch("timeExtent", (value) => {
+    //   // update layer view filter to reflect current timeExtent
+    //   timeLayerView.filter = {
+    //     timeExtent: value,
+    //   };
+    // });
+
+    // ---------------
+
     return () => {
       view && view.destroy();
     };
@@ -431,11 +526,21 @@ function Map() {
       {error && <Notification type={type} message={error} />}
 
       <div className="mapDiv" ref={mapRef}>
-        <input
+        <div
+          id="timeSlider"
+          style={{
+            width: "100%",
+            position: "absolute",
+            left: "calc(50% - 16.5%)",
+            bottom: "40px",
+          }}
+        ></div>
+        {/* <input
+          style={{ marginTop: "50px" }}
           type="text"
           placeholder="paieska"
-          onChange={handleSearchResult}
-        ></input>
+          onKeyUp={handleSearchResult}
+        ></input> */}
 
         <Loading id="loading" />
 
