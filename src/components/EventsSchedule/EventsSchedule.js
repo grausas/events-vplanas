@@ -15,8 +15,8 @@ import { useOpenClose } from "../../hooks/useOpenClose";
 //helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
 
-const EventsSchedule = ({ children, events, handleZoom }) => {
-  const { handleOpen, show } = useOpenClose();
+const EventsSchedule = ({ children, events, handleZoom, handleOpen, show }) => {
+  // const { handleOpen, show } = useOpenClose();
 
   return (
     <Wrapper close={!show}>

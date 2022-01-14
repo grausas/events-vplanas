@@ -383,7 +383,7 @@ function Map() {
               console.log("shortresult", shortResults);
               setData(response);
               // setClickedEvents(response.features);
-              // handleOpen(show);
+              handleOpen(show);
             }
           });
         } else {
@@ -568,6 +568,8 @@ function Map() {
         {/* Renginių juosta */}
         <EventsSchedule
           // events={shortResults}
+          handleOpen={handleOpen}
+          show={show}
           handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
         >
           <SearchInput
@@ -581,8 +583,8 @@ function Map() {
             events={shortResults}
             // handleClose={handleOpen}
             handleEventOpen={(e) => {
-              openEvent(e);
               handleZoom(e, eventsFeatureLayer, view);
+              openEvent(e);
             }}
           />
         </EventsSchedule>
