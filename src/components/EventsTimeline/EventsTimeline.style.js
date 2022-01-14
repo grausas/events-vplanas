@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  /* position: absolute; */
+  position: relative;
+  /* top: 10px; */
+  /* right: 10px; */
   max-width: 500px;
   width: 100%;
-  max-height: 80%;
+  /* max-height: 80%; */
   background: var(--silver);
-  border-radius: 5px;
-  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+  /* border-radius: 5px; */
+  /* box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25); */
   opacity: 0.9;
   overflow: auto;
 `;
@@ -18,7 +19,8 @@ export const TimelineContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 10px;
+  padding-left: 10px;
+  margin: 10px 0;
 
   &&:after {
     background-color: var(--red);

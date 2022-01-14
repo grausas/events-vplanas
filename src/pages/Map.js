@@ -128,15 +128,15 @@ function Map() {
         });
 
         GeometryService.project(geomSer, params).then(function (geom) {
-          console.log("geom", geom);
+          // console.log("geom", geom);
           var pointGraphic = new Graphic({
             geometry: point,
             symbol: simpleMarkerSymbol,
           });
 
           graphicsLayer.add(pointGraphic);
-          console.log("pointGraphic", pointGraphic);
-          console.log("center", (view.center = pointGraphic.geometry));
+          // console.log("pointGraphic", pointGraphic);
+          // console.log("center", (view.center = pointGraphic.geometry));
 
           view.goTo(
             {
@@ -154,7 +154,7 @@ function Map() {
 
   // open event
   const openEvent = (event) => {
-    const filterResult = clickedEvents.filter(
+    const filterResult = data.features.filter(
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
@@ -377,8 +377,11 @@ function Map() {
 
           layer.queryFeatures(query).then(function (response) {
             if (response.features.length > 0) {
-              setClickedEvents(response.features);
-              handleOpen(show);
+              console.log("response", response);
+              console.log("shortresult", shortResults);
+              setData(response);
+              // setClickedEvents(response.features);
+              // handleOpen(show);
             }
           });
         } else {
@@ -451,7 +454,7 @@ function Map() {
       const start = fullTimeExtent.start;
       const end = fullTimeExtent.end;
 
-      console.log("fulltimeextent", fullTimeExtent);
+      // console.log("fulltimeextent", fullTimeExtent);
 
       // set up time slider properties based on layer timeInfo
       timeSlider.fullTimeExtent = fullTimeExtent;
@@ -463,18 +466,18 @@ function Map() {
         interval: layer.timeInfo.interval,
       };
 
-      console.log(
-        "timeSlider",
-        (timeSlider.timeExtent = {
-          start: start,
-          end: end,
-        })
-      );
+      // console.log(
+      //   "timeSlider",
+      //   (timeSlider.timeExtent = {
+      //     start: start,
+      //     end: end,
+      //   })
+      // );
     });
-    console.log("startdate111", timeLineStart);
+    // console.log("startdate111", timeLineStart);
 
     timeSlider.watch("timeExtent", (value) => {
-      console.log("timSliderVAlue", value.start);
+      // console.log("timSliderVAlue", value.start);
       // value.start = timeLineStart.length > 0 ? timeLineStart : value.start;
       // update layer view filter to reflect current timeExtent
       timeLayerView.filter = {
@@ -562,7 +565,7 @@ function Map() {
         />
         {/* Renginių juosta */}
         <EventsSchedule
-          events={shortResults}
+          // events={shortResults}
           handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
         >
           <SearchInput
@@ -571,6 +574,11 @@ function Map() {
               setSearchTerm(event.target.value);
             }}
             placeholder="Ieškoti..."
+          />
+          <EventsTimeline
+            events={shortResults}
+            // handleClose={handleOpen}
+            handleEventOpen={openEvent}
           />
         </EventsSchedule>
         {/* Filtravimas pagal data ir kategorijas */}
@@ -621,13 +629,13 @@ function Map() {
         />
         {/* Renginių ir renginio atvaizdavimas, redagavimas */}
 
-        {show && (
+        {/* {show && (
           <EventsTimeline
             events={clickedEvents}
             handleClose={handleOpen}
             handleEventOpen={openEvent}
           />
-        )}
+        )} */}
         {openModal && (
           <EventCard
             organization={queryPoint.ORGANIZATORIUS}

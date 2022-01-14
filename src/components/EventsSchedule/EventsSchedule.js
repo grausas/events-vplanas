@@ -28,7 +28,7 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
         {show && (
           <>
             {children}
-            {events &&
+            {/* {events &&
               events.map((event) => {
                 const eventDate = changeDate(
                   new Date(event.attributes.RENGINIO_PRADZIA)
@@ -69,7 +69,7 @@ const EventsSchedule = ({ children, events, handleZoom }) => {
                     </MoreButtonWrapper>
                   </Events>
                 );
-              })}
+              })} */}
           </>
         )}
       </Content>

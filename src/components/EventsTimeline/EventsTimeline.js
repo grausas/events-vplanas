@@ -22,11 +22,11 @@ import CloseIcon from "../../assets/icons/close.png";
 const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
   return (
     <>
-      <Wrapper maxWidth={events.length > 1 ? 0 : 1}>
+      <Wrapper>
         <Close onClick={handleClose}>
           <CloseImage src={CloseIcon} alt="close-icon" />
         </Close>
-        <TimelineContainer left={events.length > 1 ? 0 : 1}>
+        <TimelineContainer>
           {events &&
             events.map((event) => {
               const result = CategoryData.find(
@@ -39,11 +39,7 @@ const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
                 new Date(event.attributes.RENGINIO_PRADZIA)
               );
               return (
-                <TimelineItem
-                  key={event.attributes.OBJECTID}
-                  color={events.length > 1 ? 0 : 1}
-                  width={events.length > 1 ? 1 : 0}
-                >
+                <TimelineItem key={event.attributes.OBJECTID}>
                   <ItemContent>
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
                       {result.text}
