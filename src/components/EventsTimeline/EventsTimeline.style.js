@@ -23,7 +23,7 @@ export const TimelineContainer = styled.div`
   margin: 20px 0 10px 0;
 
   &&:after {
-    background-color: var(--red);
+    background-color: var(--grey);
     content: "";
     position: absolute;
     left: calc(0% + 10px);
@@ -103,7 +103,7 @@ export const Text = styled.p`
 
 export const Circle = styled.span`
   background-color: var(--white);
-  border: 3px solid var(--red);
+  border: 3px solid var(--grey);
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);

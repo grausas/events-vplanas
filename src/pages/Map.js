@@ -389,6 +389,9 @@ function Map() {
             if (response.features.length > 0) {
               console.log("response", response);
               console.log("shortresult", shortResults);
+              console.log("data", data);
+              // setShortResults(response.features);
+
               setShortResults(response.features);
               handleOpen(show);
               // setClickedEvents(response.features);
@@ -593,6 +596,7 @@ function Map() {
             handleEventOpen={(e) => {
               handleZoom(e, eventsFeatureLayer, view);
               openEvent(e);
+              handleOpen(show);
             }}
             handleClose={() => setShortResults(data.features)}
           />
@@ -661,7 +665,13 @@ function Map() {
             description={queryPoint.APRASYMAS}
             startDate={startEventDate + " | " + startEventTime}
             finishDate={finishEventDate + " | " + finishEventTime}
-            handleChange={() => {
+            handleChange={(e) => {
+              // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+              //   layerView.highlight.remove(queryPoint.OBJECTID);
+              // });
+              // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+              //   layerView.highlight(queryPoint.OBJECTID).remove();
+              // });
               handleOpenModal();
               handleOpen(show);
               view.goTo(
