@@ -3,11 +3,16 @@ export const handleZoom = (e, eventsFeatureLayer, view) => {
 
   eventsFeatureLayer.queryFeatures().then(function (results) {
     const features = results.features;
+    const filterResult = features.filter(
+      (item) => item.attributes.OBJECTID === Number(eventId)
+    );
+
+    view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+      layerView.highlight(filterResult);
+    });
     view.goTo(
       {
-        target: features.filter(
-          (item) => item.attributes.OBJECTID === Number(eventId)
-        ),
+        target: filterResult,
         zoom: 14,
       },
       { duration: 1000 }

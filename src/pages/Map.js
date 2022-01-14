@@ -72,6 +72,8 @@ function Map() {
   // panaudoti searchViewModel
   // ismesti pasirinkimus su suggest i dropdown
 
+  console.log("datafirs", data);
+
   const locatorUrl =
     "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
 
@@ -179,12 +181,12 @@ function Map() {
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
 
-  console.log("timeLineStartLength", timeLineStart.length);
-  console.log("timeLineStart", timeLineStart);
+  // console.log("timeLineStartLength", timeLineStart.length);
+  // console.log("timeLineStart", timeLineStart);
 
   useEffect(() => {
     if (startDate && finishDate) {
-      console.log("startDate22", new Date(startDate));
+      // console.log("startDate22", new Date(startDate));
       setTimeLineStart(new Date(startDate));
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
@@ -220,6 +222,7 @@ function Map() {
           newArr.push(values[i]);
         }
         const newArrStr = newArr.join();
+        console.log("newArrStr", newArr);
 
         layerView.filter = {
           where:
@@ -233,6 +236,11 @@ function Map() {
                 finishDate
               : "KATEGORIJA IN (" + newArrStr + ")",
         };
+        // const filterResult = data.features.filter(
+        //   (item) => item.attributes.KATEGORIJA === itemValue
+        // );
+        // setShortResults(filterResult);
+        // console.log("filterData", filterResult);
       });
     } else if (!isChecked && valuesArr.length > 0) {
       const index = valuesArr.indexOf(itemValue);
