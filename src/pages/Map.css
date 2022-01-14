@@ -10,7 +10,7 @@
 }
 /* style for Time Line widget */
 .esri-time-slider {
-  max-width: 33% !important;
+  max-width: 600px !important;
   min-width: 0 !important;
   height: 120px !important;
 }

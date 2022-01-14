@@ -12,6 +12,8 @@ import * as GeometryService from "@arcgis/core/rest/geometryService";
 import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
 import Point from "@arcgis/core/geometry/Point";
 import TimeSlider from "@arcgis/core/widgets/TimeSlider";
+// locale
+import * as intl from "@arcgis/core/intl";
 
 // Components
 import {
@@ -43,6 +45,8 @@ import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
 
 function Map() {
   const mapRef = useRef(null);
+  intl.setLocale("lt");
+
   // states
   const [data, setData] = useState([]);
   const [queryPoint, setQueryPoint] = useState([]);
@@ -444,8 +448,7 @@ function Map() {
     view.whenLayerView(layer).then((layerView) => {
       timeLayerView = layerView;
       const fullTimeExtent = layer.timeInfo.fullTimeExtent;
-      const start =
-        timeLineStart.length === 0 ? fullTimeExtent.start : timeLineStart;
+      const start = fullTimeExtent.start;
       const end = fullTimeExtent.end;
 
       console.log("fulltimeextent", fullTimeExtent);
@@ -472,7 +475,7 @@ function Map() {
 
     timeSlider.watch("timeExtent", (value) => {
       console.log("timSliderVAlue", value.start);
-      value.start = timeLineStart.length > 0 ? timeLineStart : value.start;
+      // value.start = timeLineStart.length > 0 ? timeLineStart : value.start;
       // update layer view filter to reflect current timeExtent
       timeLayerView.filter = {
         timeExtent: value,
@@ -539,7 +542,7 @@ function Map() {
           style={{
             width: "100%",
             position: "absolute",
-            left: "calc(50% - 16.5%)",
+            left: "calc(50% - 300px)",
             bottom: "40px",
           }}
         ></div>

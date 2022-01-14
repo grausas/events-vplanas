@@ -117,13 +117,13 @@ const AddEvent = ({
                     getSuggestionValue={(suggestion) => suggestion}
                     renderSuggestion={(suggestion) => <span>{suggestion}</span>}
                     inputProps={{
-                      placeholder: "Pavadinimas",
+                      placeholder: "Organizatorius",
                       value: value,
                       onChange: (_, { newValue }) => {
                         setValue(newValue);
                         setAddNewFeature({
                           ...addNewFeature,
-                          PAVADINIMAS: newValue,
+                          ORGANIZATORIUS: newValue,
                         });
                       },
                     }}
