@@ -19,15 +19,15 @@ export const TimelineContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-left: 10px;
+  /* padding-left: 4px; */
   margin: 20px 0 10px 0;
 
   &&:after {
     background-color: var(--red);
     content: "";
     position: absolute;
-    left: calc(0% -2px);
-    width: 4px;
+    left: calc(0% + 10px);
+    width: 3px;
     height: 100%;
   }
 `;
@@ -35,7 +35,7 @@ export const TimelineContainer = styled.div`
 export const TimelineItem = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-left: 20px;
+  padding-left: 32px;
   position: relative;
   margin: 10px 0;
   width: 100%;
@@ -107,7 +107,7 @@ export const Circle = styled.span`
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);
-  left: -26px;
+  left: -29px;
   width: 16px;
   height: 16px;
   z-index: 100;
