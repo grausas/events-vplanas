@@ -158,8 +158,10 @@ function Map() {
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
-    handleOpen(!show);
-    handleOpenModal(openModal);
+    // handleOpen(!show);
+    if (filterResult.length > 0) {
+      handleOpenModal(!openModal);
+    }
   };
 
   // clear error state after some time
@@ -578,7 +580,10 @@ function Map() {
           <EventsTimeline
             events={shortResults}
             // handleClose={handleOpen}
-            handleEventOpen={openEvent}
+            handleEventOpen={(e) => {
+              openEvent(e);
+              handleZoom(e, eventsFeatureLayer, view);
+            }}
           />
         </EventsSchedule>
         {/* Filtravimas pagal data ir kategorijas */}
@@ -648,6 +653,12 @@ function Map() {
             handleChange={() => {
               handleOpenModal();
               handleOpen(show);
+              view.goTo(
+                {
+                  zoom: 11,
+                },
+                { duration: 600 }
+              );
             }}
           >
             <EditEvent
