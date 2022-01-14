@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../assets/icons/VILNIUS_LOGO.png";
+import logo from "../assets/images/vilnius.jpg";
 
 export const LoginBlock = styled.div`
   display: flex;
@@ -67,20 +67,24 @@ export const ImageDiv = styled.div`
   &::before {
     content: " ";
     position: absolute;
-    left: calc(50% - 100px);
-    top: 10px;
-    width: 200px;
+    /* left: calc(50% - 100px);
+    top: 10px; */
+    left: 0;
+    top: 0;
+    /* width: 200px; */
+    width: 100%;
     height: 100%;
     background-image: url(${logo});
     background-repeat: no-repeat;
     background-position: 50% 0%;
-    background-size: contain;
+    background-size: cover;
+    opacity: 0.7;
     /* border-radius: 20px 0 0 20px; */
-    @media only screen and (max-width: 768px) {
+    /* @media only screen and (max-width: 768px) {
       border-radius: 0;
       width: 70px;
       left: calc(50% - 35px);
       background-position: 0% 0%;
-    }
+    } */
   }
 `;
