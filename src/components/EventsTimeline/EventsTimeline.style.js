@@ -20,7 +20,7 @@ export const TimelineContainer = styled.div`
   flex-direction: column;
   position: relative;
   padding-left: 10px;
-  margin: 10px 0;
+  margin: 20px 0 10px 0;
 
   &&:after {
     background-color: var(--red);
@@ -114,18 +114,19 @@ export const Circle = styled.span`
 `;
 export const Close = styled.div`
   position: absolute;
-  top: 0px;
+  top: 2px;
   right: 0px;
-  padding: 3px;
+  /* padding: 1px 0; */
   font-weight: 600;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   display: flex;
   align-items: center;
   cursor: pointer;
   z-index: 5;
 
   :hover {
-    background-color: var(--darkSilver);
+    color: var(--blue);
+    text-decoration: underline;
   }
 `;
 
@@ -146,3 +147,5 @@ export const CloseImage = styled.img`
   width: 16px;
   padding: 3px;
 `;
+
+export const ClearButton = styled.span``;

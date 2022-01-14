@@ -389,9 +389,9 @@ function Map() {
             if (response.features.length > 0) {
               console.log("response", response);
               console.log("shortresult", shortResults);
-              setData(response);
-              // setClickedEvents(response.features);
+              setShortResults(response.features);
               handleOpen(show);
+              // setClickedEvents(response.features);
             }
           });
         } else {
@@ -594,6 +594,7 @@ function Map() {
               handleZoom(e, eventsFeatureLayer, view);
               openEvent(e);
             }}
+            handleClose={() => setShortResults(data.features)}
           />
         </EventsSchedule>
         {/* Filtravimas pagal data ir kategorijas */}

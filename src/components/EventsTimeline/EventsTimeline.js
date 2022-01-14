@@ -11,6 +11,7 @@ import {
   Close,
   MoreButton,
   CloseImage,
+  ClearButton,
 } from "./EventsTimeline.style";
 // utils
 import { CategoryData } from "../../utils/CategoryData";
@@ -24,7 +25,8 @@ const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
     <>
       <Wrapper>
         <Close onClick={handleClose}>
-          <CloseImage src={CloseIcon} alt="close-icon" />
+          {/* <CloseImage src={CloseIcon} alt="close-icon" /> */}
+          <ClearButton>Rodyti visus</ClearButton>
         </Close>
         <TimelineContainer>
           {events &&
