@@ -53,18 +53,22 @@ const AddEvent = ({
   ];
 
   const d = new Date();
-  const day = (d.getDay(), 2);
-  if (day !== 1) d.setHours(-24 * (day - 1));
-  console.log(day);
+  const day = d.getDay() - 1;
+  // if (day !== 1) d.setHours(-24 * (day - 1));
+  console.log("day", day);
 
   const handleChangeTest = (e) => {
     console.log(e.target.value);
     const date = new Date();
     // console.log("newDate", date.setDate(date.getDate() + value));
-    const formateDate = date.setDate(
-      date.getDate() + Number(e.target.value - day)
+    const formateDate = new Date(
+      date.setDate(date.getDate() + Number(e.target.value - day))
     );
-    console.log("formateDate", new Date(formateDate));
+    setAddNewFeature({
+      ...addNewFeature,
+      DIENOS: formateDate,
+    });
+    console.log("formateDate", formateDate);
   };
 
   function getSuggestions(value) {
@@ -220,12 +224,12 @@ const AddEvent = ({
                     weekday.map((item) => {
                       return (
                         <span key={item.value}>
-                          {console.log(item)}
                           <label htmlFor="date">{item.day}</label>
                           <input
                             type="checkbox"
                             id="date"
-                            defaultChecked={item.value === day ? "checked" : ""}
+                            // defaultChecked={item.value === day}
+                            // disabled={item.value === day}
                             onChange={handleChangeTest}
                             value={item.value}
                           />
