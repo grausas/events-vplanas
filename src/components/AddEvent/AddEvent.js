@@ -7,13 +7,14 @@ import {
   InputWrapper,
   CloseImage,
   ConfirmButton,
+  CheckBoxWrapper,
 } from "./AddEvent.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
 //icons
 import CloseIcon from "../../assets/icons/close.png";
 // components
-import { InputField, DatePicker } from "../index";
+import { InputField, DatePicker, CheckBox } from "../index";
 //utils
 import { CategoryData } from "../../utils/CategoryData";
 
@@ -220,22 +221,24 @@ const AddEvent = ({
                       });
                     }}
                   />
-                  {weekday &&
-                    weekday.map((item) => {
-                      return (
-                        <span key={item.value}>
-                          <label htmlFor="date">{item.day}</label>
-                          <input
-                            type="checkbox"
-                            id="date"
-                            // defaultChecked={item.value === day}
-                            // disabled={item.value === day}
-                            onChange={handleChangeTest}
-                            value={item.value}
-                          />
-                        </span>
-                      );
-                    })}
+                  <CheckBoxWrapper>
+                    {weekday &&
+                      weekday.map((item) => {
+                        return (
+                          <span key={item.value}>
+                            {/* <label htmlFor="date">{item.day}</label> */}
+                            <CheckBox
+                              label={item.day}
+                              id={item.value}
+                              // defaultChecked={item.value === day}
+                              // disabled={item.value === day}
+                              onChange={handleChangeTest}
+                              value={item.value}
+                            />
+                          </span>
+                        );
+                      })}
+                  </CheckBoxWrapper>
 
                   <InputField
                     type="text"

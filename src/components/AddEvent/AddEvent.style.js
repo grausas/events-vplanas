@@ -134,3 +134,10 @@ export const ConfirmButton = styled(Button)`
     color: var(--white);
   }
 `;
+
+export const CheckBoxWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;
