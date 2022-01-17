@@ -15,3 +15,4 @@ export { default as Home } from "./Home/Home";
 export { default as EditEvent } from "./EditEvent/EditEvent";
 export { default as ConfirmModal } from "./ConfirmModal/ConfirmModal";
 export { default as EventsTimeline } from "./EventsTimeline/EventsTimeline";
+export { default as AddEventConfirmModal } from "./AddEventConfirmModal/AddEventConfirmModal";
