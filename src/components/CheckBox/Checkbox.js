@@ -3,7 +3,7 @@ import { useState } from "react";
 // Styles
 import { Wrapper, Label, CheckInput, Span } from "./CheckBox.style";
 
-const Checkbox = ({ label, value, id }) => {
+const Checkbox = ({ label, value, id, handleValue }) => {
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = (e) => {
@@ -18,7 +18,10 @@ const Checkbox = ({ label, value, id }) => {
           id={id}
           type="checkbox"
           checked={checked}
-          onChange={handleCheckboxChange}
+          onChange={(e) => {
+            handleCheckboxChange(e);
+            handleValue(e);
+          }}
           value={value}
         />
         <Span></Span>

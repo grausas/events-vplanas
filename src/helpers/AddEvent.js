@@ -23,8 +23,8 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
       attributes: {
         PAVADINIMAS: params.PAVADINIMAS,
         ORGANIZATORIUS: params.ORGANIZATORIUS,
-        RENGINIO_PRADZIA: new Date(params.RENGINIO_PRADZIA).toISOString(),
-        RENGINIO_PABAIGA: params.DIENA,
+        RENGINIO_PRADZIA: new Date(params.DIENOS).toISOString(),
+        RENGINIO_PABAIGA: new Date(params.DIENOS).toISOString(),
         APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
         WEBPAGE: params.WEBPAGE,
         KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,

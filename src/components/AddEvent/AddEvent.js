@@ -41,7 +41,7 @@ const AddEvent = ({
         item.attributes.ORGANIZATORIUS.toLowerCase()
     );
 
-  console.log("lowerEvents", lowerEvents);
+  // console.log("lowerEvents", lowerEvents);
 
   const weekday = [
     { day: "Pirmadienis", value: 0 },
@@ -54,21 +54,43 @@ const AddEvent = ({
   ];
 
   const d = new Date();
-  const day = d.getDay() - 1;
+  const day = d.getDay();
   // if (day !== 1) d.setHours(-24 * (day - 1));
   console.log("day", day);
 
   const handleChangeTest = (e) => {
-    console.log(e.target.value);
+    console.log("etargetvalue", e.target.value);
+    console.log("etargetchecked", e.target.checked);
     const date = new Date();
     // console.log("newDate", date.setDate(date.getDate() + value));
     const formateDate = new Date(
-      date.setDate(date.getDate() + Number(e.target.value - day))
+      date.setDate(date.getDate() + Number(e.target.value - day + 1))
     );
     setAddNewFeature({
       ...addNewFeature,
       DIENOS: formateDate,
     });
+    if (addNewFeature.RENGINIO_PRADZIA === undefined) {
+      setAddNewFeature({
+        ...addNewFeature,
+        RENGINIO_PRADZIA: formateDate,
+      });
+    } else {
+      const newDate = new Date(addNewFeature.RENGINIO_PRADZIA);
+      console.log("newDate1111", newDate);
+
+      // console.log("newDateTRyrrr", new Date(newDate.setDate(newDate.getDay())));
+      const formatedDate2 = new Date(
+        newDate.setDate(
+          newDate.getDate() + Number(e.target.value - newDate.getDay() + 1)
+        )
+      );
+      console.log("formatedDate2", formatedDate2);
+      setAddNewFeature({
+        ...addNewFeature,
+        DIENOS: newDate,
+      });
+    }
     console.log("formateDate", formateDate);
   };
 
@@ -230,9 +252,7 @@ const AddEvent = ({
                             <CheckBox
                               label={item.day}
                               id={item.value}
-                              // defaultChecked={item.value === day}
-                              // disabled={item.value === day}
-                              onChange={handleChangeTest}
+                              handleValue={handleChangeTest}
                               value={item.value}
                             />
                           </span>
