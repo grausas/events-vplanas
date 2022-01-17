@@ -86,7 +86,13 @@ export const Category = styled.span`
       ? "rgb(158,85,156,255)"
       : props.backgroundColor === 4
       ? "rgb(252,146,31,255)"
-      : "rgb(167,198,54,255)"};
+      : props.backgroundColor === 5
+      ? "rgb(167,198,54,255)"
+      : props.backgroundColor === 6
+      ? "rgb(255,222,62,255)"
+      : props.backgroundColor === 7
+      ? "rgb(0,92,230,255)"
+      : "rgb(255,115,223,255)"};
 `;
 
 export const EventDate = styled.span`
