@@ -204,40 +204,42 @@ function Map() {
     var isChecked = e.target.checked;
     let newArr = [];
     if (isChecked && itemValue !== 0) {
-      // setCheckBoxes((prevState) => ({
-      //   checkBoxes: {
-      //     ...prevState.checkBoxes,
-      //     [optionId.id]: !prevState.checkBoxes[optionId.id],
-      //   },
-      // }));
-      //----
-      valuesArr.push(itemValue);
-      const values = valuesArr.map((el) => el);
-
-      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-        for (let i = 0; i < values.length; i++) {
-          newArr.push(values[i]);
-        }
-        const newArrStr = newArr.join();
-
-        layerView.filter = {
-          where:
-            startDate && finishDate
-              ? "KATEGORIJA IN (" +
-                newArrStr +
-                ") AND " +
-                "RENGINIO_PRADZIA >= " +
-                startDate +
-                " AND RENGINIO_PRADZIA <= " +
-                finishDate
-              : "KATEGORIJA IN (" + newArrStr + ")",
-        };
-        // const filterResult = data.features.filter(
-        //   (item) => item.attributes.KATEGORIJA === itemValue
-        // );
-        // setShortResults(filterResult);
-        // console.log("filterData", filterResult);
+      view.whenLayerView(eventsFeatureLayer).then((layerview) => {
+        layerview.queryFeatures().then((results) => {
+          // const newData = { ...shortResults };
+          const newFeatureLayer = { ...eventsFeatureLayer };
+          const filteredResult = results.features.filter(
+            (item) => item.attributes.KATEGORIJA === itemValue
+          );
+          // setShortResults(filteredResult);
+          // newData ==== filteredResult;
+          setEventsFeatureLayer(newFeatureLayer);
+          setShortResults(filteredResult);
+          console.log("filteredResults", filteredResult);
+        });
       });
+
+      // valuesArr.push(itemValue);
+      // const values = valuesArr.map((el) => el);
+
+      // view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+      //   for (let i = 0; i < values.length; i++) {
+      //     newArr.push(values[i]);
+      //   }
+      //   const newArrStr = newArr.join();
+
+      // layerView.filter = {
+      //   where:
+      //     startDate && finishDate
+      //       ? "KATEGORIJA IN (" +
+      //         newArrStr +
+      //         ") AND " +
+      //         "RENGINIO_PRADZIA >= " +
+      //         startDate +
+      //         " AND RENGINIO_PRADZIA <= " +
+      //         finishDate
+      //       : "KATEGORIJA IN (" + newArrStr + ")",
+      // };
     } else if (!isChecked && valuesArr.length > 0) {
       const index = valuesArr.indexOf(itemValue);
       if (index > -1) {
@@ -311,13 +313,13 @@ function Map() {
               )
           );
 
-      setShortResults(
-        results.slice(0).sort((a, b) => {
-          const x = a.attributes.RENGINIO_PRADZIA;
-          const y = b.attributes.RENGINIO_PRADZIA;
-          return x < y ? -1 : x > y ? 1 : 0;
-        })
-      );
+      const sortedResults = results.slice(0).sort((a, b) => {
+        const x = a.attributes.RENGINIO_PRADZIA;
+        const y = b.attributes.RENGINIO_PRADZIA;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+
+      setShortResults(sortedResults);
     }
   }, [data, searchTerm]);
 

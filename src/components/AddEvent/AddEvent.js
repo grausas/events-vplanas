@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AutoSuggest from "react-autosuggest";
 // Styles
 import {
@@ -60,21 +60,22 @@ const AddEvent = ({
   // sutvarkyti ir renginio pabaiga data
 
   const handleChangeTest = (e) => {
-    console.log("etargetvalue", e.target.value);
-    console.log("etargetchecked", e.target.checked);
+    // console.log("etargetvalue", e.target.value);
+    // console.log("etargetchecked", e.target.checked);
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
 
-    if (isChecked) {
-      const date = new Date();
-      const formateDate = new Date(
-        date.setDate(date.getDate() + Number(e.target.value - day + 1))
-      );
+    const date = new Date();
+    const formateDate = new Date(
+      date.setDate(date.getDate() + Number(e.target.value - day + 1))
+    );
 
+    if (isChecked) {
       if (addNewFeature.RENGINIO_PRADZIA === undefined) {
         setAddNewFeature({
           ...addNewFeature,
           RENGINIO_PRADZIA: formateDate,
+          RENGINIO_PABAIGA: formateDate,
         });
       } else {
         const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
@@ -106,10 +107,6 @@ const AddEvent = ({
               FinishDay: formatedFinishDate,
             },
           ]);
-          setAddNewFeature({
-            ...addNewFeature,
-            startDateArr,
-          });
         }
       }
     } else if (!isChecked) {
@@ -118,6 +115,13 @@ const AddEvent = ({
       setStartDateArr(filteredArray);
     }
   };
+
+  useEffect(() => {
+    setAddNewFeature({
+      ...addNewFeature,
+      startDateArr,
+    });
+  }, [startDateArr]);
 
   console.log("startDateArray", startDateArr);
 
@@ -279,9 +283,6 @@ const AddEvent = ({
                             <CheckBox
                               label={item.day}
                               id={item.value}
-                              // handleValue={(e) =>
-                              //   handleChangeTest(e.target.value)
-                              // }
                               value={item.value}
                             />
                           </span>
@@ -304,7 +305,12 @@ const AddEvent = ({
                   />
                 </InputWrapper>
                 <ConfirmButton>PRIDĖTI RENGINĮ</ConfirmButton>
-                <ConfirmButton handleClick={handleCancel}>
+                <ConfirmButton
+                  handleClick={() => {
+                    handleCancel();
+                    setStartDateArr([]);
+                  }}
+                >
                   ATŠAUKTI
                 </ConfirmButton>
               </form>
