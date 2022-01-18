@@ -42,8 +42,6 @@ const AddEvent = ({
         item.attributes.ORGANIZATORIUS.toLowerCase()
     );
 
-  // console.log("lowerEvents", lowerEvents);
-
   const weekday = [
     { day: "Pirmadienis", value: 0 },
     { day: "Antradienis", value: 1 },
@@ -57,11 +55,7 @@ const AddEvent = ({
   const d = new Date();
   const day = d.getDay();
 
-  // sutvarkyti ir renginio pabaiga data
-
   const handleChangeTest = (e) => {
-    // console.log("etargetvalue", e.target.value);
-    // console.log("etargetchecked", e.target.checked);
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
 
@@ -80,9 +74,7 @@ const AddEvent = ({
       } else {
         const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
         const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
-        console.log("newDate1111", newStartDate);
 
-        // console.log("newDateTRyrrr", new Date(newDate.setDate(newDate.getDay())));
         const formatedStartDate = new Date(
           newStartDate.setDate(
             newStartDate.getDate() +
@@ -111,7 +103,6 @@ const AddEvent = ({
       }
     } else if (!isChecked) {
       let filteredArray = startDateArr.filter((item) => item.id !== itemValue);
-      console.log("filtereDarray", filteredArray);
       setStartDateArr(filteredArray);
     }
   };
@@ -122,8 +113,6 @@ const AddEvent = ({
       startDateArr,
     });
   }, [startDateArr]);
-
-  console.log("startDateArray", startDateArr);
 
   function getSuggestions(value) {
     return lowerEvents.filter((language) =>
@@ -279,7 +268,6 @@ const AddEvent = ({
                       weekday.map((item) => {
                         return (
                           <span key={item.value}>
-                            {/* <label htmlFor="date">{item.day}</label> */}
                             <CheckBox
                               label={item.day}
                               id={item.value}

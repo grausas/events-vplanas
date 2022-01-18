@@ -2,7 +2,6 @@ import Graphic from "@arcgis/core/Graphic";
 import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, setState, type, message) => {
-  console.log("params startDayArrAddEvent", params.startDateArr);
   var features = [];
   var addFeature = new Graphic({
     attributes: {
@@ -20,7 +19,6 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
   features.push(addFeature);
   // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
   if (params.startDateArr && params.startDateArr.length > 0) {
-    console.log("yra papildomos dienos");
     params.startDateArr.map((item) => {
       var addFeature1 = new Graphic({
         attributes: {
@@ -37,11 +35,7 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
       });
       return features.push(addFeature1);
     });
-  } else {
-    console.log("nera dienu");
   }
-
-  console.log("features", features);
 
   const add = {
     addFeatures: features,

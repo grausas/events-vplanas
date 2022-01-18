@@ -70,8 +70,6 @@ function Map() {
   // panaudoti searchViewModel
   // ismesti pasirinkimus su suggest i dropdown
 
-  console.log("datafirs", data);
-
   const locatorUrl =
     "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
 
@@ -381,7 +379,6 @@ function Map() {
     // renginio popup atvaizdavimas
     view.on("click", function (event) {
       view.hitTest(event, { include: layer }).then(function (response) {
-        console.log(response);
         // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
         if (response.results.length !== 0) {
           let query = layer.createQuery();
@@ -390,9 +387,6 @@ function Map() {
 
           layer.queryFeatures(query).then(function (response) {
             if (response.features.length > 0) {
-              console.log("response", response);
-              console.log("shortresult", shortResults);
-              console.log("data", data);
               // setShortResults(response.features);
 
               setShortResults(response.features);
@@ -569,7 +563,6 @@ function Map() {
           handleClear={handleClearFilter}
         />
         {/* Pridėti naują renginį  */}
-        {console.log("addNewFeature", addNewFeature)}
         <AddEvent
           setAddNewFeature={setAddNewFeature}
           addNewFeature={addNewFeature}
