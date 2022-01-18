@@ -32,6 +32,7 @@ const AddEvent = ({
   const { handleOpen, show } = useOpenClose();
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [startDateArr, setStartDateArr] = useState([]);
 
   const lowerEvents =
     events.features &&
@@ -55,58 +56,70 @@ const AddEvent = ({
 
   const d = new Date();
   const day = d.getDay();
-  console.log("day", day);
 
   // sutvarkyti ir renginio pabaiga data
 
   const handleChangeTest = (e) => {
     console.log("etargetvalue", e.target.value);
     console.log("etargetchecked", e.target.checked);
-    const date = new Date();
-    // console.log("newDate", date.setDate(date.getDate() + value));
-    const formateDate = new Date(
-      date.setDate(date.getDate() + Number(e.target.value - day + 1))
-    );
-    setAddNewFeature({
-      ...addNewFeature,
-      StartDay: formateDate,
-    });
-    if (addNewFeature.RENGINIO_PRADZIA === undefined) {
-      setAddNewFeature({
-        ...addNewFeature,
-        RENGINIO_PRADZIA: formateDate,
-      });
-    } else {
-      const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
-      const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
-      console.log("newDate1111", newStartDate);
+    var itemValue = Number(e.target.value);
+    var isChecked = e.target.checked;
 
-      // console.log("newDateTRyrrr", new Date(newDate.setDate(newDate.getDay())));
-      const formatedStartDate = new Date(
-        newStartDate.setDate(
-          newStartDate.getDate() +
-            Number(e.target.value - newStartDate.getDay() + 1)
-        )
+    if (isChecked) {
+      const date = new Date();
+      const formateDate = new Date(
+        date.setDate(date.getDate() + Number(e.target.value - day + 1))
       );
-      const formatedFinishDate = new Date(
-        newFinishDate.setDate(
-          newFinishDate.getDate() +
-            Number(e.target.value - newFinishDate.getDay() + 1)
-        )
-      );
-      console.log("formatedDate2", formatedStartDate);
-      setAddNewFeature({
-        ...addNewFeature,
-        StartDay: formatedStartDate,
-        FinishDay: formatedFinishDate,
-      });
-      // setAddNewFeature({
-      //   ...addNewFeature,
-      //   FinishDay: formatedFinishDate,
-      // });
+
+      if (addNewFeature.RENGINIO_PRADZIA === undefined) {
+        setAddNewFeature({
+          ...addNewFeature,
+          RENGINIO_PRADZIA: formateDate,
+        });
+      } else {
+        const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
+        const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
+        console.log("newDate1111", newStartDate);
+
+        // console.log("newDateTRyrrr", new Date(newDate.setDate(newDate.getDay())));
+        const formatedStartDate = new Date(
+          newStartDate.setDate(
+            newStartDate.getDate() +
+              Number(e.target.value - newStartDate.getDay() + 1)
+          )
+        );
+        const formatedFinishDate = new Date(
+          newFinishDate.setDate(
+            newFinishDate.getDate() +
+              Number(e.target.value - newFinishDate.getDay() + 1)
+          )
+        );
+        if (
+          formatedStartDate.getDate() !==
+          addNewFeature.RENGINIO_PRADZIA.getDate()
+        ) {
+          setStartDateArr([
+            ...startDateArr,
+            {
+              id: itemValue,
+              StartDay: formatedStartDate,
+              FinishDay: formatedFinishDate,
+            },
+          ]);
+          setAddNewFeature({
+            ...addNewFeature,
+            startDateArr,
+          });
+        }
+      }
+    } else if (!isChecked) {
+      let filteredArray = startDateArr.filter((item) => item.id !== itemValue);
+      console.log("filtereDarray", filteredArray);
+      setStartDateArr(filteredArray);
     }
-    console.log("formateDate", formateDate);
   };
+
+  console.log("startDateArray", startDateArr);
 
   function getSuggestions(value) {
     return lowerEvents.filter((language) =>

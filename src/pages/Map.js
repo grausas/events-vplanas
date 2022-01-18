@@ -219,7 +219,6 @@ function Map() {
           newArr.push(values[i]);
         }
         const newArrStr = newArr.join();
-        console.log("newArrStr", newArr);
 
         layerView.filter = {
           where:
