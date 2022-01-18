@@ -2,6 +2,7 @@ import Graphic from "@arcgis/core/Graphic";
 import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, setState, type, message) => {
+  console.log("params startDayArrAddEvent", params.startDateArr);
   var features = [];
   var addFeature = new Graphic({
     attributes: {
@@ -18,22 +19,24 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
   });
   features.push(addFeature);
   // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
-  if (params.StartDay && params.StartDay !== params.RENGINIO_PRADZIA) {
+  if (params.startDateArr && params.startDateArr.length > 0) {
     console.log("yra papildomos dienos");
-    var addFeature1 = new Graphic({
-      attributes: {
-        PAVADINIMAS: params.PAVADINIMAS,
-        ORGANIZATORIUS: params.ORGANIZATORIUS,
-        RENGINIO_PRADZIA: new Date(params.StartDay).toISOString(),
-        RENGINIO_PABAIGA: new Date(params.FinishDay).toISOString(),
-        APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
-        WEBPAGE: params.WEBPAGE,
-        KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
-        PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
-      },
-      geometry: params.geometry,
+    params.startDateArr.map((item) => {
+      var addFeature1 = new Graphic({
+        attributes: {
+          PAVADINIMAS: params.PAVADINIMAS,
+          ORGANIZATORIUS: params.ORGANIZATORIUS,
+          RENGINIO_PRADZIA: new Date(item.StartDay).toISOString(),
+          RENGINIO_PABAIGA: new Date(item.FinishDay).toISOString(),
+          APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
+          WEBPAGE: params.WEBPAGE,
+          KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
+          PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
+        },
+        geometry: params.geometry,
+      });
+      return features.push(addFeature1);
     });
-    features.push(addFeature1);
   } else {
     console.log("nera dienu");
   }
