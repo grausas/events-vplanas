@@ -55,8 +55,9 @@ const AddEvent = ({
 
   const d = new Date();
   const day = d.getDay();
-  // if (day !== 1) d.setHours(-24 * (day - 1));
   console.log("day", day);
+
+  // sutvarkyti ir renginio pabaiga data
 
   const handleChangeTest = (e) => {
     console.log("etargetvalue", e.target.value);
@@ -68,7 +69,7 @@ const AddEvent = ({
     );
     setAddNewFeature({
       ...addNewFeature,
-      DIENOS: formateDate,
+      StartDay: formateDate,
     });
     if (addNewFeature.RENGINIO_PRADZIA === undefined) {
       setAddNewFeature({
@@ -76,20 +77,33 @@ const AddEvent = ({
         RENGINIO_PRADZIA: formateDate,
       });
     } else {
-      const newDate = new Date(addNewFeature.RENGINIO_PRADZIA);
-      console.log("newDate1111", newDate);
+      const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
+      const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
+      console.log("newDate1111", newStartDate);
 
       // console.log("newDateTRyrrr", new Date(newDate.setDate(newDate.getDay())));
-      const formatedDate2 = new Date(
-        newDate.setDate(
-          newDate.getDate() + Number(e.target.value - newDate.getDay() + 1)
+      const formatedStartDate = new Date(
+        newStartDate.setDate(
+          newStartDate.getDate() +
+            Number(e.target.value - newStartDate.getDay() + 1)
         )
       );
-      console.log("formatedDate2", formatedDate2);
+      const formatedFinishDate = new Date(
+        newFinishDate.setDate(
+          newFinishDate.getDate() +
+            Number(e.target.value - newFinishDate.getDay() + 1)
+        )
+      );
+      console.log("formatedDate2", formatedStartDate);
       setAddNewFeature({
         ...addNewFeature,
-        DIENOS: newDate,
+        StartDay: formatedStartDate,
+        FinishDay: formatedFinishDate,
       });
+      // setAddNewFeature({
+      //   ...addNewFeature,
+      //   FinishDay: formatedFinishDate,
+      // });
     }
     console.log("formateDate", formateDate);
   };

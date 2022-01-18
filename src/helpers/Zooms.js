@@ -6,10 +6,10 @@ export const handleZoom = (e, eventsFeatureLayer, view) => {
     const filterResult = features.filter(
       (item) => item.attributes.OBJECTID === Number(eventId)
     );
-
-    view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
-      layerView.highlight(filterResult);
-    });
+    // highlight reikia sutvarkyti, kad nusiimtu
+    // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+    //   layerView.highlight(filterResult);
+    // });
     view.goTo(
       {
         target: filterResult,

@@ -17,14 +17,15 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
     geometry: params.geometry,
   });
   features.push(addFeature);
-  if (params.DIENOS) {
+  // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
+  if (params.StartDay && params.StartDay !== params.RENGINIO_PRADZIA) {
     console.log("yra papildomos dienos");
     var addFeature1 = new Graphic({
       attributes: {
         PAVADINIMAS: params.PAVADINIMAS,
         ORGANIZATORIUS: params.ORGANIZATORIUS,
-        RENGINIO_PRADZIA: new Date(params.DIENOS).toISOString(),
-        RENGINIO_PABAIGA: new Date(params.DIENOS).toISOString(),
+        RENGINIO_PRADZIA: new Date(params.StartDay).toISOString(),
+        RENGINIO_PABAIGA: new Date(params.FinishDay).toISOString(),
         APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
         WEBPAGE: params.WEBPAGE,
         KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
@@ -53,6 +54,8 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
       }
       graphicsLayer.removeAll();
       setState([]);
+      layer.refresh();
+      layer.load();
     })
     .catch((error) => {
       if (error) {

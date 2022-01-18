@@ -61,8 +61,6 @@ function Map() {
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
   const [clickedEvents, setClickedEvents] = useState([]);
-  const [timeLineStart, setTimeLineStart] = useState(new Date());
-  const [timeLineFinish, setTimeLineFinish] = useState();
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -187,7 +185,6 @@ function Map() {
   useEffect(() => {
     if (startDate && finishDate) {
       // console.log("startDate22", new Date(startDate));
-      setTimeLineStart(new Date(startDate));
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
           where:
@@ -401,17 +398,6 @@ function Map() {
           return null;
         }
       });
-      //-------------------- query multiple objects in same place
-      // let query = layer.createQuery();
-      // query.geometry = view.toMap(event);
-      // query.outFields = ["*"];
-
-      // layer.queryFeatures(query).then(function (response) {
-      //   if (response.features.length > 0) {
-      //     setClickedEvents(response.features);
-      //     handleOpen(show);
-      //   }
-      // });
     });
 
     // Keičia cursor kai užvestas ant feature layer ir yra response
@@ -498,46 +484,6 @@ function Map() {
       };
     });
 
-    // Tim slider
-    // time slider widget initialization
-    // const timeSlider = new TimeSlider({
-    //   container: "timeSliderDiv",
-    //   // show data within a given time range
-    //   // in this case data within one year
-    //   mode: "cumulative-from-start",
-    //   timeVisible: true,
-    //   // loop: true,
-    // });
-    // view.ui.add(timeSlider, "top-right");
-    // wait until the layer view is loaded
-    // let timeLayerView;
-    // view.whenLayerView(layer).then((layerView) => {
-    //   console.log("layer");
-    //   timeLayerView = layerView;
-    //   const fullTimeExtent = layer.timeInfo.fullTimeExtent;
-    //   const end = fullTimeExtent.end;
-    //   const start = fullTimeExtent.start;
-
-    // set up time slider properties based on layer timeInfo
-    //   timeSlider.fullTimeExtent = fullTimeExtent;
-    //   timeSlider.timeExtent = {
-    //     start: start,
-    //     end: end,
-    //   };
-    //   timeSlider.stops = {
-    //     interval: layer.timeInfo.interval,
-    //   };
-    // });
-
-    // timeSlider.watch("timeExtent", (value) => {
-    //   // update layer view filter to reflect current timeExtent
-    //   timeLayerView.filter = {
-    //     timeExtent: value,
-    //   };
-    // });
-
-    // ---------------
-
     return () => {
       view && view.destroy();
     };
@@ -617,6 +563,7 @@ function Map() {
           handleClear={handleClearFilter}
         />
         {/* Pridėti naują renginį  */}
+        {console.log("addNewFeature", addNewFeature)}
         <AddEvent
           setAddNewFeature={setAddNewFeature}
           addNewFeature={addNewFeature}
@@ -634,8 +581,8 @@ function Map() {
             setIsEditing(!isEditing);
           }}
           handleSubmit={(e) => {
-            eventsFeatureLayer.opacity = 1;
             e.preventDefault();
+            eventsFeatureLayer.opacity = 1;
             addEvents(addNewFeature);
             setAddNewFeature([]);
             setIsEditing(!isEditing);
@@ -697,6 +644,12 @@ function Map() {
               handleDeleteConfirm={(e) => {
                 deleteEvent(queryPoint.OBJECTID);
                 handleOpenModal(!openModal);
+                view.goTo(
+                  {
+                    zoom: 11,
+                  },
+                  { duration: 600 }
+                );
               }}
             />
           </EventCard>
