@@ -18,10 +18,7 @@ const Checkbox = ({ label, value, id, handleValue }) => {
           id={id}
           type="checkbox"
           checked={checked}
-          onChange={(e) => {
-            handleCheckboxChange(e);
-            handleValue(e);
-          }}
+          onChange={handleCheckboxChange}
           value={value}
         />
         <Span></Span>

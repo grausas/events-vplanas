@@ -270,7 +270,7 @@ const AddEvent = ({
                       });
                     }}
                   />
-                  <CheckBoxWrapper>
+                  <CheckBoxWrapper onChange={handleChangeTest}>
                     {weekday &&
                       weekday.map((item) => {
                         return (
@@ -279,7 +279,9 @@ const AddEvent = ({
                             <CheckBox
                               label={item.day}
                               id={item.value}
-                              handleValue={handleChangeTest}
+                              // handleValue={(e) =>
+                              //   handleChangeTest(e.target.value)
+                              // }
                               value={item.value}
                             />
                           </span>
