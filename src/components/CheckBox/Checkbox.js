@@ -1,14 +1,10 @@
-import { useState } from "react";
-
 // Styles
 import { Wrapper, Label, CheckInput, Span } from "./CheckBox.style";
+// hooks
+import { useCheckbox } from "../../hooks/checkbox";
 
-const Checkbox = ({ label, value, id, handleValue }) => {
-  const [checked, setChecked] = useState(false);
-
-  const handleCheckboxChange = (e) => {
-    setChecked(e.target.checked);
-  };
+const Checkbox = ({ label, value, id }) => {
+  const { checked, handleCheckboxChange } = useCheckbox();
 
   return (
     <Wrapper>
