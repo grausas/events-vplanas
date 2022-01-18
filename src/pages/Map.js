@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 // Styles
 import "./Map.css";
 // Hooks
@@ -301,7 +301,8 @@ function Map() {
   };
 
   // paieška renginių juostoje
-  useEffect(() => {
+
+  const filterResults = useCallback(() => {
     if (data.features) {
       const results = !searchTerm
         ? data.features
@@ -319,9 +320,13 @@ function Map() {
         return x < y ? -1 : x > y ? 1 : 0;
       });
 
-      setShortResults(sortedResults);
+      return sortedResults;
     }
-  }, [data, searchTerm]);
+  }, [data.features, searchTerm]);
+
+  useEffect(() => {
+    setShortResults(filterResults(data));
+  }, [data, filterResults]);
 
   const addEvents = () =>
     addEventsFeature(
@@ -545,7 +550,7 @@ function Map() {
               openEvent(e);
               handleOpen(show);
             }}
-            handleClose={() => setShortResults(data.features)}
+            handleClose={() => setShortResults(filterResults(data.features))}
           />
         </EventsSchedule>
         {/* Filtravimas pagal data ir kategorijas */}
