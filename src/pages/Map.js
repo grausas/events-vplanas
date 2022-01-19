@@ -637,6 +637,7 @@ function Map() {
         )} */}
         {openModal && (
           <EventCard
+            isLoggedIn={!!auth.token}
             organization={queryPoint.ORGANIZATORIUS}
             title={queryPoint.PAVADINIMAS}
             url={queryPoint.WEBPAGE}

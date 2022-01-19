@@ -34,6 +34,7 @@ const EventCard = ({
   children,
   handleChange,
   handleLocation,
+  isLoggedIn,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -44,7 +45,9 @@ const EventCard = ({
       ) : (
         <Wrapper>
           <Close>
-            <EditIcon src={Edit} alt="edit-icon" onClick={handleOpen} />
+            {isLoggedIn && (
+              <EditIcon src={Edit} alt="edit-icon" onClick={handleOpen} />
+            )}
             <Logo src={VilniusLogo} alt="vilnius-logo" />
             <CloseImage
               src={CloseIcon}

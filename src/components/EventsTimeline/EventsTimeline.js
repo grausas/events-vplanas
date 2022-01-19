@@ -48,7 +48,7 @@ const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
                     <MoreButton
                       onClick={() => handleEventOpen(event.attributes.OBJECTID)}
                     >
-                      Peržiūrėti renginį
+                      Rodyti žemėlapyje
                     </MoreButton>
                   </ItemContent>
                 </TimelineItem>
