@@ -1,7 +1,7 @@
 .mapDiv {
   width: 100%;
   height: calc(100% - 50px);
-  position: relative;
+  position: relative !important;
 }
 
 /* removes outline around map */

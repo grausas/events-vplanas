@@ -36,6 +36,7 @@ function Login() {
           </span>
         </S.ImageDiv>
         <S.FormDiv>
+          <span>Prisijungti prie renginių žemėlapio</span>
           <Button handleClick={handleLogin}>Prisijungti</Button>
         </S.FormDiv>
       </S.LoginBlock>

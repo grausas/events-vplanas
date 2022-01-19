@@ -23,6 +23,12 @@ export const FormDiv = styled.div`
   width: 50%;
   background-color: #f7f9fb;
   padding: 8em 5em;
+
+  span {
+    padding: 20px 0;
+    text-align: center;
+    font-size: var(--fontBig);
+  }
   @media only screen and (max-width: 1024px) {
     padding: 4em 2em;
   }

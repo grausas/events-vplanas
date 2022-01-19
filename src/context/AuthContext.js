@@ -7,8 +7,6 @@ const AuthProvider = ({ children }) => {
 
   token && localStorage.setItem("token", token);
 
-  console.log("context token", token);
-
   return (
     <AuthContext.Provider value={{ token, setToken }}>
       {children}
