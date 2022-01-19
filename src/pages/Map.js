@@ -76,7 +76,6 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
-  const [clickedEvents, setClickedEvents] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -597,6 +596,7 @@ function Map() {
         {/* Pridėti naują renginį  */}
 
         <AddEvent
+          isLoggedIn={!!auth.token}
           setAddNewFeature={setAddNewFeature}
           addNewFeature={addNewFeature}
           isEditing={!isEditing}

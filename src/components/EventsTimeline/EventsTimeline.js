@@ -10,22 +10,18 @@ import {
   Circle,
   Close,
   MoreButton,
-  CloseImage,
   ClearButton,
 } from "./EventsTimeline.style";
 // utils
 import { CategoryData } from "../../utils/CategoryData";
 // helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
-// icons
-import CloseIcon from "../../assets/icons/close.png";
 
 const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
   return (
     <>
       <Wrapper>
         <Close onClick={handleClose}>
-          {/* <CloseImage src={CloseIcon} alt="close-icon" /> */}
           <ClearButton>Rodyti visus</ClearButton>
         </Close>
         <TimelineContainer>

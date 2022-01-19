@@ -7,7 +7,7 @@ import esriId from "@arcgis/core/identity/IdentityManager";
 // styles
 import * as S from "./Login.style";
 //components
-import { InputField, Button } from "../components/index";
+import { Button } from "../components/index";
 // locale
 import * as intl from "@arcgis/core/intl";
 

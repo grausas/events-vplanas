@@ -10,7 +10,6 @@ import {
   EditIcon,
   EventDates,
 } from "./EventCard.style";
-
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
 import ExternalLink from "../../assets/icons/external-link.png";

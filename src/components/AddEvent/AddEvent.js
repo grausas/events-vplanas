@@ -28,6 +28,7 @@ const AddEvent = ({
   addNewFeature,
   startDate,
   events,
+  isLoggedIn,
 }) => {
   const { handleOpen, show } = useOpenClose();
   const [value, setValue] = useState("");
@@ -120,63 +121,71 @@ const AddEvent = ({
     );
   }
   return (
-    <div>
-      {!show ? (
-        <AddObjectButton>
-          <span onClick={handleOpen}>Pridėti objektą</span>
-        </AddObjectButton>
-      ) : (
-        <FormWrapper isEditing={isEditing}>
-          <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
-          {!isEditing ? (
-            <>
-              <ConfirmButton
-                handleClick={() => {
-                  handleUpdate();
-                }}
-              >
-                REDAGUOTI OBJEKTĄ
-              </ConfirmButton>
-              <form onSubmit={handleSubmit}>
-                <h3>Pridėti renginį</h3>
-                <InputWrapper>
-                  <InputField
-                    type="text"
-                    labelText="Pavadinimas"
-                    id="pavadinimas"
-                    placeholder="Pavadinimas"
-                    required
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        PAVADINIMAS: e.target.value,
-                      });
+    <>
+      {isLoggedIn && (
+        <div>
+          {!show ? (
+            <AddObjectButton>
+              <span onClick={handleOpen}>Pridėti objektą</span>
+            </AddObjectButton>
+          ) : (
+            <FormWrapper isEditing={isEditing}>
+              <CloseImage
+                src={CloseIcon}
+                alt="close-icon"
+                onClick={handleOpen}
+              />
+              {!isEditing ? (
+                <>
+                  <ConfirmButton
+                    handleClick={() => {
+                      handleUpdate();
                     }}
-                  />
-                  <span>Organizatorius</span>
-                  <AutoSuggest
-                    suggestions={suggestions}
-                    onSuggestionsClearRequested={() => setSuggestions([])}
-                    onSuggestionsFetchRequested={({ value }) => {
-                      setValue(value);
-                      setSuggestions(getSuggestions(value));
-                    }}
-                    getSuggestionValue={(suggestion) => suggestion}
-                    renderSuggestion={(suggestion) => <span>{suggestion}</span>}
-                    inputProps={{
-                      placeholder: "Organizatorius",
-                      value: value,
-                      onChange: (_, { newValue }) => {
-                        setValue(newValue);
-                        setAddNewFeature({
-                          ...addNewFeature,
-                          ORGANIZATORIUS: newValue,
-                        });
-                      },
-                    }}
-                    highlightFirstSuggestion={true}
-                  />
-                  {/* <InputField
+                  >
+                    REDAGUOTI OBJEKTĄ
+                  </ConfirmButton>
+                  <form onSubmit={handleSubmit}>
+                    <h3>Pridėti renginį</h3>
+                    <InputWrapper>
+                      <InputField
+                        type="text"
+                        labelText="Pavadinimas"
+                        id="pavadinimas"
+                        placeholder="Pavadinimas"
+                        required
+                        handleChange={(e) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            PAVADINIMAS: e.target.value,
+                          });
+                        }}
+                      />
+                      <span>Organizatorius</span>
+                      <AutoSuggest
+                        suggestions={suggestions}
+                        onSuggestionsClearRequested={() => setSuggestions([])}
+                        onSuggestionsFetchRequested={({ value }) => {
+                          setValue(value);
+                          setSuggestions(getSuggestions(value));
+                        }}
+                        getSuggestionValue={(suggestion) => suggestion}
+                        renderSuggestion={(suggestion) => (
+                          <span>{suggestion}</span>
+                        )}
+                        inputProps={{
+                          placeholder: "Organizatorius",
+                          value: value,
+                          onChange: (_, { newValue }) => {
+                            setValue(newValue);
+                            setAddNewFeature({
+                              ...addNewFeature,
+                              ORGANIZATORIUS: newValue,
+                            });
+                          },
+                        }}
+                        highlightFirstSuggestion={true}
+                      />
+                      {/* <InputField
                     type="text"
                     labelText="Organizatorius"
                     id="organizatorius"
@@ -189,137 +198,139 @@ const AddEvent = ({
                       });
                     }}
                   /> */}
-                  <InputField
-                    options={CategoryData}
-                    type="dropdown"
-                    labelText="Kategorija"
-                    id="kategorija"
-                    placeholder="Kategorija"
-                    required
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        KATEGORIJA: e.target.value,
-                      });
-                    }}
-                  />
-                  <InputField
-                    type="longtext"
-                    labelText="Pastabos"
-                    placeholder="Pastabos"
-                    id="pastabos"
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        PASTABOS: e.target.value,
-                      });
-                    }}
-                  />
-                  <InputField
-                    type="longtext"
-                    labelText="Aprašymas"
-                    placeholder="Aprašymas"
-                    id="aprasymas"
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        APRASYMAS: e.target.value,
-                      });
-                    }}
-                  />
-                  <DatePicker
-                    placeholderTextDate="Data"
-                    placeholderTextTime="Laikas"
-                    timeTitle="Pradžios laikas"
-                    dateTitle="Pradžios data"
-                    required
-                    selected={
-                      addNewFeature.RENGINIO_PRADZIA !== undefined
-                        ? addNewFeature.RENGINIO_PRADZIA
-                        : startDate
-                    }
-                    handleChange={(date) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        RENGINIO_PRADZIA: date,
-                      });
-                    }}
-                  />
-                  <DatePicker
-                    placeholderTextDate="Data"
-                    placeholderTextTime="Laikas"
-                    timeTitle="Pabaigos laikas"
-                    dateTitle="Pabaigos data"
-                    required
-                    selected={
-                      addNewFeature.RENGINIO_PABAIGA !== undefined
-                        ? addNewFeature.RENGINIO_PABAIGA
-                        : startDate
-                    }
-                    handleChange={(date) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        RENGINIO_PABAIGA: date,
-                      });
-                    }}
-                  />
-                  <CheckBoxWrapper onChange={handleChangeTest}>
-                    {weekday &&
-                      weekday.map((item) => {
-                        return (
-                          <span key={item.value}>
-                            <CheckBox
-                              label={item.day}
-                              id={item.value}
-                              value={item.value}
-                            />
-                          </span>
-                        );
-                      })}
-                  </CheckBoxWrapper>
+                      <InputField
+                        options={CategoryData}
+                        type="dropdown"
+                        labelText="Kategorija"
+                        id="kategorija"
+                        placeholder="Kategorija"
+                        required
+                        handleChange={(e) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            KATEGORIJA: e.target.value,
+                          });
+                        }}
+                      />
+                      <InputField
+                        type="longtext"
+                        labelText="Pastabos"
+                        placeholder="Pastabos"
+                        id="pastabos"
+                        handleChange={(e) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            PASTABOS: e.target.value,
+                          });
+                        }}
+                      />
+                      <InputField
+                        type="longtext"
+                        labelText="Aprašymas"
+                        placeholder="Aprašymas"
+                        id="aprasymas"
+                        handleChange={(e) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            APRASYMAS: e.target.value,
+                          });
+                        }}
+                      />
+                      <DatePicker
+                        placeholderTextDate="Data"
+                        placeholderTextTime="Laikas"
+                        timeTitle="Pradžios laikas"
+                        dateTitle="Pradžios data"
+                        required
+                        selected={
+                          addNewFeature.RENGINIO_PRADZIA !== undefined
+                            ? addNewFeature.RENGINIO_PRADZIA
+                            : startDate
+                        }
+                        handleChange={(date) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            RENGINIO_PRADZIA: date,
+                          });
+                        }}
+                      />
+                      <DatePicker
+                        placeholderTextDate="Data"
+                        placeholderTextTime="Laikas"
+                        timeTitle="Pabaigos laikas"
+                        dateTitle="Pabaigos data"
+                        required
+                        selected={
+                          addNewFeature.RENGINIO_PABAIGA !== undefined
+                            ? addNewFeature.RENGINIO_PABAIGA
+                            : startDate
+                        }
+                        handleChange={(date) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            RENGINIO_PABAIGA: date,
+                          });
+                        }}
+                      />
+                      <CheckBoxWrapper onChange={handleChangeTest}>
+                        {weekday &&
+                          weekday.map((item) => {
+                            return (
+                              <span key={item.value}>
+                                <CheckBox
+                                  label={item.day}
+                                  id={item.value}
+                                  value={item.value}
+                                />
+                              </span>
+                            );
+                          })}
+                      </CheckBoxWrapper>
 
-                  <InputField
-                    type="text"
-                    labelText="Renginio puslapis"
-                    id="puslapis"
-                    placeholder="Renginio puslapis"
-                    required
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        WEBPAGE: e.target.value,
-                      });
-                    }}
-                  />
-                </InputWrapper>
-                <ConfirmButton>PRIDĖTI RENGINĮ</ConfirmButton>
-                <ConfirmButton
-                  handleClick={() => {
-                    handleCancel();
-                    setStartDateArr([]);
-                  }}
-                >
-                  ATŠAUKTI
-                </ConfirmButton>
-              </form>
-            </>
-          ) : (
-            <>
-              <p>
-                {addNewFeature.geometry === undefined
-                  ? "Pasirinkite pridėti objektą"
-                  : "Užpildykite objekto duomenis"}
-              </p>
-              <ConfirmButton handleClick={handleCordinates}>
-                {addNewFeature.geometry === undefined
-                  ? "Pridėti objektą"
-                  : "Pildyti"}
-              </ConfirmButton>
-            </>
+                      <InputField
+                        type="text"
+                        labelText="Renginio puslapis"
+                        id="puslapis"
+                        placeholder="Renginio puslapis"
+                        required
+                        handleChange={(e) => {
+                          setAddNewFeature({
+                            ...addNewFeature,
+                            WEBPAGE: e.target.value,
+                          });
+                        }}
+                      />
+                    </InputWrapper>
+                    <ConfirmButton>PRIDĖTI RENGINĮ</ConfirmButton>
+                    <ConfirmButton
+                      handleClick={() => {
+                        handleCancel();
+                        setStartDateArr([]);
+                      }}
+                    >
+                      ATŠAUKTI
+                    </ConfirmButton>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <p>
+                    {addNewFeature.geometry === undefined
+                      ? "Pasirinkite pridėti objektą"
+                      : "Užpildykite objekto duomenis"}
+                  </p>
+                  <ConfirmButton handleClick={handleCordinates}>
+                    {addNewFeature.geometry === undefined
+                      ? "Pridėti objektą"
+                      : "Pildyti"}
+                  </ConfirmButton>
+                </>
+              )}
+            </FormWrapper>
           )}
-        </FormWrapper>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
