@@ -51,7 +51,6 @@ export const ItemContent = styled.div`
   padding: 10px 15px;
   position: relative;
   width: 100%;
-  text-align: right;
 
   &:after {
     content: " ";

@@ -152,7 +152,7 @@ function Map() {
 
   // open event
   const openEvent = (event) => {
-    const filterResult = data.features.filter(
+    const filterResult = shortResults.filter(
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
@@ -612,12 +612,7 @@ function Map() {
             startDate={startEventDate + " | " + startEventTime}
             finishDate={finishEventDate + " | " + finishEventTime}
             handleChange={(e) => {
-              // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
-              //   layerView.highlight.remove(queryPoint.OBJECTID);
-              // });
-              // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
-              //   layerView.highlight(queryPoint.OBJECTID).remove();
-              // });
+              setQueryPoint([]);
               handleOpenModal();
               handleOpen(show);
               view.goTo(
@@ -639,6 +634,7 @@ function Map() {
                 e.preventDefault();
                 updateEvent(queryPoint);
                 handleOpenModal(!openModal);
+                setQueryPoint([]);
               }}
               handleDeleteConfirm={(e) => {
                 deleteEvent(queryPoint.OBJECTID);
