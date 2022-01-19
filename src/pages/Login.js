@@ -1,5 +1,5 @@
 import * as S from "./Login.style";
-// import { useHistory } from "react-router-dom";
+//components
 import { InputField, Button } from "../components/index";
 
 function Login() {

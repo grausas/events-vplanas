@@ -1,6 +1,14 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+} from "react";
 // Styles
 import "./Map.css";
+// context
+import { AuthContext } from "../context/AuthContext";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
 import { useOpenCloseModal } from "../hooks/openModal";
@@ -12,6 +20,8 @@ import * as GeometryService from "@arcgis/core/rest/geometryService";
 import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
 import Point from "@arcgis/core/geometry/Point";
 import TimeSlider from "@arcgis/core/widgets/TimeSlider";
+import esriId from "@arcgis/core/identity/IdentityManager";
+
 // locale
 import * as intl from "@arcgis/core/intl";
 
@@ -34,7 +44,12 @@ import { CategoryData } from "../utils/CategoryData";
 
 // helpers
 import { createMapView } from "../helpers/Map";
-import { featureLayer, tileLayer, vectorLayer } from "../helpers/Layers";
+import {
+  featureLayer,
+  tileLayer,
+  vectorLayer,
+  featureLayerPrivate,
+} from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
@@ -44,6 +59,7 @@ import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
 
 function Map() {
+  const auth = useContext(AuthContext);
   const mapRef = useRef(null);
   intl.setLocale("lt");
 
@@ -202,42 +218,43 @@ function Map() {
     var isChecked = e.target.checked;
     let newArr = [];
     if (isChecked && itemValue !== 0) {
-      view.whenLayerView(eventsFeatureLayer).then((layerview) => {
-        layerview.queryFeatures().then((results) => {
-          // const newData = { ...shortResults };
-          const newFeatureLayer = { ...eventsFeatureLayer };
-          const filteredResult = results.features.filter(
-            (item) => item.attributes.KATEGORIJA === itemValue
-          );
-          // setShortResults(filteredResult);
-          // newData ==== filteredResult;
-          setEventsFeatureLayer(newFeatureLayer);
-          setShortResults(filteredResult);
-          console.log("filteredResults", filteredResult);
-        });
+      // view.whenLayerView(eventsFeatureLayer).then((layerview) => {
+      //   layerview.queryFeatures().then((results) => {
+      //     // const newData = { ...shortResults };
+      //     const newFeatureLayer = { ...eventsFeatureLayer };
+      //     const filteredResult = results.features.filter(
+      //       (item) => item.attributes.KATEGORIJA === itemValue
+      //     );
+      //     // setShortResults(filteredResult);
+      //     // newData ==== filteredResult;
+      //     setEventsFeatureLayer(newFeatureLayer);
+      //     setShortResults(filteredResult);
+      //     console.log("filteredResults", filteredResult);
+      //   });
+      // });
+
+      valuesArr.push(itemValue);
+      const values = valuesArr.map((el) => el);
+
+      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+        for (let i = 0; i < values.length; i++) {
+          newArr.push(values[i]);
+        }
+        const newArrStr = newArr.join();
+
+        layerView.filter = {
+          where:
+            startDate && finishDate
+              ? "KATEGORIJA IN (" +
+                newArrStr +
+                ") AND " +
+                "RENGINIO_PRADZIA >= " +
+                startDate +
+                " AND RENGINIO_PRADZIA <= " +
+                finishDate
+              : "KATEGORIJA IN (" + newArrStr + ")",
+        };
       });
-
-      // valuesArr.push(itemValue);
-      // const values = valuesArr.map((el) => el);
-
-      // view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-      //   for (let i = 0; i < values.length; i++) {
-      //     newArr.push(values[i]);
-      //   }
-      //   const newArrStr = newArr.join();
-
-      // layerView.filter = {
-      //   where:
-      //     startDate && finishDate
-      //       ? "KATEGORIJA IN (" +
-      //         newArrStr +
-      //         ") AND " +
-      //         "RENGINIO_PRADZIA >= " +
-      //         startDate +
-      //         " AND RENGINIO_PRADZIA <= " +
-      //         finishDate
-      //       : "KATEGORIJA IN (" + newArrStr + ")",
-      // };
     } else if (!isChecked && valuesArr.length > 0) {
       const index = valuesArr.indexOf(itemValue);
       if (index > -1) {
@@ -353,7 +370,9 @@ function Map() {
   }, [addNewFeature.geometry]);
 
   useEffect(() => {
-    const layer = featureLayer();
+    // const layer = featureLayer();
+    const layer =
+      auth.token.length > 0 ? featureLayerPrivate() : featureLayer();
     const vector = vectorLayer();
     const tile = tileLayer();
 
@@ -487,12 +506,34 @@ function Map() {
     return () => {
       view && view.destroy();
     };
-  }, []);
+  }, [auth.token]);
 
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
   const startEventTime = changeTime(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventTime = changeTime(new Date(queryPoint.RENGINIO_PABAIGA));
+
+  const handleLogin = () => {
+    esriId
+      .getCredential(
+        "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Renginiai_Vilniuje_P/FeatureServer/0"
+      )
+      .then((res) => {
+        auth.setToken(res.token);
+      });
+  };
+
+  useEffect(() => {
+    if (auth.token.length > 0) {
+      esriId.registerToken({
+        token: auth.token,
+        server:
+          "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/",
+      });
+    }
+  });
+
+  // console.log("windowreload", window.location.reload());
 
   return (
     <>
@@ -514,6 +555,8 @@ function Map() {
           placeholder="paieska"
           onKeyUp={handleSearchResult}
         ></input> */}
+
+        <button onClick={handleLogin}>Login</button>
 
         <Loading id="loading" />
 
@@ -563,6 +606,7 @@ function Map() {
           handleClear={handleClearFilter}
         />
         {/* Pridėti naują renginį  */}
+
         <AddEvent
           setAddNewFeature={setAddNewFeature}
           addNewFeature={addNewFeature}
