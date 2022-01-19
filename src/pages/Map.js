@@ -515,16 +515,7 @@ function Map() {
   const startEventTime = changeTime(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventTime = changeTime(new Date(queryPoint.RENGINIO_PABAIGA));
 
-  const handleLogin = () => {
-    esriId
-      .getCredential(
-        "https://services1.arcgis.com/usA3lHW20rGU6glp/ArcGIS/rest/services/Renginiai_Vilniuje_P/FeatureServer/0"
-      )
-      .then((res) => {
-        auth.setToken(res.token);
-      });
-  };
-
+  // check if there is auth.token and login to page again
   useEffect(() => {
     if (auth.token && auth.token.length > 0) {
       esriId.registerToken({
@@ -534,8 +525,6 @@ function Map() {
       });
     }
   });
-
-  // console.log("windowreload", window.location.reload());
 
   return (
     <>
@@ -557,8 +546,6 @@ function Map() {
           placeholder="paieska"
           onKeyUp={handleSearchResult}
         ></input> */}
-
-        <button onClick={handleLogin}>Login</button>
 
         <Loading id="loading" />
 
