@@ -1,11 +1,11 @@
 // Styles
 import { Wrapper, Content, LogoDiv, Logo, Text } from "./Header.style";
 // Components
-import { SearchInput } from "../index";
+import { SearchInput, Button } from "../index";
 // Logo
 import VilniusLogo from "../../assets/icons/VILNIUS_WHITE_LOGO.png";
 
-const Header = () => {
+const Header = ({ isLoggedIn, logOut }) => {
   return (
     <Wrapper>
       <Content>
@@ -14,6 +14,7 @@ const Header = () => {
           <Text> Vilniaus miesto renginių žemėlapis</Text>
         </LogoDiv>
         <SearchInput placeholder="Paieška" />
+        {isLoggedIn && <Button handleClick={logOut}>Atsijungti</Button>}
       </Content>
     </Wrapper>
   );

@@ -372,7 +372,9 @@ function Map() {
   useEffect(() => {
     // const layer = featureLayer();
     const layer =
-      auth.token.length > 0 ? featureLayerPrivate() : featureLayer();
+      auth.token && auth.token.length > 0
+        ? featureLayerPrivate()
+        : featureLayer();
     const vector = vectorLayer();
     const tile = tileLayer();
 
@@ -524,7 +526,7 @@ function Map() {
   };
 
   useEffect(() => {
-    if (auth.token.length > 0) {
+    if (auth.token && auth.token.length > 0) {
       esriId.registerToken({
         token: auth.token,
         server:
