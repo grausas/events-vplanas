@@ -11,12 +11,12 @@ import { GlobalStyle } from "./styles/GlobalStyle";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <Router basename="renginiai">
+    <Router basename="/renginiai">
+      <AuthProvider>
         <GlobalStyle />
         <App />
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );

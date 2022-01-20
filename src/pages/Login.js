@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // context
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 // esri modules
 import esriId from "@arcgis/core/identity/IdentityManager";
 // styles
 import * as S from "./Login.style";
 //components
-import { Button } from "../../components/index";
+import { Button } from "../components/index";
 // locale
 import * as intl from "@arcgis/core/intl";
 

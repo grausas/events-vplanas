@@ -106,61 +106,64 @@ function Map() {
     // locator.suggestLocations(locatorUrl, params).then(function (response) {
     //   console.log(typeof params.address);
     //   console.log("response", response);
-    //   // const address = response.filter((item) =>
-    //   //   item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
-    //   // );
-    //   // console.log("address", address);
+    //   const address = response.filter((item) =>
+    //     item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
+    //   );
+    //   console.log("address", address);
     // });
-    locator.addressToLocations(locatorUrl, params).then(function (results) {
-      console.log("addressToLocations for Madrid=", results);
-      if (results.length > 0) {
-        const grapics = results[0].location;
 
-        var point = new Point({
-          type: "point",
-          x: grapics.x,
-          y: grapics.y,
-          spatialReference: { wkid: 102100 },
-        });
+    if (e.key === "Enter") {
+      locator.addressToLocations(locatorUrl, params).then(function (results) {
+        console.log("addressToLocations for Madrid=", results);
+        if (results.length > 0) {
+          const grapics = results[0].location;
 
-        var simpleMarkerSymbol = {
-          type: "simple-marker",
-          color: [226, 119, 40],
-          outline: {
-            color: [255, 255, 255],
-            width: 1,
-          },
-        };
-
-        var geomSer =
-          "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
-
-        var params = new ProjectParameters({
-          geometries: [point],
-          outSpatialReference: { wkid: 102100 },
-        });
-
-        GeometryService.project(geomSer, params).then(function (geom) {
-          // console.log("geom", geom);
-          var pointGraphic = new Graphic({
-            geometry: point,
-            symbol: simpleMarkerSymbol,
+          var point = new Point({
+            type: "point",
+            x: grapics.x,
+            y: grapics.y,
+            spatialReference: { wkid: 102100 },
           });
 
-          graphicsLayer.add(pointGraphic);
-          // console.log("pointGraphic", pointGraphic);
-          // console.log("center", (view.center = pointGraphic.geometry));
-
-          view.goTo(
-            {
-              target: pointGraphic,
-              zoom: 16,
+          var simpleMarkerSymbol = {
+            type: "simple-marker",
+            color: [226, 119, 40],
+            outline: {
+              color: [255, 255, 255],
+              width: 1,
             },
-            { duration: 1000 }
-          );
-        });
-      }
-    });
+          };
+
+          var geomSer =
+            "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
+
+          var params = new ProjectParameters({
+            geometries: [point],
+            outSpatialReference: { wkid: 102100 },
+          });
+
+          GeometryService.project(geomSer, params).then(function (geom) {
+            // console.log("geom", geom);
+            var pointGraphic = new Graphic({
+              geometry: point,
+              symbol: simpleMarkerSymbol,
+            });
+
+            graphicsLayer.add(pointGraphic);
+            // console.log("pointGraphic", pointGraphic);
+            // console.log("center", (view.center = pointGraphic.geometry));
+
+            view.goTo(
+              {
+                target: pointGraphic,
+                zoom: 16,
+              },
+              { duration: 1000 }
+            );
+          });
+        }
+      });
+    }
   };
 
   // ------------------
@@ -539,6 +542,19 @@ function Map() {
             bottom: "40px",
           }}
         ></div>
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "-40px",
+            zIndex: "999",
+          }}
+        >
+          <SearchInput
+            placeholder="Ieškoti"
+            handleSearch={handleSearchResult}
+          />
+        </div>
         {/* <input
           style={{ marginTop: "50px" }}
           type="text"

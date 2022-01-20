@@ -10,6 +10,7 @@ const SearchInput = ({
   minLength,
   maxLength,
   handleChange,
+  handleSearch,
 }) => {
   return (
     <InputDiv>
@@ -21,6 +22,7 @@ const SearchInput = ({
         minLength={minLength}
         maxLength={maxLength}
         onChange={handleChange}
+        onKeyPress={handleSearch}
       />
     </InputDiv>
   );

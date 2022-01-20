@@ -292,7 +292,6 @@ const AddEvent = ({
                         labelText="Renginio puslapis"
                         id="puslapis"
                         placeholder="Renginio puslapis"
-                        required
                         handleChange={(e) => {
                           setAddNewFeature({
                             ...addNewFeature,
