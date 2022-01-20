@@ -19,19 +19,19 @@ export const createMapView = (ref, baselayer, layers) => {
   });
 
   // view.when().then(() => {
+  //   console.log("watchScale", view.map.layers.getItemAt(0));
   //   // console.log("viemaplayer", view.map.layers.getItemAt(0).renderer);
-  //   const layer = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
+  //   // const layer = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
+  //   // const layer = layers.renderer.getUniqueValueInfo();
 
   //   // const heatmapRenderer = layer;
   //   // console.log("ldwefwefew", layer);
-
-  //   console.log("watchScale", view.scale);
 
   //   const simpleRenderer = {
   //     type: "simple",
   //     symbol: {
   //       type: "simple-marker",
-  //       color: "#ccc",
+  //       color: "var(--grey)",
   //       size: 8,
   //     },
   //   };
@@ -39,8 +39,8 @@ export const createMapView = (ref, baselayer, layers) => {
   //   const simpleRenderer2 = {
   //     type: "unique-value",
   //     field: "KATEGORIJA",
-  //     // defaultSymbol: symbol,
-  //     uniqueValueInfos: layer,
+  //     defaultSymbol: { type: "simple-fill" },
+  //     // uniqueValueInfos: layer,
   //   };
 
   //   if (view.scale > 124447) {
@@ -48,7 +48,7 @@ export const createMapView = (ref, baselayer, layers) => {
   //   }
 
   //   view.watch("scale", (newValue) => {
-  //     layers.renderer = newValue >= 72224 ? simpleRenderer : simpleRenderer2;
+  //     layers.renderer = newValue >= 60000 ? simpleRenderer : simpleRenderer2;
   //   });
   // });
 
