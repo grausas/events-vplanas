@@ -57,7 +57,6 @@ import { updatePolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
-import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 
 function Map() {
   const auth = useContext(AuthContext);

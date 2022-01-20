@@ -16,9 +16,14 @@ const Header = ({ isLoggedIn, logOut, handleSearch }) => {
         </LogoDiv>
         {/* <SearchInput placeholder="Paieška" handleChange={handleSearch} /> */}
         {!isLoggedIn && (
-          <button>
-            <Link to="/Login">Prisijungti</Link>
-          </button>
+          <Button>
+            <Link
+              style={{ textDecoration: "none", color: "var(--white)" }}
+              to="/Login"
+            >
+              Prisijungti
+            </Link>
+          </Button>
         )}
 
         {isLoggedIn && <Button handleClick={logOut}>Atsijungti</Button>}
