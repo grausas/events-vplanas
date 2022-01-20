@@ -57,6 +57,7 @@ import { updatePolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
+import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 
 function Map() {
   const auth = useContext(AuthContext);
@@ -149,20 +150,39 @@ function Map() {
               symbol: simpleMarkerSymbol,
             });
 
-            graphicsLayer.add(pointGraphic);
-            // console.log("pointGraphic", pointGraphic);
-            // console.log("center", (view.center = pointGraphic.geometry));
+            // console.log("phichLayre", graphicsLayer.graphics.items.length);
 
-            view.goTo(
-              {
-                target: pointGraphic,
-                zoom: 16,
-              },
-              { duration: 1000 }
-            );
+            if (graphicsLayer.graphics.items.length > 0) {
+              graphicsLayer.removeAll();
+              graphicsLayer.add(pointGraphic);
+              // console.log("pointGraphic", pointGraphic);
+              // console.log("center", (view.center = pointGraphic.geometry));
+
+              view.goTo(
+                {
+                  target: pointGraphic,
+                  zoom: 16,
+                },
+                { duration: 1000 }
+              );
+            } else {
+              graphicsLayer.add(pointGraphic);
+              // console.log("pointGraphic", pointGraphic);
+              // console.log("center", (view.center = pointGraphic.geometry));
+
+              view.goTo(
+                {
+                  target: pointGraphic,
+                  zoom: 16,
+                },
+                { duration: 1000 }
+              );
+            }
           });
         }
       });
+    } else if (e.key === "Backspace" || e.key === "Delete") {
+      graphicsLayer.removeAll();
     }
   };
 
