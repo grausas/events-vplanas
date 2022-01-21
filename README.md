@@ -1,3 +1,10 @@
 # :world_map: Map of Vilnius Events
 
-This project was created using React / Styled Components / ArcGIS API for JavaScript
+## :hammer: Built With
+
+- React.js - front end
+- Styled components - for styling
+- ArcGIS Javascript API
+
+
+
