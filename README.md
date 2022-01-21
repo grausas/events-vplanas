@@ -2,8 +2,8 @@
 
 ## :hammer: Built With
 
-- React.js - front end
-- Styled components - for styling
+- React.js
+- Styled components
 - ArcGIS Javascript API
 
 
