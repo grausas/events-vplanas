@@ -38,6 +38,7 @@ import {
   Zoom,
   Home,
   EventsTimeline,
+  DateSlider,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -479,11 +480,8 @@ function Map() {
 
     // Create a time slider to update layerView filter
     const timeSlider = new TimeSlider({
-      container: "timeSlider",
+      container: "dateSlider",
       mode: "time-window",
-      // tickConfigs: {
-      //   labelVisible: false,
-      // },
     });
     view.ui.add(timeSlider, "manual");
 
@@ -495,8 +493,6 @@ function Map() {
       const start = fullTimeExtent.start;
       const end = fullTimeExtent.end;
 
-      // console.log("fulltimeextent", fullTimeExtent);
-
       // set up time slider properties based on layer timeInfo
       timeSlider.fullTimeExtent = fullTimeExtent;
       timeSlider.timeExtent = {
@@ -506,21 +502,9 @@ function Map() {
       timeSlider.stops = {
         interval: layer.timeInfo.interval,
       };
-
-      // console.log(
-      //   "timeSlider",
-      //   (timeSlider.timeExtent = {
-      //     start: start,
-      //     end: end,
-      //   })
-      // );
     });
-    // console.log("startdate111", timeLineStart);
 
     timeSlider.watch("timeExtent", (value) => {
-      // console.log("timSliderVAlue", value.start);
-      // value.start = timeLineStart.length > 0 ? timeLineStart : value.start;
-      // update layer view filter to reflect current timeExtent
       timeLayerView.filter = {
         timeExtent: value,
       };
@@ -552,15 +536,7 @@ function Map() {
       {error && <Notification type={type} message={error} />}
 
       <div className="mapDiv" ref={mapRef}>
-        <div
-          id="timeSlider"
-          style={{
-            width: "100%",
-            position: "absolute",
-            left: "calc(50% - 300px)",
-            bottom: "40px",
-          }}
-        ></div>
+        <DateSlider id="dateSlider" />
         <div
           style={{
             position: "absolute",
