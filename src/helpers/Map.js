@@ -18,6 +18,8 @@ export const createMapView = (ref, baselayer, layers) => {
     },
   });
 
+  // panaudoti class break rerender atvaizdavimui polygonu ir points
+
   // view.when().then(() => {
   //   console.log("watchScale", view.map.layers.getItemAt(0));
   //   // console.log("viemaplayer", view.map.layers.getItemAt(0).renderer);
