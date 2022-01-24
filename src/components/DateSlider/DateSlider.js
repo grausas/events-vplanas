@@ -13,11 +13,9 @@ const TimeSlider = ({ id }) => {
       <IconDiv>
         <Icon Icon src={TimelineIcon} alt="home-icon" onClick={handleOpen} />
       </IconDiv>
-      <SliderDiv
-        id={id}
-        className="sc-GEbAx iDehWm esri-time-slider esri-widget esri-time-slider__mode--time-window esri-time-slider__layout--compact calcite-theme-light"
-        display={show ? "display" : null}
-      ></SliderDiv>
+      <SliderDiv display={!show ? "display" : null}>
+        <div id={id}></div>
+      </SliderDiv>
     </Wrapper>
   );
 };

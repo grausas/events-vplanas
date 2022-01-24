@@ -33,8 +33,7 @@ export const SliderDiv = styled.div`
   .esri-time-slider {
     /* max-width: 600px !important; */
     width: 100% !important;
-    /* min-width: 0 !important; */
-    min-width: 375px;
+    min-width: 0 !important;
     height: 120px !important;
   }
 

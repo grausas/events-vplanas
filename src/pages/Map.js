@@ -482,35 +482,39 @@ function Map() {
     const timeSlider = new TimeSlider({
       container: "dateSlider",
       mode: "time-window",
+      layout: "compact",
+      view: view,
     });
-    // view.ui.add(timeSlider, "manual");
 
     // wait until the layer view is loaded
-    let timeLayerView;
-    view.whenLayerView(layer).then((layerView) => {
-      timeLayerView = layerView;
-      const fullTimeExtent = layer.timeInfo.fullTimeExtent;
-      const start = fullTimeExtent.start;
-      const end = fullTimeExtent.end;
+    timeSlider.when(function () {
+      let timeLayerView;
+      view.whenLayerView(layer).then((layerView) => {
+        timeLayerView = layerView;
+        const fullTimeExtent = layer.timeInfo.fullTimeExtent;
+        const start = fullTimeExtent.start;
+        const end = fullTimeExtent.end;
 
-      // set up time slider properties based on layer timeInfo
-      timeSlider.fullTimeExtent = fullTimeExtent;
-      timeSlider.timeExtent = {
-        start: start,
-        end: end,
-      };
-      timeSlider.stops = {
-        interval: layer.timeInfo.interval,
-      };
+        // set up time slider properties based on layer timeInfo
+        timeSlider.fullTimeExtent = fullTimeExtent;
+        timeSlider.timeExtent = {
+          start: start,
+          end: end,
+        };
+        timeSlider.stops = {
+          interval: layer.timeInfo.interval,
+        };
+      });
+
+      timeSlider.watch("timeExtent", (value) => {
+        timeLayerView.filter = {
+          timeExtent: value,
+        };
+      });
+      timeSlider.render();
+
+      console.log("timeSLider", timeSlider);
     });
-
-    timeSlider.watch("timeExtent", (value) => {
-      timeLayerView.filter = {
-        timeExtent: value,
-      };
-    });
-
-    console.log("timeSLider", timeSlider);
 
     return () => {
       view && view.destroy();
@@ -536,14 +540,22 @@ function Map() {
   return (
     <>
       {error && <Notification type={type} message={error} />}
+
       <div className="mapDiv" ref={mapRef}>
         <DateSlider id="dateSlider" />
+        {/* <input
+          style={{ marginTop: "50px" }}
+          type="text"
+          placeholder="paieska"
+          onKeyUp={handleSearchResult}
+        ></input> */}
         <div
           style={{
             position: "absolute",
             left: "50%",
             top: "-40px",
             zIndex: "999",
+            width: "200px",
           }}
         >
           <SearchInput
@@ -551,12 +563,6 @@ function Map() {
             handleSearch={handleSearchResult}
           />
         </div>
-        {/* <input
-          style={{ marginTop: "50px" }}
-          type="text"
-          placeholder="paieska"
-          onKeyUp={handleSearchResult}
-        ></input> */}
 
         <Loading id="loading" />
 
