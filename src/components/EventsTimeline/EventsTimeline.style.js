@@ -1,25 +1,19 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  /* position: absolute; */
   position: relative;
-  /* top: 10px; */
-  /* right: 10px; */
   max-width: 500px;
   width: 100%;
-  /* max-height: 80%; */
   background: var(--silver);
-  /* border-radius: 5px; */
-  /* box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25); */
   opacity: 0.9;
   overflow: auto;
+  padding-right: 5px;
 `;
 
 export const TimelineContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  /* padding-left: 4px; */
   margin: 20px 0 10px 0;
 
   &&:after {
@@ -121,9 +115,7 @@ export const Close = styled.div`
   position: absolute;
   top: 2px;
   right: 0px;
-  /* padding: 1px 0; */
   font-weight: 600;
-  /* border-radius: 50%; */
   display: flex;
   align-items: center;
   cursor: pointer;

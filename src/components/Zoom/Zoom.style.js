@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   bottom: 30px;
   border: 1px solid var(--darkSilver);
   border-radius: 10px;
-  padding: 2px;
+  padding: 3px;
   background-color: var(--white);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
   opacity: 0.8;
@@ -17,9 +17,9 @@ export const Wrapper = styled.div`
 export const Button = styled.button`
   border: none;
   font-size: var(--fontMed);
-  font-weight: 600;
+  font-weight: 700;
   background: none;
-  padding: 1px 8px;
+  padding: 2px 8px;
   cursor: pointer;
 
   &:hover {
