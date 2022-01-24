@@ -483,7 +483,7 @@ function Map() {
       container: "dateSlider",
       mode: "time-window",
     });
-    view.ui.add(timeSlider, "manual");
+    // view.ui.add(timeSlider, "manual");
 
     // wait until the layer view is loaded
     let timeLayerView;
@@ -510,6 +510,8 @@ function Map() {
       };
     });
 
+    console.log("timeSLider", timeSlider);
+
     return () => {
       view && view.destroy();
     };
@@ -534,7 +536,6 @@ function Map() {
   return (
     <>
       {error && <Notification type={type} message={error} />}
-
       <div className="mapDiv" ref={mapRef}>
         <DateSlider id="dateSlider" />
         <div

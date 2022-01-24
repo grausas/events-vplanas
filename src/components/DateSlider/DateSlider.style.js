@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const Wrapper = styled.div``;
 
 export const SliderDiv = styled.div`
-  position: relative;
+  position: absolute;
   max-width: 600px;
   width: 100%;
   left: calc(50% - 300px);
   bottom: 40px;
-  /* display: ${(props) => (props.display ? "none" : "block")}; */
+  display: ${(props) => (props.display ? "none" : null)};
 
   /* style for Time Line widget */
   .esri-time-slider {
