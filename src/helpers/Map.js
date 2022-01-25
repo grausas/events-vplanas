@@ -60,21 +60,21 @@ export const createMapView = (ref, baselayer, layers) => {
           value: "3",
           symbol: {
             type: "simple-marker", // autocasts as new SimpleFillSymbol()
-            color: `${uniqueValue[2].symbol.color}`,
+            color: `${uniqueValue[3].symbol.color}`,
           },
         },
         {
           value: "4",
           symbol: {
             type: "simple-marker", // autocasts as new SimpleFillSymbol()
-            color: `${uniqueValue[3].symbol.color}`,
+            color: `${uniqueValue[4].symbol.color}`,
           },
         },
         {
           value: "5",
           symbol: {
             type: "simple-marker", // autocasts as new SimpleFillSymbol()
-            color: `${uniqueValue[4].symbol.color}`,
+            color: `${uniqueValue[2].symbol.color}`,
           },
         },
         {

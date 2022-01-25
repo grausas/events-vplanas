@@ -423,6 +423,7 @@ function Map() {
     view.on("click", function (event) {
       view.hitTest(event, { include: layer }).then(function (response) {
         // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+        // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
         if (response.results.length !== 0) {
           let query = layer.createQuery();
           query.geometry = view.toMap(event);
