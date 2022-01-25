@@ -8,6 +8,8 @@ import {
   CloseImageDiv,
   DateFilter,
   ClearButton,
+  CheckBoxDiv,
+  Colors,
 } from "./Filter.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -16,6 +18,8 @@ import FilterIcon from "../../assets/icons/filter.png";
 import CloseIcon from "../../assets/icons/close.png";
 // components
 import { CheckBox, DatePicker } from "../index";
+// utils
+import { CategoryData } from "../../utils/CategoryData";
 
 const Filter = ({
   data,
@@ -50,6 +54,7 @@ const Filter = ({
               selected={selectedStart}
               handleChange={handleChangeStart}
               title="Pasirinkti pradžios datą"
+              height="small"
             />
             <DatePicker
               dateTitle="Iki"
@@ -57,6 +62,7 @@ const Filter = ({
               selected={selectedFinish}
               handleChange={handleChangeFinish}
               title="Pasirinkti pabaigos datą"
+              height="small"
             />
           </DateFilter>
           <h5>Kategorijos</h5>
@@ -64,12 +70,15 @@ const Filter = ({
             {data &&
               data.map((item) => {
                 return (
-                  <CheckBox
-                    key={item.id}
-                    value={item.value}
-                    id={item.id}
-                    label={item.text}
-                  />
+                  <CheckBoxDiv backgroundColor={item.value}>
+                    <CheckBox
+                      key={item.id}
+                      value={item.value}
+                      id={item.id}
+                      label={item.text}
+                    />
+                    {/* <Colors backgroundColor={item.value}></Colors> */}
+                  </CheckBoxDiv>
                 );
               })}
           </FilterContent>
