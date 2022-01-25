@@ -18,8 +18,6 @@ import FilterIcon from "../../assets/icons/filter.png";
 import CloseIcon from "../../assets/icons/close.png";
 // components
 import { CheckBox, DatePicker } from "../index";
-// utils
-import { CategoryData } from "../../utils/CategoryData";
 
 const Filter = ({
   data,

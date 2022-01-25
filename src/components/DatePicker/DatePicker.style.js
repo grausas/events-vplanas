@@ -16,10 +16,10 @@ export const Wrapper = styled.div`
     color: var(--dark);
     font-size: 14px;
 
-    /* &:focus {
+    &:focus {
       border: 2px solid var(--lightBlue);
       outline: none;
-    } */
+    }
   }
 `;
 

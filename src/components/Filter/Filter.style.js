@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   padding: 10px;
   top: 2%;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  background-color: ${(props) => (props.close ? "var(--white)" : "none")};
+  background-color: ${(props) => (props.close ? "var(--silver)" : "none")};
   color: ${(props) => (props.close ? "var(--dark)" : "none")};
   opacity: 0.9;
 `;
@@ -148,11 +148,11 @@ export const CloseImageDiv = styled.div`
   right: 5px;
   top: 5px;
   border-radius: 50%;
-  padding: 3px;
+  padding: 2px;
   cursor: pointer;
 
   :hover {
-    background-color: var(--silver);
+    background-color: var(--white);
   }
 `;
 
