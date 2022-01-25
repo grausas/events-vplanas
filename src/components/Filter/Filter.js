@@ -68,9 +68,8 @@ const Filter = ({
             {data &&
               data.map((item) => {
                 return (
-                  <CheckBoxDiv backgroundColor={item.value}>
+                  <CheckBoxDiv backgroundColor={item.value} key={item.id}>
                     <CheckBox
-                      key={item.id}
                       value={item.value}
                       id={item.id}
                       label={item.text}

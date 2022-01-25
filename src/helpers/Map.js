@@ -20,6 +20,113 @@ export const createMapView = (ref, baselayer, layers) => {
 
   // panaudoti class break rerender atvaizdavimui polygonu ir points
 
+  // const renderer = {
+  //   type: "class-breaks",
+  //   field: "KATEGORIJA",
+  //   normalizationField: "KATEGORIJA",
+  //   legendOptions: {
+  //     title: "% of adults with no high school education",
+  //   },
+  //   defaultSymbol: {
+  //     type: "simple-fill",
+  //     field: "KATEGORIJA",
+  //   },
+  // };
+
+  layers.load().then(() => {
+    const uniqueValue = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
+    console.log(uniqueValue);
+
+    const simpleRenderer = {
+      type: "unique-value",
+      field: "KATEGORIJA",
+      defaultSymbol: { type: "simple-fill" },
+      uniqueValueInfos: [
+        {
+          value: "1",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[0].symbol.color}`,
+          },
+        },
+        {
+          value: "2",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[1].symbol.color}`,
+          },
+        },
+        {
+          value: "3",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[2].symbol.color}`,
+          },
+        },
+        {
+          value: "4",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[3].symbol.color}`,
+          },
+        },
+        {
+          value: "5",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[4].symbol.color}`,
+          },
+        },
+        {
+          value: "6",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[5].symbol.color}`,
+          },
+        },
+        {
+          value: "7",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[6].symbol.color}`,
+          },
+        },
+        {
+          value: "8",
+          symbol: {
+            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            color: `${uniqueValue[7].symbol.color}`,
+          },
+        },
+      ],
+      // symbol: {
+      //   // type: "simple-marker",
+      //   value: 1,
+      //   color: "blue",
+      //   // size: 8,
+      // },
+    };
+
+    const simpleRenderer2 = {
+      type: "unique-value",
+      field: "KATEGORIJA",
+      // defaultSymbol: { type: "simple-fill" },
+      uniqueValueInfos: uniqueValue,
+    };
+
+    view.when().then(() => {
+      // layers.renderer = renderer;
+
+      if (view.scale > 124447) {
+        layers.renderer = simpleRenderer;
+      }
+
+      view.watch("scale", (newValue) => {
+        layers.renderer = newValue >= 20000 ? simpleRenderer : simpleRenderer2;
+      });
+    });
+  });
+
   // view.when().then(() => {
   //   console.log("watchScale", view.map.layers.getItemAt(0));
   //   // console.log("viemaplayer", view.map.layers.getItemAt(0).renderer);
