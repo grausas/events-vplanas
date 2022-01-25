@@ -422,22 +422,39 @@ function Map() {
     // renginio popup atvaizdavimas
     view.on("click", function (event) {
       view.hitTest(event, { include: layer }).then(function (response) {
+        console.log("hittest", response);
         // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
         // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
         if (response.results.length !== 0) {
-          let query = layer.createQuery();
-          query.geometry = view.toMap(event);
-          query.outFields = ["*"];
-
-          layer.queryFeatures(query).then(function (response) {
-            if (response.features.length > 0) {
-              // setShortResults(response.features);
-
-              setShortResults(response.features);
-              handleOpen(show);
-              // setClickedEvents(response.features);
-            }
+          view.whenLayerView(layer).then(function (layerView) {
+            layerView
+              .queryFeatures({
+                geometry: view.toMap(event),
+                outFields: ["*"],
+              })
+              .then(function (response) {
+                if (response.features.length > 0) {
+                  setShortResults(response.features);
+                  handleOpen(show);
+                  // setClickedEvents(response.features);
+                }
+              });
           });
+          // let query = layer.createQuery();
+          // query.geometry = view.toMap(event);
+          // query.outFields = ["*"];
+          // console.log("viewiw", query);
+
+          // layer.queryFeatures(query).then(function (response) {
+          //   console.log(response);
+          //   if (response.features.length > 0) {
+          //     // setShortResults(response.features);
+
+          //     setShortResults(response.features);
+          //     handleOpen(show);
+          //     // setClickedEvents(response.features);
+          //   }
+          // });
         } else {
           return null;
         }
