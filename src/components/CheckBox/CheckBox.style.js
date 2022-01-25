@@ -13,7 +13,7 @@ export const Label = styled.label`
   font-size: 0.9rem;
 
   :hover input ~ span {
-    background-color: var(--grey);
+    background-color: var(--silver);
   }
 
   input:checked ~ span {
@@ -39,15 +39,15 @@ export const Span = styled.span`
   left: 0;
   height: 18px;
   width: 18px;
-  background-color: var(--darkSilver);
-  border-radius: 5px;
+  border-radius: 3px;
+  border: 1px solid var(--darkSilver);
 
   :after {
     content: "";
     position: absolute;
     display: none;
-    left: 6px;
-    top: 2px;
+    left: 5px;
+    top: 1px;
     width: 4px;
     height: 9px;
     border: solid white;
