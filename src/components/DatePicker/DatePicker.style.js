@@ -7,8 +7,8 @@ export const Wrapper = styled.div`
 
   .react-datepicker__input-container input {
     width: 100%;
-    padding: 0 1rem;
-    height: 40px;
+    height: 100%;
+    padding: 0 0.5rem;
     border: 1px solid var(--darkSilver);
     border-radius: 5px;
     background: var(--white);
@@ -16,17 +16,26 @@ export const Wrapper = styled.div`
     color: var(--dark);
     font-size: 14px;
 
-    &:focus {
+    /* &:focus {
       border: 2px solid var(--lightBlue);
       outline: none;
-    }
+    } */
   }
 `;
 
 export const DatePickerWrapper = styled.div`
   margin-bottom: 10px;
+  height: ${(props) => (props.height === "small" ? "50px" : "60px")};
   flex-grow: 2;
   display: ${(props) => (props.display ? "none" : "block")};
+
+  .react-datepicker-wrapper {
+    height: 60%;
+  }
+
+  .react-datepicker__input-container {
+    height: 100%;
+  }
 
   :not(:last-child) {
     margin-right: 10px;

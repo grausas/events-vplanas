@@ -19,6 +19,7 @@ const DatePicker = ({
   required,
   handleChange,
   displayTime,
+  height,
 }) => {
   const CustomInput = forwardRef(({ onClick, value }, ref) => (
     <CustomButton readOnly onClick={onClick} ref={ref} value={value} />
@@ -26,7 +27,7 @@ const DatePicker = ({
 
   return (
     <Wrapper>
-      <DatePickerWrapper>
+      <DatePickerWrapper height={height}>
         <span>{dateTitle}</span>
         <SingleDatePicker
           placeholderText={placeholderTextDate}
@@ -39,7 +40,7 @@ const DatePicker = ({
           customInput={<CustomInput />}
         />
       </DatePickerWrapper>
-      <DatePickerWrapper display={displayTime}>
+      <DatePickerWrapper display={displayTime} height={height}>
         <span>{timeTitle}</span>
         <SingleDatePicker
           placeholderText={placeholderTextTime}

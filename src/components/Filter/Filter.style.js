@@ -35,7 +35,7 @@ export const IconFilter = styled.div`
 `;
 
 export const Content = styled.div`
-  max-width: 400px;
+  max-width: 300px;
   user-select: none;
 
   h5 {
@@ -49,6 +49,7 @@ export const DateFilter = styled.div`
 
 export const FilterContent = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
 `;
 
