@@ -22,7 +22,6 @@ export const createMapView = (ref, baselayer, layers) => {
 
   layers.load().then(() => {
     const uniqueValue = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
-    console.log(uniqueValue);
 
     const simpleRenderer = {
       type: "unique-value",

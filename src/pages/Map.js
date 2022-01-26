@@ -362,7 +362,7 @@ function Map() {
   }, [data.features, searchTerm]);
 
   useEffect(() => {
-    setShortResults(filterResults(data));
+    setShortResults(filterResults(data.features));
   }, [data, filterResults]);
 
   const addEvents = () =>
@@ -418,48 +418,6 @@ function Map() {
       .then((res) => {
         setData(res);
       });
-
-    // renginio popup atvaizdavimas
-    view.on("click", function (event) {
-      view.hitTest(event, { include: layer }).then(function (response) {
-        console.log("hittest", response);
-        // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-        // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
-        if (response.results.length !== 0) {
-          view.whenLayerView(layer).then(function (layerView) {
-            layerView
-              .queryFeatures({
-                geometry: view.toMap(event),
-                outFields: ["*"],
-              })
-              .then(function (response) {
-                if (response.features.length > 0) {
-                  setShortResults(response.features);
-                  handleOpen(show);
-                  // setClickedEvents(response.features);
-                }
-              });
-          });
-          // let query = layer.createQuery();
-          // query.geometry = view.toMap(event);
-          // query.outFields = ["*"];
-          // console.log("viewiw", query);
-
-          // layer.queryFeatures(query).then(function (response) {
-          //   console.log(response);
-          //   if (response.features.length > 0) {
-          //     // setShortResults(response.features);
-
-          //     setShortResults(response.features);
-          //     handleOpen(show);
-          //     // setClickedEvents(response.features);
-          //   }
-          // });
-        } else {
-          return null;
-        }
-      });
-    });
 
     // Keičia cursor kai užvestas ant feature layer ir yra response
     function changeMouseCursor(response) {
@@ -534,10 +492,67 @@ function Map() {
       console.log("timeSLider", timeSlider);
     });
 
+    console.log("dataFeatures", data.features);
+
+    view.on("click", function (event) {
+      view.hitTest(event, { include: layer }).then(function (response) {
+        console.log("hittest", response);
+        // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+        // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
+        if (response.results.length >= 1) {
+          view.whenLayerView(layer).then(function (layerView) {
+            console.log("viewTomap", view.toMap(event));
+            layerView
+              .queryFeatures({
+                geometry: view.toMap(event),
+                outFields: ["*"],
+                distance: 1.5 * view.resolution,
+                spatialRelationship: "intersects",
+              })
+              .then(function (response) {
+                if (response.features.length > 0) {
+                  // console.log(
+                  //   "shortResults",
+                  //   data.features.filter(
+                  //     (item) => item.attributes.OBJECTID === 1
+                  //   )
+                  // );
+                  // const filteredResults = data.features.filter(
+                  //   (item) => item.attributes.OBJECTID === 1
+                  // );
+                  setShortResults(response.features);
+                  handleOpen(show);
+                  // setClickedEvents(response.features);
+                }
+              });
+          });
+          // let query = layer.createQuery();
+          // query.geometry = view.toMap(event);
+          // query.outFields = ["*"];
+          // console.log("viewiw", query);
+
+          // layer.queryFeatures(query).then(function (response) {
+          //   console.log(response);
+          //   if (response.features.length > 0) {
+          //     // setShortResults(response.features);
+
+          //     setShortResults(response.features);
+          //     handleOpen(show);
+          //     // setClickedEvents(response.features);
+          //   }
+          // });
+        } else {
+          return null;
+        }
+      });
+    });
+
     return () => {
       view && view.destroy();
     };
   }, [auth.token]);
+
+  // renginio popup atvaizdavimas
 
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
@@ -558,7 +573,6 @@ function Map() {
   return (
     <>
       {error && <Notification type={type} message={error} />}
-
       <div className="mapDiv" ref={mapRef}>
         <DateSlider id="dateSlider" />
         {/* <input
