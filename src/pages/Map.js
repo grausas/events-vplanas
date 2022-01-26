@@ -491,6 +491,7 @@ function Map() {
 
       console.log("timeSLider", timeSlider);
     });
+    // renginio popup atvaizdavimas
 
     console.log("dataFeatures", data.features);
 
@@ -551,8 +552,6 @@ function Map() {
       view && view.destroy();
     };
   }, [auth.token]);
-
-  // renginio popup atvaizdavimas
 
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
