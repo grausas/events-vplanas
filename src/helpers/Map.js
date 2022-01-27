@@ -142,7 +142,7 @@ export const createMapView = (ref, baselayer, layers) => {
 export const handleChangeBasemap = (e) => {
   const itemValue = Number(e.target.value);
   if (itemValue === 2) {
-    webmap.basemap = "topo-vector";
+    webmap.basemap = "satellite";
   } else {
     webmap.basemap = "gray-vector";
   }
