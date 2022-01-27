@@ -6,14 +6,12 @@ export const Wrapper = styled.div`
   max-height: 90%;
   left: 20px;
   top: 2%;
-  /* background-color: var(--white); */
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow: auto;
   background-color: ${(props) =>
     props.close ? "var(--grey)" : "var(--silver)"};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
-  opacity: 0.9;
   z-index: 11;
 `;
 

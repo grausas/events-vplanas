@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   max-width: 500px;
   width: 100%;
   background: var(--silver);
-  opacity: 0.9;
   overflow: auto;
   padding-right: 5px;
 `;

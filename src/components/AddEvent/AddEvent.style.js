@@ -12,7 +12,6 @@ export const AddObjectButton = styled.div`
   color: var(--white);
   font-weight: 600;
   cursor: pointer;
-  opacity: 0.9;
 `;
 
 export const FormWrapper = styled.div`

@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
   top: 2%;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   background-color: var(--silver);
-  opacity: 0.9;
 `;
 
 export const IconFilter = styled.div`

@@ -13,7 +13,6 @@ export const IconDiv = styled.div`
   padding: 5px;
   background-color: var(--white);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
-  opacity: 0.8;
   cursor: pointer;
 `;
 

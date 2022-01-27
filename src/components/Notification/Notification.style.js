@@ -12,7 +12,6 @@ export const NotificationText = styled.div`
   margin: 0;
   border-radius: 5px;
   padding: 0.3em 0.5em;
-  opacity: 0.8;
   z-index: 999;
 `;
 

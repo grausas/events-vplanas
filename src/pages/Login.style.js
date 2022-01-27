@@ -53,7 +53,6 @@ export const ImageDiv = styled.div`
     width: 100%;
     height: 25%;
     padding: 2em 1em 1em 1em;
-    /* align-items: flex-start; */
   }
   span {
     position: relative;
@@ -73,11 +72,9 @@ export const ImageDiv = styled.div`
   &::before {
     content: " ";
     position: absolute;
-    /* left: calc(50% - 100px);
-    top: 10px; */
+    top: 10px;
     left: 0;
     top: 0;
-    /* width: 200px; */
     width: 100%;
     height: 100%;
     background-image: url(${logo});
@@ -85,12 +82,5 @@ export const ImageDiv = styled.div`
     background-position: 50% 0%;
     background-size: cover;
     opacity: 0.7;
-    /* border-radius: 20px 0 0 20px; */
-    /* @media only screen and (max-width: 768px) {
-      border-radius: 0;
-      width: 70px;
-      left: calc(50% - 35px);
-      background-position: 0% 0%;
-    } */
   }
 `;
