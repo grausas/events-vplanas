@@ -614,6 +614,7 @@ function Map() {
           handleOpen={handleOpen}
           show={show}
           handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
+          handleOpenMore={() => setShortResults(filterResults(data.features))}
         >
           <SearchInput
             value={searchTerm}
@@ -630,7 +631,6 @@ function Map() {
               openEvent(e);
               handleOpen(show);
             }}
-            handleClose={() => setShortResults(filterResults(data.features))}
           />
         </EventsSchedule>
         {/* Filtravimas pagal data ir kategorijas */}

@@ -1,7 +1,14 @@
 // Style
-import { Wrapper, Content, Text } from "./EventsSchedule.style";
+import { Wrapper, Content, Text, MoreDiv } from "./EventsSchedule.style";
 
-const EventsSchedule = ({ children, events, handleZoom, handleOpen, show }) => {
+const EventsSchedule = ({
+  children,
+  events,
+  handleZoom,
+  handleOpen,
+  show,
+  handleOpenMore,
+}) => {
   // const { handleOpen, show } = useOpenClose();
 
   return (
@@ -10,7 +17,14 @@ const EventsSchedule = ({ children, events, handleZoom, handleOpen, show }) => {
         <h3>Renginiai</h3>
         <span>{show ? "-" : "+"}</span>
       </Text>
-      <Content>{show && <>{children}</>}</Content>
+      <Content>
+        {show && <>{children}</>}
+        {show && (
+          <MoreDiv>
+            <span onClick={handleOpenMore}>Rodyti visus</span>
+          </MoreDiv>
+        )}
+      </Content>
     </Wrapper>
   );
 };

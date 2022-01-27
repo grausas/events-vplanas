@@ -104,3 +104,22 @@ export const MoreButton = styled.button`
     background-color: var(--darkSilver);
   }
 `;
+
+export const MoreDiv = styled.div`
+  position: sticky;
+  bottom: 0;
+  background: var(--silver);
+  text-align: center;
+
+  span {
+    font-weight: 600;
+    cursor: pointer;
+
+    &::after {
+      font-size: 12px;
+    }
+    &:hover {
+      color: var(--lightBlue);
+    }
+  }
+`;
