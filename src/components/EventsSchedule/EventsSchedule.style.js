@@ -111,13 +111,19 @@ export const MoreDiv = styled.div`
   background: var(--silver);
   text-align: center;
 
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: var(--darkSilver);
+    left: 0;
+  }
+
   span {
     font-weight: 600;
     cursor: pointer;
 
-    &::after {
-      font-size: 12px;
-    }
     &:hover {
       color: var(--lightBlue);
     }

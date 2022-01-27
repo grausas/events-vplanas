@@ -22,7 +22,7 @@ const App = () => {
           isLoggedIn={!!auth.token}
           logOut={() => {
             auth.setToken();
-            localStorage.removeItem("token");
+            localStorage.removeItem("setupTime", "token");
             esriId.destroyCredentials();
             window.location.reload();
           }}
