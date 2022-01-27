@@ -17,12 +17,12 @@ import { CategoryData } from "../../utils/CategoryData";
 // helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
 
-const EventsTimeline = ({ events, handleClose, handleEventOpen }) => {
+const EventsTimeline = ({ events, handleMoreFilters, handleEventOpen }) => {
   return (
     <>
       <Wrapper>
-        <Close onClick={handleClose}>
-          <ClearButton>Rodyti visus</ClearButton>
+        <Close onClick={handleMoreFilters}>
+          <ClearButton>Daugiau filtrų</ClearButton>
         </Close>
         <TimelineContainer>
           {events &&

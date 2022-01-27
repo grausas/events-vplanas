@@ -12,6 +12,7 @@ import { AuthContext } from "../context/AuthContext";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
 import { useOpenCloseModal } from "../hooks/openModal";
+import { useOpenCloseFilter } from "../hooks/OpenFilter";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import * as locator from "@arcgis/core/rest/locator";
@@ -81,6 +82,7 @@ function Map() {
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
+  const { handleOpenFilter, showFilter } = useOpenCloseFilter();
 
   // global search
   // pabandyti ieskoti pagal attributes o ne pagal address
@@ -625,7 +627,8 @@ function Map() {
           />
           <EventsTimeline
             events={shortResults}
-            // handleClose={handleOpen}
+            handleClose={handleOpen}
+            handleMoreFilters={handleOpenFilter}
             handleEventOpen={(e) => {
               handleZoom(e, eventsFeatureLayer, view);
               openEvent(e);
@@ -634,20 +637,24 @@ function Map() {
           />
         </EventsSchedule>
         {/* Filtravimas pagal data ir kategorijas */}
-        <Filter
-          id="filtras"
-          data={CategoryData}
-          selectedStart={startDate}
-          selectedFinish={finishDate}
-          handleChangeStart={(date) =>
-            setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
-          }
-          handleChangeFinish={(date) =>
-            setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
-          }
-          onChange={handleFilterChange}
-          handleClear={handleClearFilter}
-        />
+        {showFilter && (
+          <Filter
+            id="filtras"
+            data={CategoryData}
+            selectedStart={startDate}
+            selectedFinish={finishDate}
+            handleChangeStart={(date) =>
+              setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
+            }
+            handleChangeFinish={(date) =>
+              setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
+            }
+            onChange={handleFilterChange}
+            handleClear={handleClearFilter}
+            handleCloseFilter={handleOpenFilter}
+          />
+        )}
+
         {/* Pridėti naują renginį  */}
 
         <AddEvent
