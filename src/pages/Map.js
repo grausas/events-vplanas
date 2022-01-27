@@ -40,6 +40,7 @@ import {
   Home,
   EventsTimeline,
   DateSlider,
+  BasemapSwitch,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -579,6 +580,7 @@ function Map() {
       {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
         <DateSlider id="dateSlider" />
+        <BasemapSwitch />
         {/* <input
           style={{ marginTop: "50px" }}
           type="text"
