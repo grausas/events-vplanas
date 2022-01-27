@@ -2,8 +2,10 @@ import WebMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 import { graphicsLayer } from "./DrawPolygon";
 
+let webmap;
+
 export const createMapView = (ref, baselayer, layers) => {
-  const webmap = new WebMap({
+  webmap = new WebMap({
     basemap: "gray-vector",
     layers: [layers, graphicsLayer],
   });
@@ -135,4 +137,13 @@ export const createMapView = (ref, baselayer, layers) => {
   };
 
   return view;
+};
+
+export const handleChangeBasemap = (e) => {
+  const itemValue = Number(e.target.value);
+  if (itemValue === 2) {
+    webmap.basemap = "topo-vector";
+  } else {
+    webmap.basemap = "gray-vector";
+  }
 };

@@ -46,7 +46,7 @@ import {
 import { CategoryData } from "../utils/CategoryData";
 
 // helpers
-import { createMapView } from "../helpers/Map";
+import { createMapView, handleChangeBasemap } from "../helpers/Map";
 import {
   featureLayer,
   tileLayer,
@@ -574,13 +574,14 @@ function Map() {
       });
     }
   });
+  // change basemap
 
   return (
     <>
       {error && <Notification type={type} message={error} />}
       <div className="mapDiv" ref={mapRef}>
         <DateSlider id="dateSlider" />
-        <BasemapSwitch />
+        <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
         {/* <input
           style={{ marginTop: "50px" }}
           type="text"
