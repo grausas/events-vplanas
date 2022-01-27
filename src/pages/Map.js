@@ -77,6 +77,7 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -104,18 +105,20 @@ function Map() {
       outSpatialReference: { wkid: 102100 },
     };
 
-    // locator.suggestLocations(locatorUrl, params).then(function (response) {
-    //   console.log(typeof params.address);
-    //   console.log("response", response);
-    //   const address = response.filter((item) =>
-    //     item.address.toLocaleLowerCase().includes(result.toLocaleLowerCase())
-    //   );
-    //   console.log("address", address);
-    // });
+    if (result.length > 1) {
+      locator.suggestLocations(locatorUrl, params).then(function (response) {
+        console.log(typeof params.address);
+        console.log("response", response);
+        const address = response.filter((item) => item.text.includes(result));
+        console.log("address", address);
+        console.log(address);
+        setSuggestions(response);
+      });
+    }
 
     if (e.key === "Enter") {
       locator.addressToLocations(locatorUrl, params).then(function (results) {
-        console.log("addressToLocations for Madrid=", results);
+        console.log("addressToLocations Vilnius=", results);
         if (results.length > 0) {
           const grapics = results[0].location;
 
@@ -593,6 +596,9 @@ function Map() {
             placeholder="Ieškoti"
             handleSearch={handleSearchResult}
           />
+          {suggestions.map((item) => {
+            return <span>{item.text}</span>;
+          })}
         </div>
 
         <Loading id="loading" />
