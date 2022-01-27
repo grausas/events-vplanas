@@ -8,13 +8,12 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: var(--grey);
   border-radius: 5px;
-  color: var(--white);
-  left: 300px;
+  color: var(--dark);
+  left: 430px;
   padding: 10px;
   top: 2%;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  background-color: ${(props) => (props.close ? "var(--silver)" : "none")};
-  color: ${(props) => (props.close ? "var(--dark)" : "none")};
+  background-color: var(--silver);
   opacity: 0.9;
 `;
 

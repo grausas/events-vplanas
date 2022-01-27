@@ -122,8 +122,7 @@ export const Close = styled.div`
   z-index: 5;
 
   :hover {
-    color: var(--blue);
-    text-decoration: underline;
+    color: var(--lightBlue);
   }
 `;
 

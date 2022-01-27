@@ -38,9 +38,11 @@ const Filter = ({
     //     ) : (
       //     )}
     //   </IconFilter> */}
-      <CloseImageDiv>
-        <CloseImage src={CloseIcon} alt="close" onClick={handleCloseFilter} />
-      </CloseImageDiv>
+      <IconFilter>
+        <CloseImageDiv>
+          <CloseImage src={CloseIcon} alt="close" onClick={handleCloseFilter} />
+        </CloseImageDiv>
+      </IconFilter>
       <Content onChange={onChange}>
         <DateFilter>
           <DatePicker
