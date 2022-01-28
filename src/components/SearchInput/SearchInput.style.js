@@ -32,3 +32,20 @@ export const Icon = styled.img`
   width: 28px;
   padding: 0 0.3rem;
 `;
+
+export const SuggestDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: var(--silver);
+  padding: 5px 10px;
+  margin-top: 2px;
+`;
+
+export const SuggestItem = styled.span`
+  border-bottom: 1px solid var(--darkSilver);
+  padding: 5px 0;
+`;

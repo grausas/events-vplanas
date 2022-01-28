@@ -6,7 +6,8 @@ import React, {
   useContext,
 } from "react";
 // Styles
-import "./Map.css";
+// import "./Map.style.js";
+import { MapDiv, SearchDiv } from "./Map.style";
 // context
 import { AuthContext } from "../context/AuthContext";
 // Hooks
@@ -22,6 +23,7 @@ import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
 import Point from "@arcgis/core/geometry/Point";
 import TimeSlider from "@arcgis/core/widgets/TimeSlider";
 import esriId from "@arcgis/core/identity/IdentityManager";
+import Search from "@arcgis/core/widgets/Search";
 
 // locale
 import * as intl from "@arcgis/core/intl";
@@ -554,6 +556,17 @@ function Map() {
       });
     });
 
+    const searchWidget = new Search({
+      view: view,
+    });
+    // Adds the search widget below other elements in
+    // the top left corner of the view
+    view.ui.add(searchWidget, {
+      container: SearchDiv,
+      // position: "top-right",
+      view: view,
+    });
+
     return () => {
       view && view.destroy();
     };
@@ -579,9 +592,10 @@ function Map() {
   return (
     <>
       {error && <Notification type={type} message={error} />}
-      <div className="mapDiv" ref={mapRef}>
+      <MapDiv ref={mapRef}>
         <DateSlider id="dateSlider" />
         <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
+        <SearchDiv />
         {/* <input
           style={{ marginTop: "50px" }}
           type="text"
@@ -600,10 +614,8 @@ function Map() {
           <SearchInput
             placeholder="Ieškoti"
             handleSearch={handleSearchResult}
+            suggestions={suggestions}
           />
-          {suggestions.map((item) => {
-            return <span>{item.text}</span>;
-          })}
         </div>
 
         <Loading id="loading" />
@@ -748,7 +760,7 @@ function Map() {
             />
           </EventCard>
         )}
-      </div>
+      </MapDiv>
     </>
   );
 }
