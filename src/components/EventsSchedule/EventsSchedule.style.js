@@ -13,6 +13,11 @@ export const Wrapper = styled.div`
     props.close ? "var(--grey)" : "var(--silver)"};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
   z-index: 11;
+
+  @media only screen and (max-width: 768px) {
+    left: 10px;
+    width: ${(props) => (props.close ? "100px" : "95%")};
+  }
 `;
 
 export const Content = styled.div`
@@ -38,6 +43,10 @@ export const Text = styled.div`
     font-size: 20px;
     font-weight: 600;
     height: inherit;
+
+    @media only screen and (max-width: 768px) {
+      font-size: var(--fontSmall);
+    }
   }
 `;
 
@@ -108,6 +117,7 @@ export const MoreDiv = styled.div`
   bottom: 0;
   background: var(--silver);
   text-align: center;
+  z-index: 2;
 
   &:after {
     content: "";

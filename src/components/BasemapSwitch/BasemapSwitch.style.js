@@ -17,7 +17,7 @@ export const BasemapDiv = styled.div`
   /* padding: 10px; */
   background: var(--white);
   border-radius: 5px;
-  z-index: 22;
+  z-index: 2;
 
   &:hover {
     color: var(--lightBlue);

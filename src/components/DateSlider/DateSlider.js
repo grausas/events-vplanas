@@ -9,14 +9,14 @@ const TimeSlider = ({ id }) => {
   const { handleOpen, show } = useOpenClose();
 
   return (
-    <Wrapper>
+    <>
       <IconDiv>
         <Icon Icon src={TimelineIcon} alt="home-icon" onClick={handleOpen} />
       </IconDiv>
       <SliderDiv display={!show ? "display" : null}>
         <div id={id}></div>
       </SliderDiv>
-    </Wrapper>
+    </>
   );
 };
 

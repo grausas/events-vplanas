@@ -108,7 +108,7 @@ export const Circle = styled.span`
   left: -29px;
   width: 16px;
   height: 16px;
-  z-index: 100;
+  z-index: 1;
 `;
 export const Close = styled.div`
   position: absolute;
