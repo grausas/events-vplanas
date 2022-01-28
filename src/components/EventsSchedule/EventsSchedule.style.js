@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: ${(props) => (props.close ? "260px" : "400px")};
   max-height: 90%;
   left: 20px;
-  top: 2%;
+  top: 10px;
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow: auto;

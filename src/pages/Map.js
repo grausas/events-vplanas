@@ -555,15 +555,7 @@ function Map() {
         }
       });
     });
-
-    const searchWidget = new Search({
-      container: "SearchDiv",
-      view: view,
-      popupEnabled: false,
-      searchAllEnabled: false,
-      includeDefaultSources: false,
-    });
-
+    // paieska
     const sources = [
       {
         url: "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer",
@@ -574,9 +566,29 @@ function Map() {
         maxSuggestions: 6,
         minSuggestCharacters: 0,
       },
+      // {
+      //   layer: layer,
+      //   searchFields: ["PAVADINIMAS", "ORGANIZATORIUS"],
+      //   displayField: "{PAVADINIMAS}",
+      //   exactMatch: false,
+      //   outFields: ["*"],
+      //   name: "Point FS",
+      //   maxResults: 6,
+      //   maxSuggestions: 6,
+      //   suggestionsEnabled: true,
+      //   minSuggestCharacters: 0,
+      // },
     ];
 
-    searchWidget.sources = sources;
+    const searchWidget = new Search({
+      container: "SearchDiv",
+      view: view,
+      popupEnabled: false,
+      searchAllEnabled: false,
+      includeDefaultSources: false,
+      sources: sources,
+      allPlaceholder: "Ieškoti adreso arba vietovės",
+    });
 
     return () => {
       view && view.destroy();
