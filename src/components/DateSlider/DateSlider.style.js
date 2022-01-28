@@ -25,7 +25,7 @@ export const SliderDiv = styled.div`
   max-width: 600px;
   width: 100%;
   left: calc(50% - 300px);
-  bottom: 40px;
+  bottom: 80px;
   display: ${(props) => (props.display ? "none" : "block")};
 
   /* style for Time Line widget */

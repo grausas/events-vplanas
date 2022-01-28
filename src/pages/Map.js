@@ -221,11 +221,8 @@ function Map() {
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
 
-  // console.log("timeLineStartLength", timeLineStart.length);
-  // console.log("timeLineStart", timeLineStart);
-
   useEffect(() => {
-    if (startDate && finishDate) {
+    if (startDate || finishDate) {
       // console.log("startDate22", new Date(startDate));
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
@@ -235,7 +232,9 @@ function Map() {
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
-              : null,
+              : startDate
+              ? "RENGINIO_PRADZIA >= " + startDate
+              : "RENGINIO_PRADZIA <= " + finishDate,
         };
       });
     }
@@ -296,6 +295,7 @@ function Map() {
           newArr.push(values[i]);
         }
         const newArrStr = newArr.join();
+
         layerView.filter = {
           where:
             startDate && finishDate && valuesArr.length > 0
