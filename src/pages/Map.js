@@ -557,15 +557,26 @@ function Map() {
     });
 
     const searchWidget = new Search({
+      container: "SearchDiv",
       view: view,
+      popupEnabled: false,
+      searchAllEnabled: false,
+      includeDefaultSources: false,
     });
-    // Adds the search widget below other elements in
-    // the top left corner of the view
-    view.ui.add(searchWidget, {
-      container: SearchDiv,
-      // position: "top-right",
-      view: view,
-    });
+
+    const sources = [
+      {
+        url: "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer",
+        singleLineFieldName: "SingleLine",
+        name: "Vplanas paieska",
+        placeholder: "Ieškoti adreso arba vietovės",
+        maxResults: 3,
+        maxSuggestions: 6,
+        minSuggestCharacters: 0,
+      },
+    ];
+
+    searchWidget.sources = sources;
 
     return () => {
       view && view.destroy();
@@ -595,14 +606,14 @@ function Map() {
       <MapDiv ref={mapRef}>
         <DateSlider id="dateSlider" />
         <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
-        <SearchDiv />
+        <SearchDiv id="SearchDiv" />
         {/* <input
           style={{ marginTop: "50px" }}
           type="text"
           placeholder="paieska"
           onKeyUp={handleSearchResult}
         ></input> */}
-        <div
+        {/* <div
           style={{
             position: "absolute",
             left: "50%",
@@ -616,7 +627,7 @@ function Map() {
             handleSearch={handleSearchResult}
             suggestions={suggestions}
           />
-        </div>
+        </div> */}
 
         <Loading id="loading" />
 

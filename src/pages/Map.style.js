@@ -8,6 +8,7 @@ export const MapDiv = styled.div`
 
 export const SearchDiv = styled.div`
   position: absolute;
-  right: 0;
-  top: 100px;
+  right: 20px;
+  top: 10px;
+  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
 `;
