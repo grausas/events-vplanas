@@ -11,6 +11,7 @@ export const SearchDiv = styled.div`
   right: 20px;
   top: 10px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--darkSilver);
 
   @media only screen and (max-width: 768px) {
     width: 150px;

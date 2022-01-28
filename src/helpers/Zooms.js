@@ -46,7 +46,7 @@ export const zoomOut = (view) => {
 export const zoomDefault = (view) => {
   view.goTo(
     {
-      center: [25.19543, 54.697],
+      center: [25.27543, 54.697],
       zoom: 11,
     },
     { duration: 500 }
