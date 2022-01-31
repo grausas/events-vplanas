@@ -74,6 +74,7 @@ function Map() {
   const [addNewFeature, setAddNewFeature] = useState([]);
   const [view, setView] = useState("");
   const [eventsFeatureLayer, setEventsFeatureLayer] = useState("");
+
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
@@ -257,7 +258,7 @@ function Map() {
                   finishDate
                 : startDate
                 ? "RENGINIO_PRADZIA >= " + startDate
-                : "RENGINIO_PRADZIA <= " + finishDate,
+                : "RENGINIO_PABAIGA <= " + finishDate,
           };
         })
         .catch((error) => {
@@ -372,7 +373,7 @@ function Map() {
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
-                "RENGINIO_PRADZIA <= " +
+                "RENGINIO_PABAIGA <= " +
                 finishDate
               : valuesArr.length > 0 && !startDate && !finishDate
               ? "KATEGORIJA IN (" + newArrStr + ")"
@@ -615,25 +616,9 @@ function Map() {
                   // );
                   setShortResults(response.features);
                   handleOpen(show);
-                  // setClickedEvents(response.features);
                 }
               });
           });
-          // let query = layer.createQuery();
-          // query.geometry = view.toMap(event);
-          // query.outFields = ["*"];
-          // console.log("viewiw", query);
-
-          // layer.queryFeatures(query).then(function (response) {
-          //   console.log(response);
-          //   if (response.features.length > 0) {
-          //     // setShortResults(response.features);
-
-          //     setShortResults(response.features);
-          //     handleOpen(show);
-          //     // setClickedEvents(response.features);
-          //   }
-          // });
         } else {
           return null;
         }
