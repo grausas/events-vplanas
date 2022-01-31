@@ -417,7 +417,23 @@ function Map() {
         return x < y ? -1 : x > y ? 1 : 0;
       });
 
-      return sortedResults;
+      if (!startDate && !finishDate) {
+        var startOfDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
+        var endofDay = new Date();
+        endofDay.setHours(23, 59, 59, 999);
+
+        console.log("todayDate", new Date(startOfDay));
+        console.log("tomorrowDate", new Date(endofDay));
+        const filterTodayEvents = sortedResults.filter(
+          (item) =>
+            item.attributes.RENGINIO_PRADZIA >= startOfDay &&
+            item.attributes.RENGINIO_PRADZIA <= endofDay
+        );
+        return filterTodayEvents;
+      } else {
+        return sortedResults;
+      }
     }
   }, [data.features, searchTerm]);
 
