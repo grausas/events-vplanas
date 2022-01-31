@@ -720,10 +720,8 @@ function Map() {
 
           {/* Renginių juosta */}
           <EventsSchedule
-            // events={shortResults}
             handleOpen={handleOpen}
             show={show}
-            handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
             handleOpenMore={() => setShortResults(filterResults(data.features))}
           >
             <SearchInput
@@ -745,7 +743,7 @@ function Map() {
             />
           </EventsSchedule>
           {/* Filtravimas pagal data ir kategorijas */}
-          {showFilter && (
+          {showFilter && show && (
             <Filter
               id="filtras"
               data={CategoryData}

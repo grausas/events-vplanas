@@ -1,16 +1,7 @@
 // Style
 import { Wrapper, Content, Text, MoreDiv } from "./EventsSchedule.style";
 
-const EventsSchedule = ({
-  children,
-  events,
-  handleZoom,
-  handleOpen,
-  show,
-  handleOpenMore,
-}) => {
-  // const { handleOpen, show } = useOpenClose();
-
+const EventsSchedule = ({ children, handleOpen, show, handleOpenMore }) => {
   return (
     <Wrapper close={!show}>
       <Text onClick={handleOpen} text={show}>
