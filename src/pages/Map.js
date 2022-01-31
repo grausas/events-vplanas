@@ -223,22 +223,39 @@ function Map() {
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   let valuesArr = [];
 
+  console.log("startDate", startDate);
+  console.log("view", view);
+
   useEffect(() => {
-    if (startDate || finishDate) {
-      // console.log("startDate22", new Date(startDate));
-      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-        layerView.filter = {
-          where:
-            startDate && finishDate
-              ? "RENGINIO_PRADZIA >= " +
-                startDate +
-                " AND RENGINIO_PRADZIA <= " +
-                finishDate
-              : startDate
-              ? "RENGINIO_PRADZIA >= " + startDate
-              : "RENGINIO_PRADZIA <= " + finishDate,
-        };
-      });
+    if (view && (startDate || finishDate)) {
+      console.log("startDate22", startDate);
+      console.log("shortResults", shortResults);
+
+      const filteredDate = shortResults.filter(
+        (item) =>
+          item.attributes.RENGINIO_PRADZIA >= startDate ||
+          item.attributes.RENGINIO_PABAIGA <= finishDate
+      );
+      setShortResults(filteredDate);
+      view
+        .whenLayerView(eventsFeatureLayer)
+        .then((layerView) => {
+          console.log("layerView", layerView);
+          layerView.filter = {
+            where:
+              startDate && finishDate
+                ? "RENGINIO_PRADZIA >= " +
+                  startDate +
+                  " AND RENGINIO_PRADZIA <= " +
+                  finishDate
+                : startDate
+                ? "RENGINIO_PRADZIA >= " + startDate
+                : "RENGINIO_PRADZIA <= " + finishDate,
+          };
+        })
+        .catch((error) => {
+          console.log("error: ", error);
+        });
     }
   }, [startDate, finishDate, view, eventsFeatureLayer]);
 
@@ -330,22 +347,10 @@ function Map() {
     }
   };
 
-  // clear filter
-  const handleClearFilter = (checkbox) => {
-    // valuesArr = [];
-    for (var a = 0; a < valuesArr.length; a++) {
-      valuesArr[a] = [];
-    }
-    view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-      layerView.filter = {
-        where: "1=1",
-      };
-    });
-    setStartDate("");
-    setFinishDate("");
-  };
-
   // paieška renginių juostoje
+
+  const currentDay = new Date();
+  console.log("currentDay", currentDay.getDate());
 
   const filterResults = useCallback(() => {
     if (data.features) {
@@ -368,6 +373,22 @@ function Map() {
       return sortedResults;
     }
   }, [data.features, searchTerm]);
+
+  // clear filter
+  const handleClearFilter = (checkbox) => {
+    // valuesArr = [];
+    for (var a = 0; a < valuesArr.length; a++) {
+      valuesArr[a] = [];
+    }
+    view.whenLayerView(eventsFeatureLayer).then((layerView) => {
+      layerView.filter = {
+        where: "1=1",
+      };
+    });
+    setStartDate("");
+    setFinishDate("");
+    setShortResults(filterResults(data));
+  };
 
   useEffect(() => {
     setShortResults(filterResults(data.features));
