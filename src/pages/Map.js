@@ -224,7 +224,7 @@ function Map() {
   // filtravimas pagal kategoriją ir datą
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   // let valuesArr = [];
-  console.log("valuesArrlength", valuesArr.length);
+  console.log("startDatestartDate", startDate);
 
   const filterDates = () => {
     if (view && (startDate || finishDate) && valuesArr.length === 0) {
@@ -420,13 +420,13 @@ function Map() {
 
       if (!startDate && !finishDate) {
         var startOfDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
         var endofDay = new Date();
+        startOfDay.setHours(0, 0, 0, 0);
         endofDay.setHours(23, 59, 59, 999);
-
-        console.log("todayDate", new Date(startOfDay));
-        console.log("tomorrowDate", new Date(endofDay));
-        const filterTodayEvents = sortedResults.filter(
+        setStartDate(new Date(startOfDay).getTime());
+        setFinishDate(new Date(endofDay).getTime());
+        // change default start and finish date
+        const filterTodayEvents = data.features.filter(
           (item) =>
             item.attributes.RENGINIO_PRADZIA >= startOfDay &&
             item.attributes.RENGINIO_PRADZIA <= endofDay
@@ -436,7 +436,7 @@ function Map() {
         return sortedResults;
       }
     }
-  }, [data.features, searchTerm]);
+  }, [data.features, finishDate]);
 
   // clear filter
   const handleClearFilter = (checkbox) => {

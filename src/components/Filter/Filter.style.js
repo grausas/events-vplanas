@@ -29,7 +29,6 @@ export const IconFilter = styled.div`
 
   div {
     display: flex;
-    cursor: pointer;
   }
 `;
 
