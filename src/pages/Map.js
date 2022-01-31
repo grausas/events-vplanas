@@ -7,7 +7,7 @@ import React, {
 } from "react";
 // Styles
 // import "./Map.style.js";
-import { MapDiv, SearchDiv } from "./Map.style";
+import { MapDiv, SearchDiv, Content } from "./Map.style";
 // context
 import { AuthContext } from "../context/AuthContext";
 // Hooks
@@ -616,16 +616,17 @@ function Map() {
     <>
       {error && <Notification type={type} message={error} />}
       <MapDiv ref={mapRef}>
-        <DateSlider id="dateSlider" />
-        <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
-        <SearchDiv id="SearchDiv" />
-        {/* <input
+        <Content>
+          <DateSlider id="dateSlider" />
+          <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
+          <SearchDiv id="SearchDiv" />
+          {/* <input
           style={{ marginTop: "50px" }}
           type="text"
           placeholder="paieska"
           onKeyUp={handleSearchResult}
         ></input> */}
-        {/* <div
+          {/* <div
           style={{
             position: "absolute",
             left: "50%",
@@ -641,138 +642,114 @@ function Map() {
           />
         </div> */}
 
-        <Loading id="loading" />
+          <Loading id="loading" />
 
-        <Home handleClick={() => zoomDefault(view)} />
-        <Zoom
-          handleZoomIn={() => zoomIn(view)}
-          handleZoomOut={() => zoomOut(view)}
-        />
-        {/* Renginių juosta */}
-        <EventsSchedule
-          // events={shortResults}
-          handleOpen={handleOpen}
-          show={show}
-          handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
-          handleOpenMore={() => setShortResults(filterResults(data.features))}
-        >
-          <SearchInput
-            value={searchTerm}
-            handleChange={(event) => {
-              setSearchTerm(event.target.value);
+          <Home handleClick={() => zoomDefault(view)} />
+          <Zoom
+            handleZoomIn={() => zoomIn(view)}
+            handleZoomOut={() => zoomOut(view)}
+          />
+
+          {/* Renginių juosta */}
+          <EventsSchedule
+            // events={shortResults}
+            handleOpen={handleOpen}
+            show={show}
+            handleZoom={(e) => handleZoom(e, eventsFeatureLayer, view)}
+            handleOpenMore={() => setShortResults(filterResults(data.features))}
+          >
+            <SearchInput
+              value={searchTerm}
+              handleChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
+              placeholder="Ieškoti..."
+            />
+            <EventsTimeline
+              events={shortResults}
+              handleClose={handleOpen}
+              handleMoreFilters={handleOpenFilter}
+              handleEventOpen={(e) => {
+                handleZoom(e, eventsFeatureLayer, view);
+                openEvent(e);
+                handleOpen(show);
+              }}
+            />
+          </EventsSchedule>
+          {/* Filtravimas pagal data ir kategorijas */}
+          {showFilter && (
+            <Filter
+              id="filtras"
+              data={CategoryData}
+              selectedStart={startDate}
+              selectedFinish={finishDate}
+              handleChangeStart={(date) =>
+                setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
+              }
+              handleChangeFinish={(date) =>
+                setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
+              }
+              onChange={handleFilterChange}
+              handleClear={handleClearFilter}
+              handleCloseFilter={handleOpenFilter}
+            />
+          )}
+
+          {/* Pridėti naują renginį  */}
+          <AddEvent
+            isLoggedIn={!!auth.token}
+            setAddNewFeature={setAddNewFeature}
+            addNewFeature={addNewFeature}
+            isEditing={!isEditing}
+            startDate={startDate}
+            events={data}
+            handleCordinates={() => {
+              // eventsFeatureLayer.opacity = 0.3;
+              addNewFeature.geometry === undefined
+                ? addPolygon()
+                : setIsEditing(!isEditing);
             }}
-            placeholder="Ieškoti..."
-          />
-          <EventsTimeline
-            events={shortResults}
-            handleClose={handleOpen}
-            handleMoreFilters={handleOpenFilter}
-            handleEventOpen={(e) => {
-              handleZoom(e, eventsFeatureLayer, view);
-              openEvent(e);
-              handleOpen(show);
+            handleUpdate={() => {
+              updateCurrentPolygon();
+              setIsEditing(!isEditing);
+            }}
+            handleSubmit={(e) => {
+              e.preventDefault();
+              eventsFeatureLayer.opacity = 1;
+              addEvents(addNewFeature);
+              setAddNewFeature([]);
+              setIsEditing(!isEditing);
+            }}
+            handleCancel={() => {
+              eventsFeatureLayer.opacity = 1;
+              graphicsLayer.removeAll();
+              // setIsEditing(!isEditing);
+              setAddNewFeature([]);
             }}
           />
-        </EventsSchedule>
-        {/* Filtravimas pagal data ir kategorijas */}
-        {showFilter && (
-          <Filter
-            id="filtras"
-            data={CategoryData}
-            selectedStart={startDate}
-            selectedFinish={finishDate}
-            handleChangeStart={(date) =>
-              setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
-            }
-            handleChangeFinish={(date) =>
-              setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
-            }
-            onChange={handleFilterChange}
-            handleClear={handleClearFilter}
-            handleCloseFilter={handleOpenFilter}
-          />
-        )}
+          {/* Renginių ir renginio atvaizdavimas, redagavimas */}
 
-        {/* Pridėti naują renginį  */}
-
-        <AddEvent
-          isLoggedIn={!!auth.token}
-          setAddNewFeature={setAddNewFeature}
-          addNewFeature={addNewFeature}
-          isEditing={!isEditing}
-          startDate={startDate}
-          events={data}
-          handleCordinates={() => {
-            // eventsFeatureLayer.opacity = 0.3;
-            addNewFeature.geometry === undefined
-              ? addPolygon()
-              : setIsEditing(!isEditing);
-          }}
-          handleUpdate={() => {
-            updateCurrentPolygon();
-            setIsEditing(!isEditing);
-          }}
-          handleSubmit={(e) => {
-            e.preventDefault();
-            eventsFeatureLayer.opacity = 1;
-            addEvents(addNewFeature);
-            setAddNewFeature([]);
-            setIsEditing(!isEditing);
-          }}
-          handleCancel={() => {
-            eventsFeatureLayer.opacity = 1;
-            graphicsLayer.removeAll();
-            // setIsEditing(!isEditing);
-            setAddNewFeature([]);
-          }}
-        />
-        {/* Renginių ir renginio atvaizdavimas, redagavimas */}
-
-        {/* {show && (
+          {/* {show && (
           <EventsTimeline
             events={clickedEvents}
             handleClose={handleOpen}
             handleEventOpen={openEvent}
           />
         )} */}
-        {openModal && (
-          <EventCard
-            isLoggedIn={!!auth.token}
-            organization={queryPoint.ORGANIZATORIUS}
-            title={queryPoint.PAVADINIMAS}
-            url={queryPoint.WEBPAGE}
-            comment={queryPoint.PASTABOS}
-            description={queryPoint.APRASYMAS}
-            startDate={startEventDate + " | " + startEventTime}
-            finishDate={finishEventDate + " | " + finishEventTime}
-            handleChange={(e) => {
-              setQueryPoint([]);
-              handleOpenModal();
-              handleOpen(show);
-              view.goTo(
-                {
-                  zoom: 11,
-                },
-                { duration: 600 }
-              );
-            }}
-          >
-            <EditEvent
-              setQueryPoint={setQueryPoint}
-              queryPoint={queryPoint}
-              handleChange={() => {
+          {openModal && (
+            <EventCard
+              isLoggedIn={!!auth.token}
+              organization={queryPoint.ORGANIZATORIUS}
+              title={queryPoint.PAVADINIMAS}
+              url={queryPoint.WEBPAGE}
+              comment={queryPoint.PASTABOS}
+              description={queryPoint.APRASYMAS}
+              startDate={startEventDate + " | " + startEventTime}
+              finishDate={finishEventDate + " | " + finishEventTime}
+              handleChange={(e) => {
+                setQueryPoint([]);
                 handleOpenModal();
                 handleOpen(show);
-              }}
-              handleSubmit={(e) => {
-                e.preventDefault();
-                updateEvent(queryPoint);
-                handleOpenModal(!openModal);
-                setQueryPoint([]);
-              }}
-              handleDeleteConfirm={(e) => {
-                deleteEvent(queryPoint.OBJECTID);
-                handleOpenModal(!openModal);
                 view.goTo(
                   {
                     zoom: 11,
@@ -780,9 +757,34 @@ function Map() {
                   { duration: 600 }
                 );
               }}
-            />
-          </EventCard>
-        )}
+            >
+              <EditEvent
+                setQueryPoint={setQueryPoint}
+                queryPoint={queryPoint}
+                handleChange={() => {
+                  handleOpenModal();
+                  handleOpen(show);
+                }}
+                handleSubmit={(e) => {
+                  e.preventDefault();
+                  updateEvent(queryPoint);
+                  handleOpenModal(!openModal);
+                  setQueryPoint([]);
+                }}
+                handleDeleteConfirm={(e) => {
+                  deleteEvent(queryPoint.OBJECTID);
+                  handleOpenModal(!openModal);
+                  view.goTo(
+                    {
+                      zoom: 11,
+                    },
+                    { duration: 600 }
+                  );
+                }}
+              />
+            </EventCard>
+          )}
+        </Content>
       </MapDiv>
     </>
   );
