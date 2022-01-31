@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 export const AddObjectButton = styled.div`
   position: absolute;
   max-height: 600px;
-  top: 2%;
+  top: 50px;
   border-radius: 5px;
   right: 20px;
   padding: 5px 10px;

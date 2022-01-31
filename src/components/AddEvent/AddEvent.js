@@ -35,6 +35,8 @@ const AddEvent = ({
   const [suggestions, setSuggestions] = useState([]);
   const [startDateArr, setStartDateArr] = useState([]);
 
+  console.log(startDateArr);
+
   const lowerEvents =
     events.features &&
     events.features.map(
@@ -59,11 +61,14 @@ const AddEvent = ({
   const handleChangeTest = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
+    var numberOfDates = 0;
 
     const date = new Date();
     const formateDate = new Date(
       date.setDate(date.getDate() + Number(e.target.value - day + 1))
     );
+
+    console.log("formateDate", formateDate);
 
     if (isChecked) {
       if (addNewFeature.RENGINIO_PRADZIA === undefined) {
@@ -76,18 +81,32 @@ const AddEvent = ({
         const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
         const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
 
+        console.log("newStartDate", newStartDate);
+        console.log("newFinishDate", newFinishDate);
+
         const formatedStartDate = new Date(
           newStartDate.setDate(
             newStartDate.getDate() +
               Number(e.target.value - newStartDate.getDay() + 1)
           )
         );
+
+        console.log("formatedStartDate", formatedStartDate);
         const formatedFinishDate = new Date(
           newFinishDate.setDate(
             newFinishDate.getDate() +
               Number(e.target.value - newFinishDate.getDay() + 1)
           )
         );
+        console.log("formatedFinishDate", formatedFinishDate);
+
+        // while (formatedStartDate < formatedFinishDate) {
+        //   if (formatedStartDate.getDay() === itemValue) {
+        //     numberOfDates++;
+        //     console.log("numberOfDates", numberOfDates);
+        //   }
+        //   formatedStartDate.setDate(formatedStartDate.getDate() + 1);
+        // }
         if (
           formatedStartDate.getDate() !==
           addNewFeature.RENGINIO_PRADZIA.getDate()

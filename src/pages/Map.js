@@ -347,14 +347,9 @@ function Map() {
         }
         const newArrStr = newArr.join();
 
-        // const filteredDate = data.features.filter(
-        //   (item) => item.attributes.KATEGORIJA !== newArrStr
-        // );
-        // setShortResults(filteredDate);
-
         layerView.filter = {
           where:
-            (startDate || finishDate) && valuesArr.length > 0
+            startDate && finishDate && valuesArr.length > 0
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
@@ -367,19 +362,19 @@ function Map() {
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
+              : startDate && !finishDate
+              ? "KATEGORIJA IN (" +
+                newArrStr +
+                ") AND " +
+                "RENGINIO_PRADZIA >= " +
+                startDate
+              : !startDate && finishDate
+              ? "KATEGORIJA IN (" +
+                newArrStr +
+                ") AND " +
+                "RENGINIO_PRADZIA <= " +
+                finishDate
               : valuesArr.length > 0 && !startDate && !finishDate
-              ? startDate
-                ? "KATEGORIJA IN (" +
-                  newArrStr +
-                  ") AND " +
-                  "RENGINIO_PRADZIA >= " +
-                  startDate
-                : "KATEGORIJA IN (" +
-                  newArrStr +
-                  ") AND " +
-                  "RENGINIO_PRADZIA <= " +
-                  finishDate
-              : null
               ? "KATEGORIJA IN (" + newArrStr + ")"
               : null,
         };
