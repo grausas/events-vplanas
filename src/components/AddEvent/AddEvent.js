@@ -32,10 +32,10 @@ const AddEvent = ({
 }) => {
   const { handleOpen, show } = useOpenClose();
   const [value, setValue] = useState("");
+  const [valueName, setValueName] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsName, setSuggestionsName] = useState([]);
   const [startDateArr, setStartDateArr] = useState([]);
-
-  console.log(startDateArr);
 
   const lowerEvents =
     events.features &&
@@ -43,6 +43,13 @@ const AddEvent = ({
       (item) =>
         item.attributes.ORGANIZATORIUS &&
         item.attributes.ORGANIZATORIUS.toLowerCase()
+    );
+
+  const lowerEventsName =
+    events.features &&
+    events.features.map(
+      (item) =>
+        item.attributes.PAVADINIMAS && item.attributes.PAVADINIMAS.toLowerCase()
     );
 
   const weekday = [
@@ -134,8 +141,18 @@ const AddEvent = ({
     });
   }, [startDateArr]);
 
+  // suggestion organization
+  const uniqueEvents = [...new Set(lowerEvents)];
   function getSuggestions(value) {
-    return lowerEvents.filter((language) =>
+    return uniqueEvents.filter((language) =>
+      language.startsWith(value.trim().toLowerCase())
+    );
+  }
+  // suggestion name
+  const uniqueEventsName = [...new Set(lowerEventsName)];
+
+  function getSuggestionsName(value) {
+    return uniqueEventsName.filter((language) =>
       language.startsWith(value.trim().toLowerCase())
     );
   }
@@ -165,8 +182,39 @@ const AddEvent = ({
                   </ConfirmButton>
                   <form onSubmit={handleSubmit}>
                     <h3>Pridėti renginį</h3>
+                    <span>Organizatorius</span>
+
                     <InputWrapper>
-                      <InputField
+                      <span>Pavadinimas</span>
+                      <AutoSuggest
+                        suggestions={suggestionsName}
+                        onSuggestionsClearRequested={() =>
+                          setSuggestionsName([])
+                        }
+                        onSuggestionsFetchRequested={({ value }) => {
+                          setValueName(value);
+                          setSuggestionsName(getSuggestionsName(value));
+                        }}
+                        getSuggestionValue={(suggestionsName) =>
+                          suggestionsName
+                        }
+                        renderSuggestion={(suggestionsName) => (
+                          <span>{suggestionsName}</span>
+                        )}
+                        inputProps={{
+                          placeholder: "Pavadinimas",
+                          value: valueName,
+                          onChange: (_, { newValue }) => {
+                            setValueName(newValue);
+                            setAddNewFeature({
+                              ...addNewFeature,
+                              PAVADINIMAS: newValue,
+                            });
+                          },
+                        }}
+                        highlightFirstSuggestion={true}
+                      />
+                      {/* <InputField
                         type="text"
                         labelText="Pavadinimas"
                         id="pavadinimas"
@@ -178,7 +226,7 @@ const AddEvent = ({
                             PAVADINIMAS: e.target.value,
                           });
                         }}
-                      />
+                      /> */}
                       <span>Organizatorius</span>
                       <AutoSuggest
                         suggestions={suggestions}

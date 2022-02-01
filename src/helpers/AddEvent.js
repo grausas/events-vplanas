@@ -16,6 +16,7 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
     },
     geometry: params.geometry,
   });
+  console.log(addFeature);
   features.push(addFeature);
   // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
   if (params.startDateArr && params.startDateArr.length > 0) {
