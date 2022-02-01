@@ -17,6 +17,11 @@ export const Input = styled.input`
   box-sizing: border-box;
   outline: none;
   border-radius: 5px;
+
+  ::placeholder {
+    color: var(--darkSilver);
+  }
+
   border: 1px solid var(--darkSilver);
 
   &&:focus {

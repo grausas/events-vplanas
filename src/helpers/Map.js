@@ -125,7 +125,7 @@ export const createMapView = (ref, layers) => {
       }
 
       view.watch("scale", (newValue) => {
-        layers.renderer = newValue >= 20000 ? simpleRenderer : simpleRenderer2;
+        layers.renderer = newValue >= 15000 ? simpleRenderer : simpleRenderer2;
       });
     });
   });

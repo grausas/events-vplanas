@@ -45,6 +45,10 @@ export const ItemContent = styled.div`
   position: relative;
   width: 100%;
 
+  &:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  }
+
   &:after {
     content: " ";
     background-color: var(--white);

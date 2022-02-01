@@ -182,8 +182,6 @@ const AddEvent = ({
                   </ConfirmButton>
                   <form onSubmit={handleSubmit}>
                     <h3>Pridėti renginį</h3>
-                    <span>Organizatorius</span>
-
                     <InputWrapper>
                       <span>Pavadinimas</span>
                       <AutoSuggest
