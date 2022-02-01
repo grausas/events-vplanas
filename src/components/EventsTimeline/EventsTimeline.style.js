@@ -19,8 +19,8 @@ export const TimelineContainer = styled.div`
     background-color: var(--grey);
     content: "";
     position: absolute;
-    left: calc(0% + 10px);
-    width: 3px;
+    left: calc(0% + 8px);
+    width: 2px;
     height: 100%;
   }
 `;
@@ -28,9 +28,9 @@ export const TimelineContainer = styled.div`
 export const TimelineItem = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-left: 32px;
+  padding-left: 30px;
   position: relative;
-  margin: 10px 0;
+  margin: 5px 0;
   width: 100%;
 `;
 
@@ -95,13 +95,13 @@ export const EventDate = styled.span`
 
 export const Text = styled.p`
   font-size: var(--fontMed);
-  line-height: 24px;
+  line-height: 20px;
   margin: 15px 0;
 `;
 
 export const Circle = styled.span`
   background-color: var(--white);
-  border: 3px solid var(--grey);
+  border: 2px solid var(--grey);
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);

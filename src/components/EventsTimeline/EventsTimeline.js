@@ -30,11 +30,17 @@ const EventsTimeline = ({ events, handleMoreFilters, handleEventOpen }) => {
               const result = CategoryData.find(
                 ({ id }) => id === event.attributes.KATEGORIJA
               );
-              const eventDate = changeDate(
+              const eventStartDate = changeDate(
                 new Date(event.attributes.RENGINIO_PRADZIA)
               );
-              const eventTime = changeTime(
+              const eventStartTime = changeTime(
                 new Date(event.attributes.RENGINIO_PRADZIA)
+              );
+              const eventFinishDate = changeDate(
+                new Date(event.attributes.RENGINIO_PABAIGA)
+              );
+              const eventFinishTime = changeTime(
+                new Date(event.attributes.RENGINIO_PABAIGA)
               );
               return (
                 <TimelineItem key={event.attributes.OBJECTID}>
@@ -42,7 +48,12 @@ const EventsTimeline = ({ events, handleMoreFilters, handleEventOpen }) => {
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
                       {result.text}
                     </Category>
-                    <EventDate>{eventDate + " " + eventTime}</EventDate>
+                    <EventDate>
+                      {eventStartDate + " " + eventStartTime}
+                    </EventDate>
+                    <EventDate>
+                      {eventFinishDate + " " + eventFinishTime}
+                    </EventDate>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
                     <Circle />
                     <MoreButton
