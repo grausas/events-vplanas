@@ -40,7 +40,7 @@ export const Text = styled.div`
 
   h3,
   span {
-    font-size: 20px;
+    font-size: var(--fontBig);
     font-weight: 600;
     height: inherit;
 

@@ -49,12 +49,7 @@ import { CategoryData } from "../utils/CategoryData";
 
 // helpers
 import { createMapView, handleChangeBasemap } from "../helpers/Map";
-import {
-  featureLayer,
-  tileLayer,
-  vectorLayer,
-  featureLayerPrivate,
-} from "../helpers/Layers";
+import { featureLayer, featureLayerPrivate } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
@@ -94,107 +89,107 @@ function Map() {
   // panaudoti searchViewModel
   // ismesti pasirinkimus su suggest i dropdown
 
-  const locatorUrl =
-    "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
+  // const locatorUrl =
+  //   "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
 
-  const handleSearchResult = (e) => {
-    const result = e.target.value;
+  // const handleSearchResult = (e) => {
+  //   const result = e.target.value;
 
-    var address = {
-      SingleLine: result,
-      f: "json",
-    };
+  //   var address = {
+  //     SingleLine: result,
+  //     f: "json",
+  //   };
 
-    const params = {
-      address: address,
-      outFields: ["*"],
-      text: result,
-      outSpatialReference: { wkid: 102100 },
-    };
+  //   const params = {
+  //     address: address,
+  //     outFields: ["*"],
+  //     text: result,
+  //     outSpatialReference: { wkid: 102100 },
+  //   };
 
-    if (result.length > 1) {
-      locator.suggestLocations(locatorUrl, params).then(function (response) {
-        console.log(typeof params.address);
-        console.log("response", response);
-        const address = response.filter((item) => item.text.includes(result));
-        console.log("address", address);
-        console.log(address);
-        setSuggestions(response);
-      });
-    }
+  //   if (result.length > 1) {
+  //     locator.suggestLocations(locatorUrl, params).then(function (response) {
+  //       console.log(typeof params.address);
+  //       console.log("response", response);
+  //       const address = response.filter((item) => item.text.includes(result));
+  //       console.log("address", address);
+  //       console.log(address);
+  //       setSuggestions(response);
+  //     });
+  //   }
 
-    if (e.key === "Enter") {
-      locator.addressToLocations(locatorUrl, params).then(function (results) {
-        console.log("addressToLocations Vilnius=", results);
-        if (results.length > 0) {
-          const grapics = results[0].location;
+  //   if (e.key === "Enter") {
+  //     locator.addressToLocations(locatorUrl, params).then(function (results) {
+  //       console.log("addressToLocations Vilnius=", results);
+  //       if (results.length > 0) {
+  //         const grapics = results[0].location;
 
-          var point = new Point({
-            type: "point",
-            x: grapics.x,
-            y: grapics.y,
-            spatialReference: { wkid: 102100 },
-          });
+  //         var point = new Point({
+  //           type: "point",
+  //           x: grapics.x,
+  //           y: grapics.y,
+  //           spatialReference: { wkid: 102100 },
+  //         });
 
-          var simpleMarkerSymbol = {
-            type: "simple-marker",
-            color: [226, 119, 40],
-            outline: {
-              color: [255, 255, 255],
-              width: 1,
-            },
-          };
+  //         var simpleMarkerSymbol = {
+  //           type: "simple-marker",
+  //           color: [226, 119, 40],
+  //           outline: {
+  //             color: [255, 255, 255],
+  //             width: 1,
+  //           },
+  //         };
 
-          var geomSer =
-            "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
+  //         var geomSer =
+  //           "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
 
-          var params = new ProjectParameters({
-            geometries: [point],
-            outSpatialReference: { wkid: 102100 },
-          });
+  //         var params = new ProjectParameters({
+  //           geometries: [point],
+  //           outSpatialReference: { wkid: 102100 },
+  //         });
 
-          GeometryService.project(geomSer, params).then(function (geom) {
-            // console.log("geom", geom);
-            var pointGraphic = new Graphic({
-              geometry: point,
-              symbol: simpleMarkerSymbol,
-            });
+  //         GeometryService.project(geomSer, params).then(function (geom) {
+  //           // console.log("geom", geom);
+  //           var pointGraphic = new Graphic({
+  //             geometry: point,
+  //             symbol: simpleMarkerSymbol,
+  //           });
 
-            // console.log("phichLayre", graphicsLayer.graphics.items.length);
+  //           // console.log("phichLayre", graphicsLayer.graphics.items.length);
 
-            if (graphicsLayer.graphics.items.length > 0) {
-              graphicsLayer.removeAll();
-              graphicsLayer.add(pointGraphic);
-              // console.log("pointGraphic", pointGraphic);
-              // console.log("center", (view.center = pointGraphic.geometry));
+  //           if (graphicsLayer.graphics.items.length > 0) {
+  //             graphicsLayer.removeAll();
+  //             graphicsLayer.add(pointGraphic);
+  //             // console.log("pointGraphic", pointGraphic);
+  //             // console.log("center", (view.center = pointGraphic.geometry));
 
-              view.goTo(
-                {
-                  target: pointGraphic,
-                  zoom: 16,
-                },
-                { duration: 1000 }
-              );
-            } else {
-              graphicsLayer.add(pointGraphic);
-              // console.log("pointGraphic", pointGraphic);
-              // console.log("center", (view.center = pointGraphic.geometry));
+  //             view.goTo(
+  //               {
+  //                 target: pointGraphic,
+  //                 zoom: 16,
+  //               },
+  //               { duration: 1000 }
+  //             );
+  //           } else {
+  //             graphicsLayer.add(pointGraphic);
+  //             // console.log("pointGraphic", pointGraphic);
+  //             // console.log("center", (view.center = pointGraphic.geometry));
 
-              view.goTo(
-                {
-                  target: pointGraphic,
-                  zoom: 16,
-                },
-                { duration: 1000 }
-              );
-            }
-          });
-        }
-      });
-    } else if (e.key === "Backspace" || e.key === "Delete") {
-      graphicsLayer.removeAll();
-    }
-  };
+  //             view.goTo(
+  //               {
+  //                 target: pointGraphic,
+  //                 zoom: 16,
+  //               },
+  //               { duration: 1000 }
+  //             );
+  //           }
+  //         });
+  //       }
+  //     });
+  //   } else if (e.key === "Backspace" || e.key === "Delete") {
+  //     graphicsLayer.removeAll();
+  //   }
+  // };
 
   // ------------------
 
@@ -225,10 +220,10 @@ function Map() {
   // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
   // let valuesArr = [];
   console.log("startDatestartDate", startDate);
+  console.log("finishDatefinishDate", finishDate);
 
   const filterDates = () => {
     if (view && (startDate || finishDate) && valuesArr.length === 0) {
-      console.log("filterDatesfilterDates");
       // console.log("shortResults", shortResults);
 
       const filteredDate = data.features.filter((item) => {
@@ -244,11 +239,11 @@ function Map() {
           );
         }
       });
+
       setShortResults(filteredDate);
       view
         .whenLayerView(eventsFeatureLayer)
         .then((layerView) => {
-          console.log("layerView", layerView);
           layerView.filter = {
             where:
               startDate && finishDate
@@ -268,18 +263,16 @@ function Map() {
   };
 
   useEffect(() => {
-    filterDates();
+    filterDates(data.features);
   }, [startDate, finishDate, view, eventsFeatureLayer, valuesArr]);
 
   const handleFilterChange = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
     let newArr = [];
-    console.log("startDatestartDate", startDate);
 
     if (isChecked && itemValue !== 0) {
       valuesArr.push(itemValue);
-      console.log("valuegrgregregersArr", valuesArr);
 
       const filteredDate = data.features.filter(
         (item) =>
@@ -328,7 +321,6 @@ function Map() {
       }
 
       const values = valuesArr.map((el) => el);
-      console.log("newArrStr", values);
 
       if (valuesArr.length > 0) {
         const filteredDate = data.features.filter(
@@ -381,17 +373,16 @@ function Map() {
         };
       });
     } else if (itemValue === 0) {
-      console.log("item value === 0");
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         layerView.filter = {
-          where: "1=1",
+          where: ["1=1"],
         };
       });
       setStartDate("");
       setFinishDate("");
       setValuesArr([]);
     } else {
-      console.log("eefsgreh5er");
+      console.log("no filter");
     }
   };
 
@@ -418,25 +409,27 @@ function Map() {
         return x < y ? -1 : x > y ? 1 : 0;
       });
 
-      if (!startDate && !finishDate) {
-        var startOfDay = new Date();
-        var endofDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
-        endofDay.setHours(23, 59, 59, 999);
-        setStartDate(new Date(startOfDay).getTime());
-        setFinishDate(new Date(endofDay).getTime());
-        // change default start and finish date
-        const filterTodayEvents = data.features.filter(
-          (item) =>
-            item.attributes.RENGINIO_PRADZIA >= startOfDay &&
-            item.attributes.RENGINIO_PRADZIA <= endofDay
-        );
-        return filterTodayEvents;
-      } else {
-        return sortedResults;
-      }
+      return sortedResults;
+      // moves this code somewhere because date doesnt change on clear now
+      // if (!startDate && !finishDate && sortedResults) {
+      //   var startOfDay = new Date();
+      //   var endofDay = new Date();
+      //   startOfDay.setHours(0, 0, 0, 0);
+      //   endofDay.setHours(23, 59, 59, 999);
+      //   setStartDate(new Date(startOfDay).getTime());
+      //   setFinishDate(new Date(endofDay).getTime());
+      //   // change default start and finish date
+      //   const filterTodayEvents = data.features.filter(
+      //     (item) =>
+      //       item.attributes.RENGINIO_PRADZIA >= startOfDay &&
+      //       item.attributes.RENGINIO_PRADZIA <= endofDay
+      //   );
+      //   setShortResults(filterTodayEvents);
+      // } else {
+      //   return sortedResults;
+      // }
     }
-  }, [data.features, finishDate]);
+  }, [data.features]);
 
   // clear filter
   const handleClearFilter = (checkbox) => {
@@ -446,7 +439,7 @@ function Map() {
     }
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
       layerView.filter = {
-        where: "1=1",
+        where: ["1=1"],
       };
     });
     setStartDate("");
@@ -487,13 +480,11 @@ function Map() {
   useEffect(() => {
     // const layer = featureLayer();
     const layer =
-      auth.token && auth.token.length > 0
-        ? featureLayerPrivate()
-        : featureLayer();
-    const vector = vectorLayer();
-    const tile = tileLayer();
+      !auth.token && !auth.token.length > 0
+        ? featureLayer()
+        : featureLayerPrivate();
 
-    const view = createMapView(mapRef.current, [vector, tile], layer);
+    const view = createMapView(mapRef.current, layer);
 
     setEventsFeatureLayer(layer);
     setView(view);
@@ -581,21 +572,18 @@ function Map() {
         };
       });
       timeSlider.render();
-
-      console.log("timeSLider", timeSlider);
     });
     // renginio popup atvaizdavimas
 
-    console.log("dataFeatures", data.features);
-
     view.on("click", function (event) {
       view.hitTest(event, { include: layer }).then(function (response) {
-        console.log("hittest", response);
+        // console.log("hittest", response);
+
         // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
         // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
         if (response.results.length >= 1) {
           view.whenLayerView(layer).then(function (layerView) {
-            console.log("viewTomap", view.toMap(event));
+            // console.log("viewTomap", view.toMap(event));
             layerView
               .queryFeatures({
                 geometry: view.toMap(event),
@@ -605,6 +593,7 @@ function Map() {
               })
               .then(function (response) {
                 if (response.features.length > 0) {
+                  // console.log("shortResults", data.features);
                   // console.log(
                   //   "shortResults",
                   //   data.features.filter(
@@ -612,7 +601,8 @@ function Map() {
                   //   )
                   // );
                   // const filteredResults = data.features.filter(
-                  //   (item) => item.attributes.OBJECTID === 1
+                  //   (item) =>
+                  //     item.attributes.OBJECTID === response.features.OBJECTID
                   // );
                   setShortResults(response.features);
                   handleOpen(show);
@@ -662,7 +652,7 @@ function Map() {
     return () => {
       view && view.destroy();
     };
-  }, [auth.token]);
+  }, []);
 
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
@@ -803,7 +793,7 @@ function Map() {
             handleEventOpen={openEvent}
           />
         )} */}
-          {openModal && (
+          {openModal && !show && (
             <EventCard
               isLoggedIn={!!auth.token}
               organization={queryPoint.ORGANIZATORIUS}

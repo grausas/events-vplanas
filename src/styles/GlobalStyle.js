@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     --green: #38a169;
     --red: #ed1c24;
     --fontSuperBig: 1.5rem;
-    --fontBig: 1.3rem;
+    --fontBig: 1.2rem;
     --fontMed: 1rem;
     --fontSmall: 0.9rem;
   }
