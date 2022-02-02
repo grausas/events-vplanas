@@ -86,13 +86,28 @@ const AddEvent = ({
   }
 
   const handleChangeTest = (e) => {
+    var itemValue = Number(e.target.value);
+    var isChecked = e.target.checked;
+
     const dates = getDates(
       new Date(addNewFeature.RENGINIO_PRADZIA),
       new Date(addNewFeature.RENGINIO_PABAIGA)
     );
+
     dates.map((date) => {
-      if (date.getDay() === Number(e.target.value) && e.target.checked) {
-        return console.log(date);
+      if (date.getDay() === itemValue && isChecked) {
+        return setStartDateArr([
+          ...startDateArr,
+          {
+            id: itemValue,
+            StartDay: date,
+          },
+        ]);
+      } else if (!isChecked) {
+        let filteredArray = startDateArr.filter(
+          (item) => item.id !== itemValue
+        );
+        return setStartDateArr(filteredArray);
       } else {
         return null;
       }
