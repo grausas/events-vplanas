@@ -1,5 +1,6 @@
 import Graphic from "@arcgis/core/Graphic";
 
+// gal neleisti koreguoti datu, nes per daug keitimo atsiranfa
 export const updateEventFeature = (params, layer, type, message) => {
   const editFeature = new Graphic({
     attributes: {

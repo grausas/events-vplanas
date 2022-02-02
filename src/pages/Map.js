@@ -500,6 +500,7 @@ function Map() {
         outFields: ["*"],
       })
       .then((res) => {
+        console.log(res);
         setData(res);
       });
 

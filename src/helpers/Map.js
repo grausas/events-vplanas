@@ -20,7 +20,7 @@ export const createMapView = (ref, layers) => {
     },
   });
 
-  // panaudoti class break rerender atvaizdavimui polygonu ir points
+  // change renderer symbol depending on view zoom level
 
   layers.load().then(() => {
     const uniqueValue = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
@@ -33,7 +33,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "1",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[0].symbol.color}`,
             outline: {
               color: "#fff",
@@ -43,7 +43,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "2",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[1].symbol.color}`,
             outline: {
               color: "#fff",
@@ -53,7 +53,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "3",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[3].symbol.color}`,
             outline: {
               color: "#fff",
@@ -63,7 +63,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "4",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[4].symbol.color}`,
             outline: {
               color: "#fff",
@@ -73,7 +73,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "5",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[2].symbol.color}`,
             outline: {
               color: "#fff",
@@ -83,7 +83,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "6",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[5].symbol.color}`,
             outline: {
               color: "#fff",
@@ -93,7 +93,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "7",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[6].symbol.color}`,
             outline: {
               color: "#fff",
@@ -103,7 +103,7 @@ export const createMapView = (ref, layers) => {
         {
           value: "8",
           symbol: {
-            type: "simple-marker", // autocasts as new SimpleFillSymbol()
+            type: "simple-marker",
             color: `${uniqueValue[7].symbol.color}`,
             outline: {
               color: "#fff",
@@ -138,7 +138,7 @@ export const createMapView = (ref, layers) => {
 
   return view;
 };
-
+// change basemap
 export const handleChangeBasemap = (e) => {
   const itemValue = Number(e.target.value);
   if (itemValue === 2) {
