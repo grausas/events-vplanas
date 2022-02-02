@@ -34,7 +34,7 @@ const InputField = ({
       );
     case "dropdown":
       return (
-        <>
+        <Wrapper>
           <Label htmlFor={id}>{labelText}</Label>
           <Select
             id={id}
@@ -54,7 +54,7 @@ const InputField = ({
                 </option>
               ))}
           </Select>
-        </>
+        </Wrapper>
       );
 
     default:

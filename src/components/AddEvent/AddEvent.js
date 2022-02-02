@@ -56,10 +56,10 @@ const AddEvent = ({
   const weekday = [
     { day: "Pirmadienis", value: 1 },
     { day: "Antradienis", value: 2 },
-    { day: "Treciadienis", value: 3 },
-    { day: "Ketvirtadinis", value: 4 },
+    { day: "Trečiadienis", value: 3 },
+    { day: "Ketvirtadienis", value: 4 },
     { day: "Penktadienis", value: 5 },
-    { day: "Sestadienis", value: 6 },
+    { day: "Šeštadienis", value: 6 },
     { day: "Sekmadienis", value: 0 },
   ];
 
@@ -96,6 +96,7 @@ const AddEvent = ({
 
     dates.map((date) => {
       if (date.getDay() === itemValue && isChecked) {
+        console.log(date);
         return setStartDateArr([
           ...startDateArr,
           {
@@ -237,6 +238,56 @@ const AddEvent = ({
                   </ConfirmButton>
                   <form onSubmit={handleSubmit}>
                     <h3>Pridėti renginį</h3>
+                    <DatePicker
+                      placeholderTextDate="Data"
+                      placeholderTextTime="Laikas"
+                      timeTitle="Pradžios laikas"
+                      dateTitle="Pradžios data"
+                      required
+                      selected={
+                        addNewFeature.RENGINIO_PRADZIA !== undefined
+                          ? addNewFeature.RENGINIO_PRADZIA
+                          : startDate
+                      }
+                      handleChange={(date) => {
+                        setAddNewFeature({
+                          ...addNewFeature,
+                          RENGINIO_PRADZIA: date,
+                        });
+                      }}
+                    />
+                    <DatePicker
+                      placeholderTextDate="Data"
+                      placeholderTextTime="Laikas"
+                      timeTitle="Pabaigos laikas"
+                      dateTitle="Pabaigos data"
+                      required
+                      selected={
+                        addNewFeature.RENGINIO_PABAIGA !== undefined
+                          ? addNewFeature.RENGINIO_PABAIGA
+                          : startDate
+                      }
+                      handleChange={(date) => {
+                        setAddNewFeature({
+                          ...addNewFeature,
+                          RENGINIO_PABAIGA: date,
+                        });
+                      }}
+                    />
+                    <CheckBoxWrapper onChange={handleChangeTest}>
+                      {weekday &&
+                        weekday.map((item) => {
+                          return (
+                            <span key={item.value}>
+                              <CheckBox
+                                label={item.day}
+                                id={item.value}
+                                value={item.value}
+                              />
+                            </span>
+                          );
+                        })}
+                    </CheckBoxWrapper>
                     <InputWrapper>
                       <span>Pavadinimas</span>
                       <AutoSuggest
@@ -306,6 +357,7 @@ const AddEvent = ({
                           });
                         }}
                       />
+
                       <InputField
                         type="longtext"
                         labelText="Pastabos"
@@ -330,57 +382,6 @@ const AddEvent = ({
                           });
                         }}
                       />
-                      <DatePicker
-                        placeholderTextDate="Data"
-                        placeholderTextTime="Laikas"
-                        timeTitle="Pradžios laikas"
-                        dateTitle="Pradžios data"
-                        required
-                        selected={
-                          addNewFeature.RENGINIO_PRADZIA !== undefined
-                            ? addNewFeature.RENGINIO_PRADZIA
-                            : startDate
-                        }
-                        handleChange={(date) => {
-                          setAddNewFeature({
-                            ...addNewFeature,
-                            RENGINIO_PRADZIA: date,
-                          });
-                        }}
-                      />
-                      <DatePicker
-                        placeholderTextDate="Data"
-                        placeholderTextTime="Laikas"
-                        timeTitle="Pabaigos laikas"
-                        dateTitle="Pabaigos data"
-                        required
-                        selected={
-                          addNewFeature.RENGINIO_PABAIGA !== undefined
-                            ? addNewFeature.RENGINIO_PABAIGA
-                            : startDate
-                        }
-                        handleChange={(date) => {
-                          setAddNewFeature({
-                            ...addNewFeature,
-                            RENGINIO_PABAIGA: date,
-                          });
-                        }}
-                      />
-                      <CheckBoxWrapper onChange={handleChangeTest}>
-                        {weekday &&
-                          weekday.map((item) => {
-                            return (
-                              <span key={item.value}>
-                                <CheckBox
-                                  label={item.day}
-                                  id={item.value}
-                                  value={item.value}
-                                />
-                              </span>
-                            );
-                          })}
-                      </CheckBoxWrapper>
-
                       <InputField
                         type="text"
                         labelText="Renginio puslapis"

@@ -61,6 +61,7 @@ export const InputWrapper = styled.div`
     box-sizing: border-box;
     color: var(--dark);
     font-size: 14px;
+    margin-bottom: 5px;
   }
 
   .react-autosuggest__input--focused {
@@ -138,5 +139,5 @@ export const CheckBoxWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
