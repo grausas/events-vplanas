@@ -54,100 +54,130 @@ const AddEvent = ({
     );
 
   const weekday = [
-    { day: "Pirmadienis", value: 0 },
-    { day: "Antradienis", value: 1 },
-    { day: "Treciadienis", value: 2 },
-    { day: "Ketvirtadinis", value: 3 },
-    { day: "Penktadienis", value: 4 },
-    { day: "Sestadienis", value: 5 },
-    { day: "Sekmadienis", value: 6 },
+    { day: "Pirmadienis", value: 1 },
+    { day: "Antradienis", value: 2 },
+    { day: "Treciadienis", value: 3 },
+    { day: "Ketvirtadinis", value: 4 },
+    { day: "Penktadienis", value: 5 },
+    { day: "Sestadienis", value: 6 },
+    { day: "Sekmadienis", value: 0 },
   ];
 
   const d = new Date();
   const day = d.getDay();
 
   console.log("addNewFeature", addNewFeature);
+  console.log("weekDayArr", weekDayArr);
+
+  // get all days between two dates
+  function getDates(startDate, endDate) {
+    const dates = [];
+    let currentDate = startDate;
+    const addDays = function (days) {
+      const date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    };
+    while (currentDate <= endDate) {
+      dates.push(currentDate);
+      currentDate = addDays.call(currentDate, 1);
+    }
+    return dates;
+  }
 
   const handleChangeTest = (e) => {
-    var itemValue = Number(e.target.value);
-    var isChecked = e.target.checked;
-    var numberOfDates = 0;
-
-    const date = new Date();
-    const formateDate = new Date(
-      date.setDate(date.getDate() + Number(e.target.value - day + 1))
+    const dates = getDates(
+      new Date(addNewFeature.RENGINIO_PRADZIA),
+      new Date(addNewFeature.RENGINIO_PABAIGA)
     );
-
-    console.log("formateDate", formateDate);
-    console.log("weekDayArr", weekDayArr);
-
-    if (isChecked) {
-      setweekDayArr([...weekDayArr, itemValue]);
-      if (addNewFeature.RENGINIO_PRADZIA === undefined) {
-        setAddNewFeature({
-          ...addNewFeature,
-          RENGINIO_PRADZIA: formateDate,
-          RENGINIO_PABAIGA: formateDate,
-          Savaites_dienos: itemValue,
-        });
+    dates.map((date) => {
+      if (date.getDay() === Number(e.target.value) && e.target.checked) {
+        return console.log(date);
       } else {
-        const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
-        const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
-
-        console.log("newStartDate", newStartDate);
-        console.log("newFinishDate", newFinishDate);
-
-        const formatedStartDate = new Date(
-          newStartDate.setDate(
-            newStartDate.getDate() +
-              Number(e.target.value - newStartDate.getDay() + 1)
-          )
-        );
-
-        console.log("formatedStartDate", formatedStartDate);
-        const formatedFinishDate = new Date(
-          newFinishDate.setDate(
-            newFinishDate.getDate() +
-              Number(e.target.value - newFinishDate.getDay() + 1)
-          )
-        );
-        console.log("formatedFinishDate", formatedFinishDate);
-
-        // while (formatedStartDate < formatedFinishDate) {
-        //   if (formatedStartDate.getDay() === itemValue) {
-        //     numberOfDates++;
-        //     console.log("numberOfDates", numberOfDates);
-        //   }
-        //   formatedStartDate.setDate(formatedStartDate.getDate() + 1);
-        // }
-        if (
-          formatedStartDate.getDate() !==
-          addNewFeature.RENGINIO_PRADZIA.getDate()
-        ) {
-          setStartDateArr([
-            ...startDateArr,
-            {
-              id: itemValue,
-              StartDay: formatedStartDate,
-              FinishDay: formatedFinishDate,
-            },
-          ]);
-          setAddNewFeature({
-            ...addNewFeature,
-            Savaites_dienos: weekDayArr.toString(),
-          });
-        }
+        return null;
       }
-    } else if (!isChecked) {
-      let filteredArray = startDateArr.filter((item) => item.id !== itemValue);
-      setStartDateArr(filteredArray);
-    }
+    });
+    //-----------------------------
+    //   var itemValue = Number(e.target.value);
+    //   var isChecked = e.target.checked;
+
+    //   const date = new Date();
+    //   const formateDate = new Date(
+    //     date.setDate(date.getDate() + Number(e.target.value - day + 1))
+    //   );
+
+    //   console.log("formateDate", formateDate);
+
+    //   if (isChecked) {
+    //     setweekDayArr([...weekDayArr, itemValue]);
+    //     // setAddNewFeature({
+    //     //   ...addNewFeature,
+    //     //   Savaites_dienos: weekDayArr.toString(),
+    //     // });
+    //     if (addNewFeature.RENGINIO_PRADZIA === undefined) {
+    //       setAddNewFeature({
+    //         ...addNewFeature,
+    //         RENGINIO_PRADZIA: formateDate,
+    //         RENGINIO_PABAIGA: formateDate,
+    //         Savaites_dienos: weekDayArr.toString(),
+    //       });
+    //     } else {
+    //       const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
+    //       const newFinishDate = new Date(addNewFeature.RENGINIO_PABAIGA);
+
+    //       console.log("newStartDate", newStartDate);
+    //       console.log("newFinishDate", newFinishDate);
+
+    //       const formatedStartDate = new Date(
+    //         newStartDate.setDate(
+    //           newStartDate.getDate() +
+    //             Number(e.target.value - newStartDate.getDay() + 1)
+    //         )
+    //       );
+
+    //       console.log("formatedStartDate", formatedStartDate);
+    //       const formatedFinishDate = new Date(
+    //         newFinishDate.setDate(
+    //           newFinishDate.getDate() +
+    //             Number(e.target.value - newFinishDate.getDay() + 1)
+    //         )
+    //       );
+    //       console.log("formatedFinishDate", formatedFinishDate);
+
+    //       // while (formatedStartDate < formatedFinishDate) {
+    //       //   if (formatedStartDate.getDay() === itemValue) {
+    //       //     numberOfDates++;
+    //       //     console.log("numberOfDates", numberOfDates);
+    //       //   }
+    //       //   formatedStartDate.setDate(formatedStartDate.getDate() + 1);
+    //       // }
+    //       if (
+    //         formatedStartDate.getDate() !==
+    //         addNewFeature.RENGINIO_PRADZIA.getDate()
+    //       ) {
+    //         setStartDateArr([
+    //           ...startDateArr,
+    //           {
+    //             id: itemValue,
+    //             StartDay: formatedStartDate,
+    //             FinishDay: formatedFinishDate,
+    //           },
+    //         ]);
+    //       }
+    //     }
+    //   } else if (!isChecked) {
+    //     let filteredArray = startDateArr.filter((item) => item.id !== itemValue);
+    //     let filteredWeekDayArr = weekDayArr.filter((item) => item !== itemValue);
+    //     setStartDateArr(filteredArray);
+    //     setweekDayArr(filteredWeekDayArr);
+    //   }
   };
 
   useEffect(() => {
     setAddNewFeature({
       ...addNewFeature,
       startDateArr,
+      Savaites_dienos: weekDayArr.toString(),
     });
   }, [startDateArr]);
 
