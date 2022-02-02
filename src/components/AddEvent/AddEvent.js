@@ -36,6 +36,7 @@ const AddEvent = ({
   const [suggestions, setSuggestions] = useState([]);
   const [suggestionsName, setSuggestionsName] = useState([]);
   const [startDateArr, setStartDateArr] = useState([]);
+  const [weekDayArr, setweekDayArr] = useState([]);
 
   const lowerEvents =
     events.features &&
@@ -65,6 +66,8 @@ const AddEvent = ({
   const d = new Date();
   const day = d.getDay();
 
+  console.log("addNewFeature", addNewFeature);
+
   const handleChangeTest = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
@@ -76,13 +79,16 @@ const AddEvent = ({
     );
 
     console.log("formateDate", formateDate);
+    console.log("weekDayArr", weekDayArr);
 
     if (isChecked) {
+      setweekDayArr([...weekDayArr, itemValue]);
       if (addNewFeature.RENGINIO_PRADZIA === undefined) {
         setAddNewFeature({
           ...addNewFeature,
           RENGINIO_PRADZIA: formateDate,
           RENGINIO_PABAIGA: formateDate,
+          Savaites_dienos: itemValue,
         });
       } else {
         const newStartDate = new Date(addNewFeature.RENGINIO_PRADZIA);
@@ -126,6 +132,10 @@ const AddEvent = ({
               FinishDay: formatedFinishDate,
             },
           ]);
+          setAddNewFeature({
+            ...addNewFeature,
+            Savaites_dienos: weekDayArr.toString(),
+          });
         }
       }
     } else if (!isChecked) {
@@ -212,19 +222,6 @@ const AddEvent = ({
                         }}
                         highlightFirstSuggestion={true}
                       />
-                      {/* <InputField
-                        type="text"
-                        labelText="Pavadinimas"
-                        id="pavadinimas"
-                        placeholder="Pavadinimas"
-                        required
-                        handleChange={(e) => {
-                          setAddNewFeature({
-                            ...addNewFeature,
-                            PAVADINIMAS: e.target.value,
-                          });
-                        }}
-                      /> */}
                       <span>Organizatorius</span>
                       <AutoSuggest
                         suggestions={suggestions}
@@ -250,19 +247,6 @@ const AddEvent = ({
                         }}
                         highlightFirstSuggestion={true}
                       />
-                      {/* <InputField
-                    type="text"
-                    labelText="Organizatorius"
-                    id="organizatorius"
-                    placeholder="Organizatorius"
-                    required
-                    handleChange={(e) => {
-                      setAddNewFeature({
-                        ...addNewFeature,
-                        ORGANIZATORIUS: e.target.value,
-                      });
-                    }}
-                  /> */}
                       <InputField
                         options={CategoryData}
                         type="dropdown"

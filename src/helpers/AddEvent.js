@@ -13,6 +13,7 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
       WEBPAGE: params.WEBPAGE,
       KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
       PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
+      Savaites_dienos: params.Savaites_dienos,
     },
     geometry: params.geometry,
   });
