@@ -248,7 +248,13 @@ const AddEvent = ({
                   >
                     REDAGUOTI OBJEKTĄ
                   </ConfirmButton>
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    onSubmit={(e) => {
+                      handleSubmit(e);
+                      setStartDateArr([]);
+                      setWeekDayArr([]);
+                    }}
+                  >
                     <h3>Pridėti renginį</h3>
                     <DatePicker
                       placeholderTextDate="Data"
