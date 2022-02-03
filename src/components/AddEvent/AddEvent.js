@@ -94,20 +94,14 @@ const AddEvent = ({
       new Date(addNewFeature.RENGINIO_PABAIGA)
     );
 
-    const finishDayTime = new Date(addNewFeature.RENGINIO_PABAIGA).getMinutes();
-    const startDayTime = new Date(addNewFeature.RENGINIO_PRADZIA).getMinutes();
-    console.log("finishDayTime", finishDayTime);
-    console.log("startDayTime", startDayTime);
-
-    // const finishDay = finishDayTime - startDayTime;
-    // console.log("finishDay", finishDay);
+    const finishDayTime = new Date(addNewFeature.RENGINIO_PABAIGA);
+    const hours = finishDayTime.getHours();
+    const minutes = finishDayTime.getMinutes();
 
     dates.map((date) => {
       if (date.getDay() === itemValue && isChecked) {
         console.log("date", date);
-        const finishDay = new Date(
-          finishDayTime - startDayTime + new Date(date).getTime()
-        );
+        const finishDay = new Date(new Date(date).setHours(hours, minutes));
         return (
           setWeekDayArr([...weekDayArr, itemValue]),
           startDateArr.push({
@@ -116,18 +110,6 @@ const AddEvent = ({
             finishDay: finishDay,
           })
         );
-        // return startDateArr.push({
-        //   id: itemValue,
-        //   startDay: date,
-        //   finishDay: finishDay,
-        // });
-        // return setStartDateArr([
-        //   ...startDateArr,
-        //   {
-        //     id: itemValue,
-        //     StartDay: date,
-        //   },
-        // ]);
       } else if (!isChecked) {
         let filteredArray = startDateArr.filter(
           (item) => item.id !== itemValue
