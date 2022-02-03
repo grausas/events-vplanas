@@ -205,7 +205,7 @@ const AddEvent = ({
     setAddNewFeature({
       ...addNewFeature,
       startDateArr,
-      Savaites_dienos: weekDayArr.toString(),
+      Savaites_dienos: weekDayArr.sort((a, b) => a - b).toString(),
     });
   }, [startDateArr, weekDayArr]);
 
