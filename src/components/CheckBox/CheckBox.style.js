@@ -17,7 +17,9 @@ export const Label = styled.label`
   }
 
   input:checked ~ span {
-    background-color: var(--lightBlue);
+    background-color: var(--white);
+    border: ${(props) =>
+      props.color === "primary" ? "1px solid var(--lightBlue)" : ""};
   }
 
   input:checked ~ span:after {
@@ -50,7 +52,10 @@ export const Span = styled.span`
     top: 1px;
     width: 4px;
     height: 9px;
-    border: solid white;
+    border: ${(props) =>
+      props.color === "primary"
+        ? "solid var(--lightBlue)"
+        : "solid var(--white)"};
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);

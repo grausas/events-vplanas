@@ -292,6 +292,7 @@ const AddEvent = ({
                           return (
                             <span key={item.value}>
                               <CheckBox
+                                color="primary"
                                 label={item.day}
                                 id={item.value}
                                 value={item.value}
