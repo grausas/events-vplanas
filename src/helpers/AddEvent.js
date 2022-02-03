@@ -3,22 +3,7 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, setState, type, message) => {
   var features = [];
-  var addFeature = new Graphic({
-    attributes: {
-      PAVADINIMAS: params.PAVADINIMAS,
-      ORGANIZATORIUS: params.ORGANIZATORIUS,
-      RENGINIO_PRADZIA: new Date(params.RENGINIO_PRADZIA).toISOString(),
-      RENGINIO_PABAIGA: new Date(params.RENGINIO_PABAIGA).toISOString(),
-      APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
-      WEBPAGE: params.WEBPAGE,
-      KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
-      PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
-      Savaites_dienos: params.Savaites_dienos,
-    },
-    geometry: params.geometry,
-  });
-  console.log(addFeature);
-  features.push(addFeature);
+
   // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
   if (params.startDateArr && params.startDateArr.length > 0) {
     params.startDateArr.map((item) => {
@@ -26,17 +11,34 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
         attributes: {
           PAVADINIMAS: params.PAVADINIMAS,
           ORGANIZATORIUS: params.ORGANIZATORIUS,
-          RENGINIO_PRADZIA: new Date(item.StartDay).toISOString(),
-          RENGINIO_PABAIGA: new Date(item.FinishDay).toISOString(),
+          RENGINIO_PRADZIA: new Date(item.startDay).toISOString(),
+          RENGINIO_PABAIGA: new Date(item.finishDay).toISOString(),
           APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
           WEBPAGE: params.WEBPAGE,
           KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
           PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
+          Savaites_dienos: params.Savaites_dienos,
         },
         geometry: params.geometry,
       });
       return features.push(addFeature1);
     });
+  } else {
+    var addFeature = new Graphic({
+      attributes: {
+        PAVADINIMAS: params.PAVADINIMAS,
+        ORGANIZATORIUS: params.ORGANIZATORIUS,
+        RENGINIO_PRADZIA: new Date(params.RENGINIO_PRADZIA).toISOString(),
+        RENGINIO_PABAIGA: new Date(params.RENGINIO_PABAIGA).toISOString(),
+        APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
+        WEBPAGE: params.WEBPAGE,
+        KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
+        PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
+        Savaites_dienos: params.Savaites_dienos,
+      },
+      geometry: params.geometry,
+    });
+    return features.push(addFeature);
   }
 
   const add = {
