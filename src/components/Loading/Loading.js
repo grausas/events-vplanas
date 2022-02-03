@@ -5,7 +5,11 @@ function Loading({ id }) {
   return (
     <Wrapper id={id}>
       <Content>
-        <LoadingBlock></LoadingBlock>
+        <LoadingBlock>
+          <div className="sh1"></div>
+          <div className="sh2"></div>
+          {/* <h4 className="lt">kraunasi</h4> */}
+        </LoadingBlock>
       </Content>
     </Wrapper>
   );

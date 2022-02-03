@@ -10,14 +10,14 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
+  opacity: 1; */
 `;
 
 export const LoadingBlock = styled.div`
-  width: 50px;
+  /* width: 50px; */
   height: 50px;
   margin: auto;
   position: absolute;
@@ -25,7 +25,56 @@ export const LoadingBlock = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  &:before {
+
+  .sh1 {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 50px 0 0;
+    border-color: var(--red) transparent transparent transparent;
+    margin: 0 auto;
+    animation: shk1 1s ease-in-out infinite normal;
+  }
+
+  .sh2 {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 50px 50px;
+    border-color: transparent transparent var(--lightBlue) transparent;
+    margin: -50px auto 0;
+    animation: shk2 1s ease-in-out infinite alternate;
+  }
+
+  /** animation starts here **/
+  @keyframes shk1 {
+    0% {
+      transform: rotate(-360deg);
+    }
+
+    100% {
+    }
+  }
+
+  @keyframes shk2 {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+    }
+  }
+
+  .lt {
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    margin: 30px auto;
+    text-align: center;
+    font-weight: 100;
+    letter-spacing: 10px;
+  }
+
+  // senas loading
+  /* &:before {
     content: "";
     width: 50px;
     height: 5px;
@@ -74,5 +123,5 @@ export const LoadingBlock = styled.div`
     50% {
       transform: scale(1.2, 1);
     }
-  }
+  } */
 `;

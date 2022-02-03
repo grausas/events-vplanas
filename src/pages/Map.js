@@ -262,11 +262,8 @@ function Map() {
     }
   };
 
-  useEffect(() => {
-    filterDates(data.features);
-  }, [startDate, finishDate, view, eventsFeatureLayer, valuesArr]);
-
   const handleFilterChange = (e) => {
+    console.log("ar data pachekinta?");
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
     let newArr = [];
@@ -282,6 +279,7 @@ function Map() {
       setShortResults(filteredDate);
 
       const values = valuesArr.map((el) => el);
+      filterDates(filteredDate);
 
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         for (let i = 0; i < values.length; i++) {
@@ -385,6 +383,10 @@ function Map() {
       console.log("no filter");
     }
   };
+
+  useEffect(() => {
+    filterDates(data.features);
+  }, [startDate, finishDate, view, eventsFeatureLayer, valuesArr]);
 
   // paieška renginių juostoje
 
