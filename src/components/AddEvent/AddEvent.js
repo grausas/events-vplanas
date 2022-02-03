@@ -36,7 +36,7 @@ const AddEvent = ({
   const [suggestions, setSuggestions] = useState([]);
   const [suggestionsName, setSuggestionsName] = useState([]);
   const [startDateArr, setStartDateArr] = useState([]);
-  const [weekDayArr, setweekDayArr] = useState([]);
+  const [weekDayArr, setWeekDayArr] = useState([]);
 
   const lowerEvents =
     events.features &&
@@ -94,25 +94,55 @@ const AddEvent = ({
       new Date(addNewFeature.RENGINIO_PABAIGA)
     );
 
+    const finishDayTime = new Date(addNewFeature.RENGINIO_PABAIGA).getMinutes();
+    const startDayTime = new Date(addNewFeature.RENGINIO_PRADZIA).getMinutes();
+    console.log("finishDayTime", finishDayTime);
+    console.log("startDayTime", startDayTime);
+
+    // const finishDay = finishDayTime - startDayTime;
+    // console.log("finishDay", finishDay);
+
     dates.map((date) => {
       if (date.getDay() === itemValue && isChecked) {
-        console.log(date);
-        return setStartDateArr([
-          ...startDateArr,
-          {
+        console.log("date", date);
+        const finishDay = new Date(
+          finishDayTime - startDayTime + new Date(date).getTime()
+        );
+        return (
+          setWeekDayArr([...weekDayArr, itemValue]),
+          startDateArr.push({
             id: itemValue,
-            StartDay: date,
-          },
-        ]);
+            startDay: date,
+            finishDay: finishDay,
+          })
+        );
+        // return startDateArr.push({
+        //   id: itemValue,
+        //   startDay: date,
+        //   finishDay: finishDay,
+        // });
+        // return setStartDateArr([
+        //   ...startDateArr,
+        //   {
+        //     id: itemValue,
+        //     StartDay: date,
+        //   },
+        // ]);
       } else if (!isChecked) {
         let filteredArray = startDateArr.filter(
           (item) => item.id !== itemValue
         );
-        return setStartDateArr(filteredArray);
+        let filteredWeekDayArr = weekDayArr.filter(
+          (item) => item !== itemValue
+        );
+        return (
+          setStartDateArr(filteredArray), setWeekDayArr(filteredWeekDayArr)
+        );
       } else {
         return null;
       }
     });
+
     //-----------------------------
     //   var itemValue = Number(e.target.value);
     //   var isChecked = e.target.checked;
@@ -183,8 +213,8 @@ const AddEvent = ({
     //     }
     //   } else if (!isChecked) {
     //     let filteredArray = startDateArr.filter((item) => item.id !== itemValue);
-    //     let filteredWeekDayArr = weekDayArr.filter((item) => item !== itemValue);
     //     setStartDateArr(filteredArray);
+    //     let filteredWeekDayArr = weekDayArr.filter((item) => item !== itemValue);
     //     setweekDayArr(filteredWeekDayArr);
     //   }
   };
@@ -195,7 +225,7 @@ const AddEvent = ({
       startDateArr,
       Savaites_dienos: weekDayArr.toString(),
     });
-  }, [startDateArr]);
+  }, [startDateArr, weekDayArr]);
 
   // suggestion organization
   const uniqueEvents = [...new Set(lowerEvents)];

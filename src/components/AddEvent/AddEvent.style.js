@@ -17,7 +17,7 @@ export const AddObjectButton = styled.div`
 export const FormWrapper = styled.div`
   position: absolute;
   margin: 0 auto;
-  max-width: 500px;
+  max-width: 560px;
   max-height: 80vh;
   width: ${(props) => (props.isEditing ? "220px" : "100%")};
   border-radius: 5px;
