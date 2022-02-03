@@ -44,6 +44,28 @@ const EditEvent = ({
           <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
           <form>
             <h3>Redaguoti renginį</h3>
+            <DatePicker
+              timeTitle="Pradžios laikas"
+              dateTitle="Pradžios data"
+              selected={queryPoint.RENGINIO_PRADZIA}
+              handleChange={(date, e) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  RENGINIO_PRADZIA: date,
+                });
+              }}
+            />
+            <DatePicker
+              timeTitle="Pabaigos laikas"
+              dateTitle="Pabaigos data"
+              selected={queryPoint.RENGINIO_PABAIGA}
+              handleChange={(date) => {
+                setQueryPoint({
+                  ...queryPoint,
+                  RENGINIO_PABAIGA: date,
+                });
+              }}
+            />
             <InputField
               type="text"
               labelText="Pavadinimas"
@@ -100,28 +122,7 @@ const EditEvent = ({
                 });
               }}
             />
-            <DatePicker
-              timeTitle="Pradžios laikas"
-              dateTitle="Pradžios data"
-              selected={queryPoint.RENGINIO_PRADZIA}
-              handleChange={(date, e) => {
-                setQueryPoint({
-                  ...queryPoint,
-                  RENGINIO_PRADZIA: date,
-                });
-              }}
-            />
-            <DatePicker
-              timeTitle="Pabaigos laikas"
-              dateTitle="Pabaigos data"
-              selected={queryPoint.RENGINIO_PABAIGA}
-              handleChange={(date) => {
-                setQueryPoint({
-                  ...queryPoint,
-                  RENGINIO_PABAIGA: date,
-                });
-              }}
-            />
+
             <InputField
               type="text"
               labelText="Renginio puslapis"

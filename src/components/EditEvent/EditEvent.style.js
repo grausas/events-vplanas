@@ -4,8 +4,8 @@ import Btn from "../Button/Button";
 export const Wrapper = styled.div`
   position: absolute;
   max-width: 600px;
-  max-height: 90%;
-  top: 5%;
+  max-height: 80vh;
+  top: 10px;
   background: var(--white);
   left: calc(50% - 200px);
   padding: 10px 20px;

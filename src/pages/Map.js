@@ -676,33 +676,12 @@ function Map() {
 
   return (
     <>
-      {error && <Notification type={type} message={error} />}
       <MapDiv ref={mapRef}>
         <Content>
+          {error && <Notification type={type} message={error} />}
           <DateSlider id="dateSlider" />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
-          {/* <input
-          style={{ marginTop: "50px" }}
-          type="text"
-          placeholder="paieska"
-          onKeyUp={handleSearchResult}
-        ></input> */}
-          {/* <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "-40px",
-            zIndex: "999",
-            width: "200px",
-          }}
-        >
-          <SearchInput
-            placeholder="Ieškoti"
-            handleSearch={handleSearchResult}
-            suggestions={suggestions}
-          />
-        </div> */}
 
           <Loading id="loading" />
 
@@ -789,13 +768,6 @@ function Map() {
           />
           {/* Renginių ir renginio atvaizdavimas, redagavimas */}
 
-          {/* {show && (
-          <EventsTimeline
-            events={clickedEvents}
-            handleClose={handleOpen}
-            handleEventOpen={openEvent}
-          />
-        )} */}
           {openModal && !show && (
             <EventCard
               isLoggedIn={!!auth.token}

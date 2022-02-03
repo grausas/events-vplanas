@@ -4,7 +4,7 @@ export const NotificationText = styled.div`
   position: absolute;
   display: flex;
   left: 45%;
-  top: 60px;
+  top: 10px;
   color: #fff;
   background-color: ${(props) =>
     props.type === "error" ? "var(--red)" : "var(--green)"};
