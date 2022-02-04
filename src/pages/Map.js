@@ -201,8 +201,7 @@ function Map() {
     );
     setQueryPoint(filterResult[0].attributes);
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
-    handleOpenModal();
-
+    handleOpenModal(openModal);
     if (filterResult.length > 0) {
       handleOpenModal(!openModal);
     }
@@ -773,7 +772,7 @@ function Map() {
           />
           {/* Renginių ir renginio atvaizdavimas, redagavimas */}
 
-          {openModal && !show && (
+          {openModal && (
             <EventCard
               isLoggedIn={!!auth.token}
               organization={queryPoint.ORGANIZATORIUS}
@@ -783,6 +782,7 @@ function Map() {
               description={queryPoint.APRASYMAS}
               startDate={startEventDate + " | " + startEventTime}
               finishDate={finishEventDate + " | " + finishEventTime}
+              SavaitesDienos={queryPoint.Savaites_dienos}
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();

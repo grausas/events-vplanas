@@ -35,6 +35,7 @@ const EventCard = ({
   handleChange,
   handleLocation,
   isLoggedIn,
+  SavaitesDienos,
 }) => {
   const { handleOpen, show } = useOpenClose();
 
@@ -65,6 +66,11 @@ const EventCard = ({
                 <EventDates>
                   <p>Pradžia: {startDate}</p>
                   <p>Pabaiga: {finishDate}</p>
+                  <p>
+                    {SavaitesDienos && SavaitesDienos.length > 12
+                      ? "Vyksta kiekvieną dieną"
+                      : null}
+                  </p>
                 </EventDates>
               </Text>
               <Text>
