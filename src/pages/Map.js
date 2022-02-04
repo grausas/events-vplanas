@@ -217,31 +217,33 @@ function Map() {
     };
   }, [error]);
 
+  //-------------------------------------
   // filtravimas pagal kategoriją ir datą
-  // pabandyti sudėti input value į state array su prevValue ir tada paiimti tą state ir filtruoti, kai unchekini
-  // let valuesArr = [];
-  // console.log("startDatestartDate", startDate);
-  // console.log("finishDatefinishDate", finishDate);
+  // Perkeltis šitą funkciją ir kitas dažnai naudojasmas į utils folderį
+  // Filter dates
+  const datesFilter = useCallback(
+    (results) => {
+      if (startDate || finishDate) {
+        const filteredDate = results.filter((item) => {
+          if (startDate && finishDate) {
+            return (
+              item.attributes.RENGINIO_PRADZIA >= startDate &&
+              item.attributes.RENGINIO_PRADZIA <= finishDate
+            );
+          } else if (startDate) {
+            return item.attributes.RENGINIO_PRADZIA >= startDate;
+          } else return item.attributes.RENGINIO_PRADZIA <= finishDate;
+        });
+        return sortResults(filteredDate);
+      } else return results;
+    },
+    [finishDate, startDate]
+  );
 
-  const filterDates = () => {
+  const filterDates = useCallback(() => {
     if (view && (startDate || finishDate) && valuesArr.length === 0) {
-      // console.log("shortResults", shortResults);
-
-      const filteredDate = data.features.filter((item) => {
-        if (startDate && finishDate) {
-          return (
-            item.attributes.RENGINIO_PRADZIA >= startDate &&
-            item.attributes.RENGINIO_PRADZIA <= finishDate
-          );
-        } else {
-          return (
-            item.attributes.RENGINIO_PRADZIA >= startDate ||
-            item.attributes.RENGINIO_PABAIGA <= finishDate
-          );
-        }
-      });
-
-      setShortResults(filteredDate);
+      const filteredDates = datesFilter(data.features);
+      setShortResults(filteredDates);
       view
         .whenLayerView(eventsFeatureLayer)
         .then((layerView) => {
@@ -261,10 +263,21 @@ function Map() {
           console.log("error: ", error);
         });
     }
-  };
+  }, [
+    data.features,
+    datesFilter,
+    eventsFeatureLayer,
+    finishDate,
+    startDate,
+    valuesArr.length,
+    view,
+  ]);
+
+  useEffect(() => {
+    filterDates();
+  }, [filterDates]);
 
   const handleFilterChange = (e) => {
-    console.log("ar data pachekinta?");
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
     let newArr = [];
@@ -272,15 +285,12 @@ function Map() {
     if (isChecked && itemValue !== 0) {
       valuesArr.push(itemValue);
 
-      const filteredDate = data.features.filter(
-        (item) =>
-          valuesArr.includes(item.attributes.KATEGORIJA) &&
-          item.attributes.RENGINIO_PRADZIA >= startDate
+      const filteredDates = data.features.filter((item) =>
+        valuesArr.includes(item.attributes.KATEGORIJA)
       );
-      setShortResults(filteredDate);
+      setShortResults(datesFilter(sortResults(filteredDates)));
 
       const values = valuesArr.map((el) => el);
-      filterDates(filteredDate);
 
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         for (let i = 0; i < values.length; i++) {
@@ -322,12 +332,10 @@ function Map() {
       const values = valuesArr.map((el) => el);
 
       if (valuesArr.length > 0) {
-        const filteredDate = data.features.filter(
-          (item) =>
-            valuesArr.includes(item.attributes.KATEGORIJA) &&
-            item.attributes.RENGINIO_PRADZIA >= startDate
+        const filteredDates = data.features.filter((item) =>
+          valuesArr.includes(item.attributes.KATEGORIJA)
         );
-        setShortResults(filteredDate);
+        setShortResults(datesFilter(sortResults(filteredDates)));
       } else {
         setShortResults(filterResults(data));
         filterDates();
@@ -385,17 +393,23 @@ function Map() {
     }
   };
 
-  useEffect(() => {
-    filterDates(data.features);
-  }, [startDate, finishDate, view, eventsFeatureLayer, valuesArr]);
+  // Sort results by date
+  const sortResults = (results) => {
+    const sortedResults =
+      results &&
+      results.slice(0).sort((a, b) => {
+        const x = a.attributes.RENGINIO_PRADZIA;
+        const y = b.attributes.RENGINIO_PRADZIA;
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
 
-  // paieška renginių juostoje
+    return sortedResults;
+  };
 
-  // const currentDay = new Date();
-  // console.log("currentDay", currentDay.getDate());
-
+  // Filter search results
   const filterResults = useCallback(() => {
     if (data.features) {
+      console.log("searchTerm");
       const results = !searchTerm
         ? data.features
         : data.features.filter(
@@ -406,13 +420,7 @@ function Map() {
               )
           );
 
-      const sortedResults = results.slice(0).sort((a, b) => {
-        const x = a.attributes.RENGINIO_PRADZIA;
-        const y = b.attributes.RENGINIO_PRADZIA;
-        return x < y ? -1 : x > y ? 1 : 0;
-      });
-
-      return sortedResults;
+      return sortResults(results);
       // moves this code somewhere because date doesnt change on clear now
       // if (!startDate && !finishDate && sortedResults) {
       //   var startOfDay = new Date();
@@ -432,9 +440,13 @@ function Map() {
       //   return sortedResults;
       // }
     }
-  }, [data.features]);
+  }, [data.features, searchTerm]);
 
-  // clear filter
+  useEffect(() => {
+    setShortResults(filterResults());
+  }, [data, filterResults]);
+
+  // clear filter on button click, needs to remove checkboxes
   const handleClearFilter = (checkbox) => {
     // valuesArr = [];
     for (var a = 0; a < valuesArr.length; a++) {
@@ -449,10 +461,6 @@ function Map() {
     setFinishDate("");
     setShortResults(filterResults(data));
   };
-
-  useEffect(() => {
-    setShortResults(filterResults(data.features));
-  }, [data, filterResults]);
 
   const addEvents = () =>
     addEventsFeature(
@@ -503,7 +511,6 @@ function Map() {
         outFields: ["*"],
       })
       .then((res) => {
-        console.log(res);
         setData(res);
       });
 
@@ -646,7 +653,13 @@ function Map() {
       <MapDiv ref={mapRef}>
         <Content>
           {error && <Notification type={type} message={error} />}
-          <DateSlider id="dateSlider" layer={eventsFeatureLayer} view={view} />
+          <DateSlider
+            id="dateSlider"
+            layer={eventsFeatureLayer}
+            view={view}
+            data={data}
+            setShortResults={setShortResults}
+          />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
 
@@ -688,9 +701,9 @@ function Map() {
               data={CategoryData}
               selectedStart={startDate}
               selectedFinish={finishDate}
-              handleChangeStart={(date) =>
-                setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime())
-              }
+              handleChangeStart={(date) => {
+                setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
+              }}
               handleChangeFinish={(date) =>
                 setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
               }
