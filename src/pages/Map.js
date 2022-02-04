@@ -21,7 +21,6 @@ import Graphic from "@arcgis/core/Graphic";
 import * as GeometryService from "@arcgis/core/rest/geometryService";
 import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
 import Point from "@arcgis/core/geometry/Point";
-import TimeSlider from "@arcgis/core/widgets/TimeSlider";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
 
@@ -543,43 +542,7 @@ function Map() {
       loader.style.display = "none";
     });
 
-    // Create a time slider to update layerView filter
-    const timeSlider = new TimeSlider({
-      container: "dateSlider",
-      mode: "time-window",
-      layout: "compact",
-      view: view,
-    });
-
-    // wait until the layer view is loaded
-    timeSlider.when(function () {
-      let timeLayerView;
-      view.whenLayerView(layer).then((layerView) => {
-        timeLayerView = layerView;
-        const fullTimeExtent = layer.timeInfo.fullTimeExtent;
-        const start = fullTimeExtent.start;
-        const end = fullTimeExtent.end;
-
-        // set up time slider properties based on layer timeInfo
-        timeSlider.fullTimeExtent = fullTimeExtent;
-        timeSlider.timeExtent = {
-          start: start,
-          end: end,
-        };
-        timeSlider.stops = {
-          interval: layer.timeInfo.interval,
-        };
-      });
-
-      timeSlider.watch("timeExtent", (value) => {
-        timeLayerView.filter = {
-          timeExtent: value,
-        };
-      });
-      timeSlider.render();
-    });
-    // renginio popup atvaizdavimas
-    // on click get events
+    // on click get events from clicked place
     view &&
       view.on("click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
@@ -611,7 +574,6 @@ function Map() {
                     //     item.attributes.OBJECTID === response.features.OBJECTID
                     // );
                     setShortResults(response.features);
-
                     handleOpen(show);
                   }
                 });
@@ -684,7 +646,7 @@ function Map() {
       <MapDiv ref={mapRef}>
         <Content>
           {error && <Notification type={type} message={error} />}
-          <DateSlider id="dateSlider" />
+          <DateSlider id="dateSlider" layer={eventsFeatureLayer} view={view} />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
 

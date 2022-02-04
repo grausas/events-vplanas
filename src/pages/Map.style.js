@@ -14,8 +14,16 @@ export const SearchDiv = styled.div`
   top: 10px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   border: 1px solid var(--darkSilver);
+  border-radius: 5px;
 
   @media only screen and (max-width: 768px) {
     width: 150px;
+  }
+
+  .esri-search__container .esri-search__input {
+    border-radius: 5px 0 0 5px;
+  }
+  .esri-search__container .esri-widget--button {
+    border-radius: 0 5px 5px 0;
   }
 `;
