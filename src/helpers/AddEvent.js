@@ -3,9 +3,14 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, setState, type, message) => {
   var features = [];
+  console.log("params:", params.Savaites_dienos.length);
 
   // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
-  if (params.startDateArr && params.startDateArr.length > 0) {
+  if (
+    params.startDateArr &&
+    params.startDateArr.length > 0 &&
+    params.Savaites_dienos.length < 12
+  ) {
     params.startDateArr.map((item) => {
       var addFeature1 = new Graphic({
         attributes: {
@@ -38,7 +43,7 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
       },
       geometry: params.geometry,
     });
-    return features.push(addFeature);
+    features.push(addFeature);
   }
 
   const add = {

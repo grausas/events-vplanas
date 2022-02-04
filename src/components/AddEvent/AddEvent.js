@@ -67,6 +67,11 @@ const AddEvent = ({
   const day = d.getDay();
 
   console.log("addNewFeature", addNewFeature);
+  // console.log(
+  //   "addNewFeatureaddNewFeature:",
+  //   addNewFeature.Savaites_dienos.length
+  // );
+
   console.log("weekDayArr", weekDayArr);
 
   // get all days between two dates
