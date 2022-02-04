@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 // styles
 import { SliderDiv, IconDiv, Icon } from "./DateSlider.style";
-// hooks
-import { useOpenClose } from "../../hooks/useOpenClose";
 // icon
 import TimelineIcon from "../../assets/icons/timeline.png";
 // esri modules
@@ -16,8 +14,6 @@ const TimeSlider = ({ layer, view, data, setShortResults }) => {
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
-
-  console.log("startDate", startDate);
 
   // Create a time slider to update layerView filter
   useEffect(() => {
@@ -50,7 +46,6 @@ const TimeSlider = ({ layer, view, data, setShortResults }) => {
         });
 
         timeSlider.watch("timeExtent", (value) => {
-          console.log("timeExtent", value);
           setStartDate(new Date(value.start).getTime());
           setFinishtDate(new Date(value.end).getTime());
 
@@ -66,7 +61,6 @@ const TimeSlider = ({ layer, view, data, setShortResults }) => {
 
   useEffect(() => {
     if (data && layer) {
-      console.log("data", data);
       const filteredDate = data.features.filter((item) => {
         if (startDate && finishDate) {
           return (

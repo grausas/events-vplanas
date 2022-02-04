@@ -194,7 +194,6 @@ function Map() {
 
   // open event clicked in events timeline
   const openEvent = (event) => {
-    console.log("openModal", openModal);
     const filterResult = shortResults.filter(
       (item) => item.attributes.OBJECTID === event
     );
@@ -409,7 +408,6 @@ function Map() {
   // Filter search results
   const filterResults = useCallback(() => {
     if (data.features) {
-      console.log("searchTerm");
       const results = !searchTerm
         ? data.features
         : data.features.filter(
@@ -553,13 +551,10 @@ function Map() {
     view &&
       view.on("click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
-          // console.log("hittest", response);
-
           // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
           // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
           if (response.results.length >= 1) {
             view.whenLayerView(layer).then(function (layerView) {
-              // console.log("viewTomap", view.toMap(event));
               layerView
                 .queryFeatures({
                   geometry: view.toMap(event),
@@ -569,17 +564,8 @@ function Map() {
                 })
                 .then(function (response) {
                   if (response.features.length > 0) {
-                    console.log("shortResults", shortResults);
-                    // console.log(
-                    //   "shortResults",
-                    //   data.features.filter(
-                    //     (item) => item.attributes.OBJECTID === 1
-                    //   )
-                    // );
-                    // const filteredResults = data.features.filter(
-                    //   (item) =>
-                    //     item.attributes.OBJECTID === response.features.OBJECTID
-                    // );
+                    // save to another state, then filter shortresults with result from here and set to another state
+                    // because shortResults state has to stay untouched
                     setShortResults(response.features);
                     handleOpen(show);
                   }

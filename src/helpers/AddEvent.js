@@ -3,8 +3,6 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, setState, type, message) => {
   var features = [];
-  console.log("params:", params.Savaites_dienos.length);
-
   // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
   if (
     params.startDateArr &&

@@ -66,14 +66,6 @@ const AddEvent = ({
   const d = new Date();
   const day = d.getDay();
 
-  console.log("addNewFeature", addNewFeature);
-  // console.log(
-  //   "addNewFeatureaddNewFeature:",
-  //   addNewFeature.Savaites_dienos.length
-  // );
-
-  console.log("weekDayArr", weekDayArr);
-
   // get all days between two dates
   function getDates(startDate, endDate) {
     const dates = [];
@@ -105,7 +97,6 @@ const AddEvent = ({
 
     dates.map((date) => {
       if (date.getDay() === itemValue && isChecked) {
-        console.log("date", date);
         const finishDay = new Date(new Date(date).setHours(hours, minutes));
         return (
           setWeekDayArr([...weekDayArr, itemValue]),
