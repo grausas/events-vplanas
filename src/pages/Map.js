@@ -193,13 +193,16 @@ function Map() {
 
   // ------------------
 
-  // open event
+  // open event clicked in events timeline
   const openEvent = (event) => {
+    console.log("openModal", openModal);
     const filterResult = shortResults.filter(
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
-    // handleOpen(!show);
+    // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
+    handleOpenModal();
+
     if (filterResult.length > 0) {
       handleOpenModal(!openModal);
     }
@@ -577,46 +580,49 @@ function Map() {
       timeSlider.render();
     });
     // renginio popup atvaizdavimas
+    // on click get events
+    view &&
+      view.on("click", function (event) {
+        view.hitTest(event, { include: layer }).then(function (response) {
+          // console.log("hittest", response);
 
-    view.on("click", function (event) {
-      view.hitTest(event, { include: layer }).then(function (response) {
-        // console.log("hittest", response);
+          // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+          // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
+          if (response.results.length >= 1) {
+            view.whenLayerView(layer).then(function (layerView) {
+              // console.log("viewTomap", view.toMap(event));
+              layerView
+                .queryFeatures({
+                  geometry: view.toMap(event),
+                  outFields: ["*"],
+                  distance: 1.5 * view.resolution,
+                  spatialRelationship: "intersects",
+                })
+                .then(function (response) {
+                  if (response.features.length > 0) {
+                    console.log("shortResults", shortResults);
+                    // console.log(
+                    //   "shortResults",
+                    //   data.features.filter(
+                    //     (item) => item.attributes.OBJECTID === 1
+                    //   )
+                    // );
+                    // const filteredResults = data.features.filter(
+                    //   (item) =>
+                    //     item.attributes.OBJECTID === response.features.OBJECTID
+                    // );
+                    setShortResults(response.features);
 
-        // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-        // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
-        if (response.results.length >= 1) {
-          view.whenLayerView(layer).then(function (layerView) {
-            // console.log("viewTomap", view.toMap(event));
-            layerView
-              .queryFeatures({
-                geometry: view.toMap(event),
-                outFields: ["*"],
-                distance: 1.5 * view.resolution,
-                spatialRelationship: "intersects",
-              })
-              .then(function (response) {
-                if (response.features.length > 0) {
-                  // console.log("shortResults", data.features);
-                  // console.log(
-                  //   "shortResults",
-                  //   data.features.filter(
-                  //     (item) => item.attributes.OBJECTID === 1
-                  //   )
-                  // );
-                  // const filteredResults = data.features.filter(
-                  //   (item) =>
-                  //     item.attributes.OBJECTID === response.features.OBJECTID
-                  // );
-                  setShortResults(response.features);
-                  handleOpen(show);
-                }
-              });
-          });
-        } else {
-          return null;
-        }
+                    handleOpen(show);
+                  }
+                });
+            });
+          } else {
+            return null;
+          }
+        });
       });
-    });
+
     // paieska
     const sources = [
       {
@@ -711,7 +717,6 @@ function Map() {
               handleEventOpen={(e) => {
                 handleZoom(e, eventsFeatureLayer, view);
                 openEvent(e);
-                handleOpen(show);
               }}
             />
           </EventsSchedule>

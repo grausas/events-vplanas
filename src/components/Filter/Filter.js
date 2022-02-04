@@ -62,8 +62,8 @@ const Filter = ({
             height="small"
           />
         </DateFilter>
-        <h5>Kategorijos</h5>
         <FilterContent>
+          <h5>Kategorijos</h5>
           {data &&
             data.map((item) => {
               return (
