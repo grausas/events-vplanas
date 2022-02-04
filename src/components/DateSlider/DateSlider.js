@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // styles
 import { SliderDiv, IconDiv, Icon } from "./DateSlider.style";
 // hooks
@@ -8,8 +8,16 @@ import TimelineIcon from "../../assets/icons/timeline.png";
 // esri modules
 import TimeSliderModule from "@arcgis/core/widgets/TimeSlider";
 
-const TimeSlider = ({ layer, view }) => {
-  const { handleOpen, show } = useOpenClose();
+const TimeSlider = ({ layer, view, data, setShortResults }) => {
+  const [openModal, setOpenModal] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [finishDate, setFinishtDate] = useState("");
+
+  const handleOpenModal = () => {
+    setOpenModal(!openModal);
+  };
+
+  console.log("startDate", startDate);
 
   // Create a time slider to update layerView filter
   useEffect(() => {
@@ -42,22 +50,51 @@ const TimeSlider = ({ layer, view }) => {
         });
 
         timeSlider.watch("timeExtent", (value) => {
+          console.log("timeExtent", value);
+          setStartDate(new Date(value.start).getTime());
+          setFinishtDate(new Date(value.end).getTime());
+
           timeLayerView.filter = {
             timeExtent: value,
           };
         });
+
         timeSlider.render();
       });
     }
-  });
+  }, [openModal]);
+
+  useEffect(() => {
+    if (data && layer) {
+      console.log("data", data);
+      const filteredDate = data.features.filter((item) => {
+        if (startDate && finishDate) {
+          return (
+            item.attributes.RENGINIO_PRADZIA >= startDate &&
+            item.attributes.RENGINIO_PRADZIA <= finishDate
+          );
+        } else {
+          return (
+            item.attributes.RENGINIO_PRADZIA >= startDate ||
+            item.attributes.RENGINIO_PABAIGA <= finishDate
+          );
+        }
+      });
+      setShortResults(filteredDate);
+    }
+  }, [startDate, finishDate]);
 
   return (
     <>
       <IconDiv>
-        <Icon Icon src={TimelineIcon} alt="home-icon" onClick={handleOpen} />
+        <Icon
+          Icon
+          src={TimelineIcon}
+          alt="home-icon"
+          onClick={handleOpenModal}
+        />
       </IconDiv>
-
-      <SliderDiv>{show && <div id="dateSlider"></div>}</SliderDiv>
+      {openModal && <SliderDiv id="dateSlider"></SliderDiv>}
     </>
   );
 };
