@@ -10,9 +10,9 @@ export const handleZoom = (e, eventsFeatureLayer, view) => {
     );
     // console.log(filterResult);
     // highlight reikia sutvarkyti, kad nusiimtu
-    view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
-      layerView.highlight(filterResult);
-    });
+    // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+    //   layerView.highlight(filterResult);
+    // });
     view.goTo(
       {
         target: filterResult,

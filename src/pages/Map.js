@@ -744,6 +744,7 @@ function Map() {
               startDate={startEventDate + " | " + startEventTime}
               finishDate={finishEventDate + " | " + finishEventTime}
               SavaitesDienos={queryPoint.Savaites_dienos}
+              category={queryPoint.KATEGORIJA}
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();

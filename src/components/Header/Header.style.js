@@ -26,10 +26,11 @@ export const LogoDiv = styled.div`
   display: flex;
   align-items: center;
   margin-right: 5px;
+  height: 40px;
 `;
 
 export const Logo = styled.img`
-  width: 45px;
+  height: 100%;
 `;
 
 export const Text = styled.span`

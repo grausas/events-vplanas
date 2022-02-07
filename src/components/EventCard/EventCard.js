@@ -45,11 +45,11 @@ const EventCard = ({
         <>{children}</>
       ) : (
         <Wrapper>
-          <Close>
+          <Close backgroundColor={category}>
             {isLoggedIn && (
               <EditIcon src={Edit} alt="edit-icon" onClick={handleOpen} />
             )}
-            <Logo src={VilniusLogo} alt="vilnius-logo" />
+            <Logo backgroundImage={category} />
             <CloseImage
               src={CloseIcon}
               alt="close-icon"

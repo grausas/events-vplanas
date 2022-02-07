@@ -73,6 +73,7 @@ export const Category = styled.span`
   padding: 5px;
   color: var(--white);
   text-transform: uppercase;
+  border-radius: 5px;
   background-color: ${(props) =>
     props.backgroundColor === 1
       ? "rgb(237,81,81,255)"
