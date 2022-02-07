@@ -560,11 +560,17 @@ function Map() {
                   spatialRelationship: "intersects",
                 })
                 .then(function (response) {
-                  if (response.features.length > 0) {
+                  if (response.features.length > 1) {
                     // save to another state, then filter shortresults with result from here and set to another state
                     // because shortResults state has to stay untouched
                     setShortResults(response.features);
                     handleOpen(show);
+                  } else if (
+                    response.features.length === 1 &&
+                    openModal === false
+                  ) {
+                    setQueryPoint(response.features[0].attributes);
+                    handleOpenModal(!openModal);
                   }
                 });
             });
