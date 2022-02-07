@@ -201,7 +201,7 @@ function Map() {
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
-      handleOpen(show);
+      // handleOpen(show);
     }
   };
 
@@ -751,7 +751,7 @@ function Map() {
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();
-                handleOpen(show);
+                // handleOpen(show);
                 view.goTo(
                   {
                     zoom: 11,

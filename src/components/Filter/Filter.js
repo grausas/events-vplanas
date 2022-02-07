@@ -33,8 +33,6 @@ const Filter = ({
     (e) => {
       const index = e.target.name;
       let items = [...checkedItems];
-      console.log("items", checkedItems);
-      console.log("items", items[index]);
       items[index].isChecked = e.target.checked;
       setCheckeditems(items);
     },
@@ -43,7 +41,6 @@ const Filter = ({
 
   const handleClearCheckbox = () => {
     let items = [...checkedItems];
-    console.log("checkedItems", checkedItems);
     items.map((item) => {
       if (item.isChecked === true) {
         return (item.isChecked = false);

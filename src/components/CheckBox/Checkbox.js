@@ -1,7 +1,7 @@
 // Styles
 import { Wrapper, Label, CheckInput, Span } from "./CheckBox.style";
 // hooks
-import { useCheckbox } from "../../hooks/checkbox";
+// import { useCheckbox } from "../../hooks/checkbox";
 
 const Checkbox = ({
   label,
