@@ -201,7 +201,7 @@ function Map() {
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
-      // handleOpen(show);
+      handleOpen(show);
     }
   };
 
@@ -445,16 +445,13 @@ function Map() {
   }, [data, filterResults]);
 
   // clear filter on button click, needs to remove checkboxes
-  const handleClearFilter = (checkbox) => {
-    // valuesArr = [];
-    for (var a = 0; a < valuesArr.length; a++) {
-      valuesArr[a] = [];
-    }
+  const handleClearFilter = () => {
     view.whenLayerView(eventsFeatureLayer).then((layerView) => {
       layerView.filter = {
-        where: ["1=1"],
+        where: "1=1",
       };
     });
+    setValuesArr([]);
     setStartDate("");
     setFinishDate("");
     setShortResults(filterResults(data));
@@ -542,10 +539,10 @@ function Map() {
     });
 
     // rodo loading kol neužsikrautas view, reikia pataisymo
-    watchUtils.whenFalse(view, "updating", function (evt) {
-      const loader = document.getElementById("loading");
-      loader.style.display = "none";
-    });
+    // watchUtils.whenFalse(view, "updating", function (evt) {
+    //   const loader = document.getElementById("loading");
+    //   loader.style.display = "none";
+    // });
 
     // on click get events from clicked place
     view &&
@@ -649,7 +646,7 @@ function Map() {
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
 
-          <Loading id="loading" />
+          {/* <Loading id="loading" /> */}
 
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom

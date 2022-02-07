@@ -42,7 +42,14 @@ const Filter = ({
   );
 
   const handleClearCheckbox = () => {
+    let items = [...checkedItems];
     console.log("checkedItems", checkedItems);
+    items.map((item) => {
+      if (item.isChecked === true) {
+        return (item.isChecked = false);
+      } else return null;
+    });
+    setCheckeditems(items);
   };
   return (
     <Wrapper>
@@ -74,7 +81,6 @@ const Filter = ({
           <h5>Kategorijos</h5>
           {checkedItems &&
             checkedItems.map((item, index) => {
-              console.log("item check", item.isChecked);
               return (
                 <CheckBoxDiv backgroundColor={item.value} key={index}>
                   <CheckBox
