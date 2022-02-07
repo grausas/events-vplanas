@@ -539,10 +539,10 @@ function Map() {
     });
 
     // rodo loading kol neužsikrautas view, reikia pataisymo
-    // watchUtils.whenFalse(view, "updating", function (evt) {
-    //   const loader = document.getElementById("loading");
-    //   loader.style.display = "none";
-    // });
+    watchUtils.whenFalse(view, "updating", function (evt) {
+      const loader = document.getElementById("loading");
+      loader.style.display = "none";
+    });
 
     // on click get events from clicked place
     view &&
@@ -646,7 +646,7 @@ function Map() {
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
 
-          {/* <Loading id="loading" /> */}
+          <Loading id="loading" />
 
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom

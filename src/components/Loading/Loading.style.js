@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
   top: 0;
@@ -17,14 +17,52 @@ export const Content = styled.div`
 `;
 
 export const LoadingBlock = styled.div`
-  /* width: 50px; */
+  text-align: center;
+  max-width: 100%;
   height: 50px;
-  margin: auto;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+  margin: auto;
+
+  img {
+    width: 30px;
+    margin: 2px;
+    animation: loading 0.5s infinite alternate;
+  }
+
+  img:nth-of-type(2) {
+    animation-delay: 0.1s;
+  }
+  img:nth-of-type(3) {
+    animation-delay: 0.2s;
+  }
+  img:nth-of-type(4) {
+    animation-delay: 0.3s;
+  }
+  img:nth-of-type(5) {
+    animation-delay: 0.4s;
+  }
+  img:nth-of-type(6) {
+    animation-delay: 0.5s;
+  }
+  img:nth-of-type(7) {
+    animation-delay: 0.6s;
+  }
+  img:nth-of-type(8) {
+    animation-delay: 0.7s;
+  }
+
+  @keyframes loading {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
   .sh1 {
     width: 0;
