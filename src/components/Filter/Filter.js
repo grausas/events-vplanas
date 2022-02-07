@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 // Styles
 import {
   Wrapper,
@@ -26,6 +27,23 @@ const Filter = ({
   handleClear,
   handleCloseFilter,
 }) => {
+  const [checkedItems, setCheckeditems] = useState(data);
+
+  const handleOnChange = useCallback(
+    (e) => {
+      const index = e.target.name;
+      let items = [...checkedItems];
+      console.log("items", checkedItems);
+      console.log("items", items[index]);
+      items[index].isChecked = e.target.checked;
+      setCheckeditems(items);
+    },
+    [checkedItems]
+  );
+
+  const handleClearCheckbox = () => {
+    console.log("checkedItems", checkedItems);
+  };
   return (
     <Wrapper>
       <IconFilter>
@@ -33,7 +51,7 @@ const Filter = ({
           <CloseImage src={CloseIcon} alt="close" onClick={handleCloseFilter} />
         </CloseImageDiv>
       </IconFilter>
-      <Content>
+      <Content onChange={onChange}>
         <DateFilter>
           <DatePicker
             dateTitle="Nuo"
@@ -52,18 +70,32 @@ const Filter = ({
             height="small"
           />
         </DateFilter>
-        <FilterContent onChange={onChange}>
+        <FilterContent>
           <h5>Kategorijos</h5>
-          {data &&
-            data.map((item) => {
+          {checkedItems &&
+            checkedItems.map((item, index) => {
+              console.log("item check", item.isChecked);
               return (
-                <CheckBoxDiv backgroundColor={item.value} key={item.id}>
-                  <CheckBox value={item.value} id={item.id} label={item.text} />
+                <CheckBoxDiv backgroundColor={item.value} key={index}>
+                  <CheckBox
+                    value={item.value}
+                    name={index}
+                    id={item.id}
+                    label={item.text}
+                    checked={item.isChecked}
+                    handleCheckboxChange={handleOnChange}
+                  />
                 </CheckBoxDiv>
               );
             })}
         </FilterContent>
-        <ClearButton handleClick={handleClear} value="clear">
+        <ClearButton
+          handleClick={() => {
+            handleClear();
+            handleClearCheckbox();
+          }}
+          value="clear"
+        >
           IŠVALYTI
         </ClearButton>
       </Content>

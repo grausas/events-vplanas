@@ -3,8 +3,16 @@ import { Wrapper, Label, CheckInput, Span } from "./CheckBox.style";
 // hooks
 import { useCheckbox } from "../../hooks/checkbox";
 
-const Checkbox = ({ label, value, id, color }) => {
-  const { checked, handleCheckboxChange } = useCheckbox();
+const Checkbox = ({
+  label,
+  value,
+  id,
+  color,
+  checked,
+  handleCheckboxChange,
+  name,
+}) => {
+  // const { checked, handleCheckboxChange } = useCheckbox();
 
   return (
     <Wrapper>
@@ -13,9 +21,10 @@ const Checkbox = ({ label, value, id, color }) => {
         <CheckInput
           id={id}
           type="checkbox"
-          checked={checked}
+          checked={checked ? checked : false}
           onChange={handleCheckboxChange}
           value={value}
+          name={name}
         />
         <Span color={color}></Span>
       </Label>
