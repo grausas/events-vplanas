@@ -9,11 +9,9 @@ import {
   DateFilter,
   ClearButton,
   CheckBoxDiv,
-  Colors,
 } from "./Filter.style";
 // hooks
 // Icons
-import FilterIcon from "../../assets/icons/filter.png";
 import CloseIcon from "../../assets/icons/close.png";
 // components
 import { CheckBox, DatePicker } from "../index";
@@ -30,20 +28,12 @@ const Filter = ({
 }) => {
   return (
     <Wrapper>
-      {/* //   <IconFilter>
-    //     {!show ? ( */}
-      {/* //       <div onClick={handleOpen}>
-    //         <img src={FilterIcon} alt="filter" />
-    //       </div>
-    //     ) : (
-      //     )}
-    //   </IconFilter> */}
       <IconFilter>
         <CloseImageDiv>
           <CloseImage src={CloseIcon} alt="close" onClick={handleCloseFilter} />
         </CloseImageDiv>
       </IconFilter>
-      <Content onChange={onChange}>
+      <Content>
         <DateFilter>
           <DatePicker
             dateTitle="Nuo"
@@ -62,14 +52,13 @@ const Filter = ({
             height="small"
           />
         </DateFilter>
-        <FilterContent>
+        <FilterContent onChange={onChange}>
           <h5>Kategorijos</h5>
           {data &&
             data.map((item) => {
               return (
                 <CheckBoxDiv backgroundColor={item.value} key={item.id}>
                   <CheckBox value={item.value} id={item.id} label={item.text} />
-                  {/* <Colors backgroundColor={item.value}></Colors> */}
                 </CheckBoxDiv>
               );
             })}

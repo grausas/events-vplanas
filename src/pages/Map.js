@@ -199,9 +199,9 @@ function Map() {
     );
     setQueryPoint(filterResult[0].attributes);
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
-    handleOpenModal(openModal);
-    if (filterResult.length > 0) {
+    if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
+      // handleOpen(show);
     }
   };
 

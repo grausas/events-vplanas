@@ -115,28 +115,6 @@ export const CheckBoxDiv = styled.div`
   }
 `;
 
-export const Colors = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) =>
-    props.backgroundColor === 1
-      ? "rgb(237,81,81,255)"
-      : props.backgroundColor === 2
-      ? "rgb(20,158,206,255)"
-      : props.backgroundColor === 3
-      ? "rgb(158,85,156,255)"
-      : props.backgroundColor === 4
-      ? "rgb(252,146,31,255)"
-      : props.backgroundColor === 5
-      ? "rgb(167,198,54,255)"
-      : props.backgroundColor === 6
-      ? "rgb(255,222,62,255)"
-      : props.backgroundColor === 7
-      ? "rgb(0,92,230,255)"
-      : "rgb(255,115,223,255)"};
-`;
-
 export const CloseImage = styled.img`
   padding: 5px;
 `;
