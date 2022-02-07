@@ -1,6 +1,15 @@
 import WebMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 import { graphicsLayer } from "./DrawPolygon";
+// category icons
+import Susirinkimas from "../assets/icons/categories/IKONOS RENGINIAI 32x32-01.png";
+import SportoRenginys from "../assets/icons/categories/IKONOS RENGINIAI 32x32-02.png";
+import Koncertas from "../assets/icons/categories/IKONOS RENGINIAI 32x32-03.png";
+import Filmavimas from "../assets/icons/categories/IKONOS RENGINIAI 32x32-04.png";
+import Muge from "../assets/icons/categories/IKONOS RENGINIAI 32x32-05.png";
+import RenginysSeimai from "../assets/icons/categories/IKONOS RENGINIAI 32x32-06.png";
+import ValstybinisRenginys from "../assets/icons/categories/IKONOS RENGINIAI 32x32-07.png";
+import ViesasisRenginys from "../assets/icons/categories/IKONOS RENGINIAI 32x32-08.png";
 
 let webmap;
 
@@ -33,81 +42,105 @@ export const createMapView = (ref, layers) => {
         {
           value: "1",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[0].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: Susirinkimas,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[0].symbol.color}`,
+            // outline: {
+            //   color: "#fff1",
+            // },
           },
         },
         {
           value: "2",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[1].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: SportoRenginys,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[1].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
         {
           value: "3",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[3].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: Koncertas,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[3].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
         {
           value: "4",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[4].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: Filmavimas,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[4].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
         {
           value: "5",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[2].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: Muge,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[2].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
         {
           value: "6",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[5].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: RenginysSeimai,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[5].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
         {
           value: "7",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[6].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: ValstybinisRenginys,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[6].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
         {
           value: "8",
           symbol: {
-            type: "simple-marker",
-            color: `${uniqueValue[7].symbol.color}`,
-            outline: {
-              color: "#fff",
-            },
+            type: "picture-marker",
+            url: ViesasisRenginys,
+            width: "20px",
+            height: "20px",
+            // color: `${uniqueValue[7].symbol.color}`,
+            // outline: {
+            //   color: "#fff",
+            // },
           },
         },
       ],
