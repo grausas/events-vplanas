@@ -5,6 +5,8 @@ import { SliderDiv, IconDiv, Icon } from "./DateSlider.style";
 import TimelineIcon from "../../assets/icons/timeline.png";
 // esri modules
 import TimeSliderModule from "@arcgis/core/widgets/TimeSlider";
+// helpers
+import { sortByDate } from "../../helpers/SortByDate";
 
 const TimeSlider = ({ layer, view, data, setShortResults }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -74,7 +76,7 @@ const TimeSlider = ({ layer, view, data, setShortResults }) => {
           );
         }
       });
-      setShortResults(filteredDate);
+      setShortResults(sortByDate(filteredDate));
     }
   }, [startDate, finishDate]);
 
