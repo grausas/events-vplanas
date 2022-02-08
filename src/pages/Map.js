@@ -651,15 +651,12 @@ function Map() {
           />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
-
           <Loading id="loading" />
-
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom
             handleZoomIn={() => zoomIn(view)}
             handleZoomOut={() => zoomOut(view)}
           />
-
           {/* Renginių juosta */}
           <EventsSchedule
             handleOpen={handleOpen}
@@ -677,6 +674,7 @@ function Map() {
               events={shortResults}
               handleClose={handleOpen}
               handleMoreFilters={handleOpenFilter}
+              clickedEvent={queryPoint.OBJECTID}
               handleEventOpen={(e) => {
                 handleZoom(e, eventsFeatureLayer, view);
                 openEvent(e);
@@ -701,7 +699,6 @@ function Map() {
               handleCloseFilter={handleOpenFilter}
             />
           )}
-
           {/* Pridėti naują renginį  */}
           <AddEvent
             isLoggedIn={!!auth.token}
@@ -735,7 +732,6 @@ function Map() {
             }}
           />
           {/* Renginių ir renginio atvaizdavimas, redagavimas */}
-
           {openModal && (
             <EventCard
               isLoggedIn={!!auth.token}

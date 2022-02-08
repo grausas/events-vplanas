@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AutoSuggest from "react-autosuggest";
 // Styles
 import {
@@ -11,6 +11,7 @@ import {
 } from "./AddEvent.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
+import { useCheckbox } from "../../hooks/checkbox";
 //icons
 import CloseIcon from "../../assets/icons/close.png";
 // components
@@ -38,6 +39,37 @@ const AddEvent = ({
   const [startDateArr, setStartDateArr] = useState([]);
   const [weekDayArr, setWeekDayArr] = useState([]);
 
+  const weekday = [
+    { day: "Pirmadienis", value: 1 },
+    { day: "Antradienis", value: 2 },
+    { day: "Trečiadienis", value: 3 },
+    { day: "Ketvirtadienis", value: 4 },
+    { day: "Penktadienis", value: 5 },
+    { day: "Šeštadienis", value: 6 },
+    { day: "Sekmadienis", value: 0 },
+  ];
+  const [checkedItems, setCheckeditems] = useState(weekday);
+
+  const handleOnChange = useCallback(
+    (e) => {
+      const index = e.target.name;
+      let items = [...checkedItems];
+      items[index].isChecked = e.target.checked;
+      setCheckeditems(items);
+    },
+    [checkedItems]
+  );
+
+  const handleClearCheckbox = () => {
+    let items = [...checkedItems];
+    items.map((item) => {
+      if (item.isChecked === true) {
+        return (item.isChecked = false);
+      } else return null;
+    });
+    setCheckeditems(items);
+  };
+
   const lowerEvents =
     events.features &&
     events.features.map(
@@ -52,16 +84,6 @@ const AddEvent = ({
       (item) =>
         item.attributes.PAVADINIMAS && item.attributes.PAVADINIMAS.toLowerCase()
     );
-
-  const weekday = [
-    { day: "Pirmadienis", value: 1 },
-    { day: "Antradienis", value: 2 },
-    { day: "Trečiadienis", value: 3 },
-    { day: "Ketvirtadienis", value: 4 },
-    { day: "Penktadienis", value: 5 },
-    { day: "Šeštadienis", value: 6 },
-    { day: "Sekmadienis", value: 0 },
-  ];
 
   const d = new Date();
   const day = d.getDay();
@@ -249,6 +271,7 @@ const AddEvent = ({
                       handleSubmit(e);
                       setStartDateArr([]);
                       setWeekDayArr([]);
+                      handleClearCheckbox();
                     }}
                   >
                     <h3>Pridėti renginį</h3>
@@ -289,15 +312,18 @@ const AddEvent = ({
                       }}
                     />
                     <CheckBoxWrapper onChange={handleChangeTest}>
-                      {weekday &&
-                        weekday.map((item) => {
+                      {checkedItems &&
+                        checkedItems.map((item, index) => {
                           return (
-                            <span key={item.value}>
+                            <span key={index}>
                               <CheckBox
+                                name={index}
                                 color="primary"
                                 label={item.day}
                                 id={item.value}
                                 value={item.value}
+                                checked={item.isChecked}
+                                handleCheckboxChange={handleOnChange}
                               />
                             </span>
                           );
