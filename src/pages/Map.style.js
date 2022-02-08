@@ -18,6 +18,8 @@ export const SearchDiv = styled.div`
 
   @media only screen and (max-width: 768px) {
     width: 150px;
+    right: 10px;
+    top: 5px;
   }
 
   .esri-search__container .esri-search__input {

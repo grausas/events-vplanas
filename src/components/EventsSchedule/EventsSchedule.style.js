@@ -16,7 +16,9 @@ export const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     left: 10px;
-    width: ${(props) => (props.close ? "100px" : "95%")};
+    top: 5px;
+    width: ${(props) => (props.close ? "120px" : "95%")};
+    max-height: 80%;
   }
 `;
 
