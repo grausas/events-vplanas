@@ -11,7 +11,6 @@ import {
 } from "./AddEvent.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
-import { useCheckbox } from "../../hooks/checkbox";
 //icons
 import CloseIcon from "../../assets/icons/close.png";
 // components
@@ -48,8 +47,9 @@ const AddEvent = ({
     { day: "Šeštadienis", value: 6 },
     { day: "Sekmadienis", value: 0 },
   ];
-  const [checkedItems, setCheckeditems] = useState(weekday);
 
+  // Clicked checkboxes add to array
+  const [checkedItems, setCheckeditems] = useState(weekday);
   const handleOnChange = useCallback(
     (e) => {
       const index = e.target.name;
@@ -59,7 +59,7 @@ const AddEvent = ({
     },
     [checkedItems]
   );
-
+  // Clear all checkboxes
   const handleClearCheckbox = () => {
     let items = [...checkedItems];
     items.map((item) => {
@@ -69,24 +69,6 @@ const AddEvent = ({
     });
     setCheckeditems(items);
   };
-
-  const lowerEvents =
-    events.features &&
-    events.features.map(
-      (item) =>
-        item.attributes.ORGANIZATORIUS &&
-        item.attributes.ORGANIZATORIUS.toLowerCase()
-    );
-
-  const lowerEventsName =
-    events.features &&
-    events.features.map(
-      (item) =>
-        item.attributes.PAVADINIMAS && item.attributes.PAVADINIMAS.toLowerCase()
-    );
-
-  const d = new Date();
-  const day = d.getDay();
 
   // get all days between two dates
   function getDates(startDate, endDate) {
@@ -104,7 +86,8 @@ const AddEvent = ({
     return dates;
   }
 
-  const handleChangeTest = (e) => {
+  //
+  const handleWeekdays = (e) => {
     var itemValue = Number(e.target.value);
     var isChecked = e.target.checked;
 
@@ -219,15 +202,25 @@ const AddEvent = ({
     //   }
   };
 
+  // sort string Savaites_dienos
   useEffect(() => {
     setAddNewFeature({
       ...addNewFeature,
       startDateArr,
       Savaites_dienos: weekDayArr.sort((a, b) => a - b).toString(),
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDateArr, weekDayArr]);
 
   // suggestion organization
+  const lowerEvents =
+    events.features &&
+    events.features.map(
+      (item) =>
+        item.attributes.ORGANIZATORIUS &&
+        item.attributes.ORGANIZATORIUS.toLowerCase()
+    );
+
   const uniqueEvents = [...new Set(lowerEvents)];
   function getSuggestions(value) {
     return uniqueEvents.filter((language) =>
@@ -235,13 +228,20 @@ const AddEvent = ({
     );
   }
   // suggestion name
-  const uniqueEventsName = [...new Set(lowerEventsName)];
+  const lowerEventsName =
+    events.features &&
+    events.features.map(
+      (item) =>
+        item.attributes.PAVADINIMAS && item.attributes.PAVADINIMAS.toLowerCase()
+    );
 
+  const uniqueEventsName = [...new Set(lowerEventsName)];
   function getSuggestionsName(value) {
     return uniqueEventsName.filter((language) =>
       language.startsWith(value.trim().toLowerCase())
     );
   }
+
   return (
     <>
       {isLoggedIn && (
@@ -272,6 +272,8 @@ const AddEvent = ({
                       setStartDateArr([]);
                       setWeekDayArr([]);
                       handleClearCheckbox();
+                      setValueName("");
+                      setValue("");
                     }}
                   >
                     <h3>Pridėti renginį</h3>
@@ -311,7 +313,7 @@ const AddEvent = ({
                         });
                       }}
                     />
-                    <CheckBoxWrapper onChange={handleChangeTest}>
+                    <CheckBoxWrapper onChange={handleWeekdays}>
                       {checkedItems &&
                         checkedItems.map((item, index) => {
                           return (
