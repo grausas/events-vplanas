@@ -8,7 +8,6 @@ export const updatePolygon = (view, state, setState) => {
     view: view,
     layer: graphicsLayer,
 
-    // updateOnGraphicClick: false,
     defaultUpdateOptions: {
       tool: "reshape",
       toggleToolOnClick: false,
@@ -28,10 +27,8 @@ export const updatePolygon = (view, state, setState) => {
 
   sketchVM.on("update", function (event) {
     if (event.state === "complete") {
-      // var sketchGeometry = event.graphics[0].geometry;
       const graphic = event.graphics[0].geometry;
       graphicsLayer.graphics.geometry = [graphic];
-      // sketchVM.update([graphic]);
 
       setState({
         ...state,

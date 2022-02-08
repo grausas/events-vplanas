@@ -46,10 +46,6 @@ export const createMapView = (ref, layers) => {
             url: Susirinkimas,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[0].symbol.color}`,
-            // outline: {
-            //   color: "#fff1",
-            // },
           },
         },
         {
@@ -59,10 +55,6 @@ export const createMapView = (ref, layers) => {
             url: SportoRenginys,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[1].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
         {
@@ -72,10 +64,6 @@ export const createMapView = (ref, layers) => {
             url: Koncertas,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[3].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
         {
@@ -85,10 +73,6 @@ export const createMapView = (ref, layers) => {
             url: Filmavimas,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[4].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
         {
@@ -98,10 +82,6 @@ export const createMapView = (ref, layers) => {
             url: Muge,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[2].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
         {
@@ -111,10 +91,6 @@ export const createMapView = (ref, layers) => {
             url: RenginysSeimai,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[5].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
         {
@@ -124,10 +100,6 @@ export const createMapView = (ref, layers) => {
             url: ValstybinisRenginys,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[6].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
         {
@@ -137,10 +109,6 @@ export const createMapView = (ref, layers) => {
             url: ViesasisRenginys,
             width: "20px",
             height: "20px",
-            // color: `${uniqueValue[7].symbol.color}`,
-            // outline: {
-            //   color: "#fff",
-            // },
           },
         },
       ],

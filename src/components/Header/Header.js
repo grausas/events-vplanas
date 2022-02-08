@@ -2,11 +2,11 @@
 import { Wrapper, Content, LogoDiv, Logo, Text } from "./Header.style";
 import { Link } from "react-router-dom";
 // Components
-import { SearchInput, Button } from "../index";
+import { Button } from "../index";
 // Logo
 import VilniusLogo from "../../assets/icons/VILNIUS_WHITE_LOGO.png";
 
-const Header = ({ isLoggedIn, logOut, handleSearch }) => {
+const Header = ({ isLoggedIn, logOut }) => {
   return (
     <Wrapper>
       <Content>
@@ -14,7 +14,6 @@ const Header = ({ isLoggedIn, logOut, handleSearch }) => {
           <Logo src={VilniusLogo} alt="vilnius-logo" />
           <Text> Vilniaus miesto renginių žemėlapis</Text>
         </LogoDiv>
-        {/* <SearchInput placeholder="Paieška" handleChange={handleSearch} /> */}
         {!isLoggedIn && (
           <Button>
             <Link

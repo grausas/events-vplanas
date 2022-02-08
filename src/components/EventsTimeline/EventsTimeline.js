@@ -68,11 +68,7 @@ const EventsTimeline = ({
                     </EventDate>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
                     <Circle />
-                    <MoreButton
-                    // onClick={() => handleEventOpen(event.attributes.OBJECTID)}
-                    >
-                      Rodyti žemėlapyje
-                    </MoreButton>
+                    <MoreButton>Rodyti žemėlapyje</MoreButton>
                   </ItemContent>
                 </TimelineItem>
               );

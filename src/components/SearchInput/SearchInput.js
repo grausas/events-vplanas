@@ -38,9 +38,6 @@ const SearchInput = ({
           {suggestions.map((item, index) => {
             return <SuggestItem key={index}>{item.text}</SuggestItem>;
           })}
-          {/* <SuggestItem>rgrege</SuggestItem>
-        <SuggestItem>iooioi</SuggestItem>
-        <SuggestItem>vbvbvb</SuggestItem> */}
         </SuggestDiv>
       )}
     </>

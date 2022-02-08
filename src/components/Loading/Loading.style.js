@@ -9,12 +9,7 @@ export const Wrapper = styled.div`
   left: 0;
 `;
 
-export const Content = styled.div`
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 1; */
-`;
+export const Content = styled.div``;
 
 export const LoadingBlock = styled.div`
   text-align: center;
@@ -27,7 +22,6 @@ export const LoadingBlock = styled.div`
   bottom: 0;
   margin: auto;
 
-  // senas loading
   &:before {
     content: "";
     width: 50px;

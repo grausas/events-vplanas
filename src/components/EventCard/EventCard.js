@@ -15,9 +15,7 @@ import CloseIcon from "../../assets/icons/close.png";
 import ExternalLink from "../../assets/icons/external-link.png";
 import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
-import VilniusLogo from "../../assets/icons/VILNIUS_LOGO.png";
 import Edit from "../../assets/icons/edit.png";
-// import Category from "../../assets/icons/category.png";
 
 //hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -77,10 +75,6 @@ const EventCard = ({
                 <img src={Document} alt="document" />
                 <p>{organization}</p>
               </Text>
-              {/* <Text>
-                <img src={Category} alt="category" />
-                <p>{category}</p>
-              </Text> */}
               <Text onClick={handleLocation}>
                 <img src={ExternalLink} alt="place" />
                 <a href={url} target="_blank" rel="noreferrer">

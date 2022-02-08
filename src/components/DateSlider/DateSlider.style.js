@@ -27,11 +27,9 @@ export const SliderDiv = styled.div`
   width: 100%;
   left: calc(50% - 300px);
   bottom: 80px;
-  /* display: ${(props) => (props.display ? "none" : "block")}; */
 
   /* style for Time Line widget */
   .esri-time-slider {
-    /* max-width: 600px !important; */
     width: 100% !important;
     min-width: 0 !important;
     height: 120px !important;
