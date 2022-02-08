@@ -58,6 +58,16 @@ export const Close = styled.div`
         ? "rgb(0,92,230,255)"
         : "rgb(255,115,223,255)"};
   }
+
+  /* &:before {
+    content: "Filmavimas";
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    margin: 0 auto;
+    z-index: 2;
+  } */
 `;
 
 export const Logo = styled.div`

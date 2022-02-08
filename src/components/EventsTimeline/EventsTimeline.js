@@ -50,6 +50,7 @@ const EventsTimeline = ({
               return (
                 <TimelineItem key={event.attributes.OBJECTID}>
                   <ItemContent
+                    onClick={() => handleEventOpen(event.attributes.OBJECTID)}
                     clickedEvent={
                       event.attributes.OBJECTID === clickedEvent
                         ? "clicked"
@@ -68,7 +69,7 @@ const EventsTimeline = ({
                     <Text>{event.attributes.PAVADINIMAS}</Text>
                     <Circle />
                     <MoreButton
-                      onClick={() => handleEventOpen(event.attributes.OBJECTID)}
+                    // onClick={() => handleEventOpen(event.attributes.OBJECTID)}
                     >
                       Rodyti žemėlapyje
                     </MoreButton>
