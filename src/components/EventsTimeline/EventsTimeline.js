@@ -17,7 +17,12 @@ import { CategoryData } from "../../utils/CategoryData";
 // helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
 
-const EventsTimeline = ({ events, handleMoreFilters, handleEventOpen }) => {
+const EventsTimeline = ({
+  events,
+  handleMoreFilters,
+  handleEventOpen,
+  clickedEvent,
+}) => {
   return (
     <>
       <Wrapper>
@@ -44,7 +49,13 @@ const EventsTimeline = ({ events, handleMoreFilters, handleEventOpen }) => {
               );
               return (
                 <TimelineItem key={event.attributes.OBJECTID}>
-                  <ItemContent>
+                  <ItemContent
+                    clickedEvent={
+                      event.attributes.OBJECTID === clickedEvent
+                        ? "clicked"
+                        : null
+                    }
+                  >
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
                       {result.text}
                     </Category>
