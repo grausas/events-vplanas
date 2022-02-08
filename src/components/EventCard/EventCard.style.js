@@ -106,6 +106,7 @@ export const EditIcon = styled.img`
   padding: 4px;
   border-radius: 20%;
   cursor: pointer;
+  z-index: 22;
 
   :hover {
     background-color: var(--silver);

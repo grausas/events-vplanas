@@ -5,6 +5,8 @@ export const featureLayer = () => {
     url: "https://services1.arcgis.com/usA3lHW20rGU6glp/arcgis/rest/services/Renginiai_Vilniuje_P_View/FeatureServer/0",
     outFields: ["*"],
     // rodyti renginius nuo dabartinės datos
+    // definitionExpression:
+    //   "RENGINIO_PRADZIA > date'" + new Date().toISOString().slice(0, 10) + "'",
   });
   return layer;
 };

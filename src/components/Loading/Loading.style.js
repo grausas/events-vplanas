@@ -18,7 +18,7 @@ export const Content = styled.div`
 
 export const LoadingBlock = styled.div`
   text-align: center;
-  max-width: 100%;
+  width: 50px;
   height: 50px;
   position: absolute;
   left: 0;
@@ -27,92 +27,8 @@ export const LoadingBlock = styled.div`
   bottom: 0;
   margin: auto;
 
-  img {
-    width: 30px;
-    margin: 2px;
-    animation: loading 0.5s infinite alternate;
-  }
-
-  img:nth-of-type(2) {
-    animation-delay: 0.1s;
-  }
-  img:nth-of-type(3) {
-    animation-delay: 0.2s;
-  }
-  img:nth-of-type(4) {
-    animation-delay: 0.3s;
-  }
-  img:nth-of-type(5) {
-    animation-delay: 0.4s;
-  }
-  img:nth-of-type(6) {
-    animation-delay: 0.5s;
-  }
-  img:nth-of-type(7) {
-    animation-delay: 0.6s;
-  }
-  img:nth-of-type(8) {
-    animation-delay: 0.7s;
-  }
-
-  @keyframes loading {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .sh1 {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 50px 50px 0 0;
-    border-color: var(--red) transparent transparent transparent;
-    margin: 0 auto;
-    animation: shk1 1s ease-in-out infinite normal;
-  }
-
-  .sh2 {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 0 50px 50px;
-    border-color: transparent transparent var(--lightBlue) transparent;
-    margin: -50px auto 0;
-    animation: shk2 1s ease-in-out infinite alternate;
-  }
-
-  /** animation starts here **/
-  @keyframes shk1 {
-    0% {
-      transform: rotate(-360deg);
-    }
-
-    100% {
-    }
-  }
-
-  @keyframes shk2 {
-    0% {
-      transform: rotate(360deg);
-    }
-    100% {
-    }
-  }
-
-  .lt {
-    color: #fff;
-    font-family: "Roboto", sans-serif;
-    margin: 30px auto;
-    text-align: center;
-    font-weight: 100;
-    letter-spacing: 10px;
-  }
-
   // senas loading
-  /* &:before {
+  &:before {
     content: "";
     width: 50px;
     height: 5px;
@@ -161,5 +77,5 @@ export const LoadingBlock = styled.div`
     50% {
       transform: scale(1.2, 1);
     }
-  } */
+  }
 `;
