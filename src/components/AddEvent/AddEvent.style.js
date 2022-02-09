@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 export const AddObjectButton = styled.div`
   position: absolute;
   max-height: 600px;
-  top: 50px;
+  top: 100px;
   border-radius: 5px;
   right: 20px;
   padding: 5px 10px;
@@ -23,7 +23,6 @@ export const FormWrapper = styled.div`
   border-radius: 5px;
   top: 10px;
   right: ${(props) => (props.isEditing ? "20px" : "calc(50% - 280px)")};
-  /* left: ${(props) => (props.isEditing ? "" : "calc(50% - 280px)")}; */
   background-color: var(--white);
   color: var(--dark);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
@@ -126,8 +125,20 @@ export const CloseImage = styled.img`
 export const ConfirmButton = styled(Button)`
   background-color: var(--grey);
   padding: 5px 10px;
-  margin-right: 10px;
   font-size: var(--fontSmall);
+
+  :hover {
+    background: var(--lightBlue);
+    color: var(--white);
+  }
+`;
+
+export const ClearButton = styled(Button)`
+  right: 0;
+  background-color: var(--grey);
+  padding: 5px 10px;
+  font-size: var(--fontSmall);
+  float: right;
 
   :hover {
     background: var(--lightBlue);

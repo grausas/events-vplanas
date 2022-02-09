@@ -8,6 +8,7 @@ import {
   CloseImage,
   ConfirmButton,
   CheckBoxWrapper,
+  ClearButton,
 } from "./AddEvent.style";
 // hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -249,13 +250,12 @@ const AddEvent = ({
       {isLoggedIn && (
         <div>
           {!show ? (
-            <AddObjectButton>
-              {addNewFeature.geometry && !addNewFeature.geometry.length > 0 ? (
+            addNewFeature.geometry &&
+            !addNewFeature.geometry.length > 0 && (
+              <AddObjectButton>
                 <span onClick={handleOpen}>Pildyti</span>
-              ) : (
-                <span onClick={handleCordinates}>Pridėti objektą</span>
-              )}
-            </AddObjectButton>
+              </AddObjectButton>
+            )
           ) : (
             <FormWrapper isEditing={isEditing}>
               <CloseImage
@@ -434,18 +434,19 @@ const AddEvent = ({
                       }}
                     />
                   </InputWrapper>
-                  <ConfirmButton>PRIDĖTI RENGINĮ</ConfirmButton>
+                  <ConfirmButton type="submit">PRIDĖTI RENGINĮ</ConfirmButton>
+                  <ClearButton
+                    type="reset"
+                    handleClick={() => {
+                      handleCancel();
+                      setStartDateArr([]);
+                      setAddNewFeature({ geometry: "", rings: "" });
+                      handleOpen();
+                    }}
+                  >
+                    ATŠAUKTI
+                  </ClearButton>
                 </form>
-                <ConfirmButton
-                  handleClick={() => {
-                    handleCancel();
-                    setStartDateArr([]);
-                    setAddNewFeature({ geometry: "", rings: "" });
-                    handleOpen();
-                  }}
-                >
-                  ATŠAUKTI
-                </ConfirmButton>
               </>
             </FormWrapper>
           )}

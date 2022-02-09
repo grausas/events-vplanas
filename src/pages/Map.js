@@ -650,7 +650,7 @@ function Map() {
           />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
-          <SketchDiv id="SketchDiv" />
+          {!!auth.token && <SketchDiv id="SketchDiv" />}
           <Loading id="loading" />
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom

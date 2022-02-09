@@ -1,9 +1,9 @@
 // styles
 import { Wrapper } from "./Button.style";
 
-const Button = ({ children, className, handleClick }) => {
+const Button = ({ children, className, handleClick, type }) => {
   return (
-    <Wrapper className={className} onClick={handleClick}>
+    <Wrapper className={className} onClick={handleClick} type={type}>
       {children}
     </Wrapper>
   );
