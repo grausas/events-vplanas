@@ -58,7 +58,7 @@ const EventsTimeline = ({
                     }
                   >
                     <Category backgroundColor={event.attributes.KATEGORIJA}>
-                      {result.text}
+                      {result && result.text}
                     </Category>
                     <EventDate>
                       {eventStartDate + " " + eventStartTime}

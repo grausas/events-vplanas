@@ -208,6 +208,8 @@ const AddEvent = ({
       ...addNewFeature,
       startDateArr,
       Savaites_dienos: weekDayArr.sort((a, b) => a - b).toString(),
+      geometry: "",
+      rings: "",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDateArr, weekDayArr]);

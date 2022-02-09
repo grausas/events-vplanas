@@ -3,7 +3,8 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, setState, type, message) => {
   var features = [];
-  // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
+  params.geometry.rings = params.rings;
+
   if (
     params.startDateArr &&
     params.startDateArr.length > 0 &&
@@ -44,9 +45,13 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
     features.push(addFeature);
   }
 
+  // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
+
   const add = {
     addFeatures: features,
   };
+
+  console.log("add", add);
   // padaryti validacija, if pavadinimas ir t.t suvestas tada daryti applyedits else ismesti,
   // kad reikia uzpildyti visus reikalingus duomenis
   layer
