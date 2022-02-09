@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   useRef,
   useEffect,
@@ -16,11 +17,11 @@ import { useOpenCloseModal } from "../hooks/openModal";
 import { useOpenCloseFilter } from "../hooks/OpenFilter";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
-import * as locator from "@arcgis/core/rest/locator";
-import Graphic from "@arcgis/core/Graphic";
-import * as GeometryService from "@arcgis/core/rest/geometryService";
-import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
-import Point from "@arcgis/core/geometry/Point";
+// import * as locator from "@arcgis/core/rest/locator";
+// import Graphic from "@arcgis/core/Graphic";
+// import * as GeometryService from "@arcgis/core/rest/geometryService";
+// import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
+// import Point from "@arcgis/core/geometry/Point";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
 
@@ -76,7 +77,7 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  // const [suggestions, setSuggestions] = useState([]);
   const [valuesArr, setValuesArr] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
@@ -605,7 +606,7 @@ function Map() {
       // },
     ];
 
-    const searchWidget = new Search({
+    new Search({
       container: "SearchDiv",
       view: view,
       popupEnabled: false,

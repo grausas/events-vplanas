@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 999;
 `;
 
 export const Content = styled.div``;

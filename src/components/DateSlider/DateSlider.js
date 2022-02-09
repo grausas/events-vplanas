@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 // styles
 import { SliderDiv, IconDiv, Icon } from "./DateSlider.style";

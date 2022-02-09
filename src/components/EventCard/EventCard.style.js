@@ -143,6 +143,7 @@ export const Text = styled.div`
     :hover {
       font-weight: 600;
       color: var(--lightBlue);
+      cursor: pointer;
     }
   }
   img {

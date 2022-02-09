@@ -18,7 +18,7 @@ export const handleZoom = (e, eventsFeatureLayer, view) => {
         target: filterResult,
         zoom: 14,
       },
-      { duration: 1000 }
+      { duration: 700 }
     );
   });
 };

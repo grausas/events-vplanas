@@ -75,12 +75,15 @@ const EventCard = ({
                 <img src={Document} alt="document" />
                 <p>{organization}</p>
               </Text>
-              <Text onClick={handleLocation}>
-                <img src={ExternalLink} alt="place" />
-                <a href={url} target="_blank" rel="noreferrer">
-                  Renginio puslapis
-                </a>
-              </Text>
+              {/* If url doesn't exit, don't show website */}
+              {url && (
+                <Text onClick={handleLocation}>
+                  <img src={ExternalLink} alt="place" />
+                  <a href={url} target="_blank" rel="noreferrer">
+                    Renginio puslapis
+                  </a>
+                </Text>
+              )}
               <Text>
                 <p>
                   Pastabos:
