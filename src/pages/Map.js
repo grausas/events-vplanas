@@ -7,8 +7,7 @@ import React, {
   useContext,
 } from "react";
 // Styles
-// import "./Map.style.js";
-import { MapDiv, SearchDiv, Content } from "./Map.style";
+import { MapDiv, SearchDiv, Content, SketchDiv } from "./Map.style";
 // context
 import { AuthContext } from "../context/AuthContext";
 // Hooks
@@ -459,13 +458,7 @@ function Map() {
   };
 
   const addEvents = () =>
-    addEventsFeature(
-      addNewFeature,
-      eventsFeatureLayer,
-      setAddNewFeature,
-      setType,
-      setError
-    );
+    addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
   const addPolygon = () =>
@@ -606,14 +599,16 @@ function Map() {
       // },
     ];
 
-    new Search({
-      container: "SearchDiv",
-      view: view,
-      popupEnabled: false,
-      searchAllEnabled: false,
-      includeDefaultSources: false,
-      sources: sources,
-      allPlaceholder: "Ieškoti adreso arba vietovės",
+    view.when(() => {
+      new Search({
+        container: "SearchDiv",
+        view: view,
+        popupEnabled: false,
+        searchAllEnabled: false,
+        includeDefaultSources: false,
+        sources: sources,
+        allPlaceholder: "Ieškoti adreso arba vietovės",
+      });
     });
 
     return () => {
@@ -636,7 +631,10 @@ function Map() {
       });
     }
   });
-  // change basemap
+
+  useEffect(() => {
+    addPolygon();
+  }, [view]);
 
   return (
     <>
@@ -652,6 +650,7 @@ function Map() {
           />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
+          <SketchDiv id="SketchDiv" />
           <Loading id="loading" />
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom
@@ -701,7 +700,7 @@ function Map() {
             />
           )}
           {/* Pridėti naują renginį  */}
-          {console.log("addNewFeature", addNewFeature)}
+          {console.log(addNewFeature)}
           <AddEvent
             isLoggedIn={!!auth.token}
             setAddNewFeature={setAddNewFeature}
@@ -715,7 +714,9 @@ function Map() {
             //     ? addPolygon()
             //     : setIsEditing(!isEditing);
             // }}
-            handleCordinates={() => addPolygon()}
+            handleCordinates={() => {
+              eventsFeatureLayer.opacity = 0.3;
+            }}
             handleUpdate={() => {
               updateCurrentPolygon();
               setIsEditing(!isEditing);
@@ -724,14 +725,13 @@ function Map() {
               e.preventDefault();
               eventsFeatureLayer.opacity = 1;
               addEvents(addNewFeature);
-              setAddNewFeature([]);
               setIsEditing(!isEditing);
             }}
             handleCancel={() => {
               eventsFeatureLayer.opacity = 1;
               graphicsLayer.removeAll();
               // setIsEditing(!isEditing);
-              setAddNewFeature([]);
+              // setAddNewFeature([]);
             }}
           />
           {/* Renginių ir renginio atvaizdavimas, redagavimas */}

@@ -1,9 +1,11 @@
 import Graphic from "@arcgis/core/Graphic";
 import { graphicsLayer } from "./DrawPolygon";
 
-export const addEventsFeature = (params, layer, setState, type, message) => {
+export const addEventsFeature = (params, layer, type, message) => {
   var features = [];
-  params.geometry.rings = params.rings;
+  if (params.rings) {
+    params.geometry.rings = params.rings;
+  }
 
   if (
     params.startDateArr &&
@@ -62,9 +64,8 @@ export const addEventsFeature = (params, layer, setState, type, message) => {
         message("Renginys sėkmingai pridėtas");
       }
       graphicsLayer.removeAll();
-      setState([]);
-      layer.refresh();
-      layer.load();
+      // layer.refresh();
+      // layer.load();
     })
     .catch((error) => {
       if (error) {

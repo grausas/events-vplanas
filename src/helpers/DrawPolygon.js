@@ -10,12 +10,14 @@ export const drawNewPolygon = (view, state, setState) => {
     view.when(() => {
       const sketch = new Sketch({
         layer: graphicsLayer,
+        container: "SketchDiv",
         view: view,
         visibleElements: {
           createTools: {
             circle: false,
             polyline: false,
             rectangle: false,
+            point: false,
           },
           selectionTools: {
             "lasso-selection": false,
@@ -41,9 +43,13 @@ export const drawNewPolygon = (view, state, setState) => {
           }));
         }
       });
-
-      view.ui.add(sketch, "bottom-left");
-      sketch.complete();
+      sketch.on("delete", function (event) {
+        console.log("delete", event);
+        setState({
+          geometry: "",
+          rings: "",
+        });
+      });
     });
 };
 
