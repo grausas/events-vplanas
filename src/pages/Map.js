@@ -701,6 +701,7 @@ function Map() {
             />
           )}
           {/* Pridėti naują renginį  */}
+          {console.log("addNewFeature", addNewFeature)}
           <AddEvent
             isLoggedIn={!!auth.token}
             setAddNewFeature={setAddNewFeature}
@@ -708,12 +709,13 @@ function Map() {
             isEditing={!isEditing}
             startDate={startDate}
             events={data}
-            handleCordinates={() => {
-              // eventsFeatureLayer.opacity = 0.3;
-              addNewFeature.geometry === undefined
-                ? addPolygon()
-                : setIsEditing(!isEditing);
-            }}
+            // handleCordinates={() => {
+            //   // eventsFeatureLayer.opacity = 0.3;
+            //   addNewFeature.geometry === undefined
+            //     ? addPolygon()
+            //     : setIsEditing(!isEditing);
+            // }}
+            handleCordinates={() => addPolygon()}
             handleUpdate={() => {
               updateCurrentPolygon();
               setIsEditing(!isEditing);
