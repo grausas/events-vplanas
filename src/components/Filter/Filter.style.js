@@ -3,37 +3,15 @@ import styled from "styled-components";
 import { Button } from "../index";
 
 export const Wrapper = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: var(--grey);
-  border-radius: 5px;
   color: var(--dark);
-  left: 430px;
-  padding: 10px;
-  top: 10px;
-  box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
+  padding: 0 10px 0 10px;
   background-color: var(--silver);
-  z-index: 99;
-`;
-
-export const IconFilter = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-weight: 600;
-
-  img {
-    width: 21px;
-    user-select: none;
-  }
-
-  div {
-    display: flex;
-  }
 `;
 
 export const Content = styled.div`
-  max-width: 300px;
+  max-width: 100%;
   user-select: none;
 
   h5 {
@@ -47,7 +25,7 @@ export const DateFilter = styled.div`
 
 export const FilterContent = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   flex-wrap: wrap;
 `;
 

@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 1;
 
   h3 {
     margin-bottom: 10px;
