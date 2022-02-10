@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   box-sizing: border-box;
+  z-index: 222;
 
   .react-datepicker__input-container input {
     width: 100%;
@@ -24,8 +25,10 @@ export const Wrapper = styled.div`
 `;
 
 export const DatePickerWrapper = styled.div`
+  position: relative;
+  z-index: 222;
   margin-bottom: 5px;
-  height: ${(props) => (props.height === "small" ? "50px" : "60px")};
+  height: ${(props) => (props.height === "small" ? "45px" : "60px")};
   flex-grow: 2;
   display: ${(props) => (props.display ? "none" : "block")};
 

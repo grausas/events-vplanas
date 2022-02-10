@@ -30,6 +30,7 @@ const DatePicker = ({
       <DatePickerWrapper height={height}>
         <span>{dateTitle}</span>
         <SingleDatePicker
+          portalId="root-portal"
           placeholderText={placeholderTextDate}
           locale="lt"
           timeIntervals={1}
@@ -39,11 +40,13 @@ const DatePicker = ({
           required={required}
           customInput={<CustomInput />}
           showMonth
+          showPopperArrow={false}
         />
       </DatePickerWrapper>
       <DatePickerWrapper display={displayTime} height={height}>
         <span>{timeTitle}</span>
         <SingleDatePicker
+          portalId="root-portal"
           placeholderText={placeholderTextTime}
           locale="lt"
           timeCaption="Laikas"
@@ -56,6 +59,7 @@ const DatePicker = ({
           required={required}
           popperPlacement="left-end"
           customInput={<CustomInput />}
+          showPopperArrow={false}
         />
       </DatePickerWrapper>
     </Wrapper>
