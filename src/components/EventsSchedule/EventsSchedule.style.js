@@ -30,12 +30,12 @@ export const Text = styled.div`
   top: 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: ${(props) =>
     props.text ? "var(--silver)" : "var(--grey)"};
-  justify-content: space-between;
-  cursor: pointer;
-  user-select: none;
   padding: 5px 10px;
+  user-select: none;
+  cursor: pointer;
 
   h3,
   span {
@@ -150,4 +150,27 @@ export const FilterDiv = styled.div`
   position: sticky;
   top: 39px;
   z-index: 1;
+`;
+
+export const CloseImage = styled.img`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 28px;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  :hover {
+    background-color: var(--white);
+  }
+`;
+export const ExpandImage = styled.img`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 30px;
+  /* padding: 6px; */
+  border-radius: 50%;
+  cursor: pointer;
 `;

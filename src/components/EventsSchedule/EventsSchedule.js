@@ -6,7 +6,12 @@ import {
   MoreDiv,
   SearchDiv,
   FilterDiv,
+  CloseImage,
+  ExpandImage,
 } from "./EventsSchedule.style";
+// icons
+import CloseIcon from "../../assets/icons/close.png";
+import ExpandIcon from "../../assets/icons/expand.png";
 
 const EventsSchedule = ({
   children,
@@ -20,7 +25,10 @@ const EventsSchedule = ({
     <Wrapper close={!show}>
       <Text onClick={handleOpen} text={show}>
         <h3>Renginiai</h3>
-        <span>{show ? "-" : "+"}</span>
+        <span>
+          {!show && <ExpandImage src={ExpandIcon} alt="close-icon" />}
+        </span>
+        {show && <CloseImage src={CloseIcon} alt="close-icon" />}
       </Text>
       {show && (
         <>
