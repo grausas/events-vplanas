@@ -12,7 +12,6 @@ export const Wrapper = styled.div`
   background-color: ${(props) =>
     props.close ? "var(--grey)" : "var(--silver)"};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
-  z-index: 11;
 
   @media only screen and (max-width: 768px) {
     left: 10px;
@@ -23,8 +22,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  position: relative;
-  padding: 0 10px;
+  /* padding: 0 10px; */
 `;
 
 export const Text = styled.div`
@@ -37,7 +35,6 @@ export const Text = styled.div`
   justify-content: space-between;
   cursor: pointer;
   user-select: none;
-  z-index: 22;
   padding: 5px 10px;
 
   h3,
@@ -138,4 +135,19 @@ export const MoreDiv = styled.div`
       color: var(--lightBlue);
     }
   }
+`;
+
+export const SearchDiv = styled.div`
+  position: sticky;
+  width: 100%;
+  top: 216px;
+  padding: 2px 10px 5px 10px;
+  background: var(--silver);
+  z-index: 1;
+`;
+
+export const FilterDiv = styled.div`
+  position: sticky;
+  top: 39px;
+  z-index: 1;
 `;

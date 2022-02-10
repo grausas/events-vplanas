@@ -3,17 +3,11 @@ import { useState, useCallback } from "react";
 import {
   Wrapper,
   Content,
-  IconFilter,
   FilterContent,
-  CloseImage,
-  CloseImageDiv,
   DateFilter,
   ClearButton,
   CheckBoxDiv,
 } from "./Filter.style";
-// hooks
-// Icons
-import CloseIcon from "../../assets/icons/close.png";
 // components
 import { CheckBox, DatePicker } from "../index";
 
@@ -25,7 +19,6 @@ const Filter = ({
   handleChangeStart,
   handleChangeFinish,
   handleClear,
-  handleCloseFilter,
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
 
@@ -50,11 +43,6 @@ const Filter = ({
   };
   return (
     <Wrapper>
-      <IconFilter>
-        <CloseImageDiv>
-          <CloseImage src={CloseIcon} alt="close" onClick={handleCloseFilter} />
-        </CloseImageDiv>
-      </IconFilter>
       <Content onChange={onChange}>
         <DateFilter>
           <DatePicker
@@ -64,6 +52,7 @@ const Filter = ({
             handleChange={handleChangeStart}
             title="Pasirinkti pradžios datą"
             height="small"
+            placeholderTextDate="Nuo"
           />
           <DatePicker
             dateTitle="Iki"
@@ -74,8 +63,8 @@ const Filter = ({
             height="small"
           />
         </DateFilter>
+        <h5>Kategorijos</h5>
         <FilterContent>
-          <h5>Kategorijos</h5>
           {checkedItems &&
             checkedItems.map((item, index) => {
               return (

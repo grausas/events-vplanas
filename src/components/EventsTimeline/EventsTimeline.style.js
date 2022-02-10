@@ -6,29 +6,29 @@ export const Wrapper = styled.div`
   width: 100%;
   background: var(--silver);
   overflow: auto;
-  padding-right: 5px;
+  padding: 0 10px;
+  margin-top: 5px;
 `;
 
 export const TimelineContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 20px 0 10px 0;
 
-  &&:after {
+  /* &&:after {
     background-color: var(--grey);
     content: "";
     position: absolute;
     left: calc(0% + 8px);
     width: 2px;
     height: 100%;
-  }
+  } */
 `;
 
 export const TimelineItem = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-left: 30px;
+  /* padding-left: 10px; */
   position: relative;
   margin: 5px 0;
   width: 100%;
@@ -52,7 +52,7 @@ export const ItemContent = styled.div`
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
   }
 
-  &:after {
+  /* &:after {
     content: " ";
     background-color: var(--white);
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -63,7 +63,7 @@ export const ItemContent = styled.div`
     transform: rotate(45deg);
     width: 12px;
     height: 12px;
-  }
+  } */
 `;
 
 export const Category = styled.span`
@@ -107,17 +107,18 @@ export const Text = styled.p`
   margin: 15px 0;
 `;
 
-export const Circle = styled.span`
-  background-color: var(--white);
-  border: 2px solid var(--grey);
-  border-radius: 50%;
-  position: absolute;
-  top: calc(50% - 10px);
-  left: -29px;
-  width: 16px;
-  height: 16px;
-  z-index: 1;
-`;
+// export const Circle = styled.span`
+//   background-color: var(--white);
+//   border: 2px solid var(--grey);
+//   border-radius: 50%;
+//   position: absolute;
+//   top: calc(50% - 10px);
+//   left: -29px;
+//   width: 16px;
+//   height: 16px;
+//   z-index: 1;
+// `;
+
 export const Close = styled.div`
   position: absolute;
   top: 2px;
@@ -126,11 +127,8 @@ export const Close = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  z-index: 5;
 
   :hover {
     color: var(--lightBlue);
   }
 `;
-
-export const ClearButton = styled.span``;

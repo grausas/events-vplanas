@@ -29,6 +29,7 @@ export const FormWrapper = styled.div`
   padding: 10px;
   overflow-y: auto;
   overflow-x: hidden;
+  z-index: 1;
 
   h3 {
     margin: 10px 0;

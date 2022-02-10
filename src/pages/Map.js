@@ -662,14 +662,35 @@ function Map() {
             handleOpen={handleOpen}
             show={show}
             handleOpenMore={() => setShortResults(filterResults(data.features))}
+            filter={
+              <Filter
+                id="filtras"
+                data={CategoryData}
+                selectedStart={startDate}
+                selectedFinish={finishDate}
+                handleChangeStart={(date) => {
+                  setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
+                }}
+                handleChangeFinish={(date) =>
+                  setFinishDate(
+                    new Date(date.setHours(23, 59, 59, 59)).getTime()
+                  )
+                }
+                onChange={handleFilterChange}
+                handleClear={handleClearFilter}
+                handleCloseFilter={handleOpenFilter}
+              />
+            }
+            search={
+              <SearchInput
+                value={searchTerm}
+                handleChange={(event) => {
+                  setSearchTerm(event.target.value);
+                }}
+                placeholder="Ieškoti..."
+              />
+            }
           >
-            <SearchInput
-              value={searchTerm}
-              handleChange={(event) => {
-                setSearchTerm(event.target.value);
-              }}
-              placeholder="Ieškoti..."
-            />
             <EventsTimeline
               events={shortResults}
               handleClose={handleOpen}
@@ -682,7 +703,7 @@ function Map() {
             />
           </EventsSchedule>
           {/* Filtravimas pagal data ir kategorijas */}
-          {showFilter && show && (
+          {/* {showFilter && show && (
             <Filter
               id="filtras"
               data={CategoryData}
@@ -698,7 +719,7 @@ function Map() {
               handleClear={handleClearFilter}
               handleCloseFilter={handleOpenFilter}
             />
-          )}
+          )} */}
           {/* Pridėti naują renginį  */}
           <AddEvent
             isLoggedIn={!!auth.token}

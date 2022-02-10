@@ -7,27 +7,19 @@ import {
   Category,
   EventDate,
   Text,
-  Circle,
-  Close,
-  ClearButton,
+  // Circle,
+  // Close,
+  // ClearButton,
 } from "./EventsTimeline.style";
 // utils
 import { CategoryData } from "../../utils/CategoryData";
 // helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
 
-const EventsTimeline = ({
-  events,
-  handleMoreFilters,
-  handleEventOpen,
-  clickedEvent,
-}) => {
+const EventsTimeline = ({ events, handleEventOpen, clickedEvent }) => {
   return (
     <>
       <Wrapper>
-        <Close onClick={handleMoreFilters}>
-          <ClearButton>Daugiau filtrų</ClearButton>
-        </Close>
         <TimelineContainer>
           {events &&
             events.map((event) => {
@@ -66,7 +58,7 @@ const EventsTimeline = ({
                       {eventFinishDate + " " + eventFinishTime}
                     </EventDate>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
-                    <Circle />
+                    {/* <Circle /> */}
                   </ItemContent>
                 </TimelineItem>
               );
