@@ -1,5 +1,5 @@
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
-import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
+// import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
 import Sketch from "@arcgis/core/widgets/Sketch";
 
 export const graphicsLayer = new GraphicsLayer();

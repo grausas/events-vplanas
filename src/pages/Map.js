@@ -700,7 +700,6 @@ function Map() {
             />
           )}
           {/* Pridėti naują renginį  */}
-          {console.log(addNewFeature)}
           <AddEvent
             isLoggedIn={!!auth.token}
             setAddNewFeature={setAddNewFeature}

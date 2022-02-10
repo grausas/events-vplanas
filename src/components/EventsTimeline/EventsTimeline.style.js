@@ -103,7 +103,7 @@ export const EventDate = styled.span`
 
 export const Text = styled.p`
   font-size: var(--fontMed);
-  line-height: 20px;
+  line-height: 18px;
   margin: 15px 0;
 `;
 
@@ -131,24 +131,6 @@ export const Close = styled.div`
   :hover {
     color: var(--lightBlue);
   }
-`;
-
-export const MoreButton = styled.span`
-  font-weight: 600;
-  cursor: pointer;
-
-  &::after {
-    content: " ►";
-    font-size: 12px;
-  }
-  &:hover {
-    color: var(--lightBlue);
-  }
-`;
-
-export const CloseImage = styled.img`
-  width: 16px;
-  padding: 3px;
 `;
 
 export const ClearButton = styled.span``;

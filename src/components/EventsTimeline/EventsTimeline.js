@@ -9,7 +9,6 @@ import {
   Text,
   Circle,
   Close,
-  MoreButton,
   ClearButton,
 } from "./EventsTimeline.style";
 // utils
@@ -68,7 +67,6 @@ const EventsTimeline = ({
                     </EventDate>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
                     <Circle />
-                    <MoreButton>Rodyti žemėlapyje</MoreButton>
                   </ItemContent>
                 </TimelineItem>
               );
