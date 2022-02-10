@@ -81,7 +81,6 @@ function Map() {
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
-  const { handleOpenFilter, showFilter } = useOpenCloseFilter();
 
   // global search
   // pabandyti ieskoti pagal attributes o ne pagal address
@@ -678,7 +677,6 @@ function Map() {
                 }
                 onChange={handleFilterChange}
                 handleClear={handleClearFilter}
-                handleCloseFilter={handleOpenFilter}
               />
             }
             search={
@@ -694,7 +692,6 @@ function Map() {
             <EventsTimeline
               events={shortResults}
               handleClose={handleOpen}
-              handleMoreFilters={handleOpenFilter}
               clickedEvent={queryPoint.OBJECTID}
               handleEventOpen={(e) => {
                 handleZoom(e, eventsFeatureLayer, view);

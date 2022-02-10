@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
     left: 10px;
     top: 5px;
     width: ${(props) => (props.close ? "120px" : "95%")};
-    max-height: 80%;
+    max-height: 95%;
   }
 `;
 
@@ -36,6 +36,7 @@ export const Text = styled.div`
   padding: 5px 10px;
   user-select: none;
   cursor: pointer;
+  z-index: 1;
 
   h3,
   span {
@@ -44,7 +45,8 @@ export const Text = styled.div`
     height: inherit;
 
     @media only screen and (max-width: 768px) {
-      font-size: var(--fontSmall);
+      font-size: var(--fontMed);
+      padding: 0px;
     }
   }
 `;
@@ -144,12 +146,20 @@ export const SearchDiv = styled.div`
   padding: 2px 10px 5px 10px;
   background: var(--silver);
   z-index: 1;
+
+  @media only screen and (max-width: 768px) {
+    top: 211px;
+  }
 `;
 
 export const FilterDiv = styled.div`
   position: sticky;
   top: 39px;
   z-index: 1;
+
+  @media only screen and (max-width: 768px) {
+    top: 34px;
+  }
 `;
 
 export const CloseImage = styled.img`
@@ -170,7 +180,12 @@ export const ExpandImage = styled.img`
   right: 5px;
   top: 5px;
   width: 30px;
-  /* padding: 6px; */
   border-radius: 50%;
   cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    width: 25px;
+    right: 0px;
+    top: 5px;
+  }
 `;

@@ -17,7 +17,15 @@ export const Wrapper = styled.div`
   right: 20px;
   background-color: var(--white);
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  z-index: 2;
+  z-index: 1;
+
+  @media only screen and (max-width: 768px) {
+    top: 5px;
+    right: 10px;
+    left: 10px;
+    margin: 0 auto;
+    width: 95%;
+  }
 `;
 
 export const Content = styled.div`

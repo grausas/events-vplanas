@@ -12,6 +12,10 @@ export const Wrapper = styled.div`
   background-color: var(--white);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    right: 10px;
+  }
 `;
 
 export const Icon = styled.img`
