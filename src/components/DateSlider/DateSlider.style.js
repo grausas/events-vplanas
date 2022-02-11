@@ -30,6 +30,16 @@ export const SliderDiv = styled.div`
   width: 100%;
   left: calc(50% - 300px);
   bottom: 80px;
+  animation: popup 0.3s;
+
+  @keyframes popup {
+    0% {
+      transform: scale(0.6);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
   /* style for Time Line widget */
   .esri-time-slider {
