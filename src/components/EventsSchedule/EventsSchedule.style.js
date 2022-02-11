@@ -142,7 +142,7 @@ export const MoreDiv = styled.div`
 export const SearchDiv = styled.div`
   position: sticky;
   width: 100%;
-  top: 196px;
+  top: 39px;
   padding: 2px 10px 5px 10px;
   background: var(--silver);
   z-index: 1;
@@ -155,7 +155,7 @@ export const SearchDiv = styled.div`
 
 export const FilterDiv = styled.div`
   position: sticky;
-  top: 39px;
+  top: 75px;
   z-index: 1;
 
   @media only screen and (max-width: 768px) {

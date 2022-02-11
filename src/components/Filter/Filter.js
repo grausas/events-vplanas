@@ -7,9 +7,19 @@ import {
   DateFilter,
   ClearButton,
   CheckBoxDiv,
+  FilterButton,
+  ButtonDivs,
+  DayButton,
+  Dropdown,
+  ExpandImage,
 } from "./Filter.style";
 // components
 import { CheckBox, DatePicker } from "../index";
+//hooks
+import { useOpenClose } from "../../hooks/useOpenClose";
+import { useOpenCloseFilter } from "../../hooks/OpenFilter";
+// icons
+import ExpandIcon from "../../assets/icons/expandBlack.png";
 
 const Filter = ({
   data,
@@ -21,6 +31,8 @@ const Filter = ({
   handleClear,
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
+  const { handleOpen, show } = useOpenClose();
+  const { handleOpenFilter, showFilter } = useOpenCloseFilter();
 
   const handleOnChange = useCallback(
     (e) => {
@@ -43,54 +55,67 @@ const Filter = ({
   };
   return (
     <Wrapper>
-      <Content onChange={onChange}>
-        <DateFilter>
-          <DatePicker
-            dateTitle="Nuo"
-            displayTime="none"
-            selected={selectedStart}
-            handleChange={handleChangeStart}
-            title="Pasirinkti pradžios datą"
-            height="small"
-            placeholderTextDate="Nuo"
-          />
-          <DatePicker
-            dateTitle="Iki"
-            displayTime="none"
-            selected={selectedFinish}
-            handleChange={handleChangeFinish}
-            title="Pasirinkti pabaigos datą"
-            height="small"
-          />
-        </DateFilter>
-        {/* <h5>Kategorijos</h5> */}
-        <FilterContent>
-          {checkedItems &&
-            checkedItems.map((item, index) => {
-              return (
-                <CheckBoxDiv backgroundColor={item.value} key={index}>
-                  <CheckBox
-                    value={item.value}
-                    name={index}
-                    id={item.id}
-                    label={item.text}
-                    checked={item.isChecked}
-                    handleCheckboxChange={handleOnChange}
-                  />
-                </CheckBoxDiv>
-              );
-            })}
-        </FilterContent>
-        <ClearButton
-          handleClick={() => {
-            handleClear();
-            handleClearCheckbox();
-          }}
-          value="clear"
-        >
-          IŠVALYTI
-        </ClearButton>
-      </Content>
+      <ButtonDivs>
+        <FilterButton handleClick={handleOpen}>Filtras</FilterButton>
+        <DayButton handleClick={handleOpen}>Šiandienos</DayButton>
+        <DayButton handleClick={handleOpen}>Mėnesio</DayButton>
+      </ButtonDivs>
+
+      {show && (
+        <Content onChange={onChange}>
+          <DateFilter>
+            <DatePicker
+              dateTitle="Nuo"
+              displayTime="none"
+              selected={selectedStart}
+              handleChange={handleChangeStart}
+              title="Pasirinkti pradžios datą"
+              height="small"
+              placeholderTextDate="Nuo"
+            />
+            <DatePicker
+              dateTitle="Iki"
+              displayTime="none"
+              selected={selectedFinish}
+              handleChange={handleChangeFinish}
+              title="Pasirinkti pabaigos datą"
+              height="small"
+            />
+          </DateFilter>
+          <Dropdown onClick={handleOpenFilter}>
+            Pasirinkti kategorijas
+            <ExpandImage src={ExpandIcon} alt="close-icon" />
+          </Dropdown>
+          {showFilter && (
+            <FilterContent>
+              {checkedItems &&
+                checkedItems.map((item, index) => {
+                  return (
+                    <CheckBoxDiv backgroundColor={item.value} key={index}>
+                      <CheckBox
+                        value={item.value}
+                        name={index}
+                        id={item.id}
+                        label={item.text}
+                        checked={item.isChecked}
+                        handleCheckboxChange={handleOnChange}
+                      />
+                    </CheckBoxDiv>
+                  );
+                })}
+              <ClearButton
+                handleClick={() => {
+                  handleClear();
+                  handleClearCheckbox();
+                }}
+                value="clear"
+              >
+                IŠVALYTI
+              </ClearButton>
+            </FilterContent>
+          )}
+        </Content>
+      )}
     </Wrapper>
   );
 };

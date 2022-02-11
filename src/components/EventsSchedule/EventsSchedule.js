@@ -32,8 +32,8 @@ const EventsSchedule = ({
       </Text>
       {show && (
         <>
-          <FilterDiv>{filter}</FilterDiv>
           <SearchDiv>{search}</SearchDiv>
+          <FilterDiv>{filter}</FilterDiv>
         </>
       )}
       <Content>

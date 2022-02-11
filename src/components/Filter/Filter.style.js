@@ -25,13 +25,25 @@ export const DateFilter = styled.div`
 
 export const FilterContent = styled.div`
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   flex-wrap: wrap;
+  position: sticky;
+  left: 10px;
+  top: 116px;
+  border: 1px solid var(--darkSilver);
+  border-radius: 10px;
+  background-color: var(--white);
+  width: 100%;
+  padding: 5px 10px;
 `;
 
 export const CheckBoxDiv = styled.div`
   display: flex;
   justify-content: space-between;
+
+  &:hover {
+    background: var(--silver);
+  }
 
   label {
     &:hover input ~ span {
@@ -111,7 +123,10 @@ export const CloseImageDiv = styled.div`
 `;
 
 export const ClearButton = styled(Button)`
-  float: right;
+  position: absolute;
+  width: 30%;
+  bottom: 4px;
+  right: 4px;
   padding: 1px 7px;
   font-size: var(--fontSmall);
   background-color: var(--white);
@@ -122,5 +137,45 @@ export const ClearButton = styled(Button)`
     background-color: var(--silver);
     color: var(--dark);
     border: 1px solid var(--darkSilver);
+  }
+`;
+
+export const ButtonDivs = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const FilterButton = styled(Button)`
+  font-size: var(--fontSmall);
+  padding: 2px 5px;
+`;
+
+export const DayButton = styled(Button)`
+  font-size: var(--fontSmall);
+  padding: 2px 5px;
+  background: var(-green);
+`;
+
+export const Dropdown = styled.div`
+  margin-top: 10px;
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--darkSilver);
+  padding: 2px 15px;
+  border-radius: 5px;
+`;
+
+export const ExpandImage = styled.img`
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  width: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  @media only screen and (max-width: 768px) {
+    width: 25px;
+    right: 0px;
+    top: 5px;
   }
 `;
