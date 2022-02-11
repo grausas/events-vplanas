@@ -3,7 +3,6 @@ import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Sketch from "@arcgis/core/widgets/Sketch";
 
 export const graphicsLayer = new GraphicsLayer();
-
 // Sketch widget
 export const drawNewPolygon = (view, state, setState) => {
   view &&

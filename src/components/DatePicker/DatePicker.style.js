@@ -6,6 +6,10 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   z-index: 222;
 
+  &:nth-child(1) {
+    margin-right: 10px;
+  }
+
   .react-datepicker__input-container input {
     width: 100%;
     height: 100%;
@@ -32,16 +36,16 @@ export const DatePickerWrapper = styled.div`
   flex-grow: 2;
   display: ${(props) => (props.display ? "none" : "block")};
 
+  &:nth-child(2) {
+    margin-left: 20px;
+  }
+
   .react-datepicker-wrapper {
     height: 60%;
   }
 
   .react-datepicker__input-container {
     height: 100%;
-  }
-
-  :not(:last-child) {
-    margin-right: 10px;
   }
 `;
 
@@ -54,6 +58,7 @@ export const CustomButton = styled.input`
   border: 1px solid var(--darkSilver);
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
     border: 2px solid var(--lightBlue);

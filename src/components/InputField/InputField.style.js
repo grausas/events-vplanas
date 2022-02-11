@@ -21,6 +21,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   color: var(--dark);
   font-size: var(--fontSmall);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
     border: 2px solid var(--lightBlue);
@@ -38,6 +39,7 @@ export const TextArea = styled.textarea`
   font-size: var(--fontSmall);
   resize: none;
   color: var(--dark);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
     border: 2px solid var(--lightBlue);
@@ -54,6 +56,7 @@ export const Select = styled.select`
   box-sizing: border-box;
   text-transform: capitalize;
   font-size: var(--fontSmall);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
     border: 2px solid var(--lightBlue);
