@@ -15,20 +15,20 @@ export const TimelineContainer = styled.div`
   flex-direction: column;
   position: relative;
 
-  /* &&:after {
+  &&:after {
     background-color: var(--grey);
     content: "";
     position: absolute;
-    left: calc(0% + 8px);
+    left: calc(0% + 3px);
     width: 2px;
     height: 100%;
-  } */
+  }
 `;
 
 export const TimelineItem = styled.div`
   display: flex;
   justify-content: flex-end;
-  /* padding-left: 10px; */
+  padding-left: 25px;
   position: relative;
   margin: 5px 0;
   width: 100%;
@@ -44,15 +44,15 @@ export const ItemContent = styled.div`
   padding: 10px 15px;
   position: relative;
   width: 100%;
-
-  border: ${(props) =>
-    props.clickedEvent === "clicked" ? "2px solid var(--red)" : ""};
+  box-shadow: ${(props) =>
+    props.clickedEvent === "clicked" ? "0px 0px 0px 2px var(--lightBlue)" : ""};
 
   &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
   }
 
-  /* &:after {
+  &:after {
     content: " ";
     background-color: var(--white);
     box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -63,7 +63,7 @@ export const ItemContent = styled.div`
     transform: rotate(45deg);
     width: 12px;
     height: 12px;
-  } */
+  }
 `;
 
 export const Category = styled.span`
@@ -107,17 +107,16 @@ export const Text = styled.p`
   margin: 15px 0;
 `;
 
-// export const Circle = styled.span`
-//   background-color: var(--white);
-//   border: 2px solid var(--grey);
-//   border-radius: 50%;
-//   position: absolute;
-//   top: calc(50% - 10px);
-//   left: -29px;
-//   width: 16px;
-//   height: 16px;
-//   z-index: 1;
-// `;
+export const Circle = styled.span`
+  background-color: var(--grey);
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% - 10px);
+  left: -29px;
+  width: 16px;
+  height: 16px;
+`;
 
 export const Close = styled.div`
   position: absolute;

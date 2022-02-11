@@ -587,13 +587,14 @@ function Map() {
       // {
       //   layer: layer,
       //   searchFields: ["PAVADINIMAS", "ORGANIZATORIUS"],
-      //   displayField: "{PAVADINIMAS}",
+      //   // displayField: "{PAVADINIMAS}",
       //   exactMatch: false,
       //   outFields: ["*"],
-      //   name: "Point FS",
+      //   name: "Renginiai",
       //   maxResults: 6,
       //   maxSuggestions: 6,
       //   suggestionsEnabled: true,
+      //   suggestionTemplate: "{PAVADINIMAS}",
       //   minSuggestCharacters: 0,
       // },
     ];

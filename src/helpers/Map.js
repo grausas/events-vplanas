@@ -33,6 +33,8 @@ export const createMapView = (ref, layers) => {
 
   layers.load().then(() => {
     const uniqueValue = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
+    let width = "20px";
+    let height = "20px";
 
     const simpleRenderer = {
       type: "unique-value",
@@ -44,8 +46,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: Susirinkimas,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -53,8 +55,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: SportoRenginys,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -62,8 +64,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: Koncertas,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -71,8 +73,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: Filmavimas,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -80,8 +82,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: Muge,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -89,8 +91,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: RenginysSeimai,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -98,8 +100,8 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: ValstybinisRenginys,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
         {
@@ -107,14 +109,14 @@ export const createMapView = (ref, layers) => {
           symbol: {
             type: "picture-marker",
             url: ViesasisRenginys,
-            width: "20px",
-            height: "20px",
+            width: width,
+            height: height,
           },
         },
       ],
     };
 
-    const simpleRenderer2 = {
+    const simpleRendererPolygon = {
       type: "unique-value",
       field: "KATEGORIJA",
       uniqueValueInfos: uniqueValue,
@@ -126,7 +128,8 @@ export const createMapView = (ref, layers) => {
       }
 
       view.watch("scale", (newValue) => {
-        layers.renderer = newValue >= 15000 ? simpleRenderer : simpleRenderer2;
+        layers.renderer =
+          newValue >= 15000 ? simpleRenderer : simpleRendererPolygon;
       });
     });
   });

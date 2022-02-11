@@ -115,10 +115,10 @@ export const MoreButton = styled.button`
 
 export const MoreDiv = styled.div`
   position: sticky;
-  bottom: 0;
+  bottom: -1px;
   background: var(--silver);
   text-align: center;
-  z-index: 2;
+  z-index: 1;
 
   &:after {
     content: "";
@@ -142,13 +142,14 @@ export const MoreDiv = styled.div`
 export const SearchDiv = styled.div`
   position: sticky;
   width: 100%;
-  top: 216px;
+  top: 196px;
   padding: 2px 10px 5px 10px;
   background: var(--silver);
   z-index: 1;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   @media only screen and (max-width: 768px) {
-    top: 211px;
+    top: 191px;
   }
 `;
 

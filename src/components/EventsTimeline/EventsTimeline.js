@@ -7,7 +7,7 @@ import {
   Category,
   EventDate,
   Text,
-  // Circle,
+  Circle,
   // Close,
   // ClearButton,
 } from "./EventsTimeline.style";
@@ -58,7 +58,7 @@ const EventsTimeline = ({ events, handleEventOpen, clickedEvent }) => {
                       {eventFinishDate + " " + eventFinishTime}
                     </EventDate>
                     <Text>{event.attributes.PAVADINIMAS}</Text>
-                    {/* <Circle /> */}
+                    <Circle />
                   </ItemContent>
                 </TimelineItem>
               );

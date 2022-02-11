@@ -63,7 +63,7 @@ const Filter = ({
             height="small"
           />
         </DateFilter>
-        <h5>Kategorijos</h5>
+        {/* <h5>Kategorijos</h5> */}
         <FilterContent>
           {checkedItems &&
             checkedItems.map((item, index) => {
