@@ -188,3 +188,15 @@ export const ExpandImage = styled.img`
   width: 22px;
   border-radius: 50%;
 `;
+
+export const FilterDay = styled.div`
+  span {
+    padding: 2px;
+
+    &:hover {
+      background: var(--white);
+      color: var(--blue);
+      cursor: pointer;
+    }
+  }
+`;

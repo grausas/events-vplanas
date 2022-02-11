@@ -9,9 +9,10 @@ import {
   CheckBoxDiv,
   FilterButton,
   ButtonDivs,
-  DayButton,
+  // DayButton,
   Dropdown,
   ExpandImage,
+  FilterDay,
 } from "./Filter.style";
 // components
 import { CheckBox, DatePicker } from "../index";
@@ -63,11 +64,11 @@ const Filter = ({
         </FilterButton>
         {/* <DayButton>Šiandienos</DayButton>
         <DayButton>Mėnesio</DayButton> */}
-        <div>
+        <FilterDay>
           <span>Dienos</span>
           <span>Svaitės</span>
           <span>Mėnesio</span>
-        </div>
+        </FilterDay>
       </ButtonDivs>
 
       {show && (
