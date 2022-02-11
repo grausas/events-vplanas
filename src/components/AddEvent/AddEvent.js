@@ -249,14 +249,14 @@ const AddEvent = ({
     <>
       {isLoggedIn && (
         <div>
-          {!show ? (
-            addNewFeature.geometry &&
-            !addNewFeature.geometry.length > 0 && (
-              <AddObjectButton>
-                <span onClick={handleOpen}>Pildyti</span>
-              </AddObjectButton>
-            )
-          ) : (
+          <AddObjectButton>
+            {addNewFeature.geometry && !addNewFeature.geometry.length > 0 ? (
+              <span onClick={handleOpen}>Užpildykite duomenis</span>
+            ) : (
+              <span onClick={handleOpen}>Nubraižykite objektą</span>
+            )}
+          </AddObjectButton>
+          {show && (
             <FormWrapper isEditing={isEditing}>
               <CloseImage
                 src={CloseIcon}

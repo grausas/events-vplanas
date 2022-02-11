@@ -33,7 +33,7 @@ export const SearchDiv = styled.div`
 export const SketchDiv = styled.div`
   position: absolute;
   right: 20px;
-  top: 50px;
+  top: 90px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   border: 1px solid var(--darkSilver);
   border-radius: 5px;

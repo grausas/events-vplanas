@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 export const AddObjectButton = styled.div`
   position: absolute;
   max-height: 600px;
-  top: 100px;
+  top: 50px;
   border-radius: 5px;
   right: 20px;
   padding: 5px 10px;
@@ -62,6 +62,7 @@ export const InputWrapper = styled.div`
     color: var(--dark);
     font-size: 14px;
     margin-bottom: 5px;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
   }
 
   .react-autosuggest__input--focused {
