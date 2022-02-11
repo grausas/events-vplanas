@@ -57,8 +57,8 @@ const Filter = ({
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtras</FilterButton>
-        <DayButton handleClick={handleOpen}>Šiandienos</DayButton>
-        <DayButton handleClick={handleOpen}>Mėnesio</DayButton>
+        <DayButton>Šiandienos</DayButton>
+        <DayButton>Mėnesio</DayButton>
       </ButtonDivs>
 
       {show && (

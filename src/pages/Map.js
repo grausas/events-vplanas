@@ -694,6 +694,11 @@ function Map() {
               events={shortResults}
               handleClose={handleOpen}
               clickedEvent={queryPoint.OBJECTID}
+              emptyTimeline={
+                shortResults && shortResults.length === 0
+                  ? "Renginių nerasta"
+                  : ""
+              }
               handleEventOpen={(e) => {
                 handleZoom(e, eventsFeatureLayer, view);
                 openEvent(e);

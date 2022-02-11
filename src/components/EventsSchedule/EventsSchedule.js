@@ -3,7 +3,7 @@ import {
   Wrapper,
   Content,
   Text,
-  MoreDiv,
+  // MoreDiv,
   SearchDiv,
   FilterDiv,
   CloseImage,
@@ -38,11 +38,11 @@ const EventsSchedule = ({
       )}
       <Content>
         {show && <>{children}</>}
-        {show && (
+        {/* {show && (
           <MoreDiv>
             <span onClick={handleOpenMore}>Rodyti visus</span>
           </MoreDiv>
-        )}
+        )} */}
       </Content>
     </Wrapper>
   );

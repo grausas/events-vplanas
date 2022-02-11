@@ -8,12 +8,16 @@ export const Wrapper = styled.div`
   color: var(--dark);
   padding: 0 10px 0 10px;
   background-color: var(--silver);
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 5px 0 5px;
+  }
 `;
 
 export const Content = styled.div`
   max-width: 100%;
   user-select: none;
-
+  padding-bottom: 5px;
   h5 {
     font-weight: 600;
   }
@@ -29,7 +33,6 @@ export const FilterContent = styled.div`
   flex-wrap: wrap;
   position: sticky;
   left: 10px;
-  top: 116px;
   border: 1px solid var(--darkSilver);
   border-radius: 10px;
   background-color: var(--white);
@@ -143,6 +146,7 @@ export const ClearButton = styled(Button)`
 export const ButtonDivs = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-bottom: 5px;
 `;
 
 export const FilterButton = styled(Button)`
@@ -163,6 +167,9 @@ export const Dropdown = styled.div`
   border: 1px solid var(--darkSilver);
   padding: 2px 15px;
   border-radius: 5px;
+  margin-bottom: 1px;
+  cursor: pointer;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const ExpandImage = styled.img`
@@ -171,11 +178,4 @@ export const ExpandImage = styled.img`
   top: 3px;
   width: 22px;
   border-radius: 50%;
-  cursor: pointer;
-
-  @media only screen and (max-width: 768px) {
-    width: 25px;
-    right: 0px;
-    top: 5px;
-  }
 `;

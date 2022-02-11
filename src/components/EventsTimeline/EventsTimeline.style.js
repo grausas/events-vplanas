@@ -5,9 +5,12 @@ export const Wrapper = styled.div`
   max-width: 500px;
   width: 100%;
   background: var(--silver);
-  overflow: auto;
   padding: 0 10px;
   margin-top: 5px;
+
+  h2 {
+    text-align: center;
+  }
 `;
 
 export const TimelineContainer = styled.div`
