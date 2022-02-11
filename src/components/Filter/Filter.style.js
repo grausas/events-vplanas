@@ -151,7 +151,16 @@ export const ButtonDivs = styled.div`
 
 export const FilterButton = styled(Button)`
   font-size: var(--fontSmall);
-  padding: 2px 5px;
+  padding: 2px 5px 2px 20px;
+  position: relative;
+
+  img {
+    position: absolute;
+    left: 1px;
+    top: 3px;
+    width: 20px;
+    border-radius: 50%;
+  }
 `;
 
 export const DayButton = styled(Button)`

@@ -25,7 +25,7 @@ const EventsTimeline = ({
   return (
     <Wrapper>
       <TimelineContainer>
-        <h2>{emptyTimeline}</h2>
+        {emptyTimeline && <h2>{emptyTimeline}</h2>}
         {events &&
           events.map((event) => {
             const result = CategoryData.find(

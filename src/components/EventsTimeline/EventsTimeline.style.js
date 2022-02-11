@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
 
   h2 {
     text-align: center;
+    z-index: 1;
+    background: var(--silver);
+    padding-bottom: 10px;
   }
 `;
 
