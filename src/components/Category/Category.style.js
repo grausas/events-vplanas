@@ -13,7 +13,7 @@ import ViesasisRenginys from "../../assets/icons/categories/IKONOS RENGINIAI 32x
 export const Wrapper = styled.div`
   font-weight: bold;
   letter-spacing: 1px;
-  padding: 3px 3px 3px 25px;
+  padding: 3px;
   color: var(--white);
   text-transform: uppercase;
   border-radius: 5px;
@@ -35,20 +35,18 @@ export const Wrapper = styled.div`
       : "rgb(227,148,191,255)"};
 
   span {
-    position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 12px;
   }
 `;
 
 export const Icon = styled.div`
   display: ${(props) => (props.display === "show" ? "block" : "none")};
-  position: absolute;
   width: 22px;
   height: 22px;
-  left: -23px;
-  top: -2px;
+  margin-right: 2px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
