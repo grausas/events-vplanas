@@ -209,11 +209,18 @@ const AddEvent = ({
       ...addNewFeature,
       startDateArr,
       Savaites_dienos: weekDayArr.sort((a, b) => a - b).toString(),
-      geometry: "",
-      rings: "",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDateArr, weekDayArr]);
+
+  useEffect(() => {
+    setAddNewFeature({
+      ...addNewFeature,
+      rings: "",
+    });
+  }, []);
+
+  console.log("addNewFeature", addNewFeature);
 
   // suggestion organization
   const lowerEvents =
@@ -272,7 +279,7 @@ const AddEvent = ({
                     handleClearCheckbox();
                     setValueName("");
                     setValue("");
-                    setAddNewFeature({ geometry: "", rings: "" });
+                    setAddNewFeature({ rings: "" });
                     handleOpen();
                   }}
                 >
@@ -440,7 +447,7 @@ const AddEvent = ({
                     handleClick={() => {
                       handleCancel();
                       setStartDateArr([]);
-                      setAddNewFeature({ geometry: "", rings: "" });
+                      setAddNewFeature({ rings: "" });
                       handleOpen();
                     }}
                   >

@@ -4,7 +4,7 @@ import Sketch from "@arcgis/core/widgets/Sketch";
 
 export const graphicsLayer = new GraphicsLayer();
 // Sketch widget
-export const drawNewPolygon = (view, state, setState) => {
+export const drawNewPolygon = (view, setState) => {
   view &&
     view.when(() => {
       const sketch = new Sketch({
