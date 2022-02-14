@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   position: relative;
   max-width: 500px;
   width: 100%;
-  background: var(--silver);
+  background: var(--white);
   padding: 0 10px;
   margin-top: 5px;
 
@@ -41,7 +41,7 @@ export const TimelineItem = styled.div`
 `;
 
 export const ItemContent = styled.div`
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   background-color: var(--white);
   display: flex;
@@ -52,6 +52,7 @@ export const ItemContent = styled.div`
   width: 100%;
   box-shadow: ${(props) =>
     props.clickedEvent === "clicked" ? "0px 0px 0px 2px var(--lightBlue)" : ""};
+  background: var(--white);
 
   &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
@@ -69,25 +70,39 @@ export const ItemContent = styled.div`
     transform: rotate(45deg);
     width: 12px;
     height: 12px;
+    background: var(--white);
   }
 `;
 
 export const CategoryDiv = styled.span`
+  width: 100%;
+  padding: 10px;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 0;
+  right: 0;
 `;
 
 export const EventDate = styled.span`
+  width: 100%;
   color: var(--grey);
   font-size: 12px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 22px;
+    margin-right: 5px;
+  }
 `;
 
 export const Text = styled.p`
+  width: 100%;
   font-size: var(--fontMed);
   line-height: 18px;
-  margin: 15px 0;
+  margin: 40px 0 15px 0;
+  font-weight: 600;
+  text-align: center;
 `;
 
 export const Circle = styled.span`

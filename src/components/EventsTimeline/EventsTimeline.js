@@ -17,6 +17,8 @@ import { Category } from "../index";
 import { CategoryData } from "../../utils/CategoryData";
 // helpers
 import { changeDate, changeTime } from "../../helpers/DateChange";
+// icons
+import Calendar from "../../assets/icons/calendar.png";
 
 const EventsTimeline = ({
   events,
@@ -60,13 +62,17 @@ const EventsTimeline = ({
                       bgColor={event.attributes.KATEGORIJA}
                       text={result && result.text}
                       bgImage={event.attributes.KATEGORIJA}
+                      display="show"
                     />
                   </CategoryDiv>
-                  <EventDate>{eventStartDate + " " + eventStartTime}</EventDate>
+                  <Text>{event.attributes.PAVADINIMAS}</Text>
                   <EventDate>
+                    <img src={Calendar} alt="calendar-icon" />
+                    {eventStartDate + " " + eventStartTime}
+                    {" || "}
                     {eventFinishDate + " " + eventFinishTime}
                   </EventDate>
-                  <Text>{event.attributes.PAVADINIMAS}</Text>
+
                   <Circle />
                 </ItemContent>
               </TimelineItem>

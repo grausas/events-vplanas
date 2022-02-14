@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow: auto;
   background-color: ${(props) =>
-    props.close ? "var(--grey)" : "var(--silver)"};
+    props.close ? "var(--grey)" : "var(--white)"};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
 
   @media only screen and (max-width: 768px) {
@@ -32,8 +32,7 @@ export const Text = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${(props) =>
-    props.text ? "var(--silver)" : "var(--grey)"};
+  background-color: ${(props) => (props.text ? "var(--white)" : "var(--grey)")};
   padding: 5px 10px;
   user-select: none;
   cursor: pointer;
@@ -117,7 +116,7 @@ export const MoreButton = styled.button`
 export const MoreDiv = styled.div`
   position: sticky;
   bottom: -1px;
-  background: var(--silver);
+  background: var(--white);
   text-align: center;
   z-index: 1;
 
@@ -145,7 +144,7 @@ export const SearchDiv = styled.div`
   width: 100%;
   top: 39px;
   padding: 2px 10px 5px 10px;
-  background: var(--silver);
+  background: var(--white);
   z-index: 1;
 
   @media only screen and (max-width: 768px) {
@@ -174,7 +173,7 @@ export const CloseImage = styled.img`
   cursor: pointer;
 
   :hover {
-    background-color: var(--white);
+    background-color: var(--silver);
   }
 `;
 export const ExpandImage = styled.img`

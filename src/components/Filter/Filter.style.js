@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   color: var(--dark);
   padding: 0 10px 0 10px;
-  background-color: var(--silver);
+  background-color: var(--white);
 
   @media only screen and (max-width: 768px) {
     padding: 0 5px 0 5px;
@@ -194,7 +194,7 @@ export const FilterDay = styled.div`
     padding: 2px;
 
     &:hover {
-      background: var(--white);
+      background: var(--silver);
       color: var(--blue);
       cursor: pointer;
     }

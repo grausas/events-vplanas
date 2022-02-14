@@ -11,10 +11,9 @@ import ValstybinisRenginys from "../../assets/icons/categories/IKONOS RENGINIAI 
 import ViesasisRenginys from "../../assets/icons/categories/IKONOS RENGINIAI 32x32-08.png";
 
 export const Wrapper = styled.div`
-  font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
-  padding: 5px 5px 5px 25px;
+  padding: 3px 3px 3px 25px;
   color: var(--white);
   text-transform: uppercase;
   border-radius: 5px;
@@ -39,14 +38,16 @@ export const Wrapper = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
+    font-size: 12px;
   }
 `;
 
 export const Icon = styled.div`
+  display: ${(props) => (props.display === "show" ? "block" : "none")};
   position: absolute;
-  width: 25px;
-  height: 25px;
-  left: -25px;
+  width: 22px;
+  height: 22px;
+  left: -23px;
   top: -2px;
   background-position: center;
   background-size: cover;
