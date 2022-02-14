@@ -151,7 +151,7 @@ export const ButtonDivs = styled.div`
 
 export const FilterButton = styled(Button)`
   font-size: var(--fontSmall);
-  padding: 2px 5px 2px 20px;
+  padding: 2px 5px;
   position: relative;
 
   img {

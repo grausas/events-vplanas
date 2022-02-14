@@ -21,7 +21,6 @@ import { useOpenClose } from "../../hooks/useOpenClose";
 import { useOpenCloseFilter } from "../../hooks/OpenFilter";
 // icons
 import ExpandIcon from "../../assets/icons/expandBlack.png";
-import FilterIcon from "../../assets/icons/filter.png";
 
 const Filter = ({
   data,
@@ -58,10 +57,7 @@ const Filter = ({
   return (
     <Wrapper>
       <ButtonDivs>
-        <FilterButton handleClick={handleOpen}>
-          <img src={FilterIcon} alt="close-icon" />
-          Filtras
-        </FilterButton>
+        <FilterButton handleClick={handleOpen}>Filtras</FilterButton>
         {/* <DayButton>Šiandienos</DayButton>
         <DayButton>Mėnesio</DayButton> */}
         <FilterDay>

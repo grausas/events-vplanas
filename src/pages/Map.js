@@ -537,42 +537,6 @@ function Map() {
       loader.style.display = "none";
     });
 
-    // on click get events from clicked place
-    view &&
-      view.on("click", function (event) {
-        view.hitTest(event, { include: layer }).then(function (response) {
-          // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-          // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
-          if (response.results.length >= 1) {
-            view.whenLayerView(layer).then(function (layerView) {
-              layerView
-                .queryFeatures({
-                  geometry: view.toMap(event),
-                  outFields: ["*"],
-                  distance: 1.5 * view.resolution,
-                  spatialRelationship: "intersects",
-                })
-                .then(function (response) {
-                  if (response.features.length > 1) {
-                    // save to another state, then filter shortresults with result from here and set to another state
-                    // because shortResults state has to stay untouched
-                    setShortResults(response.features);
-                    handleOpen(show);
-                  } else if (
-                    response.features.length === 1 &&
-                    openModal === false
-                  ) {
-                    setQueryPoint(response.features[0].attributes);
-                    handleOpenModal(!openModal);
-                  }
-                });
-            });
-          } else {
-            return null;
-          }
-        });
-      });
-
     // paieska
     const sources = [
       {
@@ -635,6 +599,49 @@ function Map() {
   useEffect(() => {
     addPolygon();
   }, [view]);
+
+  useEffect(() => {
+    // on click get events from clicked place
+    view &&
+      view.on("immediate-click", function (event) {
+        view
+          .hitTest(event, { include: eventsFeatureLayer })
+          .then(function (response) {
+            console.log(response);
+            console.log("shortResults", shortResults);
+
+            // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+            // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
+            if (response.results.length >= 1) {
+              view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+                layerView
+                  .queryFeatures({
+                    geometry: view.toMap(event),
+                    outFields: ["*"],
+                    distance: 1.5 * view.resolution,
+                    spatialRelationship: "intersects",
+                  })
+                  .then(function (response) {
+                    if (response.features.length > 1) {
+                      // save to another state, then filter shortresults with result from here and set to another state
+                      // because shortResults state has to stay untouched
+                      setShortResults(response.features);
+                      handleOpen(show);
+                    } else if (
+                      response.features.length === 1 &&
+                      openModal === false
+                    ) {
+                      setQueryPoint(response.features[0].attributes);
+                      handleOpenModal(!openModal);
+                    }
+                  });
+              });
+            } else {
+              return null;
+            }
+          });
+      });
+  }, [eventsFeatureLayer]);
 
   return (
     <>
