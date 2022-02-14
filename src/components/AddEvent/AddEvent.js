@@ -218,9 +218,8 @@ const AddEvent = ({
       ...addNewFeature,
       rings: "",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log("addNewFeature", addNewFeature);
 
   // suggestion organization
   const lowerEvents =
@@ -260,7 +259,7 @@ const AddEvent = ({
             {addNewFeature.geometry && !addNewFeature.geometry.length > 0 ? (
               <span onClick={handleOpen}>Užpildykite duomenis</span>
             ) : (
-              <span onClick={handleOpen}>Nubraižykite objektą</span>
+              <span>Nubraižykite objektą</span>
             )}
           </AddObjectButton>
           {show && (

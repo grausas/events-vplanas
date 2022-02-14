@@ -13,7 +13,6 @@ import { AuthContext } from "../context/AuthContext";
 // Hooks
 import { useOpenClose } from "../hooks/useOpenClose";
 import { useOpenCloseModal } from "../hooks/openModal";
-import { useOpenCloseFilter } from "../hooks/OpenFilter";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 // import * as locator from "@arcgis/core/rest/locator";

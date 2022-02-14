@@ -101,14 +101,16 @@ const EventCard = ({
                     : " Pastabų nėra"}
                 </p>
               </Text>
-              <Text>
-                <p>
-                  Aprašymas:
-                  {description && description.length
-                    ? " " + description
-                    : " Aprašymo nėra"}
-                </p>
-              </Text>
+              {description && (
+                <Text>
+                  <p>
+                    Aprašymas:
+                    {description && description.length
+                      ? " " + description
+                      : " Aprašymo nėra"}
+                  </p>
+                </Text>
+              )}
             </div>
           </Content>
         </Wrapper>

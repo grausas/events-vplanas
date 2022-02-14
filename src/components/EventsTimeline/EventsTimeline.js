@@ -66,7 +66,6 @@ const EventsTimeline = ({
                     />
                   </CategoryDiv>
                   <Text>{event.attributes.PAVADINIMAS}</Text>
-                  {console.log(event.attributes.Savaites_dienos)}
                   <EventDate>
                     <img src={Calendar} alt="calendar-icon" />
                     {event.attributes.Savaites_dienos != null &&
