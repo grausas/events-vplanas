@@ -59,6 +59,7 @@ const EventsTimeline = ({
                     <Category
                       bgColor={event.attributes.KATEGORIJA}
                       text={result && result.text}
+                      bgImage={event.attributes.KATEGORIJA}
                     />
                   </CategoryDiv>
                   <EventDate>{eventStartDate + " " + eventStartTime}</EventDate>

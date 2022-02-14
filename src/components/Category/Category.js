@@ -1,8 +1,17 @@
 // styles
-import { Wrapper } from "./Category.style";
+import { Wrapper, Icon } from "./Category.style";
 
-const Category = ({ bgColor, text }) => {
-  return <Wrapper backgroundColor={bgColor}>{text}</Wrapper>;
+//icons
+
+const Category = ({ bgColor, text, bgImage }) => {
+  return (
+    <Wrapper backgroundColor={bgColor}>
+      <span>
+        <Icon backgroundImage={bgImage} />
+        {text}
+      </span>
+    </Wrapper>
+  );
 };
 
 export default Category;
