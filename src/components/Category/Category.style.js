@@ -13,7 +13,7 @@ import ViesasisRenginys from "../../assets/icons/categories/IKONOS RENGINIAI 32x
 export const Wrapper = styled.div`
   font-weight: bold;
   letter-spacing: 1px;
-  padding: 3px;
+  padding: 3px 10px;
   color: var(--white);
   text-transform: uppercase;
   border-radius: 5px;

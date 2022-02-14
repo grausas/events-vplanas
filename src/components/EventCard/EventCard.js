@@ -9,6 +9,7 @@ import {
   Logo,
   EditIcon,
   EventDates,
+  CategoryDiv,
 } from "./EventCard.style";
 // Icon
 import CloseIcon from "../../assets/icons/close.png";
@@ -16,6 +17,10 @@ import ExternalLink from "../../assets/icons/external-link.png";
 import Time from "../../assets/icons/time.png";
 import Document from "../../assets/icons/document.png";
 import Edit from "../../assets/icons/edit.png";
+// components
+import { Category } from "../index";
+// utils
+import { CategoryData } from "../../utils/CategoryData";
 
 //hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
@@ -36,6 +41,7 @@ const EventCard = ({
   SavaitesDienos,
 }) => {
   const { handleOpen, show } = useOpenClose();
+  const result = CategoryData.find(({ id }) => id === Number(category));
 
   return (
     <>
@@ -48,6 +54,9 @@ const EventCard = ({
               <EditIcon src={Edit} alt="edit-icon" onClick={handleOpen} />
             )}
             <Logo backgroundImage={category} />
+            <CategoryDiv>
+              <Category bgColor={category} text={result && result.text} />
+            </CategoryDiv>
             <CloseImage
               src={CloseIcon}
               alt="close-icon"

@@ -61,20 +61,20 @@ export const Close = styled.div`
     margin: 0 auto;
     background-color: ${(props) =>
       props.backgroundColor === 1
-        ? "rgb(237,81,81,255)"
+        ? "rgb(241,105,99,255)"
         : props.backgroundColor === 2
-        ? "rgb(20,158,206,255)"
+        ? "rgb(0,173,214,255)"
         : props.backgroundColor === 3
-        ? "rgb(158,85,156,255)"
+        ? "rgb(158,74,155,255)"
         : props.backgroundColor === 4
-        ? "rgb(252,146,31,255)"
+        ? "rgb(240,90,40,255)"
         : props.backgroundColor === 5
-        ? "rgb(167,198,54,255)"
+        ? "rgb(180,203,67,255)"
         : props.backgroundColor === 6
-        ? "rgb(255,222,62,255)"
+        ? "rgb(250,175,64,255)"
         : props.backgroundColor === 7
-        ? "rgb(0,92,230,255)"
-        : "rgb(255,115,223,255)"};
+        ? "rgb(59,114,183,255)"
+        : "rgb(227,148,191,255)"};
   }
 
   /* &:before {
@@ -171,3 +171,14 @@ export const Text = styled.div`
 `;
 
 export const EventDates = styled.div``;
+
+export const CategoryDiv = styled.div`
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  bottom: -10px;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+`;

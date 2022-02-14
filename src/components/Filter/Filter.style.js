@@ -53,58 +53,58 @@ export const CheckBoxDiv = styled.div`
       opacity: 0.8;
       background-color: ${(props) =>
         props.backgroundColor === 1
-          ? "rgb(237,81,81,255)"
+          ? "rgb(241,105,99,255)"
           : props.backgroundColor === 2
-          ? "rgb(20,158,206,255)"
+          ? "rgb(0,173,214,255)"
           : props.backgroundColor === 3
-          ? "rgb(158,85,156,255)"
+          ? "rgb(158,74,155,255)"
           : props.backgroundColor === 4
-          ? "rgb(252,146,31,255)"
+          ? "rgb(240,90,40,255)"
           : props.backgroundColor === 5
-          ? "rgb(167,198,54,255)"
+          ? "rgb(180,203,67,255)"
           : props.backgroundColor === 6
-          ? "rgb(255,222,62,255)"
+          ? "rgb(250,175,64,255)"
           : props.backgroundColor === 7
-          ? "rgb(0,92,230,255)"
-          : "rgb(255,115,223,255)"};
+          ? "rgb(59,114,183,255)"
+          : "rgb(227,148,191,255)"};
     }
     input:checked ~ span {
       background-color: ${(props) =>
         props.backgroundColor === 1
-          ? "rgb(237,81,81,255)"
+          ? "rgb(241,105,99,255)"
           : props.backgroundColor === 2
-          ? "rgb(20,158,206,255)"
+          ? "rgb(0,173,214,255)"
           : props.backgroundColor === 3
-          ? "rgb(158,85,156,255)"
+          ? "rgb(158,74,155,255)"
           : props.backgroundColor === 4
-          ? "rgb(252,146,31,255)"
+          ? "rgb(240,90,40,255)"
           : props.backgroundColor === 5
-          ? "rgb(167,198,54,255)"
+          ? "rgb(180,203,67,255)"
           : props.backgroundColor === 6
-          ? "rgb(255,222,62,255)"
+          ? "rgb(250,175,64,255)"
           : props.backgroundColor === 7
-          ? "rgb(0,92,230,255)"
-          : "rgb(255,115,223,255)"};
+          ? "rgb(59,114,183,255)"
+          : "rgb(227,148,191,255)"};
     }
   }
 
   span {
     background-color: ${(props) =>
       props.backgroundColor === 1
-        ? "rgb(237,81,81,255)"
+        ? "rgb(241,105,99,255)"
         : props.backgroundColor === 2
-        ? "rgb(20,158,206,255)"
+        ? "rgb(0,173,214,255)"
         : props.backgroundColor === 3
-        ? "rgb(158,85,156,255)"
+        ? "rgb(158,74,155,255)"
         : props.backgroundColor === 4
-        ? "rgb(252,146,31,255)"
+        ? "rgb(240,90,40,255)"
         : props.backgroundColor === 5
-        ? "rgb(167,198,54,255)"
+        ? "rgb(180,203,67,255)"
         : props.backgroundColor === 6
-        ? "rgb(255,222,62,255)"
+        ? "rgb(250,175,64,255)"
         : props.backgroundColor === 7
-        ? "rgb(0,92,230,255)"
-        : "rgb(255,115,223,255)"};
+        ? "rgb(59,114,183,255)"
+        : "rgb(227,148,191,255)"};
   }
 `;
 
@@ -191,12 +191,14 @@ export const ExpandImage = styled.img`
 
 export const FilterDay = styled.div`
   span {
-    padding: 2px;
+    padding: 1px 3px;
+    font-weight: 600;
 
     &:hover {
       background: var(--silver);
       color: var(--blue);
       cursor: pointer;
+      border-radius: 10px;
     }
   }
 `;

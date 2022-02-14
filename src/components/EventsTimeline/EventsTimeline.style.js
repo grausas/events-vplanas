@@ -41,7 +41,6 @@ export const TimelineItem = styled.div`
 `;
 
 export const ItemContent = styled.div`
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   background-color: var(--white);
   display: flex;
@@ -51,11 +50,13 @@ export const ItemContent = styled.div`
   position: relative;
   width: 100%;
   box-shadow: ${(props) =>
-    props.clickedEvent === "clicked" ? "0px 0px 0px 2px var(--lightBlue)" : ""};
+    props.clickedEvent === "clicked"
+      ? "0 0 8px rgba(12, 12, 121, 0.9)"
+      : "0 0 8px rgba(0, 0, 0, 0.3)"};
   background: var(--white);
 
   &:hover {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 5px rgba(12, 12, 121, 0.7);
     cursor: pointer;
   }
 
@@ -99,15 +100,14 @@ export const EventDate = styled.span`
 export const Text = styled.p`
   width: 100%;
   font-size: var(--fontMed);
-  line-height: 18px;
-  margin: 40px 0 15px 0;
+  margin: 45px 0 15px 0;
   font-weight: 600;
   text-align: center;
 `;
 
 export const Circle = styled.span`
   background-color: var(--grey);
-  border: 2px solid var(--white);
+  border: 1px solid var(--white);
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 10px);

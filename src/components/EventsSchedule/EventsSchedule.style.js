@@ -51,38 +51,6 @@ export const Text = styled.div`
   }
 `;
 
-export const Events = styled.div`
-  position: relative;
-  padding: 5px 10px;
-  border: 1px solid var(--silver);
-  border-radius: 5px;
-  margin-top: 10px;
-
-  &:last-child {
-    margin-bottom: 10px;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-radius: 0 0 0 10px;
-    top: 0;
-    right: 0;
-    background-color: ${(props) =>
-      props.backgroundColor === 1
-        ? "rgb(237,81,81,255)"
-        : props.backgroundColor === 2
-        ? "rgb(20,158,206,255)"
-        : props.backgroundColor === 3
-        ? "rgb(158,85,156,255)"
-        : props.backgroundColor === 4
-        ? "rgb(252,146,31,255)"
-        : "rgb(167,198,54,255)"};
-  }
-`;
-
 export const EventsText = styled.div`
   p {
     :first-child {
