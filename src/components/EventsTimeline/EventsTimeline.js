@@ -4,13 +4,15 @@ import {
   TimelineContainer,
   TimelineItem,
   ItemContent,
-  Category,
+  CategoryDiv,
   EventDate,
   Text,
   Circle,
   // Close,
   // ClearButton,
 } from "./EventsTimeline.style";
+// components
+import { Category } from "../index";
 // utils
 import { CategoryData } from "../../utils/CategoryData";
 // helpers
@@ -53,9 +55,12 @@ const EventsTimeline = ({
                       : null
                   }
                 >
-                  <Category backgroundColor={event.attributes.KATEGORIJA}>
-                    {result && result.text}
-                  </Category>
+                  <CategoryDiv>
+                    <Category
+                      bgColor={event.attributes.KATEGORIJA}
+                      text={result && result.text}
+                    />
+                  </CategoryDiv>
                   <EventDate>{eventStartDate + " " + eventStartTime}</EventDate>
                   <EventDate>
                     {eventFinishDate + " " + eventFinishTime}
