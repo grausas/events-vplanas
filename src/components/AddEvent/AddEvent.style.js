@@ -30,6 +30,16 @@ export const FormWrapper = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 1;
+  animation: popup 0.3s;
+
+  @keyframes popup {
+    0% {
+      transform: scale(0.6);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
   h3 {
     margin: 10px 0;

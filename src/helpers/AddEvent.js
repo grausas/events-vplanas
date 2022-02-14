@@ -23,7 +23,10 @@ export const addEventsFeature = (params, layer, type, message) => {
           WEBPAGE: params.WEBPAGE,
           KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
           PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
-          Savaites_dienos: params.Savaites_dienos,
+          Savaites_dienos:
+            params.Savaites_dienos !== undefined
+              ? params.Savaites_dienos
+              : "nera",
         },
         geometry: params.geometry,
       });
@@ -40,7 +43,10 @@ export const addEventsFeature = (params, layer, type, message) => {
         WEBPAGE: params.WEBPAGE,
         KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
         PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
-        Savaites_dienos: params.Savaites_dienos,
+        Savaites_dienos:
+          params.Savaites_dienos !== undefined
+            ? params.Savaites_dienos
+            : "nera",
       },
       geometry: params.geometry,
     });

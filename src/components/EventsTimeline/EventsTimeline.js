@@ -66,13 +66,27 @@ const EventsTimeline = ({
                     />
                   </CategoryDiv>
                   <Text>{event.attributes.PAVADINIMAS}</Text>
+                  {console.log(event.attributes.Savaites_dienos)}
                   <EventDate>
                     <img src={Calendar} alt="calendar-icon" />
-                    {eventStartDate + " " + eventStartTime}
-                    {" || "}
-                    {eventFinishDate + " " + eventFinishTime}
-                  </EventDate>
+                    {event.attributes.Savaites_dienos != null &&
+                    (event.attributes.Savaites_dienos === "nera" ||
+                      event.attributes.Savaites_dienos.length > 12)
+                      ? eventStartDate +
+                        " " +
+                        eventStartTime +
+                        " || " +
+                        eventFinishDate +
+                        " " +
+                        eventFinishTime
+                      : eventStartDate +
+                        " " +
+                        eventStartTime +
+                        "-" +
+                        eventFinishTime}
 
+                    {/* {eventFinishDate + " " + eventFinishTime} */}
+                  </EventDate>
                   <Circle />
                 </ItemContent>
               </TimelineItem>
