@@ -30,6 +30,7 @@ const Filter = ({
   handleChangeStart,
   handleChangeFinish,
   handleClear,
+  handleOpenMore,
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
@@ -66,7 +67,7 @@ const Filter = ({
         {/* <DayButton>Šiandienos</DayButton>
         <DayButton>Mėnesio</DayButton> */}
         <FilterDay>
-          <span>Dienos</span>
+          <span onClick={handleOpenMore}>Dienos</span>
           <span>Svaitės</span>
           <span>Mėnesio</span>
         </FilterDay>

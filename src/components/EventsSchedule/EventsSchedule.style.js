@@ -81,32 +81,6 @@ export const MoreButton = styled.button`
   }
 `;
 
-export const MoreDiv = styled.div`
-  position: sticky;
-  bottom: -1px;
-  background: var(--white);
-  text-align: center;
-  z-index: 1;
-
-  &:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background: var(--darkSilver);
-    left: 0;
-  }
-
-  span {
-    font-weight: 600;
-    cursor: pointer;
-
-    &:hover {
-      color: var(--lightBlue);
-    }
-  }
-`;
-
 export const SearchDiv = styled.div`
   position: sticky;
   width: 100%;

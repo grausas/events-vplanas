@@ -663,7 +663,6 @@ function Map() {
           <EventsSchedule
             handleOpen={handleOpen}
             show={show}
-            handleOpenMore={() => setShortResults(filterResults(data.features))}
             filter={
               <Filter
                 id="filtras"
@@ -680,6 +679,9 @@ function Map() {
                 }
                 onChange={handleFilterChange}
                 handleClear={handleClearFilter}
+                handleOpenMore={() =>
+                  setShortResults(filterResults(data.features))
+                }
               />
             }
             search={

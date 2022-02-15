@@ -3,7 +3,6 @@ import {
   Wrapper,
   Content,
   Text,
-  MoreDiv,
   SearchDiv,
   FilterDiv,
   CloseImage,
@@ -13,14 +12,7 @@ import {
 import CloseIcon from "../../assets/icons/close.png";
 import ExpandIcon from "../../assets/icons/expand.png";
 
-const EventsSchedule = ({
-  children,
-  handleOpen,
-  show,
-  handleOpenMore,
-  filter,
-  search,
-}) => {
+const EventsSchedule = ({ children, handleOpen, show, filter, search }) => {
   return (
     <Wrapper close={!show}>
       <Text onClick={handleOpen} text={show}>
@@ -36,14 +28,7 @@ const EventsSchedule = ({
           <FilterDiv>{filter}</FilterDiv>
         </>
       )}
-      <Content>
-        {show && <>{children}</>}
-        {show && (
-          <MoreDiv>
-            <span onClick={handleOpenMore}>Rodyti visus</span>
-          </MoreDiv>
-        )}
-      </Content>
+      <Content>{show && <>{children}</>}</Content>
     </Wrapper>
   );
 };
