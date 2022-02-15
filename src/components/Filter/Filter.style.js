@@ -39,6 +39,7 @@ export const FilterContent = styled.div`
   background-color: var(--white);
   width: 100%;
   padding: 5px 10px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const CheckBoxDiv = styled.div`
@@ -174,12 +175,24 @@ export const Dropdown = styled.div`
   margin-top: 10px;
   position: relative;
   background: var(--white);
-  border: 1px solid var(--darkSilver);
-  padding: 2px 15px;
-  border-radius: 5px;
   margin-bottom: 1px;
   cursor: pointer;
+`;
+
+export const DropdownButton = styled(Button)`
+  width: 100%;
+  background-color: var(--white);
+  color: var(--dark);
+  padding: 2px 0;
+  border: 1px solid var(--darkSilver);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--silver);
+    color: var(--dark);
+    border: 1px solid var(--darkSilver);
+  }
 `;
 
 export const ExpandImage = styled.img`

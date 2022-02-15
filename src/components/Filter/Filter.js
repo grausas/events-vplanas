@@ -13,12 +13,13 @@ import {
   Dropdown,
   ExpandImage,
   FilterDay,
+  DropdownButton,
 } from "./Filter.style";
 // components
 import { CheckBox, DatePicker } from "../index";
 //hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
-import { useOpenCloseFilter } from "../../hooks/OpenFilter";
+// import { useOpenCloseFilter } from "../../hooks/OpenFilter";
 // icons
 import ExpandIcon from "../../assets/icons/expandBlack.png";
 
@@ -34,32 +35,47 @@ const Filter = ({
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
-  const { handleOpenFilter, showFilter } = useOpenCloseFilter();
+  // const { handleOpenFilter, showFilter } = useOpenCloseFilter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  const ref = useRef(null);
+  // useOutsideAlerter(wrapperRef);
 
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          // handleOpenFilter(!showFilter);
-          if (showFilter === true) {
-            handleOpenFilter(!showFilter);
-          }
-        }
+  // function useOutsideAlerter(ref) {
+  //   useEffect(() => {
+  //     function handleClickOutside(event) {
+  //       if (ref.current && !ref.current.contains(event.target)) {
+  //         if (showFilter === true) {
+  //           handleOpenFilter(showFilter);
+  //         }
+  //       }
+  //     }
+  //     // Bind the event listener
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //     return () => {
+  //       // Unbind the event listener on clean up
+  //       document.removeEventListener("mousedown", handleClickOutside);
+  //     };
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   }, [ref, showFilter]);
+  // }
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
+        setIsMenuOpen(false);
       }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref, showFilter]);
-  }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [isMenuOpen]);
 
   const checkedCount = checkedItems.filter(
     (item) => item.isChecked === true
@@ -119,42 +135,46 @@ const Filter = ({
               height="small"
             />
           </DateFilter>
-          <Dropdown onClick={handleOpenFilter}>
-            {checkedCount > 1
-              ? `${checkedCount} pasirinktos kategorijos`
-              : checkedCount === 1
-              ? `${checkedCount} pasirinkta kategorija`
-              : "Pasirinkti kategorijas"}
-            <ExpandImage src={ExpandIcon} alt="close-icon" />
+          <Dropdown ref={ref}>
+            <DropdownButton
+              handleClick={() => setIsMenuOpen((oldState) => !oldState)}
+            >
+              {checkedCount > 1
+                ? `${checkedCount} pasirinktos kategorijos`
+                : checkedCount === 1
+                ? `${checkedCount} pasirinkta kategorija`
+                : "Pasirinkti kategorijas"}
+              <ExpandImage src={ExpandIcon} alt="close-icon" />
+            </DropdownButton>
+            {isMenuOpen && (
+              <FilterContent>
+                {checkedItems &&
+                  checkedItems.map((item, index) => {
+                    return (
+                      <CheckBoxDiv backgroundColor={item.value} key={index}>
+                        <CheckBox
+                          value={item.value}
+                          name={index}
+                          id={item.id}
+                          label={item.text}
+                          checked={item.isChecked}
+                          handleCheckboxChange={handleOnChange}
+                        />
+                      </CheckBoxDiv>
+                    );
+                  })}
+                <ClearButton
+                  handleClick={() => {
+                    handleClear();
+                    handleClearCheckbox();
+                  }}
+                  value="clear"
+                >
+                  IŠVALYTI
+                </ClearButton>
+              </FilterContent>
+            )}
           </Dropdown>
-          {showFilter && (
-            <FilterContent ref={wrapperRef}>
-              {checkedItems &&
-                checkedItems.map((item, index) => {
-                  return (
-                    <CheckBoxDiv backgroundColor={item.value} key={index}>
-                      <CheckBox
-                        value={item.value}
-                        name={index}
-                        id={item.id}
-                        label={item.text}
-                        checked={item.isChecked}
-                        handleCheckboxChange={handleOnChange}
-                      />
-                    </CheckBoxDiv>
-                  );
-                })}
-              <ClearButton
-                handleClick={() => {
-                  handleClear();
-                  handleClearCheckbox();
-                }}
-                value="clear"
-              >
-                IŠVALYTI
-              </ClearButton>
-            </FilterContent>
-          )}
         </Content>
       )}
     </Wrapper>
