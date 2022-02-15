@@ -35,6 +35,10 @@ const Filter = ({
   const { handleOpen, show } = useOpenClose();
   const { handleOpenFilter, showFilter } = useOpenCloseFilter();
 
+  const checkedCount = checkedItems.filter(
+    (item) => item.isChecked === true
+  ).length;
+
   const handleOnChange = useCallback(
     (e) => {
       const index = e.target.name;
@@ -54,6 +58,7 @@ const Filter = ({
     });
     setCheckeditems(items);
   };
+
   return (
     <Wrapper>
       <ButtonDivs>
@@ -89,7 +94,11 @@ const Filter = ({
             />
           </DateFilter>
           <Dropdown onClick={handleOpenFilter}>
-            Pasirinkti kategorijas
+            {checkedCount > 1
+              ? `${checkedCount} pasirinktos kategorijos`
+              : checkedCount === 1
+              ? `${checkedCount} pasirinkta kategorija`
+              : "Pasirinkti kategorijas"}
             <ExpandImage src={ExpandIcon} alt="close-icon" />
           </Dropdown>
           {showFilter && (
