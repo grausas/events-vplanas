@@ -19,6 +19,7 @@ export const Content = styled.div`
   max-width: 100%;
   user-select: none;
   padding-bottom: 5px;
+
   h5 {
     font-weight: 600;
   }
@@ -148,13 +149,22 @@ export const ClearButton = styled(Button)`
 export const ButtonDivs = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-bottom: 5px;
+  padding-bottom: 1px;
 `;
 
 export const FilterButton = styled(Button)`
   font-size: var(--fontSmall);
-  padding: 2px 5px;
+  background-color: var(--white);
+  color: var(--dark);
+  padding: 0px 5px;
+  border: 1px solid var(--darkSilver);
   position: relative;
+
+  &:hover {
+    background-color: var(--silver);
+    color: var(--dark);
+    border: 1px solid var(--darkSilver);
+  }
 
   img {
     position: absolute;

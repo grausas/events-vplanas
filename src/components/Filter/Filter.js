@@ -84,7 +84,7 @@ const Filter = ({
   return (
     <Wrapper>
       <ButtonDivs>
-        <FilterButton handleClick={handleOpen}>Filtras</FilterButton>
+        <FilterButton handleClick={handleOpen}>Filtrai</FilterButton>
         <FilterDay>
           <span onClick={handleOpenMore}>Dienos</span>
           <span>Svaitės</span>
@@ -120,7 +120,17 @@ const Filter = ({
                 alt="close-icon"
               />
               {checkedCount > 1
-                ? `${checkedCount} pasirinktos kategorijos`
+                ? `${checkedCount} pasirinktos kategorijos` +
+                  (
+                    <span
+                      onClick={() => {
+                        handleClear();
+                        handleClearCheckbox();
+                      }}
+                    >
+                      X
+                    </span>
+                  )
                 : checkedCount === 1
                 ? `${checkedCount} pasirinkta kategorija`
                 : "Pasirinkti kategorijas"}

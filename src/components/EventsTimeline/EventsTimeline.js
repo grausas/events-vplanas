@@ -28,8 +28,8 @@ const EventsTimeline = ({
 }) => {
   return (
     <Wrapper>
+      {emptyTimeline && <h2>{emptyTimeline}</h2>}
       <TimelineContainer>
-        {emptyTimeline && <h2>{emptyTimeline}</h2>}
         {events &&
           events.map((event) => {
             const result = CategoryData.find(
