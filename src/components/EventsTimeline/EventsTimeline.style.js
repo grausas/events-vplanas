@@ -77,10 +77,11 @@ export const ItemContent = styled.div`
 
 export const CategoryDiv = styled.span`
   width: 100%;
-  padding: 10px;
+  display: flex;
+  justify-content: center;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  left: 0;
 `;
 
 export const EventDate = styled.span`

@@ -605,11 +605,8 @@ function Map() {
         view
           .hitTest(event, { include: eventsFeatureLayer })
           .then(function (response) {
-            console.log(response);
-            console.log("shortResults", shortResults);
-
             // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-            // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
+            // // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
             if (response.results.length >= 1) {
               view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
                 layerView
