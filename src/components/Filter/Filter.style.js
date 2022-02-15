@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   color: var(--dark);
   padding: 0 10px 0 10px;
   background-color: var(--white);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   @media only screen and (max-width: 768px) {
     padding: 0 5px 0 5px;

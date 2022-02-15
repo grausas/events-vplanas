@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 // Styles
 import {
   Wrapper,
@@ -35,6 +35,31 @@ const Filter = ({
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
   const { handleOpenFilter, showFilter } = useOpenCloseFilter();
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          // handleOpenFilter(!showFilter);
+          if (showFilter === true) {
+            handleOpenFilter(!showFilter);
+          }
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref, showFilter]);
+  }
 
   const checkedCount = checkedItems.filter(
     (item) => item.isChecked === true
@@ -103,7 +128,7 @@ const Filter = ({
             <ExpandImage src={ExpandIcon} alt="close-icon" />
           </Dropdown>
           {showFilter && (
-            <FilterContent>
+            <FilterContent ref={wrapperRef}>
               {checkedItems &&
                 checkedItems.map((item, index) => {
                   return (
