@@ -187,6 +187,9 @@ export const DropdownButton = styled(Button)`
   border: 1px solid var(--darkSilver);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: var(--silver);
@@ -198,7 +201,6 @@ export const DropdownButton = styled(Button)`
 export const ExpandImage = styled.img`
   position: absolute;
   right: 5px;
-  top: 3px;
   width: 22px;
   border-radius: 50%;
 `;

@@ -9,7 +9,6 @@ import {
   CheckBoxDiv,
   FilterButton,
   ButtonDivs,
-  // DayButton,
   Dropdown,
   ExpandImage,
   FilterDay,
@@ -19,9 +18,10 @@ import {
 import { CheckBox, DatePicker } from "../index";
 //hooks
 import { useOpenClose } from "../../hooks/useOpenClose";
-// import { useOpenCloseFilter } from "../../hooks/OpenFilter";
+import { useOpenCloseFilter } from "../../hooks/OpenFilter";
 // icons
 import ExpandIcon from "../../assets/icons/expandBlack.png";
+import CollapseIcon from "../../assets/icons/collapse.png";
 
 const Filter = ({
   data,
@@ -35,37 +35,16 @@ const Filter = ({
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
-  // const { handleOpenFilter, showFilter } = useOpenCloseFilter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { handleOpenFilter, showFilter } = useOpenCloseFilter();
 
   const ref = useRef(null);
-  // useOutsideAlerter(wrapperRef);
-
-  // function useOutsideAlerter(ref) {
-  //   useEffect(() => {
-  //     function handleClickOutside(event) {
-  //       if (ref.current && !ref.current.contains(event.target)) {
-  //         if (showFilter === true) {
-  //           handleOpenFilter(showFilter);
-  //         }
-  //       }
-  //     }
-  //     // Bind the event listener
-  //     document.addEventListener("mousedown", handleClickOutside);
-  //     return () => {
-  //       // Unbind the event listener on clean up
-  //       document.removeEventListener("mousedown", handleClickOutside);
-  //     };
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [ref, showFilter]);
-  // }
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
       // then close the menu
-      if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
-        setIsMenuOpen(false);
+      if (showFilter && ref.current && !ref.current.contains(e.target)) {
+        handleOpenFilter(false);
       }
     };
 
@@ -75,7 +54,8 @@ const Filter = ({
       // Cleanup the event listener
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
-  }, [isMenuOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showFilter]);
 
   const checkedCount = checkedItems.filter(
     (item) => item.isChecked === true
@@ -105,8 +85,6 @@ const Filter = ({
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtras</FilterButton>
-        {/* <DayButton>Šiandienos</DayButton>
-        <DayButton>Mėnesio</DayButton> */}
         <FilterDay>
           <span onClick={handleOpenMore}>Dienos</span>
           <span>Svaitės</span>
@@ -136,17 +114,18 @@ const Filter = ({
             />
           </DateFilter>
           <Dropdown ref={ref}>
-            <DropdownButton
-              handleClick={() => setIsMenuOpen((oldState) => !oldState)}
-            >
+            <DropdownButton handleClick={handleOpenFilter}>
+              <ExpandImage
+                src={showFilter === false ? ExpandIcon : CollapseIcon}
+                alt="close-icon"
+              />
               {checkedCount > 1
                 ? `${checkedCount} pasirinktos kategorijos`
                 : checkedCount === 1
                 ? `${checkedCount} pasirinkta kategorija`
                 : "Pasirinkti kategorijas"}
-              <ExpandImage src={ExpandIcon} alt="close-icon" />
             </DropdownButton>
-            {isMenuOpen && (
+            {showFilter && (
               <FilterContent>
                 {checkedItems &&
                   checkedItems.map((item, index) => {
