@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   width: 100%;
   background: var(--white);
   padding: 0 10px;
-  margin-top: 5px;
 
   h2 {
     text-align: center;
@@ -91,6 +90,7 @@ export const EventDate = styled.span`
   font-weight: 700;
   display: flex;
   align-items: center;
+  margin-left: 0 auto;
 
   img {
     width: 22px;
