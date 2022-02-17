@@ -186,6 +186,7 @@ const Filter = ({
                   })}
                 <ClearButton
                   handleClick={() => {
+                    setFilterByDates("day");
                     handleClear();
                     handleClearCheckbox();
                   }}

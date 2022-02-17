@@ -490,19 +490,6 @@ function Map() {
     setShortResults(filterResults());
   }, [data, filterResults]);
 
-  // clear filter on button click, needs to remove checkboxes
-  const handleClearFilter = () => {
-    view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-      layerView.filter = {
-        where: "1=1",
-      };
-    });
-    setValuesArr([]);
-    setStartDate("");
-    setFinishDate("");
-    setShortResults(filterResults(data));
-  };
-
   const addEvents = () =>
     addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
@@ -734,7 +721,10 @@ function Map() {
                   )
                 }
                 onChange={handleFilterChange}
-                handleClear={handleClearFilter}
+                handleClear={() => {
+                  handleFilterByDate();
+                  setValuesArr([]);
+                }}
                 handleOpenMore={() =>
                   setShortResults(filterResults(data.features))
                 }
