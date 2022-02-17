@@ -217,23 +217,57 @@ function Map() {
   // filter by day, week, month
 
   const handleFilterByDate = (e) => {
-    console.log(e.target.value);
     const value = e.target.value;
 
     if (value === "day") {
       var startOfDay = new Date();
-      var endofDay = new Date();
+      var endOfDay = new Date();
       startOfDay.setHours(0, 0, 0, 0);
-      endofDay.setHours(23, 59, 59, 999);
+      endOfDay.setHours(23, 59, 59, 999);
       setStartDate(new Date(startOfDay).getTime());
-      setFinishDate(new Date(endofDay).getTime());
+      setFinishDate(new Date(endOfDay).getTime());
       // change default start and finish date
       const filterTodayEvents = data.features.filter(
         (item) =>
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
-          item.attributes.RENGINIO_PRADZIA <= endofDay
+          item.attributes.RENGINIO_PRADZIA <= endOfDay
       );
-      setShortResults(datesFilter(sortResults(filterTodayEvents)));
+      setShortResults(sortResults(filterTodayEvents));
+    }
+    if (value === "week") {
+      var startOfDayWeek = new Date();
+      var endOfDayWeek = new Date(
+        startOfDayWeek.getTime() + 7 * 24 * 60 * 60 * 1000
+      );
+      // startOfDayWeek.setHours(0, 0, 0, 0);
+      // endOfDayWeek.setHours(23, 59, 59, 999);
+      setStartDate(new Date(startOfDayWeek).getTime());
+      setFinishDate(new Date(endOfDayWeek).getTime());
+      // change default start and finish date
+      const filterTodayEvents = data.features.filter(
+        (item) =>
+          item.attributes.RENGINIO_PRADZIA >= startOfDayWeek &&
+          item.attributes.RENGINIO_PRADZIA <= endOfDayWeek
+      );
+      setShortResults(sortResults(filterTodayEvents));
+    }
+    if (value === "month") {
+      console.log(e.target.value);
+
+      var startOfDayMonth = new Date();
+      var endOfDayMonth = new Date(startOfDayMonth);
+      endOfDayMonth.setDate(endOfDayMonth.getDate() + 31);
+      // startOfDayMonth.setHours(0, 0, 0, 0);
+      // endOfDayWeek.setHours(23, 59, 59, 999);
+      setStartDate(new Date(startOfDayMonth).getTime());
+      setFinishDate(new Date(endOfDayMonth).getTime());
+      // change default start and finish date
+      const filterTodayEvents = data.features.filter(
+        (item) =>
+          item.attributes.RENGINIO_PRADZIA >= startOfDayMonth &&
+          item.attributes.RENGINIO_PRADZIA <= endOfDayMonth
+      );
+      setShortResults(sortResults(filterTodayEvents));
     }
   };
 
