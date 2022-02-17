@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 // styles
 import { SliderDiv, IconDiv, Icon } from "./DateSlider.style";
@@ -9,46 +8,65 @@ import TimeSliderModule from "@arcgis/core/widgets/TimeSlider";
 // helpers
 import { sortByDate } from "../../helpers/SortByDate";
 
-const TimeSlider = ({ layer, view, data, setShortResults }) => {
+const TimeSlider = ({
+  layer,
+  view,
+  data,
+  setShortResults,
+  startOfDay,
+  endOfDay,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishtDate] = useState("");
+  const [dateSlider, setDateSlider] = useState("");
 
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
 
+  console.log("timeSlider", dateSlider);
+
   // Create a time slider to update layerView filter
   useEffect(() => {
-    if (layer) {
-      const timeSlider = new TimeSliderModule({
+    if (layer && openModal && dateSlider === undefined) {
+      var timeSlider = new TimeSliderModule({
         container: "dateSlider",
         mode: "time-window",
         layout: "compact",
         view: view,
       });
+    }
+    setDateSlider(timeSlider);
 
-      // wait until the layer view is loaded
-      timeSlider.when(function () {
+    console.log("timeSlider", dateSlider);
+
+    // wait until the layer view is loaded
+  }, [openModal]);
+
+  useEffect(() => {
+    dateSlider &&
+      openModal &&
+      layer.when(function () {
         let timeLayerView;
         view.whenLayerView(layer).then((layerView) => {
+          console.log("startOfDay", startOfDay);
           timeLayerView = layerView;
           const fullTimeExtent = layer.timeInfo.fullTimeExtent;
-          const start = fullTimeExtent.start;
-          const end = fullTimeExtent.end;
 
           // set up time slider properties based on layer timeInfo
-          timeSlider.fullTimeExtent = fullTimeExtent;
-          timeSlider.timeExtent = {
-            start: start,
-            end: end,
+          dateSlider.fullTimeExtent = fullTimeExtent;
+          dateSlider.timeExtent = {
+            start: startOfDay,
+            end: endOfDay,
           };
-          timeSlider.stops = {
+          dateSlider.stops = {
             interval: layer.timeInfo.interval,
           };
         });
 
-        timeSlider.watch("timeExtent", (value) => {
+        dateSlider.watch("timeExtent", (value) => {
+          console.log(value);
           setStartDate(new Date(value.start).getTime());
           setFinishtDate(new Date(value.end).getTime());
 
@@ -57,10 +75,9 @@ const TimeSlider = ({ layer, view, data, setShortResults }) => {
           };
         });
 
-        timeSlider.render();
+        dateSlider.render();
       });
-    }
-  }, [openModal]);
+  }, [dateSlider, startOfDay, endOfDay]);
 
   useEffect(() => {
     if (data && layer) {

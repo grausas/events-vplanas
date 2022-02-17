@@ -465,24 +465,6 @@ function Map() {
           );
 
       return sortResults(results);
-      // moves this code somewhere because date doesnt change on clear now
-      // if (!startDate && !finishDate && sortedResults) {
-      //   var startOfDay = new Date();
-      //   var endofDay = new Date();
-      //   startOfDay.setHours(0, 0, 0, 0);
-      //   endofDay.setHours(23, 59, 59, 999);
-      //   setStartDate(new Date(startOfDay).getTime());
-      //   setFinishDate(new Date(endofDay).getTime());
-      //   // change default start and finish date
-      //   const filterTodayEvents = data.features.filter(
-      //     (item) =>
-      //       item.attributes.RENGINIO_PRADZIA >= startOfDay &&
-      //       item.attributes.RENGINIO_PRADZIA <= endofDay
-      //   );
-      //   setShortResults(filterTodayEvents);
-      // } else {
-      //   return sortedResults;
-      // }
     }
   }, [data.features, searchTerm]);
 
@@ -691,6 +673,8 @@ function Map() {
             view={view}
             data={data}
             setShortResults={setShortResults}
+            startOfDay={startDate}
+            endOfDay={finishDate}
           />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
