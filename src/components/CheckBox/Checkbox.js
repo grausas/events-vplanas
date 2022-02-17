@@ -11,6 +11,7 @@ const Checkbox = ({
   checked,
   handleCheckboxChange,
   name,
+  type,
 }) => {
   // const { checked, handleCheckboxChange } = useCheckbox();
 
@@ -20,7 +21,7 @@ const Checkbox = ({
         {label}
         <CheckInput
           id={id}
-          type="checkbox"
+          type={type}
           checked={checked ? checked : false}
           onChange={handleCheckboxChange}
           value={value}

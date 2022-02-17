@@ -149,7 +149,7 @@ export const ClearButton = styled(Button)`
 export const ButtonDivs = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-bottom: 1px;
+  padding-bottom: 2px;
 `;
 
 export const FilterButton = styled(Button)`
@@ -216,6 +216,7 @@ export const ExpandImage = styled.img`
 `;
 
 export const FilterDay = styled.div`
+  display: flex;
   span {
     padding: 1px 3px;
     font-weight: 600;

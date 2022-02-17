@@ -32,10 +32,16 @@ const Filter = ({
   handleChangeFinish,
   handleClear,
   handleOpenMore,
+  handleFilterByDate,
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
   const { handleOpenFilter, showFilter } = useOpenCloseFilter();
+  const [filterByDates, setFilterByDates] = useState("day");
+
+  const handleChange = (event) => {
+    setFilterByDates(event.target.value);
+  };
 
   const ref = useRef(null);
 
@@ -85,10 +91,34 @@ const Filter = ({
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtrai</FilterButton>
-        <FilterDay>
-          <span onClick={handleOpenMore}>Dienos</span>
-          <span>Svaitės</span>
-          <span>Mėnesio</span>
+        <FilterDay onChange={handleFilterByDate}>
+          <label>
+            <input
+              type="radio"
+              value="day"
+              checked={filterByDates === "day"}
+              onChange={handleChange}
+            />
+            Šiandien
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="week"
+              checked={filterByDates === "week"}
+              onChange={handleChange}
+            />
+            Savaitės
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="month"
+              checked={filterByDates === "month"}
+              onChange={handleChange}
+            />
+            Mėnesio
+          </label>
         </FilterDay>
       </ButtonDivs>
 
@@ -120,17 +150,7 @@ const Filter = ({
                 alt="close-icon"
               />
               {checkedCount > 1
-                ? `${checkedCount} pasirinktos kategorijos` +
-                  (
-                    <span
-                      onClick={() => {
-                        handleClear();
-                        handleClearCheckbox();
-                      }}
-                    >
-                      X
-                    </span>
-                  )
+                ? `${checkedCount} pasirinktos kategorijos`
                 : checkedCount === 1
                 ? `${checkedCount} pasirinkta kategorija`
                 : "Pasirinkti kategorijas"}
@@ -142,6 +162,7 @@ const Filter = ({
                     return (
                       <CheckBoxDiv backgroundColor={item.value} key={index}>
                         <CheckBox
+                          type="checkbox"
                           value={item.value}
                           name={index}
                           id={item.id}
