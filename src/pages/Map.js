@@ -214,6 +214,29 @@ function Map() {
     };
   }, [error]);
 
+  // filter by day, week, month
+
+  const handleFilterByDate = (e) => {
+    console.log(e.target.value);
+    const value = e.target.value;
+
+    if (value === "day") {
+      var startOfDay = new Date();
+      var endofDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      endofDay.setHours(23, 59, 59, 999);
+      setStartDate(new Date(startOfDay).getTime());
+      setFinishDate(new Date(endofDay).getTime());
+      // change default start and finish date
+      const filterTodayEvents = data.features.filter(
+        (item) =>
+          item.attributes.RENGINIO_PRADZIA >= startOfDay &&
+          item.attributes.RENGINIO_PRADZIA <= endofDay
+      );
+      setShortResults(datesFilter(sortResults(filterTodayEvents)));
+    }
+  };
+
   //-------------------------------------
   // filtravimas pagal kategoriją ir datą
   // Perkeltis šitą funkciją ir kitas dažnai naudojasmas į utils folderį
@@ -682,6 +705,7 @@ function Map() {
                 handleOpenMore={() =>
                   setShortResults(filterResults(data.features))
                 }
+                handleDateChange={handleFilterByDate}
               />
             }
             search={

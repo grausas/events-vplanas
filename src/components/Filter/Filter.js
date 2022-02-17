@@ -32,7 +32,7 @@ const Filter = ({
   handleChangeFinish,
   handleClear,
   handleOpenMore,
-  handleFilterByDate,
+  handleDateChange,
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
@@ -91,7 +91,7 @@ const Filter = ({
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtrai</FilterButton>
-        <FilterDay onChange={handleFilterByDate}>
+        <FilterDay onChange={handleDateChange}>
           <label>
             <input
               type="radio"
