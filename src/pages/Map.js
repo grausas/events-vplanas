@@ -249,7 +249,7 @@ function Map() {
     }
     if (value === "month") {
       var endOfDayMonth = new Date(startOfDay);
-      endOfDayMonth.setDate(endOfDayMonth.getDate() + 31);
+      endOfDayMonth.setMonth(endOfDayMonth.getMonth() + 1);
       setStartDate(new Date(startOfDay).getTime());
       setFinishDate(new Date(endOfDayMonth).getTime());
       // change default start and finish date
