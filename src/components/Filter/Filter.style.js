@@ -154,8 +154,8 @@ export const ButtonDivs = styled.div`
 
 export const FilterButton = styled(Button)`
   font-size: var(--fontSmall);
-  background-color: var(--white);
-  color: var(--dark);
+  background-color: var(--grey);
+  color: var(--white);
   padding: 0px 5px;
   border: 1px solid var(--darkSilver);
   position: relative;
@@ -225,7 +225,6 @@ export const FilterDay = styled.div`
 
     &:hover {
       background: var(--silver);
-      color: var(--blue);
       cursor: pointer;
       border-radius: 5px;
     }
@@ -240,7 +239,7 @@ export const FilterDay = styled.div`
   }
 
   span {
-    padding: 1px 3px;
+    padding: 0px 3px;
     border-radius: 5px;
   }
 
