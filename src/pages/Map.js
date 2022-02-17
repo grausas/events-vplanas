@@ -217,10 +217,9 @@ function Map() {
   // filter by day, week, month
 
   const handleFilterByDate = (e) => {
-    const value = e.target.value;
-
+    const value = e ? e.target.value : "day";
+    var startOfDay = new Date();
     if (value === "day") {
-      var startOfDay = new Date();
       var endOfDay = new Date();
       startOfDay.setHours(0, 0, 0, 0);
       endOfDay.setHours(23, 59, 59, 999);
@@ -235,39 +234,31 @@ function Map() {
       setShortResults(sortResults(filterTodayEvents));
     }
     if (value === "week") {
-      var startOfDayWeek = new Date();
       var endOfDayWeek = new Date(
-        startOfDayWeek.getTime() + 7 * 24 * 60 * 60 * 1000
+        startOfDay.getTime() + 7 * 24 * 60 * 60 * 1000
       );
-      // startOfDayWeek.setHours(0, 0, 0, 0);
-      // endOfDayWeek.setHours(23, 59, 59, 999);
-      setStartDate(new Date(startOfDayWeek).getTime());
+      setStartDate(new Date(startOfDay).getTime());
       setFinishDate(new Date(endOfDayWeek).getTime());
       // change default start and finish date
-      const filterTodayEvents = data.features.filter(
+      const filterWeekEvents = data.features.filter(
         (item) =>
-          item.attributes.RENGINIO_PRADZIA >= startOfDayWeek &&
+          item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayWeek
       );
-      setShortResults(sortResults(filterTodayEvents));
+      setShortResults(sortResults(filterWeekEvents));
     }
     if (value === "month") {
-      console.log(e.target.value);
-
-      var startOfDayMonth = new Date();
-      var endOfDayMonth = new Date(startOfDayMonth);
+      var endOfDayMonth = new Date(startOfDay);
       endOfDayMonth.setDate(endOfDayMonth.getDate() + 31);
-      // startOfDayMonth.setHours(0, 0, 0, 0);
-      // endOfDayWeek.setHours(23, 59, 59, 999);
-      setStartDate(new Date(startOfDayMonth).getTime());
+      setStartDate(new Date(startOfDay).getTime());
       setFinishDate(new Date(endOfDayMonth).getTime());
       // change default start and finish date
-      const filterTodayEvents = data.features.filter(
+      const filterMonthEvents = data.features.filter(
         (item) =>
-          item.attributes.RENGINIO_PRADZIA >= startOfDayMonth &&
+          item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayMonth
       );
-      setShortResults(sortResults(filterTodayEvents));
+      setShortResults(sortResults(filterMonthEvents));
     }
   };
 
@@ -695,6 +686,13 @@ function Map() {
       });
   }, [eventsFeatureLayer]);
 
+  useEffect(() => {
+    view &&
+      view.when().then(() => {
+        handleFilterByDate();
+      });
+  }, [data.features]);
+
   return (
     <>
       <MapDiv ref={mapRef}>
@@ -720,6 +718,7 @@ function Map() {
           <EventsSchedule
             handleOpen={handleOpen}
             show={show}
+            scheduleTitle="Renginiai"
             filter={
               <Filter
                 id="filtras"

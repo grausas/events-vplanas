@@ -91,7 +91,12 @@ const Filter = ({
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtrai</FilterButton>
-        <FilterDay onChange={handleDateChange}>
+        <FilterDay
+          onChange={(e) => {
+            handleDateChange(e);
+            handleClearCheckbox();
+          }}
+        >
           <label>
             <input
               type="radio"
@@ -99,7 +104,7 @@ const Filter = ({
               checked={filterByDates === "day"}
               onChange={handleChange}
             />
-            Šiandien
+            <span>Dienos</span>
           </label>
           <label>
             <input
@@ -108,7 +113,7 @@ const Filter = ({
               checked={filterByDates === "week"}
               onChange={handleChange}
             />
-            Savaitės
+            <span> Savaitės</span>
           </label>
           <label>
             <input
@@ -117,7 +122,7 @@ const Filter = ({
               checked={filterByDates === "month"}
               onChange={handleChange}
             />
-            Mėnesio
+            <span>Mėnesio</span>
           </label>
         </FilterDay>
       </ButtonDivs>
@@ -129,7 +134,10 @@ const Filter = ({
               dateTitle="Nuo"
               displayTime="none"
               selected={selectedStart}
-              handleChange={handleChangeStart}
+              handleChange={(date) => {
+                handleChangeStart(date);
+                setFilterByDates("");
+              }}
               title="Pasirinkti pradžios datą"
               height="small"
               placeholderTextDate="Nuo"
@@ -138,7 +146,10 @@ const Filter = ({
               dateTitle="Iki"
               displayTime="none"
               selected={selectedFinish}
-              handleChange={handleChangeFinish}
+              handleChange={(date) => {
+                handleChangeFinish(date);
+                setFilterByDates("");
+              }}
               title="Pasirinkti pabaigos datą"
               height="small"
             />

@@ -217,15 +217,36 @@ export const ExpandImage = styled.img`
 
 export const FilterDay = styled.div`
   display: flex;
-  span {
-    padding: 1px 3px;
-    font-weight: 600;
+
+  label {
+    /* margin-left: 5px; */
+    position: relative;
+    font-size: var(--fontSmall);
 
     &:hover {
       background: var(--silver);
       color: var(--blue);
       cursor: pointer;
-      border-radius: 10px;
+      border-radius: 5px;
     }
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  span {
+    padding: 1px 3px;
+    border-radius: 5px;
+  }
+
+  input:checked ~ span {
+    font-weight: 600;
+    color: var(--white);
+    background-color: var(--grey);
   }
 `;
