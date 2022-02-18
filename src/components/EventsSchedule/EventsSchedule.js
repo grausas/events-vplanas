@@ -23,7 +23,7 @@ const EventsSchedule = ({
   return (
     <Wrapper close={!show}>
       <Text onClick={handleOpen} text={show}>
-        <h3>{scheduleTitle}</h3>
+        <h3>{!show ? "Renginiai" : scheduleTitle}</h3>
         <span>
           {!show && <ExpandImage src={ExpandIcon} alt="close-icon" />}
         </span>

@@ -75,6 +75,7 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
+  const [eventsText, setEventsText] = useState("");
   // const [suggestions, setSuggestions] = useState([]);
   const [valuesArr, setValuesArr] = useState([]);
 
@@ -232,8 +233,8 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA <= endOfDay
       );
       setShortResults(sortResults(filterTodayEvents));
-    }
-    if (value === "week") {
+      setEventsText("Dienos renginiai");
+    } else if (value === "week") {
       var endOfDayWeek = new Date(
         startOfDay.getTime() + 7 * 24 * 60 * 60 * 1000
       );
@@ -246,8 +247,8 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA <= endOfDayWeek
       );
       setShortResults(sortResults(filterWeekEvents));
-    }
-    if (value === "month") {
+      setEventsText("Savaitės renginiai");
+    } else if (value === "month") {
       var endOfDayMonth = new Date(startOfDay);
       endOfDayMonth.setMonth(endOfDayMonth.getMonth() + 1);
       setStartDate(new Date(startOfDay).getTime());
@@ -259,6 +260,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA <= endOfDayMonth
       );
       setShortResults(sortResults(filterMonthEvents));
+      setEventsText("Mėnesio renginiai");
     }
   };
 
@@ -689,7 +691,7 @@ function Map() {
           <EventsSchedule
             handleOpen={handleOpen}
             show={show}
-            scheduleTitle="Renginiai"
+            scheduleTitle={eventsText}
             filter={
               <Filter
                 id="filtras"
@@ -698,12 +700,14 @@ function Map() {
                 selectedFinish={finishDate}
                 handleChangeStart={(date) => {
                   setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
+                  setEventsText("Renginiai");
                 }}
-                handleChangeFinish={(date) =>
+                handleChangeFinish={(date) => {
                   setFinishDate(
                     new Date(date.setHours(23, 59, 59, 59)).getTime()
-                  )
-                }
+                  );
+                  setEventsText("Renginiai");
+                }}
                 onChange={handleFilterChange}
                 handleClear={() => {
                   handleFilterByDate();

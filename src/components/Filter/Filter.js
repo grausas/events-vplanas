@@ -75,7 +75,7 @@ const Filter = ({
 
       const index = e.target.name;
       items[index].isChecked = e.target.checked;
-      return setCheckedRadio(items);
+      setCheckedRadio(items);
     },
     [checkedRadio]
   );
