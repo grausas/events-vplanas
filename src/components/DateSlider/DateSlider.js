@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 // styles
 import { SliderDiv, IconDiv, Icon } from "./DateSlider.style";
@@ -25,11 +26,10 @@ const TimeSlider = ({
     setOpenModal(!openModal);
   };
 
-  console.log("timeSlider", dateSlider);
-
   // Create a time slider to update layerView filter
   useEffect(() => {
     if (layer && openModal && dateSlider === undefined) {
+      console.log("timeSlider", dateSlider);
       var timeSlider = new TimeSliderModule({
         container: "dateSlider",
         mode: "time-window",
@@ -38,8 +38,6 @@ const TimeSlider = ({
       });
     }
     setDateSlider(timeSlider);
-
-    console.log("timeSlider", dateSlider);
 
     // wait until the layer view is loaded
   }, [openModal]);

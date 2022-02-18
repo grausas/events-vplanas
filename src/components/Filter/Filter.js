@@ -23,6 +23,27 @@ import { useOpenCloseFilter } from "../../hooks/OpenFilter";
 import ExpandIcon from "../../assets/icons/expandBlack.png";
 import CollapseIcon from "../../assets/icons/collapse.png";
 
+const inputData = [
+  {
+    id: 1,
+    value: "day",
+    isChecked: true,
+    name: "Dienos",
+  },
+  {
+    id: 2,
+    value: "week",
+    isChecked: false,
+    name: "Savaitės",
+  },
+  {
+    id: 3,
+    value: "month",
+    isChecked: false,
+    name: "Mėnesio",
+  },
+];
+
 const Filter = ({
   data,
   onChange,
@@ -37,13 +58,37 @@ const Filter = ({
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
   const { handleOpenFilter, showFilter } = useOpenCloseFilter();
-  const [filterByDates, setFilterByDates] = useState("day");
-
-  const handleChange = (event) => {
-    setFilterByDates(event.target.value);
-  };
+  const [checkedRadio, setCheckedRadio] = useState(inputData);
 
   const ref = useRef(null);
+
+  // handle radio button
+  const handleChange = useCallback(
+    (e) => {
+      let items = [...checkedRadio];
+      items.map((item) => {
+        if (item.isChecked === true) {
+          return (item.isChecked = false);
+        }
+        return null;
+      });
+      const index = e.target.name;
+      items[index].isChecked = e.target.checked;
+      console.log(items);
+      return setCheckedRadio(items);
+    },
+    [checkedRadio]
+  );
+
+  const handleClearRadio = () => {
+    let items = [...checkedRadio];
+    items.map((item) => {
+      if (item.isChecked === true) {
+        return (item.isChecked = false);
+      } else return null;
+    });
+    setCheckedRadio(items);
+  };
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -97,33 +142,21 @@ const Filter = ({
             handleClearCheckbox();
           }}
         >
-          <label>
-            <input
-              type="radio"
-              value="day"
-              checked={filterByDates === "day"}
-              onChange={handleChange}
-            />
-            <span>Dienos</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="week"
-              checked={filterByDates === "week"}
-              onChange={handleChange}
-            />
-            <span> Savaitės</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="month"
-              checked={filterByDates === "month"}
-              onChange={handleChange}
-            />
-            <span>Mėnesio</span>
-          </label>
+          {checkedRadio.map((item, index) => {
+            return (
+              <label key={index}>
+                <input
+                  type="radio"
+                  value={item.value}
+                  name={index}
+                  id={item.id}
+                  checked={item.isChecked}
+                  onChange={handleChange}
+                />
+                <span>{item.name}</span>
+              </label>
+            );
+          })}
         </FilterDay>
       </ButtonDivs>
 
@@ -136,7 +169,7 @@ const Filter = ({
               selected={selectedStart}
               handleChange={(date) => {
                 handleChangeStart(date);
-                setFilterByDates("");
+                handleClearRadio();
               }}
               title="Pasirinkti pradžios datą"
               height="small"
@@ -148,7 +181,7 @@ const Filter = ({
               selected={selectedFinish}
               handleChange={(date) => {
                 handleChangeFinish(date);
-                setFilterByDates("");
+                handleClearRadio();
               }}
               title="Pasirinkti pabaigos datą"
               height="small"
@@ -186,7 +219,6 @@ const Filter = ({
                   })}
                 <ClearButton
                   handleClick={() => {
-                    setFilterByDates("day");
                     handleClear();
                     handleClearCheckbox();
                   }}
