@@ -59,6 +59,7 @@ const Filter = ({
   const { handleOpen, show } = useOpenClose();
   const { handleOpenFilter, showFilter } = useOpenCloseFilter();
   const [checkedRadio, setCheckedRadio] = useState(inputData);
+  console.log("inputData", checkedRadio);
 
   const ref = useRef(null);
 
@@ -72,9 +73,9 @@ const Filter = ({
         }
         return null;
       });
+
       const index = e.target.name;
       items[index].isChecked = e.target.checked;
-      console.log(items);
       return setCheckedRadio(items);
     },
     [checkedRadio]
@@ -90,6 +91,21 @@ const Filter = ({
     setCheckedRadio(items);
   };
 
+  const resetDefault = () => {
+    let items = [...checkedRadio];
+    items.map((item) => {
+      if (item.isChecked === true) {
+        return (item.isChecked = false);
+      }
+      return null;
+    });
+
+    const index = 0;
+    items[index].isChecked = true;
+    return setCheckedRadio(items);
+  };
+
+  // close checked filter menu if clicked outside
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
       // If the menu is open and the clicked target is not within the menu,
@@ -108,6 +124,7 @@ const Filter = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showFilter]);
 
+  // save checked checkboxes
   const checkedCount = checkedItems.filter(
     (item) => item.isChecked === true
   ).length;
@@ -219,6 +236,7 @@ const Filter = ({
                   })}
                 <ClearButton
                   handleClick={() => {
+                    resetDefault();
                     handleClear();
                     handleClearCheckbox();
                   }}
