@@ -59,12 +59,11 @@ const Filter = ({
   const { handleOpen, show } = useOpenClose();
   const { handleOpenFilter, showFilter } = useOpenCloseFilter();
   const [checkedRadio, setCheckedRadio] = useState(inputData);
-  console.log("inputData", checkedRadio);
 
   const ref = useRef(null);
 
   // handle radio button
-  const handleChange = useCallback(
+  const handleChangeDate = useCallback(
     (e) => {
       let items = [...checkedRadio];
       items.map((item) => {
@@ -159,21 +158,21 @@ const Filter = ({
             handleClearCheckbox();
           }}
         >
-          {checkedRadio.map((item, index) => {
-            return (
-              <label key={index}>
-                <input
-                  type="radio"
-                  value={item.value}
-                  name={index}
-                  id={item.id}
-                  checked={item.isChecked}
-                  onChange={handleChange}
-                />
-                <span>{item.name}</span>
-              </label>
-            );
-          })}
+          {checkedRadio &&
+            checkedRadio.map((item, index) => {
+              return (
+                <label key={index}>
+                  <input
+                    type="radio"
+                    value={item.value}
+                    name={index}
+                    checked={item.isChecked}
+                    onChange={handleChangeDate}
+                  />
+                  <span>{item.name}</span>
+                </label>
+              );
+            })}
         </FilterDay>
       </ButtonDivs>
 
