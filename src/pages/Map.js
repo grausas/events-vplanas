@@ -68,7 +68,6 @@ function Map() {
   const [addNewFeature, setAddNewFeature] = useState([]);
   const [view, setView] = useState("");
   const [eventsFeatureLayer, setEventsFeatureLayer] = useState("");
-
   const [searchTerm, setSearchTerm] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
@@ -79,6 +78,7 @@ function Map() {
   const [eventsText, setEventsText] = useState("");
   // const [suggestions, setSuggestions] = useState([]);
   const [valuesArr, setValuesArr] = useState([]);
+  const [arrIds, setArrIds] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -580,6 +580,45 @@ function Map() {
       });
     });
 
+    // on click get events from clicked place
+    view &&
+      view.on("immediate-click", function (event) {
+        view.hitTest(event, { include: layer }).then(function (response) {
+          // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
+          // // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
+          if (response.results.length >= 1) {
+            view.whenLayerView(layer).then(function (layerView) {
+              console.log("shortResults", arrIds);
+
+              layerView
+                .queryFeatures({
+                  geometry: view.toMap(event),
+                  outFields: ["*"],
+                  distance: 1.5 * view.resolution,
+                  spatialRelationship: "intersects",
+                  where: "OBJECTID IN (" + arrIds + ")",
+                })
+                .then(function (response) {
+                  if (response.features.length > 1) {
+                    // save to another state, then filter shortresults with result from here and set to another state
+                    // because shortResults state has to stay untouched
+                    setShortResults(sortByDate(response.features));
+                    handleOpen(show);
+                  } else if (
+                    response.features.length === 1 &&
+                    openModal === false
+                  ) {
+                    setQueryPoint(response.features[0].attributes);
+                    handleOpenModal(!openModal);
+                  }
+                });
+            });
+          } else {
+            return null;
+          }
+        });
+      });
+
     return () => {
       view && view.destroy();
     };
@@ -605,45 +644,16 @@ function Map() {
     addPolygon();
   }, [view]);
 
+  // query only filtered features
   useEffect(() => {
-    // on click get events from clicked place
-    view &&
-      view.on("immediate-click", function (event) {
-        view
-          .hitTest(event, { include: eventsFeatureLayer })
-          .then(function (response) {
-            // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-            // // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
-            if (response.results.length >= 1) {
-              view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
-                layerView
-                  .queryFeatures({
-                    geometry: view.toMap(event),
-                    outFields: ["*"],
-                    distance: 1.5 * view.resolution,
-                    spatialRelationship: "intersects",
-                  })
-                  .then(function (response) {
-                    if (response.features.length > 1) {
-                      // save to another state, then filter shortresults with result from here and set to another state
-                      // because shortResults state has to stay untouched
-                      setShortResults(sortByDate(response.features));
-                      handleOpen(show);
-                    } else if (
-                      response.features.length === 1 &&
-                      openModal === false
-                    ) {
-                      setQueryPoint(response.features[0].attributes);
-                      handleOpenModal(!openModal);
-                    }
-                  });
-              });
-            } else {
-              return null;
-            }
-          });
+    eventsFeatureLayer &&
+      eventsFeatureLayer.load().then(() => {
+        arrIds.length = 0;
+        const result =
+          shortResults && shortResults.map((item) => item.attributes.OBJECTID);
+        return arrIds.push(result);
       });
-  }, [eventsFeatureLayer]);
+  }, [shortResults]);
 
   useEffect(() => {
     view &&
