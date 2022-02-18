@@ -59,7 +59,6 @@ export const addEventsFeature = (params, layer, type, message) => {
     addFeatures: features,
   };
 
-  console.log("add", add);
   // padaryti validacija, if pavadinimas ir t.t suvestas tada daryti applyedits else ismesti,
   // kad reikia uzpildyti visus reikalingus duomenis
   layer

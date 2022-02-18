@@ -29,7 +29,6 @@ const TimeSlider = ({
   // Create a time slider to update layerView filter
   useEffect(() => {
     if (layer && openModal && dateSlider === undefined) {
-      console.log("timeSlider", dateSlider);
       var timeSlider = new TimeSliderModule({
         container: "dateSlider",
         mode: "time-window",
@@ -48,7 +47,6 @@ const TimeSlider = ({
       layer.when(function () {
         let timeLayerView;
         view.whenLayerView(layer).then((layerView) => {
-          console.log("startOfDay", startOfDay);
           timeLayerView = layerView;
           const fullTimeExtent = layer.timeInfo.fullTimeExtent;
 
@@ -64,7 +62,6 @@ const TimeSlider = ({
         });
 
         dateSlider.watch("timeExtent", (value) => {
-          console.log(value);
           setStartDate(new Date(value.start).getTime());
           setFinishtDate(new Date(value.end).getTime());
 

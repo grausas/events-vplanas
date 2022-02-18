@@ -34,7 +34,6 @@ export const drawNewPolygon = (view, setState) => {
         if (event.state === "complete") {
           const sketchGeometry = event.graphic.geometry;
           const sketchRings = event.graphic.geometry.rings[0];
-          console.log(sketchRings);
 
           setState((state) => ({
             geometry: sketchGeometry,
@@ -43,7 +42,6 @@ export const drawNewPolygon = (view, setState) => {
         }
       });
       sketch.on("delete", function (event) {
-        console.log("delete", event);
         setState({
           geometry: "",
           rings: "",

@@ -588,13 +588,11 @@ function Map() {
           // // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
           if (response.results.length >= 1) {
             view.whenLayerView(layer).then(function (layerView) {
-              console.log("shortResults", arrIds);
-
               layerView
                 .queryFeatures({
                   geometry: view.toMap(event),
                   outFields: ["*"],
-                  distance: 1.5 * view.resolution,
+                  distance: 1.8 * view.resolution,
                   spatialRelationship: "intersects",
                   where: "OBJECTID IN (" + arrIds + ")",
                 })
