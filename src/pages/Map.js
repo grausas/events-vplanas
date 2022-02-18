@@ -55,6 +55,7 @@ import { updatePolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
+import { sortByDate } from "../helpers/SortByDate";
 
 function Map() {
   const auth = useContext(AuthContext);
@@ -232,7 +233,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDay
       );
-      setShortResults(sortResults(filterTodayEvents));
+      setShortResults(sortByDate(filterTodayEvents));
       setEventsText("Dienos renginiai");
     } else if (value === "week") {
       var endOfDayWeek = new Date(
@@ -246,7 +247,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayWeek
       );
-      setShortResults(sortResults(filterWeekEvents));
+      setShortResults(sortByDate(filterWeekEvents));
       setEventsText("Savaitės renginiai");
     } else if (value === "month") {
       var endOfDayMonth = new Date(startOfDay);
@@ -259,7 +260,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayMonth
       );
-      setShortResults(sortResults(filterMonthEvents));
+      setShortResults(sortByDate(filterMonthEvents));
       setEventsText("Mėnesio renginiai");
     }
   };
@@ -281,7 +282,7 @@ function Map() {
             return item.attributes.RENGINIO_PRADZIA >= startDate;
           } else return item.attributes.RENGINIO_PRADZIA <= finishDate;
         });
-        return sortResults(filteredDate);
+        return sortByDate(filteredDate);
       } else return results;
     },
     [finishDate, startDate]
@@ -335,7 +336,7 @@ function Map() {
       const filteredDates = data.features.filter((item) =>
         valuesArr.includes(item.attributes.KATEGORIJA)
       );
-      setShortResults(datesFilter(sortResults(filteredDates)));
+      setShortResults(datesFilter(sortByDate(filteredDates)));
 
       const values = valuesArr.map((el) => el);
 
@@ -382,7 +383,7 @@ function Map() {
         const filteredDates = data.features.filter((item) =>
           valuesArr.includes(item.attributes.KATEGORIJA)
         );
-        setShortResults(datesFilter(sortResults(filteredDates)));
+        setShortResults(datesFilter(sortByDate(filteredDates)));
       } else {
         setShortResults(filterResults(data));
         filterDates();
@@ -440,19 +441,6 @@ function Map() {
     }
   };
 
-  // Sort results by date
-  const sortResults = (results) => {
-    const sortedResults =
-      results &&
-      results.slice(0).sort((a, b) => {
-        const x = a.attributes.RENGINIO_PRADZIA;
-        const y = b.attributes.RENGINIO_PRADZIA;
-        return x < y ? -1 : x > y ? 1 : 0;
-      });
-
-    return sortedResults;
-  };
-
   // Filter search results
   const filterResults = useCallback(() => {
     if (data.features) {
@@ -466,7 +454,7 @@ function Map() {
               )
           );
 
-      return sortResults(results);
+      return sortByDate(results);
     }
   }, [data.features, searchTerm]);
 
@@ -639,7 +627,7 @@ function Map() {
                     if (response.features.length > 1) {
                       // save to another state, then filter shortresults with result from here and set to another state
                       // because shortResults state has to stay untouched
-                      setShortResults(response.features);
+                      setShortResults(sortByDate(response.features));
                       handleOpen(show);
                     } else if (
                       response.features.length === 1 &&
