@@ -611,10 +611,12 @@ function Map() {
                   setEventsText("Renginiai");
                 }}
                 handleChangeFinish={(date) => {
-                  setFinishDate(
-                    new Date(date.setHours(23, 59, 59, 59)).getTime()
-                  );
-                  setEventsText("Renginiai");
+                  if (date >= startDate) {
+                    setFinishDate(
+                      new Date(date.setHours(23, 59, 59, 59)).getTime()
+                    );
+                    setEventsText("Renginiai");
+                  }
                 }}
                 onChange={handleFilterChange}
                 handleClear={() => {

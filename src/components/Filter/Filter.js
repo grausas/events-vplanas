@@ -189,7 +189,6 @@ const Filter = ({
               }}
               title="Pasirinkti pradžios datą"
               height="small"
-              placeholderTextDate="Nuo"
             />
             <DatePicker
               dateTitle="Iki"
