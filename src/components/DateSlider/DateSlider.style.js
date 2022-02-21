@@ -17,6 +17,7 @@ export const IconDiv = styled.div`
 
   @media only screen and (max-width: 768px) {
     right: 10px;
+    display: none;
   }
 `;
 

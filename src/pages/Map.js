@@ -78,19 +78,6 @@ function Map() {
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
 
-  // open event clicked in events timeline
-  const openEvent = (event) => {
-    const filterResult = filteredResults.filter(
-      (item) => item.attributes.OBJECTID === event
-    );
-    setQueryPoint(filterResult[0].attributes);
-    // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
-    if (filterResult.length > 0 && openModal === false) {
-      handleOpenModal(!openModal);
-      // handleOpen(show);
-    }
-  };
-
   // clear error state after some time
   useEffect(() => {
     const timeId = setTimeout(() => {
@@ -385,7 +372,6 @@ function Map() {
           // where: "RENGINIO_PRADZIA >= " + startDate,
           where: ["1=1"],
           outFields: ["*"],
-          returnGeometry: true,
         })
         .then((res) => {
           setData(res);
@@ -479,6 +465,7 @@ function Map() {
       });
 
     // on map click, get events from clicked place
+
     view &&
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
@@ -555,6 +542,35 @@ function Map() {
         handleFilterByDate();
       });
   }, [data.features]);
+
+  // open event clicked in events timeline
+  const openEvent = (event) => {
+    const filterResult = filteredResults.filter(
+      (item) => item.attributes.OBJECTID === event
+    );
+    setQueryPoint(filterResult[0].attributes);
+    // var renderer = view.map.layers.getItemAt(0).renderer;
+    // var rendererClone = renderer.clone(); // do you have to use clone here? I'm not totally sure.
+
+    // // Update the uniqueValueInfos individually
+    // rendererClone.uniqueValueInfos = rendererClone.uniqueValueInfos.map(
+    //   function (uniqueValueInfo) {
+    //     // Current value is not equal, so make the symbol slighly transparent.
+    //     console.log(uniqueValueInfo);
+    //     if (filterResult) {
+    //       uniqueValueInfo.symbol.color = { a: 0.2 };
+    //       uniqueValueInfo.where = "OBJECTID = " + 3978;
+    //     }
+    //     return uniqueValueInfo;
+    //   }
+    // );
+    // view.map.layers.getItemAt(0).renderer = rendererClone;
+
+    // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
+    if (filterResult.length > 0 && openModal === false) {
+      handleOpenModal(!openModal);
+    }
+  };
 
   return (
     <>

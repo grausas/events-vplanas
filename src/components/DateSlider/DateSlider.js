@@ -37,14 +37,13 @@ const TimeSlider = ({
       });
     }
     setDateSlider(timeSlider);
-
-    // wait until the layer view is loaded
   }, [openModal]);
 
   useEffect(() => {
     dateSlider &&
       openModal &&
       layer.when(function () {
+        // wait until the layer view is loaded
         let timeLayerView;
         view.whenLayerView(layer).then((layerView) => {
           timeLayerView = layerView;
