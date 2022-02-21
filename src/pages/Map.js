@@ -382,20 +382,17 @@ function Map() {
     layer.load().then(function () {
       layer
         .queryFeatures({
-          // where: [
-          //   "RENGINIO_PRADZIA > date'" +
-          //     new Date().toISOString().slice(0, 10) +
-          //     "'",
-          // ],
+          // where: "RENGINIO_PRADZIA >= " + startDate,
           where: ["1=1"],
           outFields: ["*"],
+          returnGeometry: true,
         })
         .then((res) => {
           setData(res);
         });
     });
 
-    // Keičia cursor kai užvestas ant feature layer ir yra response
+    // Chnage cursor when on event
     function changeMouseCursor(response) {
       if (
         response.results.length > 0 &&
@@ -424,13 +421,13 @@ function Map() {
       });
     });
 
-    // rodo loading kol neužsikrautas view, reikia pataisymo
+    // show loading while map is laoding
     watchUtils.whenFalse(view, "updating", function (evt) {
       const loader = document.getElementById("loading");
       loader.style.display = "none";
     });
 
-    // paieska
+    // search
     const sources = [
       {
         url: "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer",
@@ -455,12 +452,36 @@ function Map() {
       });
     });
 
-    // on click get events from clicked place
+    // filter results by view extent
+    let graphics;
+
+    view &&
+      view.whenLayerView(layer).then(function (layerView) {
+        layerView.watch("updating", function (value) {
+          if (!value) {
+            // wait for the layer view to finish updating
+            // query all the features available for drawing.
+            layerView
+              .queryFeatures({
+                geometry: view.extent,
+                returnGeometry: true,
+                where: "OBJECTID IN (" + arrIds + ")",
+              })
+              .then(function (results) {
+                graphics = results.features;
+                setShortResults(sortByDate(graphics));
+              })
+              .catch(function (error) {
+                console.error("query failed: ", error);
+              });
+          }
+        });
+      });
+
+    // on map click, get events from clicked place
     view &&
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
-          // laikinas fix, kad paspaudus ant map, bet kurioje vietoje nemestų error
-          // // reikia fix, nes dabar kai taskai yra tada reikia labai tiksliai paklikinti
           if (response.results.length >= 1) {
             view.whenLayerView(layer).then(function (layerView) {
               layerView
@@ -473,8 +494,6 @@ function Map() {
                 })
                 .then(function (response) {
                   if (response.features.length > 1) {
-                    // save to another state, then filter shortresults with result from here and set to another state
-                    // because shortResults state has to stay untouched
                     setShortResults(sortByDate(response.features));
                     handleOpen(show);
                   } else if (
@@ -529,6 +548,7 @@ function Map() {
       });
   }, [filteredResults]);
 
+  // filter by selected today, week, month
   useEffect(() => {
     view &&
       view.when().then(() => {
