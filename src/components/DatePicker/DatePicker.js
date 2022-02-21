@@ -39,8 +39,10 @@ const DatePicker = ({
           onChange={handleChange}
           required={required}
           customInput={<CustomInput />}
-          showMonth
+          // showMonth
           showPopperArrow={false}
+          showMonthDropdown
+          dropdownMode="select"
         />
       </DatePickerWrapper>
       <DatePickerWrapper display={displayTime} height={height}>

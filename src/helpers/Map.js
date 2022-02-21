@@ -207,7 +207,7 @@ export const createMapView = (ref, layers) => {
 
       view.watch("scale", (newValue) => {
         layers.renderer =
-          newValue >= 8000 && newValue <= 45000
+          newValue >= 14000 && newValue <= 45000
             ? simpleRendererBig
             : newValue > 45000
             ? simpleRenderer

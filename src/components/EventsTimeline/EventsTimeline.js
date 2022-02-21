@@ -35,18 +35,16 @@ const EventsTimeline = ({
             const result = CategoryData.find(
               ({ id }) => id === event.attributes.KATEGORIJA
             );
-            const eventStartDate = changeDate(
-              new Date(event.attributes.RENGINIO_PRADZIA)
-            );
-            const eventStartTime = changeTime(
-              new Date(event.attributes.RENGINIO_PRADZIA)
-            );
-            const eventFinishDate = changeDate(
-              new Date(event.attributes.RENGINIO_PABAIGA)
-            );
-            const eventFinishTime = changeTime(
-              new Date(event.attributes.RENGINIO_PABAIGA)
-            );
+            const startDate = new Date(event.attributes.RENGINIO_PRADZIA);
+            const endDate = new Date(event.attributes.RENGINIO_PABAIGA);
+            const eventStartDate = changeDate(startDate);
+            const eventStartTime = changeTime(startDate);
+            const eventFinishDate = changeDate(endDate);
+            const eventFinishTime = changeTime(endDate);
+
+            const oneDay = 1000 * 60 * 60 * 24;
+            const diffInTime = endDate.getTime() - startDate.getTime();
+            const diffInDays = Math.round(diffInTime / oneDay);
             return (
               <TimelineItem key={event.attributes.OBJECTID}>
                 <ItemContent
@@ -68,8 +66,10 @@ const EventsTimeline = ({
                   <Text>{event.attributes.PAVADINIMAS}</Text>
                   <EventDate>
                     <img src={Calendar} alt="calendar-icon" />
-                    {event.attributes.Savaites_dienos != null &&
-                    (event.attributes.Savaites_dienos === "nera" ||
+                    {event.attributes.Savaites_dienos !== null &&
+                    event.attributes.Savaites_dienos !== "" &&
+                    (event.attributes.Savaites_dienos !== "nera" ||
+                      diffInDays >= 1 ||
                       event.attributes.Savaites_dienos.length > 12)
                       ? eventStartDate +
                         " " +
@@ -83,8 +83,6 @@ const EventsTimeline = ({
                         eventStartTime +
                         "-" +
                         eventFinishTime}
-
-                    {/* {eventFinishDate + " " + eventFinishTime} */}
                   </EventDate>
                   <Circle />
                 </ItemContent>
