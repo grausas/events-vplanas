@@ -15,11 +15,6 @@ import { useOpenClose } from "../hooks/useOpenClose";
 import { useOpenCloseModal } from "../hooks/openModal";
 // esri modules
 import * as watchUtils from "@arcgis/core/core/watchUtils";
-// import * as locator from "@arcgis/core/rest/locator";
-// import Graphic from "@arcgis/core/Graphic";
-// import * as GeometryService from "@arcgis/core/rest/geometryService";
-// import ProjectParameters from "@arcgis/core/rest/support/ProjectParameters";
-// import Point from "@arcgis/core/geometry/Point";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
 
@@ -75,122 +70,13 @@ function Map() {
   const [error, setError] = useState("");
   const [type, setType] = useState("");
   const [shortResults, setShortResults] = useState("");
+  const [filteredResults, setFilteredResults] = useState("");
   const [eventsText, setEventsText] = useState("");
-  // const [suggestions, setSuggestions] = useState([]);
   const [valuesArr, setValuesArr] = useState([]);
   const [arrIds, setArrIds] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
-
-  // global search
-  // pabandyti ieskoti pagal attributes o ne pagal address
-  // panaudoti searchViewModel
-  // ismesti pasirinkimus su suggest i dropdown
-
-  // const locatorUrl =
-  //   "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer";
-
-  // const handleSearchResult = (e) => {
-  //   const result = e.target.value;
-
-  //   var address = {
-  //     SingleLine: result,
-  //     f: "json",
-  //   };
-
-  //   const params = {
-  //     address: address,
-  //     outFields: ["*"],
-  //     text: result,
-  //     outSpatialReference: { wkid: 102100 },
-  //   };
-
-  //   if (result.length > 1) {
-  //     locator.suggestLocations(locatorUrl, params).then(function (response) {
-  //       console.log(typeof params.address);
-  //       console.log("response", response);
-  //       const address = response.filter((item) => item.text.includes(result));
-  //       console.log("address", address);
-  //       console.log(address);
-  //       setSuggestions(response);
-  //     });
-  //   }
-
-  //   if (e.key === "Enter") {
-  //     locator.addressToLocations(locatorUrl, params).then(function (results) {
-  //       console.log("addressToLocations Vilnius=", results);
-  //       if (results.length > 0) {
-  //         const grapics = results[0].location;
-
-  //         var point = new Point({
-  //           type: "point",
-  //           x: grapics.x,
-  //           y: grapics.y,
-  //           spatialReference: { wkid: 102100 },
-  //         });
-
-  //         var simpleMarkerSymbol = {
-  //           type: "simple-marker",
-  //           color: [226, 119, 40],
-  //           outline: {
-  //             color: [255, 255, 255],
-  //             width: 1,
-  //           },
-  //         };
-
-  //         var geomSer =
-  //           "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/Utilities/Geometry/GeometryServer";
-
-  //         var params = new ProjectParameters({
-  //           geometries: [point],
-  //           outSpatialReference: { wkid: 102100 },
-  //         });
-
-  //         GeometryService.project(geomSer, params).then(function (geom) {
-  //           // console.log("geom", geom);
-  //           var pointGraphic = new Graphic({
-  //             geometry: point,
-  //             symbol: simpleMarkerSymbol,
-  //           });
-
-  //           // console.log("phichLayre", graphicsLayer.graphics.items.length);
-
-  //           if (graphicsLayer.graphics.items.length > 0) {
-  //             graphicsLayer.removeAll();
-  //             graphicsLayer.add(pointGraphic);
-  //             // console.log("pointGraphic", pointGraphic);
-  //             // console.log("center", (view.center = pointGraphic.geometry));
-
-  //             view.goTo(
-  //               {
-  //                 target: pointGraphic,
-  //                 zoom: 16,
-  //               },
-  //               { duration: 1000 }
-  //             );
-  //           } else {
-  //             graphicsLayer.add(pointGraphic);
-  //             // console.log("pointGraphic", pointGraphic);
-  //             // console.log("center", (view.center = pointGraphic.geometry));
-
-  //             view.goTo(
-  //               {
-  //                 target: pointGraphic,
-  //                 zoom: 16,
-  //               },
-  //               { duration: 1000 }
-  //             );
-  //           }
-  //         });
-  //       }
-  //     });
-  //   } else if (e.key === "Backspace" || e.key === "Delete") {
-  //     graphicsLayer.removeAll();
-  //   }
-  // };
-
-  // ------------------
 
   // open event clicked in events timeline
   const openEvent = (event) => {
@@ -493,19 +379,21 @@ function Map() {
     setEventsFeatureLayer(layer);
     setView(view);
 
-    layer
-      .queryFeatures({
-        // where: [
-        //   "RENGINIO_PRADZIA > date'" +
-        //     new Date().toISOString().slice(0, 10) +
-        //     "'",
-        // ],
-        where: ["1=1"],
-        outFields: ["*"],
-      })
-      .then((res) => {
-        setData(res);
-      });
+    layer.load().then(function () {
+      layer
+        .queryFeatures({
+          // where: [
+          //   "RENGINIO_PRADZIA > date'" +
+          //     new Date().toISOString().slice(0, 10) +
+          //     "'",
+          // ],
+          where: ["1=1"],
+          outFields: ["*"],
+        })
+        .then((res) => {
+          setData(res);
+        });
+    });
 
     // Keičia cursor kai užvestas ant feature layer ir yra response
     function changeMouseCursor(response) {
@@ -553,19 +441,6 @@ function Map() {
         maxSuggestions: 6,
         minSuggestCharacters: 0,
       },
-      // {
-      //   layer: layer,
-      //   searchFields: ["PAVADINIMAS", "ORGANIZATORIUS"],
-      //   // displayField: "{PAVADINIMAS}",
-      //   exactMatch: false,
-      //   outFields: ["*"],
-      //   name: "Renginiai",
-      //   maxResults: 6,
-      //   maxSuggestions: 6,
-      //   suggestionsEnabled: true,
-      //   suggestionTemplate: "{PAVADINIMAS}",
-      //   minSuggestCharacters: 0,
-      // },
     ];
 
     view.when(() => {
@@ -808,13 +683,6 @@ function Map() {
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();
-                // handleOpen(show);
-                view.goTo(
-                  {
-                    zoom: 11,
-                  },
-                  { duration: 600 }
-                );
               }}
             >
               <EditEvent
