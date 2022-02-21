@@ -80,7 +80,7 @@ function Map() {
 
   // open event clicked in events timeline
   const openEvent = (event) => {
-    const filterResult = shortResults.filter(
+    const filterResult = filteredResults.filter(
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
@@ -119,7 +119,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDay
       );
-      setShortResults(sortByDate(filterTodayEvents));
+      setFilteredResults(sortByDate(filterTodayEvents));
       setEventsText("Dienos renginiai");
     } else if (value === "week") {
       var endOfDayWeek = new Date(
@@ -133,7 +133,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayWeek
       );
-      setShortResults(sortByDate(filterWeekEvents));
+      setFilteredResults(sortByDate(filterWeekEvents));
       setEventsText("Savaitės renginiai");
     } else if (value === "month") {
       var endOfDayMonth = new Date(startOfDay);
@@ -146,7 +146,7 @@ function Map() {
           item.attributes.RENGINIO_PRADZIA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayMonth
       );
-      setShortResults(sortByDate(filterMonthEvents));
+      setFilteredResults(sortByDate(filterMonthEvents));
       setEventsText("Mėnesio renginiai");
     }
   };
@@ -177,7 +177,7 @@ function Map() {
   const filterDates = useCallback(() => {
     if (view && (startDate || finishDate) && valuesArr.length === 0) {
       const filteredDates = datesFilter(data.features);
-      setShortResults(filteredDates);
+      setFilteredResults(filteredDates);
       view
         .whenLayerView(eventsFeatureLayer)
         .then((layerView) => {
@@ -222,7 +222,7 @@ function Map() {
       const filteredDates = data.features.filter((item) =>
         valuesArr.includes(item.attributes.KATEGORIJA)
       );
-      setShortResults(datesFilter(sortByDate(filteredDates)));
+      setFilteredResults(datesFilter(sortByDate(filteredDates)));
 
       const values = valuesArr.map((el) => el);
 
@@ -269,9 +269,9 @@ function Map() {
         const filteredDates = data.features.filter((item) =>
           valuesArr.includes(item.attributes.KATEGORIJA)
         );
-        setShortResults(datesFilter(sortByDate(filteredDates)));
+        setFilteredResults(datesFilter(sortByDate(filteredDates)));
       } else {
-        setShortResults(filterResults(data));
+        setFilteredResults(filterResults(data));
         filterDates();
       }
 
@@ -329,10 +329,10 @@ function Map() {
 
   // Filter search results
   const filterResults = useCallback(() => {
-    if (data.features) {
+    if (filteredResults) {
       const results = !searchTerm
-        ? data.features
-        : data.features.filter(
+        ? filteredResults
+        : filteredResults.filter(
             (item) =>
               item.attributes.PAVADINIMAS &&
               item.attributes.PAVADINIMAS.toLowerCase().includes(
@@ -342,7 +342,7 @@ function Map() {
 
       return sortByDate(results);
     }
-  }, [data.features, searchTerm]);
+  }, [filteredResults, searchTerm]);
 
   useEffect(() => {
     setShortResults(filterResults());
@@ -523,10 +523,11 @@ function Map() {
       eventsFeatureLayer.load().then(() => {
         arrIds.length = 0;
         const result =
-          shortResults && shortResults.map((item) => item.attributes.OBJECTID);
+          filteredResults &&
+          filteredResults.map((item) => item.attributes.OBJECTID);
         return arrIds.push(result);
       });
-  }, [shortResults]);
+  }, [filteredResults]);
 
   useEffect(() => {
     view &&
@@ -545,7 +546,7 @@ function Map() {
             layer={eventsFeatureLayer}
             view={view}
             data={data}
-            setShortResults={setShortResults}
+            setShortResults={setFilteredResults}
             startOfDay={startDate}
             endOfDay={finishDate}
           />
@@ -585,7 +586,7 @@ function Map() {
                   setValuesArr([]);
                 }}
                 handleOpenMore={() =>
-                  setShortResults(filterResults(data.features))
+                  setFilteredResults(filterResults(data.features))
                 }
                 handleDateChange={handleFilterByDate}
               />
@@ -605,7 +606,7 @@ function Map() {
               handleClose={handleOpen}
               clickedEvent={queryPoint.OBJECTID}
               emptyTimeline={
-                shortResults && shortResults.length === 0
+                filteredResults && filteredResults.length === 0
                   ? "Renginių nerasta"
                   : ""
               }
