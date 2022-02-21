@@ -148,11 +148,11 @@ function Map() {
         const filteredDate = results.filter((item) => {
           if (startDate && finishDate) {
             return (
-              item.attributes.RENGINIO_PRADZIA >= startDate &&
+              item.attributes.RENGINIO_PABAIGA >= startDate &&
               item.attributes.RENGINIO_PRADZIA <= finishDate
             );
           } else if (startDate) {
-            return item.attributes.RENGINIO_PRADZIA >= startDate;
+            return item.attributes.RENGINIO_PABAIGA >= startDate;
           } else return item.attributes.RENGINIO_PRADZIA <= finishDate;
         });
         return sortByDate(filteredDate);
@@ -171,12 +171,12 @@ function Map() {
           layerView.filter = {
             where:
               startDate && finishDate
-                ? "RENGINIO_PRADZIA >= " +
+                ? "RENGINIO_PABAIGA >= " +
                   startDate +
                   " AND RENGINIO_PRADZIA <= " +
                   finishDate
                 : startDate
-                ? "RENGINIO_PRADZIA >= " + startDate
+                ? "RENGINIO_PABAIGA >= " + startDate
                 : "RENGINIO_PABAIGA <= " + finishDate,
           };
         })
@@ -225,7 +225,7 @@ function Map() {
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
-                "RENGINIO_PRADZIA >= " +
+                "RENGINIO_PABAIGA >= " +
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
@@ -233,7 +233,7 @@ function Map() {
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
-                "RENGINIO_PRADZIA >= " +
+                "RENGINIO_PABAIGA >= " +
                 startDate
               : "KATEGORIJA IN (" +
                 newArrStr +
@@ -274,12 +274,12 @@ function Map() {
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
-                "RENGINIO_PRADZIA >= " +
+                "RENGINIO_PABAIGA >= " +
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
               : startDate && finishDate && valuesArr.length === 0
-              ? "RENGINIO_PRADZIA >= " +
+              ? "RENGINIO_PABAIGA >= " +
                 startDate +
                 " AND RENGINIO_PRADZIA <= " +
                 finishDate
@@ -287,7 +287,7 @@ function Map() {
               ? "KATEGORIJA IN (" +
                 newArrStr +
                 ") AND " +
-                "RENGINIO_PRADZIA >= " +
+                "RENGINIO_PABAIGA >= " +
                 startDate
               : !startDate && finishDate
               ? "KATEGORIJA IN (" +
@@ -310,7 +310,7 @@ function Map() {
       setFinishDate("");
       setValuesArr([]);
     } else {
-      console.log("no filter");
+      return null;
     }
   };
 
