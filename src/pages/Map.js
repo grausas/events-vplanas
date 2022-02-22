@@ -555,20 +555,17 @@ function Map() {
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
-
-    const effect = new FeatureEffect({
-      filter: new FeatureFilter({
-        objectIds: filterResult[0].attributes.OBJECTID,
-      }),
-      excludedEffect: "grayscale(100%) opacity(30%) ",
-    });
-
-    eventsFeatureLayer.featureEffect = effect;
-
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
     }
+
+    eventsFeatureLayer.featureEffect = {
+      filter: {
+        objectIds: filterResult[0].attributes.OBJECTID,
+      },
+      excludedEffect: "opacity(30%) ",
+    };
   };
 
   let filterExtent;
@@ -745,6 +742,9 @@ function Map() {
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();
+                eventsFeatureLayer.featureEffect = {
+                  excludedEffect: "opacity(100%) ",
+                };
               }}
             >
               <EditEvent
