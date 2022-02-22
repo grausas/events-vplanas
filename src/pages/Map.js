@@ -616,6 +616,8 @@ function Map() {
                       new Date(date.setHours(23, 59, 59, 59)).getTime()
                     );
                     setEventsText("Renginiai");
+                  } else {
+                    setFinishDate(startDate);
                   }
                 }}
                 onChange={handleFilterChange}
