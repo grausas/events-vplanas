@@ -17,6 +17,8 @@ import { useOpenCloseModal } from "../hooks/openModal";
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
+import FeatureEffect from "@arcgis/core/layers/support/FeatureEffect";
+import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter";
 
 // locale
 import * as intl from "@arcgis/core/intl";
@@ -553,22 +555,15 @@ function Map() {
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
-    // var renderer = view.map.layers.getItemAt(0).renderer;
-    // var rendererClone = renderer.clone(); // do you have to use clone here? I'm not totally sure.
 
-    // // Update the uniqueValueInfos individually
-    // rendererClone.uniqueValueInfos = rendererClone.uniqueValueInfos.map(
-    //   function (uniqueValueInfo) {
-    //     // Current value is not equal, so make the symbol slighly transparent.
-    //     console.log(uniqueValueInfo);
-    //     if (filterResult) {
-    //       uniqueValueInfo.symbol.color = { a: 0.2 };
-    //       uniqueValueInfo.where = "OBJECTID = " + 3978;
-    //     }
-    //     return uniqueValueInfo;
-    //   }
-    // );
-    // view.map.layers.getItemAt(0).renderer = rendererClone;
+    const effect = new FeatureEffect({
+      filter: new FeatureFilter({
+        objectIds: filterResult[0].attributes.OBJECTID,
+      }),
+      excludedEffect: "grayscale(100%) opacity(30%) ",
+    });
+
+    eventsFeatureLayer.featureEffect = effect;
 
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
     if (filterResult.length > 0 && openModal === false) {

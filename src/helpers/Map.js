@@ -37,7 +37,12 @@ export const createMapView = (ref, layers) => {
     const simpleRenderer = {
       type: "unique-value",
       field: "KATEGORIJA",
-      defaultSymbol: { type: "simple-fill" },
+      defaultSymbol: {
+        type: "simple-marker",
+        color: "red",
+        style: "circle",
+        size: "4px",
+      },
       uniqueValueInfos: [
         {
           value: "1",
@@ -207,7 +212,7 @@ export const createMapView = (ref, layers) => {
 
       view.watch("scale", (newValue) => {
         layers.renderer =
-          newValue >= 14000 && newValue <= 55000
+          newValue >= 14000 && newValue <= 75000
             ? simpleRendererBig
             : newValue > 45000
             ? simpleRenderer
