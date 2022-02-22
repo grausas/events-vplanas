@@ -483,7 +483,10 @@ function Map() {
                 .then(function (response) {
                   if (response.features.length > 1) {
                     setShortResults(sortByDate(response.features));
-                    handleOpen(show);
+                    // console.log("show", show);
+                    if (show === true) {
+                      handleOpen(show);
+                    }
                   } else if (
                     response.features.length === 1 &&
                     openModal === false
@@ -635,9 +638,10 @@ function Map() {
             handleZoomOut={() => zoomOut(view)}
           />
           {/* Renginių juosta */}
+          {/* {console.log(show)} */}
           <EventsSchedule
             handleOpen={handleOpen}
-            show={show}
+            show={!show}
             scheduleTitle={eventsText}
             filter={
               <Filter
@@ -696,24 +700,6 @@ function Map() {
               }}
             />
           </EventsSchedule>
-          {/* Filtravimas pagal data ir kategorijas */}
-          {/* {showFilter && show && (
-            <Filter
-              id="filtras"
-              data={CategoryData}
-              selectedStart={startDate}
-              selectedFinish={finishDate}
-              handleChangeStart={(date) => {
-                setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
-              }}
-              handleChangeFinish={(date) =>
-                setFinishDate(new Date(date.setHours(23, 59, 59, 59)).getTime())
-              }
-              onChange={handleFilterChange}
-              handleClear={handleClearFilter}
-              handleCloseFilter={handleOpenFilter}
-            />
-          )} */}
           {/* Pridėti naują renginį  */}
           <AddEvent
             isLoggedIn={!!auth.token}

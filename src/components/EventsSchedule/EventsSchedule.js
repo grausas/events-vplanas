@@ -21,19 +21,21 @@ const EventsSchedule = ({
   scheduleTitle,
 }) => {
   return (
-    <Wrapper close={show}>
-      <Text onClick={handleOpen} text={!show}>
-        <h3>{show ? "Renginiai" : scheduleTitle}</h3>
-        <span>{show && <ExpandImage src={ExpandIcon} alt="close-icon" />}</span>
-        {!show && <CloseImage src={CloseIcon} alt="close-icon" />}
+    <Wrapper close={!show}>
+      <Text onClick={handleOpen} text={show}>
+        <h3>{!show ? "Renginiai" : scheduleTitle}</h3>
+        <span>
+          {!show && <ExpandImage src={ExpandIcon} alt="close-icon" />}
+        </span>
+        {show && <CloseImage src={CloseIcon} alt="close-icon" />}
       </Text>
-      {!show && (
+      {show && (
         <>
           <SearchDiv>{search}</SearchDiv>
           <FilterDiv>{filter}</FilterDiv>
         </>
       )}
-      <Content>{!show && <>{children}</>}</Content>
+      <Content>{show && <>{children}</>}</Content>
     </Wrapper>
   );
 };
