@@ -74,6 +74,7 @@ function Map() {
   const [eventsText, setEventsText] = useState("");
   const [valuesArr, setValuesArr] = useState([]);
   const [arrIds, setArrIds] = useState([]);
+  const [byExtent, setByExtent] = useState();
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -103,7 +104,7 @@ function Map() {
       // change default start and finish date
       const filterTodayEvents = data.features.filter(
         (item) =>
-          item.attributes.RENGINIO_PRADZIA >= startOfDay &&
+          item.attributes.RENGINIO_PABAIGA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDay
       );
       setFilteredResults(sortByDate(filterTodayEvents));
@@ -576,7 +577,6 @@ function Map() {
   const filterByExtent = (e) => {
     const isChecked = e.target.checked;
     let graphics;
-    console.log(graphics);
     if (isChecked) {
       view &&
         view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
@@ -599,14 +599,14 @@ function Map() {
                 });
             }
           });
-          return filterByExtent;
+          setByExtent(filterExtent);
         });
     } else {
-      console.log("uncheked", filterExtent);
       if (undefined) {
         return null;
       } else {
-        filterExtent.remove();
+        byExtent.remove();
+        handleFilterByDate();
       }
     }
   };

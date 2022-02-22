@@ -165,7 +165,6 @@ const Filter = ({
             handleCheckboxChange={handleCheckboxChanges}
             checked={checkedFilter}
             name="filterByExtent"
-            label="filtruoti"
             color="primary"
           />
         </div>
