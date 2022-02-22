@@ -54,6 +54,7 @@ const Filter = ({
   handleClear,
   handleOpenMore,
   handleDateChange,
+  handleFilterByExtent,
 }) => {
   const [checkedItems, setCheckeditems] = useState(data);
   const { handleOpen, show } = useOpenClose();
@@ -148,10 +149,26 @@ const Filter = ({
     setCheckeditems(items);
   };
 
+  const [checkedFilter, setCheckedFilter] = useState(false);
+
+  const handleCheckboxChanges = (e) => {
+    setCheckedFilter(e.target.checked);
+  };
+
   return (
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtrai</FilterButton>
+        <div onChange={handleFilterByExtent}>
+          <CheckBox
+            type="checkbox"
+            handleCheckboxChange={handleCheckboxChanges}
+            checked={checkedFilter}
+            name="filterByExtent"
+            label="filtruoti"
+            color="primary"
+          />
+        </div>
         <FilterDay
           onChange={(e) => {
             handleDateChange(e);

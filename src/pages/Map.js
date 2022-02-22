@@ -439,30 +439,30 @@ function Map() {
     });
 
     // filter results by view extent
-    let graphics;
+    // let graphics;
 
-    view &&
-      view.whenLayerView(layer).then(function (layerView) {
-        layerView.watch("updating", function (value) {
-          if (!value) {
-            // wait for the layer view to finish updating
-            // query all the features available for drawing.
-            layerView
-              .queryFeatures({
-                geometry: view.extent,
-                returnGeometry: true,
-                where: "OBJECTID IN (" + arrIds + ")",
-              })
-              .then(function (results) {
-                graphics = results.features;
-                setShortResults(sortByDate(graphics));
-              })
-              .catch(function (error) {
-                console.error("query failed: ", error);
-              });
-          }
-        });
-      });
+    // view &&
+    //   view.whenLayerView(layer).then(function (layerView) {
+    //     layerView.watch("updating", function (value) {
+    //       if (!value) {
+    //         // wait for the layer view to finish updating
+    //         // query all the features available for drawing.
+    //         layerView
+    //           .queryFeatures({
+    //             geometry: view.extent,
+    //             returnGeometry: true,
+    //             where: "OBJECTID IN (" + arrIds + ")",
+    //           })
+    //           .then(function (results) {
+    //             graphics = results.features;
+    //             setShortResults(sortByDate(graphics));
+    //           })
+    //           .catch(function (error) {
+    //             console.error("query failed: ", error);
+    //           });
+    //       }
+    //     });
+    //   });
 
     // on map click, get events from clicked place
 
@@ -572,6 +572,45 @@ function Map() {
     }
   };
 
+  let filterExtent;
+  const filterByExtent = (e) => {
+    const isChecked = e.target.checked;
+    let graphics;
+    console.log(graphics);
+    if (isChecked) {
+      view &&
+        view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+          filterExtent = layerView.watch("updating", function (value) {
+            if (!value) {
+              // wait for the layer view to finish updating
+              // query all the features available for drawing.
+              layerView
+                .queryFeatures({
+                  geometry: view.extent,
+                  returnGeometry: true,
+                  where: "OBJECTID IN (" + arrIds + ")",
+                })
+                .then(function (results) {
+                  graphics = results.features;
+                  setShortResults(sortByDate(graphics));
+                })
+                .catch(function (error) {
+                  console.error("query failed: ", error);
+                });
+            }
+          });
+          return filterByExtent;
+        });
+    } else {
+      console.log("uncheked", filterExtent);
+      if (undefined) {
+        return null;
+      } else {
+        filterExtent.remove();
+      }
+    }
+  };
+
   return (
     <>
       <MapDiv ref={mapRef}>
@@ -629,6 +668,7 @@ function Map() {
                   setFilteredResults(filterResults(data.features))
                 }
                 handleDateChange={handleFilterByDate}
+                handleFilterByExtent={filterByExtent}
               />
             }
             search={
