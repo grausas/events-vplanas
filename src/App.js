@@ -1,14 +1,14 @@
-import { useContext } from "react";
+import { useContext, Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 //context
 import { AuthContext } from "./context/AuthContext";
 // Components
 import { Header } from "./components/index";
-// pages
-import Map from "./pages/Map";
-import Login from "./pages/Login";
-
+//modules
 import esriId from "@arcgis/core/identity/IdentityManager";
+// pages
+const Map = lazy(() => import("./pages/Map"));
+const Login = lazy(() => import("./pages/Login"));
 
 const App = () => {
   const auth = useContext(AuthContext);
@@ -29,10 +29,12 @@ const App = () => {
         />
       )}
 
-      <Routes>
-        <Route exact path="/" element={<Map />} />
-        <Route exact path="/Login" element={<Login />} />
-      </Routes>
+      <Suspense fallback={<></>}>
+        <Routes>
+          <Route exact path="/" element={<Map />} />
+          <Route exact path="/Login" element={<Login />} />
+        </Routes>
+      </Suspense>
     </>
   );
 };
