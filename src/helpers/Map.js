@@ -37,12 +37,7 @@ export const createMapView = (ref, layers) => {
     const simpleRenderer = {
       type: "unique-value",
       field: "KATEGORIJA",
-      defaultSymbol: {
-        type: "simple-marker",
-        color: "red",
-        style: "circle",
-        size: "4px",
-      },
+      defaultSymbol: { type: "simple-fill" },
       uniqueValueInfos: [
         {
           value: "1",

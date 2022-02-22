@@ -485,6 +485,15 @@ function Map() {
                 .then(function (response) {
                   if (response.features.length > 1) {
                     setShortResults(sortByDate(response.features));
+                    const result =
+                      response.features &&
+                      response.features.map((item) => item.attributes.OBJECTID);
+                    layer.featureEffect = {
+                      filter: {
+                        where: "OBJECTID IN (" + result + ")",
+                      },
+                      excludedEffect: "opacity(30%) ",
+                    };
                     // console.log("show", show);
                     if (show === true) {
                       handleOpen(show);
@@ -495,6 +504,12 @@ function Map() {
                   ) {
                     setQueryPoint(response.features[0].attributes);
                     handleOpenModal(!openModal);
+                    layer.featureEffect = {
+                      filter: {
+                        objectIds: response.features[0].attributes.OBJECTID,
+                      },
+                      excludedEffect: "opacity(30%) ",
+                    };
                   }
                 });
             });
