@@ -94,7 +94,8 @@ export const Logo = styled.div`
   height: 100%;
   border: none;
   left: calc(50% - 150px);
-  background: url(${(props) =>
+  background-size: 100% 100%;
+  background-image: url(${(props) =>
     props.backgroundImage === 1
       ? Susirinkimas
       : props.backgroundImage === 2
