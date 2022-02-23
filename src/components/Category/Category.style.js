@@ -50,7 +50,7 @@ export const Icon = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(${(props) =>
+  background-image: url("${(props) =>
     props.backgroundImage === 1
       ? Susirinkimas
       : props.backgroundImage === 2
@@ -65,5 +65,5 @@ export const Icon = styled.div`
       ? RenginysSeimai
       : props.backgroundImage === 7
       ? ValstybinisRenginys
-      : ViesasisRenginys});
+      : ViesasisRenginys}");
 `;
