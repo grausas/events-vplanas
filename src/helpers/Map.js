@@ -31,7 +31,7 @@ export const createMapView = (ref, layers) => {
   });
 
   view.when(() => {
-    if (layers.title !== "Renginiai Vilniuje P View") {
+    if (layers.title !== "public") {
       webmap.add(graphicsLayer);
     } else return null;
   });
