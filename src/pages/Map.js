@@ -17,8 +17,6 @@ import { useOpenCloseModal } from "../hooks/openModal";
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
-import FeatureEffect from "@arcgis/core/layers/support/FeatureEffect";
-import FeatureFilter from "@arcgis/core/layers/support/FeatureFilter";
 
 // locale
 import * as intl from "@arcgis/core/intl";

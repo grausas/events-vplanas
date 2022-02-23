@@ -32,7 +32,7 @@ const App = () => {
       <Suspense fallback={<></>}>
         <Routes>
           <Route exact path="/" element={<Map />} />
-          <Route exact path="/Login" element={<Login />} />
+          <Route exact path="/login" element={<Login />} />
         </Routes>
       </Suspense>
     </>

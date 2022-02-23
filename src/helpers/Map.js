@@ -1,6 +1,7 @@
 import WebMap from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 import { graphicsLayer } from "./DrawPolygon";
+
 // category icons
 import Susirinkimas from "../assets/icons/categories/IKONOS RENGINIAI 32x32-01.svg";
 import SportoRenginys from "../assets/icons/categories/IKONOS RENGINIAI 32x32-02.svg";
@@ -16,7 +17,7 @@ let webmap;
 export const createMapView = (ref, layers) => {
   webmap = new WebMap({
     basemap: "gray-vector",
-    layers: [layers, graphicsLayer],
+    layers: layers,
   });
 
   const view = new MapView({
@@ -27,6 +28,12 @@ export const createMapView = (ref, layers) => {
     ui: {
       components: ["attribution"], // Exclude the zoom widget from the default UI
     },
+  });
+
+  view.when(() => {
+    if (layers.title !== "Renginiai Vilniuje P View") {
+      webmap.add(graphicsLayer);
+    } else return null;
   });
 
   // change renderer symbol depending on view zoom level
