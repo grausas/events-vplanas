@@ -30,6 +30,7 @@ const DatePicker = ({
       <DatePickerWrapper height={height}>
         <span>{dateTitle}</span>
         <SingleDatePicker
+          wrapperClassName="date-picker"
           portalId="root-portal"
           placeholderText={placeholderTextDate}
           locale="lt"
@@ -39,9 +40,17 @@ const DatePicker = ({
           onChange={handleChange}
           required={required}
           customInput={<CustomInput />}
+          dateFormatCalendar=" "
+          minDate={
+            new Date(new Date().setFullYear(new Date().getFullYear() - 1))
+          }
+          maxDate={
+            new Date(new Date().setFullYear(new Date().getFullYear() + 2))
+          }
+          showMonthDropdown
           showMonth
           showPopperArrow={false}
-          showMonthDropdown
+          showYearDropdown
           dropdownMode="select"
           adjustDateOnChange
         />
