@@ -95,6 +95,7 @@ export const Logo = styled.div`
   border: none;
   left: calc(50% - 150px);
   background-size: 100% 100%;
+  transition: 0.3s ease-in-out;
   background-image: url(${(props) =>
     props.backgroundImage === 1
       ? Susirinkimas
@@ -111,6 +112,10 @@ export const Logo = styled.div`
       : props.backgroundImage === 7
       ? ValstybinisRenginys
       : ViesasisRenginys});
+
+  &:hover {
+    transform: scale(0.9);
+  }
 `;
 
 export const CloseImage = styled.img`
