@@ -25,6 +25,9 @@ export const createMapView = (ref, layers) => {
     map: webmap,
     center: [25.27543, 54.697],
     zoom: 11,
+    highlightOptions: {
+      color: "#53565d",
+    },
     ui: {
       components: ["attribution"], // Exclude the zoom widget from the default UI
     },
@@ -201,33 +204,10 @@ export const createMapView = (ref, layers) => {
       ],
     };
 
-    // uniqueValue[1].symbol.outline = {
-    //   color: "red",
-    //   width: "2px",
-    // };
-
     const simpleRendererPolygon = {
       type: "unique-value",
       field: "KATEGORIJA",
       uniqueValueInfos: uniqueValue,
-      // defaultSymbol: { type: "simple-fill" },
-      // symbol: {
-      //   type: "simple-fill",
-      //   color: "red",
-      //   style: "solid",
-      //   outline: {
-      //     color: "#111",
-      //     width: "2px,",
-      //   },
-      // },
-    };
-
-    layers.renderer.backgroundFillSymbol = {
-      type: "simple-fill",
-      outline: {
-        width: 1,
-        color: "gray",
-      },
     };
 
     view.when().then(() => {

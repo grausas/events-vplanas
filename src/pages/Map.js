@@ -373,6 +373,7 @@ function Map() {
           // where: "RENGINIO_PRADZIA >= " + startDate,
           where: ["1=1"],
           outFields: ["*"],
+          returnGeometry: true,
         })
         .then((res) => {
           setData(res);
@@ -466,6 +467,7 @@ function Map() {
     //   });
 
     // on map click, get events from clicked place
+    let highlight;
 
     view &&
       view.on("immediate-click", function (event) {
@@ -496,6 +498,10 @@ function Map() {
                     if (show === true) {
                       handleOpen(show);
                     }
+                    if (highlight) {
+                      highlight.remove();
+                    }
+                    highlight = layerView.highlight(response.features[0]);
                   } else if (
                     response.features.length === 1 &&
                     openModal === false
@@ -508,7 +514,14 @@ function Map() {
                       },
                       excludedEffect: "opacity(30%) ",
                     };
+                    // console.log(response.features[0]);
+                    if (highlight) {
+                      highlight.remove();
+                    }
+                    highlight = layerView.highlight(response.features[0]);
                   }
+                  // highlight.remove();
+                  // highlight = null;
                 });
             });
           } else {
@@ -563,6 +576,7 @@ function Map() {
   }, [data.features]);
 
   // open event clicked in events timeline
+  // let highlight;
   const openEvent = (event) => {
     const filterResult = filteredResults.filter(
       (item) => item.attributes.OBJECTID === event
@@ -572,13 +586,35 @@ function Map() {
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
     }
+    // const uniqueValue = view.map.layers.getItemAt(0).renderer;
 
     eventsFeatureLayer.featureEffect = {
       filter: {
         objectIds: filterResult[0].attributes.OBJECTID,
       },
-      excludedEffect: "opacity(30%) ",
+      excludedEffect: "opacity(30%)",
     };
+    // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
+    //   if (highlight) {
+    //     highlight.remove();
+    //   }
+    //   highlight = layerView.highlight(filterResult[0]);
+    // });
+
+    // const polygonOutline = {
+    //   type: "simple-fill",
+    //   outline: {
+    //     width: 5,
+    //     color: "#111",
+    //   },
+    // };
+    // uniqueValue.backgroundFillSymbol = polygonOutline;
+    // filterResult[0].symbol = polygonOutline;
+
+    // console.log("view", view.graphics);
+
+    // console.log("eventsFeatureLayer.featureEffect", eventsFeatureLayer);
+    // console.log("filterResult[0]", filterResult[0]);
   };
 
   let filterExtent;

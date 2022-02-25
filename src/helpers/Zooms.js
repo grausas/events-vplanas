@@ -8,13 +8,13 @@ export const handleZoom = (e, eventsFeatureLayer, view) => {
     const filterResult = features.filter(
       (item) => item.attributes.OBJECTID === Number(eventId)
     );
-    view.goTo(
-      {
-        target: filterResult,
-        zoom: 14,
-      },
-      { duration: 700 }
-    );
+    // view.goTo(
+    //   {
+    //     target: filterResult,
+    //     zoom: 14,
+    //   },
+    //   { duration: 700 }
+    // );
   });
 };
 
