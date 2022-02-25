@@ -27,6 +27,8 @@ export const createMapView = (ref, layers) => {
     zoom: 11,
     highlightOptions: {
       color: "#53565d",
+      fillOpacity: 0,
+      haloOpacity: 0.8,
     },
     ui: {
       components: ["attribution"], // Exclude the zoom widget from the default UI

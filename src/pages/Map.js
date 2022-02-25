@@ -501,7 +501,9 @@ function Map() {
                     if (highlight) {
                       highlight.remove();
                     }
-                    highlight = layerView.highlight(response.features[0]);
+                    highlight = layerView.highlight(
+                      response.features[0].attributes.OBJECTID
+                    );
                   } else if (
                     response.features.length === 1 &&
                     openModal === false
@@ -514,11 +516,13 @@ function Map() {
                       },
                       excludedEffect: "opacity(30%) ",
                     };
-                    // console.log(response.features[0]);
+                    console.log(response.features[0]);
                     if (highlight) {
                       highlight.remove();
                     }
-                    highlight = layerView.highlight(response.features[0]);
+                    highlight = layerView.highlight(
+                      response.features[0].attributes.OBJECTID
+                    );
                   }
                   // highlight.remove();
                   // highlight = null;
@@ -577,6 +581,7 @@ function Map() {
 
   // open event clicked in events timeline
   // let highlight;
+
   const openEvent = (event) => {
     const filterResult = filteredResults.filter(
       (item) => item.attributes.OBJECTID === event
