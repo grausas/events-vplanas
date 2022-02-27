@@ -661,6 +661,12 @@ function Map() {
     }
   };
 
+  const handleShowAll = () => {
+    if (shortResults.length !== filteredResults.length) {
+      setShortResults(filteredResults);
+    }
+  };
+
   return (
     <>
       <MapDiv ref={mapRef}>
@@ -736,6 +742,7 @@ function Map() {
               events={shortResults}
               handleClose={handleOpen}
               clickedEvent={queryPoint.OBJECTID}
+              handleShowAll={handleShowAll}
               emptyTimeline={
                 filteredResults && filteredResults.length === 0
                   ? "Renginių nerasta"

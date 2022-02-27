@@ -25,9 +25,11 @@ const EventsTimeline = ({
   handleEventOpen,
   clickedEvent,
   emptyTimeline,
+  handleShowAll,
 }) => {
   return (
     <Wrapper>
+      <button onClick={handleShowAll}>visi renginiai</button>
       {emptyTimeline && <h2>{emptyTimeline}</h2>}
       <TimelineContainer>
         {events &&
