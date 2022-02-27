@@ -71,7 +71,6 @@ const DatePicker = ({
           onChange={handleChangeTime}
           required={required}
           popperPlacement="left-end"
-          // customInput={<CustomInput />}
           showPopperArrow={false}
         />
       </DatePickerWrapper>
