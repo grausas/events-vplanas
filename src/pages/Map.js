@@ -524,8 +524,6 @@ function Map() {
                       response.features[0].attributes.OBJECTID
                     );
                   }
-                  // highlight.remove();
-                  // highlight = null;
                 });
             });
           } else {
@@ -664,6 +662,9 @@ function Map() {
   const handleShowAll = () => {
     if (shortResults.length !== filteredResults.length) {
       setShortResults(filteredResults);
+      eventsFeatureLayer.featureEffect = {
+        excludedEffect: "opacity(100%) ",
+      };
     }
   };
 
@@ -677,7 +678,7 @@ function Map() {
             layer={eventsFeatureLayer}
             view={view}
             data={data}
-            setShortResults={setFilteredResults}
+            setShortResults={setShortResults}
             startOfDay={startDate}
             endOfDay={finishDate}
           />
@@ -743,6 +744,13 @@ function Map() {
               handleClose={handleOpen}
               clickedEvent={queryPoint.OBJECTID}
               handleShowAll={handleShowAll}
+              eventsLength={
+                shortResults &&
+                filteredResults &&
+                shortResults.length !== filteredResults.length
+                  ? "visi renginiai"
+                  : ""
+              }
               emptyTimeline={
                 filteredResults && filteredResults.length === 0
                   ? "Renginių nerasta"
