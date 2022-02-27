@@ -367,7 +367,7 @@ function Map() {
     setEventsFeatureLayer(layer);
     setView(view);
 
-    layer.load().then(function () {
+    view.when(function () {
       layer
         .queryFeatures({
           // where: "RENGINIO_PRADZIA >= " + startDate,
@@ -591,6 +591,7 @@ function Map() {
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
     }
+    // console.log(filterResult[0]);
     // const uniqueValue = view.map.layers.getItemAt(0).renderer;
 
     eventsFeatureLayer.featureEffect = {

@@ -176,6 +176,39 @@ const AddEvent = ({
     );
   }
 
+  const handleChangeStartTime = (date) => {
+    const [month, day, year] = [
+      addNewFeature.RENGINIO_PRADZIA.getMonth(),
+      addNewFeature.RENGINIO_PRADZIA.getDate(),
+      addNewFeature.RENGINIO_PRADZIA.getFullYear(),
+    ];
+    if (date && addNewFeature.RENGINIO_PRADZIA) {
+      const [hours, minutes] = [date.getHours(), date.getMinutes()];
+      const newDate = new Date(date.setFullYear(year, [month], [day]));
+      newDate.setHours(hours, [minutes]);
+      setAddNewFeature({
+        ...addNewFeature,
+        RENGINIO_PRADZIA: newDate,
+      });
+    }
+  };
+  const handleChangeFinishTime = (date) => {
+    const [month, day, year] = [
+      addNewFeature.RENGINIO_PABAIGA.getMonth(),
+      addNewFeature.RENGINIO_PABAIGA.getDate(),
+      addNewFeature.RENGINIO_PABAIGA.getFullYear(),
+    ];
+    if (date && addNewFeature.RENGINIO_PABAIGA) {
+      const [hours, minutes] = [date.getHours(), date.getMinutes()];
+      const newDate = new Date(date.setFullYear(year, [month], [day]));
+      newDate.setHours(hours, [minutes]);
+      setAddNewFeature({
+        ...addNewFeature,
+        RENGINIO_PABAIGA: newDate,
+      });
+    }
+  };
+
   return (
     <>
       {isLoggedIn && (
@@ -225,6 +258,7 @@ const AddEvent = ({
                         RENGINIO_PRADZIA: date,
                       });
                     }}
+                    handleChangeTime={handleChangeStartTime}
                   />
                   <DatePicker
                     placeholderTextDate="Data"
@@ -243,6 +277,7 @@ const AddEvent = ({
                         RENGINIO_PABAIGA: date,
                       });
                     }}
+                    handleChangeTime={handleChangeFinishTime}
                   />
                   <CheckBoxWrapper onChange={handleWeekdays}>
                     {checkedItems &&

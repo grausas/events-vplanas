@@ -18,6 +18,7 @@ const DatePicker = ({
   selected,
   required,
   handleChange,
+  handleChangeTime,
   displayTime,
   height,
 }) => {
@@ -67,10 +68,10 @@ const DatePicker = ({
           timeIntervals={5}
           dateFormat="HH:mm"
           selected={selected}
-          onChange={handleChange}
+          onChange={handleChangeTime}
           required={required}
           popperPlacement="left-end"
-          customInput={<CustomInput />}
+          // customInput={<CustomInput />}
           showPopperArrow={false}
         />
       </DatePickerWrapper>
