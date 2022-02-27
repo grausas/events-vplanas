@@ -748,13 +748,13 @@ function Map() {
                 shortResults &&
                 filteredResults &&
                 shortResults.length !== filteredResults.length
-                  ? "visi renginiai"
-                  : ""
+                  ? "Visi renginiai"
+                  : null
               }
               emptyTimeline={
                 filteredResults && filteredResults.length === 0
                   ? "Renginių nerasta"
-                  : ""
+                  : null
               }
               handleEventOpen={(e) => {
                 handleZoom(e, eventsFeatureLayer, view);

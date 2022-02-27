@@ -8,8 +8,7 @@ import {
   EventDate,
   Text,
   Circle,
-  // Close,
-  // ClearButton,
+  BackButton,
 } from "./EventsTimeline.style";
 // components
 import { Category } from "../index";
@@ -30,7 +29,11 @@ const EventsTimeline = ({
 }) => {
   return (
     <Wrapper>
-      {eventsLength && <button onClick={handleShowAll}>{eventsLength}</button>}
+      {eventsLength && (
+        <BackButton onClick={handleShowAll}>
+          <span>{eventsLength}</span>
+        </BackButton>
+      )}
       {emptyTimeline && <h2>{emptyTimeline}</h2>}
       <TimelineContainer>
         {events &&

@@ -15,6 +15,24 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const BackButton = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+
+  span {
+    padding: 0 5px;
+    border-radius: 10px;
+    background-color: var(--silver);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--grey);
+      color: var(--white);
+    }
+  }
+`;
+
 export const TimelineContainer = styled.div`
   display: flex;
   flex-direction: column;
