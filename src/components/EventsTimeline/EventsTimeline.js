@@ -9,6 +9,7 @@ import {
   Text,
   Circle,
   BackButton,
+  LongDate,
 } from "./EventsTimeline.style";
 // components
 import { Category } from "../index";
@@ -84,19 +85,20 @@ const EventsTimeline = ({
                     event.attributes.Savaites_dienos === "nera" ||
                     diffInDays <= 1 ||
                     (event.attributes.Savaites_dienos.length > 1 &&
-                      event.attributes.Savaites_dienos.length < 12)
-                      ? eventStartDate +
-                        " " +
-                        eventStartTime +
-                        "-" +
-                        eventFinishTime
-                      : eventStartDate +
-                        " " +
-                        eventStartTime +
-                        " || " +
-                        eventFinishDate +
-                        " " +
-                        eventFinishTime}
+                      event.attributes.Savaites_dienos.length < 12) ? (
+                      <>
+                        {eventStartDate +
+                          " " +
+                          eventStartTime +
+                          "-" +
+                          eventFinishTime}
+                      </>
+                    ) : (
+                      <LongDate>
+                        <p>Nuo: {eventStartDate + " " + eventStartTime}</p>
+                        <p>Iki: {eventFinishDate + " " + eventFinishTime}</p>
+                      </LongDate>
+                    )}
                   </EventDate>
                   <Circle />
                 </ItemContent>

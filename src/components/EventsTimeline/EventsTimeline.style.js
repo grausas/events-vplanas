@@ -159,3 +159,13 @@ export const Close = styled.div`
     color: var(--lightBlue);
   }
 `;
+
+export const LongDate = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 12px;
+    font-weight: 700;
+  }
+`;
