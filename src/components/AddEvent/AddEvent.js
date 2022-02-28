@@ -224,7 +224,7 @@ const AddEvent = ({
   };
 
   return isLoggedIn ? (
-    <div>
+    <>
       <AddObjectButton>
         {addNewFeature.geometry && !addNewFeature.geometry.length > 0 ? (
           <span onClick={handleOpen}>Užpildykite duomenis</span>
@@ -424,7 +424,7 @@ const AddEvent = ({
           </>
         </FormWrapper>
       )}
-    </div>
+    </>
   ) : null;
 };
 

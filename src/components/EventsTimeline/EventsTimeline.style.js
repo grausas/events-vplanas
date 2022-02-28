@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 export const BackButton = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 5px;
+  margin: 5px 0;
 
   span {
     padding: 0 80px;

@@ -606,10 +606,10 @@ function Map() {
 
   const handleShowAll = () => {
     if (shortResults.length !== filteredResults.length) {
-      setShortResults(filteredResults);
       eventsFeatureLayer.featureEffect = {
         excludedEffect: "opacity(100%) ",
       };
+      setShortResults(filteredResults);
     }
   };
 
