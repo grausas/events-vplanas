@@ -18,6 +18,7 @@ import { CategoryData } from "../../utils/CategoryData";
 import { changeDate, changeTime } from "../../helpers/DateChange";
 // icons
 import Calendar from "../../assets/icons/calendar.png";
+import UndoIcon from "../../assets/icons/undo.png";
 
 const EventsTimeline = ({
   events,
@@ -31,7 +32,12 @@ const EventsTimeline = ({
     <Wrapper>
       {eventsLength && (
         <BackButton onClick={handleShowAll}>
-          <span>{eventsLength}</span>
+          {eventsLength && (
+            <span>
+              <img src={UndoIcon} alt="undo_icon" />
+              Atgal
+            </span>
+          )}
         </BackButton>
       )}
       {emptyTimeline && <h2>{emptyTimeline}</h2>}

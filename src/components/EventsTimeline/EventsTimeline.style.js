@@ -21,14 +21,25 @@ export const BackButton = styled.div`
   margin-top: 5px;
 
   span {
-    padding: 0 5px;
-    border-radius: 10px;
-    background-color: var(--silver);
+    padding: 0 80px;
+    border-radius: 5px;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    border: 1px solid var(--darkSilver);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+
+    font-weight: 600;
 
     &:hover {
-      background-color: var(--grey);
-      color: var(--white);
+      background-color: var(--silver);
+    }
+
+    img {
+      width: 18px;
+      margin-right: 5px;
     }
   }
 `;
