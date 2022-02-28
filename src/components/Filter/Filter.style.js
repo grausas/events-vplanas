@@ -249,3 +249,5 @@ export const FilterDay = styled.div`
     background-color: var(--grey);
   }
 `;
+
+export const Extent = styled.div``;

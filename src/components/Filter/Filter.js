@@ -13,6 +13,7 @@ import {
   ExpandImage,
   FilterDay,
   DropdownButton,
+  Extent,
 } from "./Filter.style";
 // components
 import { CheckBox, DatePicker } from "../index";
@@ -159,15 +160,7 @@ const Filter = ({
     <Wrapper>
       <ButtonDivs>
         <FilterButton handleClick={handleOpen}>Filtrai</FilterButton>
-        <div onChange={handleFilterByExtent}>
-          <CheckBox
-            type="checkbox"
-            handleCheckboxChange={handleCheckboxChanges}
-            checked={checkedFilter}
-            name="filterByExtent"
-            color="primary"
-          />
-        </div>
+
         <FilterDay
           onChange={(e) => {
             handleDateChange(e);
@@ -193,74 +186,86 @@ const Filter = ({
       </ButtonDivs>
 
       {show && (
-        <Content onChange={onChange}>
-          <DateFilter>
-            <DatePicker
-              dateTitle="Nuo"
-              displayTime="none"
-              selected={selectedStart}
-              handleChange={(date) => {
-                handleChangeStart(date);
-                handleClearRadio();
-              }}
-              title="Pasirinkti pradžios datą"
-              height="small"
+        <Content>
+          <Extent onChange={handleFilterByExtent}>
+            <CheckBox
+              type="checkbox"
+              handleCheckboxChange={handleCheckboxChanges}
+              checked={checkedFilter}
+              name="filterByExtent"
+              color="primary"
+              label="Filtruoti pagal žemėlapio aprėptį"
             />
-            <DatePicker
-              dateTitle="Iki"
-              displayTime="none"
-              selected={selectedFinish}
-              handleChange={(date) => {
-                handleChangeFinish(date);
-                handleClearRadio();
-              }}
-              title="Pasirinkti pabaigos datą"
-              height="small"
-            />
-          </DateFilter>
-          <Dropdown ref={ref}>
-            <DropdownButton handleClick={handleOpenFilter}>
-              <ExpandImage
-                src={showFilter === false ? ExpandIcon : CollapseIcon}
-                alt="close-icon"
+          </Extent>
+          <div onChange={onChange}>
+            <DateFilter>
+              <DatePicker
+                dateTitle="Nuo"
+                displayTime="none"
+                selected={selectedStart}
+                handleChange={(date) => {
+                  handleChangeStart(date);
+                  handleClearRadio();
+                }}
+                title="Pasirinkti pradžios datą"
+                height="small"
               />
-              {checkedCount > 1
-                ? `${checkedCount} pasirinktos kategorijos`
-                : checkedCount === 1
-                ? `${checkedCount} pasirinkta kategorija`
-                : "Pasirinkti kategorijas"}
-            </DropdownButton>
-            {showFilter && (
-              <FilterContent>
-                {checkedItems &&
-                  checkedItems.map((item, index) => {
-                    return (
-                      <CheckBoxDiv backgroundColor={item.value} key={index}>
-                        <CheckBox
-                          type="checkbox"
-                          value={item.value}
-                          name={index}
-                          id={item.id}
-                          label={item.text}
-                          checked={item.isChecked}
-                          handleCheckboxChange={handleOnChange}
-                        />
-                      </CheckBoxDiv>
-                    );
-                  })}
-                <ClearButton
-                  handleClick={() => {
-                    resetDefault();
-                    handleClear();
-                    handleClearCheckbox();
-                  }}
-                  value="clear"
-                >
-                  IŠVALYTI
-                </ClearButton>
-              </FilterContent>
-            )}
-          </Dropdown>
+              <DatePicker
+                dateTitle="Iki"
+                displayTime="none"
+                selected={selectedFinish}
+                handleChange={(date) => {
+                  handleChangeFinish(date);
+                  handleClearRadio();
+                }}
+                title="Pasirinkti pabaigos datą"
+                height="small"
+              />
+            </DateFilter>
+            <Dropdown ref={ref}>
+              <DropdownButton handleClick={handleOpenFilter}>
+                <ExpandImage
+                  src={showFilter === false ? ExpandIcon : CollapseIcon}
+                  alt="close-icon"
+                />
+                {checkedCount > 1
+                  ? `${checkedCount} pasirinktos kategorijos`
+                  : checkedCount === 1
+                  ? `${checkedCount} pasirinkta kategorija`
+                  : "Pasirinkti kategorijas"}
+              </DropdownButton>
+              {showFilter && (
+                <FilterContent>
+                  {checkedItems &&
+                    checkedItems.map((item, index) => {
+                      return (
+                        <CheckBoxDiv backgroundColor={item.value} key={index}>
+                          <CheckBox
+                            type="checkbox"
+                            value={item.value}
+                            name={index}
+                            id={item.id}
+                            label={item.text}
+                            checked={item.isChecked}
+                            handleCheckboxChange={handleOnChange}
+                          />
+                        </CheckBoxDiv>
+                      );
+                    })}
+                  <ClearButton
+                    handleClick={() => {
+                      resetDefault();
+                      handleClear();
+                      handleClearCheckbox();
+                    }}
+                    value="clear"
+                  >
+                    IŠVALYTI
+                  </ClearButton>
+                </FilterContent>
+              )}
+            </Dropdown>
+          </div>
         </Content>
       )}
     </Wrapper>
