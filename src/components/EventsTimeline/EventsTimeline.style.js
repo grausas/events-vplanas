@@ -4,8 +4,11 @@ export const Wrapper = styled.div`
   position: relative;
   max-width: 500px;
   width: 100%;
+  max-height: 70vh;
+  height: 100%;
   background: var(--white);
   padding: 0 10px;
+  overflow: auto;
 
   h2 {
     text-align: center;

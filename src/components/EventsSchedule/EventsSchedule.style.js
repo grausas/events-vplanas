@@ -4,11 +4,12 @@ export const Wrapper = styled.div`
   position: absolute;
   width: ${(props) => (props.close ? "260px" : "400px")};
   max-height: 90%;
+  /* height: 100%; */
   left: 20px;
   top: 10px;
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
-  overflow: auto;
+  overflow: hidden;
   background-color: ${(props) =>
     props.close ? "var(--grey)" : "var(--white)"};
   color: ${(props) => (props.close ? "var(--white)" : "none")};
@@ -17,13 +18,16 @@ export const Wrapper = styled.div`
     left: 10px;
     top: 5px;
     width: ${(props) => (props.close ? "120px" : "95%")};
-    max-height: 95%;
+    max-height: 99%;
   }
 `;
 
 export const Content = styled.div`
   /* padding: 0 10px; */
-  /* overflow: auto; */
+  /* position: absolute; */
+  /* max-height: 100%; */
+  /* max-height: 75vh; */
+  overflow: hidden;
 `;
 
 export const Text = styled.div`
