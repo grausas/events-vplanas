@@ -41,6 +41,25 @@ export const createMapView = (ref, layers) => {
     } else return null;
   });
 
+  // view.when(() => {
+  //   layers.featureReduction = {
+  //     type: "cluster",
+  //     clusterRadius: "200px",
+  //     popupTemplate: {
+  //       content: "This cluster represents <b>{cluster_count}</b> features.",
+  //       fieldInfos: [
+  //         {
+  //           fieldName: "cluster_count",
+  //           format: {
+  //             digitSeparator: true,
+  //             places: 0,
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   };
+  // });
+
   // change renderer symbol depending on view zoom level
 
   layers.load().then(() => {

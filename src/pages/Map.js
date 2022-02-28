@@ -368,12 +368,12 @@ function Map() {
     setView(view);
 
     // const date = new Date();
-    // const queryEventsDate = date.setMonth(date.getMonth() - 1);
+    // const queryEventsDate = new Date(date.setMonth(date.getMonth() - 1));
 
     view.when(function () {
       layer
         .queryFeatures({
-          // where: "RENGINIO_PRADZIA >= 1643353136018",
+          // where: ["RENGINIO_PRADZIA > TIMESTAMP " + queryEventsDate],
           where: ["1=1"],
           outFields: ["*"],
           returnGeometry: true,
