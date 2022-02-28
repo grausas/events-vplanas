@@ -51,6 +51,7 @@ const EventsTimeline = ({
             const oneDay = 1000 * 60 * 60 * 24;
             const diffInTime = endDate.getTime() - startDate.getTime();
             const diffInDays = Math.round(diffInTime / oneDay);
+
             return (
               <TimelineItem key={event.attributes.OBJECTID}>
                 <ItemContent
@@ -70,7 +71,6 @@ const EventsTimeline = ({
                     />
                   </CategoryDiv>
                   <Text>{event.attributes.PAVADINIMAS}</Text>
-                  {console.log(event.attributes.Savaites_dienos)}
                   <EventDate>
                     <img src={Calendar} alt="calendar-icon" />
                     {event.attributes.Savaites_dienos === null ||

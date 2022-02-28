@@ -73,11 +73,11 @@ const EventCard = ({
                 <EventDates>
                   <p>Pradžia: {startDate}</p>
                   <p>Pabaiga: {finishDate}</p>
-                  <p>
+                  {/* <p>
                     {SavaitesDienos && SavaitesDienos.length > 12
                       ? "Vyksta kiekvieną dieną"
                       : null}
-                  </p>
+                  </p> */}
                 </EventDates>
               </Text>
               <Text>

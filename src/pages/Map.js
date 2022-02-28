@@ -367,10 +367,13 @@ function Map() {
     setEventsFeatureLayer(layer);
     setView(view);
 
+    // const date = new Date();
+    // const queryEventsDate = date.setMonth(date.getMonth() - 1);
+
     view.when(function () {
       layer
         .queryFeatures({
-          // where: "RENGINIO_PRADZIA >= " + startDate,
+          // where: "RENGINIO_PRADZIA >= 1643353136018",
           where: ["1=1"],
           outFields: ["*"],
           returnGeometry: true,
@@ -439,32 +442,6 @@ function Map() {
         allPlaceholder: "Ieškoti adreso arba vietovės",
       });
     });
-
-    // filter results by view extent
-    // let graphics;
-
-    // view &&
-    //   view.whenLayerView(layer).then(function (layerView) {
-    //     layerView.watch("updating", function (value) {
-    //       if (!value) {
-    //         // wait for the layer view to finish updating
-    //         // query all the features available for drawing.
-    //         layerView
-    //           .queryFeatures({
-    //             geometry: view.extent,
-    //             returnGeometry: true,
-    //             where: "OBJECTID IN (" + arrIds + ")",
-    //           })
-    //           .then(function (results) {
-    //             graphics = results.features;
-    //             setShortResults(sortByDate(graphics));
-    //           })
-    //           .catch(function (error) {
-    //             console.error("query failed: ", error);
-    //           });
-    //       }
-    //     });
-    //   });
 
     // on map click, get events from clicked place
     let highlight;
@@ -621,6 +598,7 @@ function Map() {
     // console.log("filterResult[0]", filterResult[0]);
   };
 
+  // filter results by view extent
   let filterExtent;
   const filterByExtent = (e) => {
     const isChecked = e.target.checked;

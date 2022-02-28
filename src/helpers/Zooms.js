@@ -11,7 +11,7 @@ export const handleZoom = (e, eventsFeatureLayer, view) => {
     view.goTo(
       {
         target: filterResult,
-        zoom: 14,
+        zoom: 16,
       },
       { duration: 700 }
     );
