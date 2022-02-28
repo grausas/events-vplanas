@@ -70,25 +70,26 @@ const EventsTimeline = ({
                     />
                   </CategoryDiv>
                   <Text>{event.attributes.PAVADINIMAS}</Text>
-                  {/* {console.log(event.attributes.Savaites_dienos)} */}
+                  {console.log(event.attributes.Savaites_dienos)}
                   <EventDate>
                     <img src={Calendar} alt="calendar-icon" />
-                    {event.attributes.Savaites_dienos !== null &&
-                    event.attributes.Savaites_dienos !== "" &&
-                    (event.attributes.Savaites_dienos !== "nera" ||
-                      diffInDays >= 1 ||
-                      event.attributes.Savaites_dienos.length > 12)
+                    {event.attributes.Savaites_dienos === null ||
+                    event.attributes.Savaites_dienos === "" ||
+                    event.attributes.Savaites_dienos === "nera" ||
+                    diffInDays <= 1 ||
+                    (event.attributes.Savaites_dienos.length > 1 &&
+                      event.attributes.Savaites_dienos.length < 12)
                       ? eventStartDate +
+                        " " +
+                        eventStartTime +
+                        "-" +
+                        eventFinishTime
+                      : eventStartDate +
                         " " +
                         eventStartTime +
                         " || " +
                         eventFinishDate +
                         " " +
-                        eventFinishTime
-                      : eventStartDate +
-                        " " +
-                        eventStartTime +
-                        "-" +
                         eventFinishTime}
                   </EventDate>
                   <Circle />
