@@ -444,7 +444,6 @@ function Map() {
     });
 
     // on map click, get events from clicked place
-    let highlight;
 
     view &&
       view.on("immediate-click", function (event) {
@@ -458,6 +457,8 @@ function Map() {
                   distance: 1.8 * view.resolution,
                   spatialRelationship: "intersects",
                   where: "OBJECTID IN (" + arrIds + ")",
+                  returnGeometry: true,
+                  returnCentroid: true,
                 })
                 .then(function (response) {
                   if (response.features.length > 1) {
@@ -470,17 +471,11 @@ function Map() {
                         where: "OBJECTID IN (" + result + ")",
                       },
                       excludedEffect: "opacity(30%) ",
+                      includedEffect: "drop-shadow(0px, 0px, 3px)",
                     };
-                    // console.log("show", show);
                     if (show === true) {
                       handleOpen(show);
                     }
-                    if (highlight) {
-                      highlight.remove();
-                    }
-                    highlight = layerView.highlight(
-                      response.features[0].attributes.OBJECTID
-                    );
                   } else if (
                     response.features.length === 1 &&
                     openModal === false
@@ -492,14 +487,8 @@ function Map() {
                         objectIds: response.features[0].attributes.OBJECTID,
                       },
                       excludedEffect: "opacity(30%) ",
+                      includedEffect: "drop-shadow(0px, 0px, 3px)",
                     };
-                    console.log(response.features[0]);
-                    if (highlight) {
-                      highlight.remove();
-                    }
-                    highlight = layerView.highlight(
-                      response.features[0].attributes.OBJECTID
-                    );
                   }
                 });
             });
@@ -566,36 +555,14 @@ function Map() {
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
     }
-    // console.log(filterResult[0]);
-    // const uniqueValue = view.map.layers.getItemAt(0).renderer;
 
     eventsFeatureLayer.featureEffect = {
       filter: {
         objectIds: filterResult[0].attributes.OBJECTID,
       },
       excludedEffect: "opacity(30%)",
+      includedEffect: "drop-shadow(0px, 0px, 3px)",
     };
-    // view.whenLayerView(eventsFeatureLayer).then(function (layerView) {
-    //   if (highlight) {
-    //     highlight.remove();
-    //   }
-    //   highlight = layerView.highlight(filterResult[0]);
-    // });
-
-    // const polygonOutline = {
-    //   type: "simple-fill",
-    //   outline: {
-    //     width: 5,
-    //     color: "#111",
-    //   },
-    // };
-    // uniqueValue.backgroundFillSymbol = polygonOutline;
-    // filterResult[0].symbol = polygonOutline;
-
-    // console.log("view", view.graphics);
-
-    // console.log("eventsFeatureLayer.featureEffect", eventsFeatureLayer);
-    // console.log("filterResult[0]", filterResult[0]);
   };
 
   // filter results by view extent
@@ -670,7 +637,6 @@ function Map() {
             handleZoomOut={() => zoomOut(view)}
           />
           {/* Renginių juosta */}
-          {/* {console.log(show)} */}
           <EventsSchedule
             handleOpen={handleOpen}
             show={!show}
@@ -726,7 +692,7 @@ function Map() {
                 shortResults &&
                 filteredResults &&
                 shortResults.length !== filteredResults.length
-                  ? "Visi renginiai"
+                  ? "Atgal"
                   : null
               }
               emptyTimeline={
@@ -748,12 +714,6 @@ function Map() {
             isEditing={!isEditing}
             startDate={startDate}
             events={data}
-            // handleCordinates={() => {
-            //   // eventsFeatureLayer.opacity = 0.3;
-            //   addNewFeature.geometry === undefined
-            //     ? addPolygon()
-            //     : setIsEditing(!isEditing);
-            // }}
             handleCordinates={() => {
               eventsFeatureLayer.opacity = 0.3;
             }}
@@ -770,8 +730,6 @@ function Map() {
             handleCancel={() => {
               eventsFeatureLayer.opacity = 1;
               graphicsLayer.removeAll();
-              // setIsEditing(!isEditing);
-              // setAddNewFeature([]);
             }}
           />
           {/* Renginių ir renginio atvaizdavimas, redagavimas */}
