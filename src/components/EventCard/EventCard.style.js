@@ -30,7 +30,8 @@ export const Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 768px) {
-    top: 5px;
+    top: unset;
+    bottom: 5px;
     right: 10px;
     left: 10px;
     margin: 0 auto;
@@ -49,6 +50,10 @@ export const Close = styled.div`
   width: 100%;
   border-radius: 5px 5px 0 0;
   background: var(--white);
+
+  @media only screen and (max-width: 768px) {
+    height: 30px;
+  }
 
   &:after {
     content: "";
@@ -76,16 +81,6 @@ export const Close = styled.div`
         ? "rgb(59,114,183,255)"
         : "rgb(227,148,191,255)"};
   }
-
-  /* &:before {
-    content: "Filmavimas";
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    margin: 0 auto;
-    z-index: 2;
-  } */
 `;
 
 export const Logo = styled.div`
@@ -96,6 +91,11 @@ export const Logo = styled.div`
   left: calc(50% - 150px);
   background-size: 100% 100%;
   transition: 0.3s ease-in-out;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+
   background-image: url(${(props) =>
     props.backgroundImage === 1
       ? Susirinkimas
@@ -130,6 +130,11 @@ export const CloseImage = styled.img`
   :hover {
     background-color: var(--silver);
   }
+
+  @media only screen and (max-width: 768px) {
+    right: 3px;
+    top: 3px;
+  }
 `;
 
 export const EditIcon = styled.img`
@@ -145,16 +150,29 @@ export const EditIcon = styled.img`
   :hover {
     background-color: var(--silver);
   }
+
+  @media only screen and (max-width: 768px) {
+    left: 3px;
+    top: 3px;
+  }
 `;
 
 export const Title = styled.div`
   margin-bottom: 15px;
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 5px;
+  }
 `;
 
 export const Text = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: flex-start;
+
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 5px;
+  }
 
   p,
   a {

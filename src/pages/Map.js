@@ -769,6 +769,7 @@ function Map() {
               finishDate={finishEventDate + " | " + finishEventTime}
               SavaitesDienos={queryPoint.Savaites_dienos}
               category={queryPoint.KATEGORIJA}
+              isMobile={!isMobile}
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();

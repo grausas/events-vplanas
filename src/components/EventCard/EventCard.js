@@ -39,6 +39,7 @@ const EventCard = ({
   handleLocation,
   isLoggedIn,
   SavaitesDienos,
+  isMobile,
 }) => {
   const { handleOpen, show } = useOpenClose();
   const result = CategoryData.find(({ id }) => id === Number(category));
@@ -93,7 +94,7 @@ const EventCard = ({
                   </a>
                 </Text>
               )}
-              {comment && (
+              {comment && isMobile && (
                 <Text>
                   <p>
                     Pastabos:
@@ -103,7 +104,7 @@ const EventCard = ({
                   </p>
                 </Text>
               )}
-              {description && (
+              {description && isMobile && (
                 <Text>
                   <p>
                     Aprašymas:
