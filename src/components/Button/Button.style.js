@@ -10,6 +10,10 @@ export const Wrapper = styled.button`
   border: 1px solid var(--color-light);
   cursor: pointer;
 
+  @media screen and (max-width: 768px) {
+    padding: 0.3rem 1rem;
+  }
+
   :hover {
     background: var(--grey);
     color: var(--white);

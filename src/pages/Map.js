@@ -91,8 +91,9 @@ function Map() {
 
   // create an event listener
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  });
+    // window.addEventListener("resize", handleResize);
+    handleResize();
+  }, []);
 
   // clear error state after some time
   useEffect(() => {
@@ -488,9 +489,6 @@ function Map() {
                       excludedEffect: "opacity(30%) ",
                       includedEffect: "drop-shadow(0px, 0px, 3px)",
                     };
-                    if (show === true) {
-                      handleOpen(show);
-                    }
                   } else if (
                     response.features.length === 1 &&
                     openModal === false
@@ -773,6 +771,7 @@ function Map() {
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();
+                handleMobile();
                 eventsFeatureLayer.featureEffect = {
                   excludedEffect: "opacity(100%) ",
                 };

@@ -122,10 +122,11 @@ export const CloseImage = styled.img`
   position: absolute;
   right: 10px;
   top: 10px;
-  width: 24px;
-  padding: 4px;
+  width: 26px;
+  padding: 5px;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 2;
 
   :hover {
     background-color: var(--silver);

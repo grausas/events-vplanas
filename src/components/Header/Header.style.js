@@ -27,6 +27,11 @@ export const LogoDiv = styled.div`
   align-items: center;
   margin-right: 5px;
   height: 40px;
+
+  @media screen and (max-width: 768px) {
+    height: 35px;
+    margin-right: 5px;
+  }
 `;
 
 export const Logo = styled.img`
@@ -40,5 +45,7 @@ export const Text = styled.span`
 
   @media screen and (max-width: 768px) {
     font-size: var(--fontSmall);
+    line-height: 18px;
+    margin-left: 0.7rem;
   }
 `;
