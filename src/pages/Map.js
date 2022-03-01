@@ -75,9 +75,24 @@ function Map() {
   const [valuesArr, setValuesArr] = useState([]);
   const [arrIds, setArrIds] = useState([]);
   const [byExtent, setByExtent] = useState();
+  const [isMobile, setIsMobile] = useState(false);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
+
+  // mobile screen size
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  // create an event listener
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  });
 
   // clear error state after some time
   useEffect(() => {
@@ -612,6 +627,14 @@ function Map() {
       setShortResults(filteredResults);
     }
   };
+  // mobile functions
+  const handleMobile = () => {
+    if (isMobile) {
+      handleOpen(show);
+    } else {
+      return null;
+    }
+  };
 
   return (
     <>
@@ -639,7 +662,7 @@ function Map() {
           {/* Renginių juosta */}
           <EventsSchedule
             handleOpen={handleOpen}
-            show={!show}
+            show={isMobile === true ? show : !show}
             scheduleTitle={eventsText}
             filter={
               <Filter
@@ -703,6 +726,7 @@ function Map() {
               handleEventOpen={(e) => {
                 handleZoom(e, eventsFeatureLayer, view);
                 openEvent(e);
+                handleMobile();
               }}
             />
           </EventsSchedule>

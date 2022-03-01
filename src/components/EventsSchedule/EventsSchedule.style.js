@@ -17,16 +17,12 @@ export const Wrapper = styled.div`
   @media only screen and (max-width: 768px) {
     left: 10px;
     top: 5px;
-    width: ${(props) => (props.close ? "120px" : "95%")};
+    max-width: ${(props) => (props.close ? "120px" : "95%")};
     max-height: 99%;
   }
 `;
 
 export const Content = styled.div`
-  /* padding: 0 10px; */
-  /* position: absolute; */
-  /* max-height: 100%; */
-  /* max-height: 75vh; */
   overflow: hidden;
 `;
 
