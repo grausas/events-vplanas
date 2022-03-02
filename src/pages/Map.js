@@ -36,6 +36,7 @@ import {
   EventsTimeline,
   DateSlider,
   BasemapSwitch,
+  Location,
 } from "../components/index.js";
 // utils
 import { CategoryData } from "../utils/CategoryData";
@@ -46,7 +47,8 @@ import { featureLayer, featureLayerPrivate } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
-import { updatePolygon } from "../helpers/UpdatePolygon";
+// import { updatePolygon } from "../helpers/UpdatePolygon";
+import { editPolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
@@ -111,10 +113,10 @@ function Map() {
   const handleFilterByDate = (e) => {
     const value = e ? e.target.value : "day";
     var startOfDay = new Date();
+    var endOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    endOfDay.setHours(23, 59, 59, 999);
     if (value === "day") {
-      var endOfDay = new Date();
-      startOfDay.setHours(0, 0, 0, 0);
-      endOfDay.setHours(23, 59, 59, 999);
       setStartDate(new Date(startOfDay).getTime());
       setFinishDate(new Date(endOfDay).getTime());
       // change default start and finish date
@@ -134,7 +136,7 @@ function Map() {
       // change default start and finish date
       const filterWeekEvents = data.features.filter(
         (item) =>
-          item.attributes.RENGINIO_PRADZIA >= startOfDay &&
+          item.attributes.RENGINIO_PABAIGA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayWeek
       );
       setFilteredResults(sortByDate(filterWeekEvents));
@@ -147,7 +149,7 @@ function Map() {
       // change default start and finish date
       const filterMonthEvents = data.features.filter(
         (item) =>
-          item.attributes.RENGINIO_PRADZIA >= startOfDay &&
+          item.attributes.RENGINIO_PABAIGA >= startOfDay &&
           item.attributes.RENGINIO_PRADZIA <= endOfDayMonth
       );
       setFilteredResults(sortByDate(filterMonthEvents));
@@ -357,8 +359,8 @@ function Map() {
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
   const addPolygon = () => drawNewPolygon(view, setAddNewFeature);
-  const updateCurrentPolygon = () =>
-    updatePolygon(view, addNewFeature, setAddNewFeature);
+  // const updateCurrentPolygon = () =>
+  //   updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () =>
     deleteFeatureEvent(eventsFeatureLayer, queryPoint, setType, setError);
 
@@ -541,6 +543,7 @@ function Map() {
 
   useEffect(() => {
     addPolygon();
+    editPolygon(view, eventsFeatureLayer);
   }, [view]);
 
   // query only filtered features
@@ -646,6 +649,7 @@ function Map() {
       <MapDiv ref={mapRef}>
         <Content>
           {error && <Notification type={type} message={error} />}
+          <Loading id="loading" />
           <DateSlider
             id="dateSlider"
             layer={eventsFeatureLayer}
@@ -657,13 +661,17 @@ function Map() {
           />
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
-          {!!auth.token && <SketchDiv id="SketchDiv" />}
-          <Loading id="loading" />
+          {!!auth.token && (
+            <SketchDiv id="SketchDiv">
+              {/* <div id="EditDiv"></div> */}
+            </SketchDiv>
+          )}
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom
             handleZoomIn={() => zoomIn(view)}
             handleZoomOut={() => zoomOut(view)}
           />
+          <Location />
           {/* Renginių juosta */}
           <EventsSchedule
             handleOpen={handleOpen}
@@ -747,7 +755,7 @@ function Map() {
               eventsFeatureLayer.opacity = 0.3;
             }}
             handleUpdate={() => {
-              updateCurrentPolygon();
+              // updateCurrentPolygon();
               setIsEditing(!isEditing);
             }}
             handleSubmit={(e) => {
