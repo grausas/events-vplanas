@@ -18,3 +18,4 @@ export { default as EventsTimeline } from "./EventsTimeline/EventsTimeline";
 export { default as DateSlider } from "./DateSlider/DateSlider";
 export { default as BasemapSwitch } from "./BasemapSwitch/BasemapSwitch";
 export { default as Category } from "./Category/Category";
+export { default as Location } from "./Location/Location";
