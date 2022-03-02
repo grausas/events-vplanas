@@ -1,8 +1,8 @@
 // styles
 import { Wrapper } from "./Location.style";
 
-const Location = () => {
-  return <Wrapper>Location</Wrapper>;
+const Location = ({ id }) => {
+  return <Wrapper id={id}></Wrapper>;
 };
 
 export default Location;

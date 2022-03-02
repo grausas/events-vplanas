@@ -53,6 +53,7 @@ import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
 import { sortByDate } from "../helpers/SortByDate";
+import { locatePlace } from "../helpers/Location";
 
 function Map() {
   const auth = useContext(AuthContext);
@@ -399,6 +400,7 @@ function Map() {
         .then((res) => {
           setData(res);
         });
+      locatePlace(view);
     });
 
     // Chnage cursor when on event
@@ -628,7 +630,10 @@ function Map() {
   };
   // show all events
   const handleShowAll = () => {
-    if (shortResults.length !== filteredResults.length) {
+    if (
+      shortResults.length !== filteredResults.length &&
+      byExtent === undefined
+    ) {
       eventsFeatureLayer.featureEffect = {
         excludedEffect: "opacity(100%) ",
       };
@@ -650,15 +655,17 @@ function Map() {
         <Content>
           {error && <Notification type={type} message={error} />}
           <Loading id="loading" />
-          <DateSlider
-            id="dateSlider"
-            layer={eventsFeatureLayer}
-            view={view}
-            data={data}
-            setShortResults={setShortResults}
-            startOfDay={startDate}
-            endOfDay={finishDate}
-          />
+          {!isMobile && (
+            <DateSlider
+              id="dateSlider"
+              layer={eventsFeatureLayer}
+              view={view}
+              data={data}
+              setShortResults={setShortResults}
+              startOfDay={startDate}
+              endOfDay={finishDate}
+            />
+          )}
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
           {!!auth.token && (
@@ -671,7 +678,7 @@ function Map() {
             handleZoomIn={() => zoomIn(view)}
             handleZoomOut={() => zoomOut(view)}
           />
-          <Location />
+          {isMobile && <Location id="LocationDiv" />}
           {/* Renginių juosta */}
           <EventsSchedule
             handleOpen={handleOpen}
@@ -725,6 +732,7 @@ function Map() {
               clickedEvent={queryPoint.OBJECTID}
               handleShowAll={handleShowAll}
               eventsLength={
+                byExtent === undefined &&
                 shortResults &&
                 filteredResults &&
                 shortResults.length !== filteredResults.length
