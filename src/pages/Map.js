@@ -384,12 +384,12 @@ function Map() {
     setView(view);
 
     // const date = new Date();
-    // const queryEventsDate = new Date(date.setMonth(date.getMonth() - 1));
+    // const queryEventsDate = date.setMonth(date.getMonth() - 1);
 
     view.when(function () {
       layer
         .queryFeatures({
-          // where: ["RENGINIO_PRADZIA > TIMESTAMP " + queryEventsDate],
+          // where: "RENGINIO_PABAIGA > '2022 / 03 / 02'",
           where: ["1=1"],
           outFields: ["*"],
           returnGeometry: true,
@@ -470,11 +470,18 @@ function Map() {
                 .queryFeatures({
                   geometry: view.toMap(event),
                   outFields: ["*"],
-                  distance: 1.8 * view.resolution,
+                  distance: 2.8 * view.resolution,
                   spatialRelationship: "intersects",
                   where: "OBJECTID IN (" + arrIds + ")",
-                  returnGeometry: true,
-                  returnCentroid: true,
+                  // returnGeometry: true,
+                  // returnCentroid: true,
+                  // maxAllowableOffset: 222,
+                  // quantizationParameters: {
+                  //   originPosition: "upper-left",
+                  //   mode: view,
+                  //   tolerance: 4820,
+                  //   extent: layer.fullExtent,
+                  // },
                 })
                 .then(function (response) {
                   if (response.features.length > 1) {
@@ -484,7 +491,7 @@ function Map() {
                       response.features.map((item) => item.attributes.OBJECTID);
                     layer.featureEffect = {
                       filter: {
-                        where: "OBJECTID IN (" + result + ")",
+                        objectIds: result,
                       },
                       excludedEffect: "opacity(30%) ",
                       includedEffect: "drop-shadow(0px, 0px, 3px)",
@@ -616,7 +623,7 @@ function Map() {
       }
     }
   };
-
+  // show all events
   const handleShowAll = () => {
     if (shortResults.length !== filteredResults.length) {
       eventsFeatureLayer.featureEffect = {
