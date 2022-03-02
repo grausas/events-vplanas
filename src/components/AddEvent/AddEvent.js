@@ -150,30 +150,23 @@ const AddEvent = ({
   // suggestion organization
   const lowerEvents =
     events.features &&
-    events.features.map(
-      (item) =>
-        item.attributes.ORGANIZATORIUS &&
-        item.attributes.ORGANIZATORIUS.toLowerCase()
-    );
+    events.features.map((item) => item.attributes.ORGANIZATORIUS);
 
   const uniqueEvents = [...new Set(lowerEvents)];
   function getSuggestions(value) {
-    return uniqueEvents.filter((language) =>
-      language.startsWith(value.trim().toLowerCase())
+    return uniqueEvents.filter(
+      (language) => language.toLowerCase().indexOf(value.toLowerCase()) >= 0
     );
   }
   // suggestion name
   const lowerEventsName =
     events.features &&
-    events.features.map(
-      (item) =>
-        item.attributes.PAVADINIMAS && item.attributes.PAVADINIMAS.toLowerCase()
-    );
+    events.features.map((item) => item.attributes.PAVADINIMAS);
 
   const uniqueEventsName = [...new Set(lowerEventsName)];
   function getSuggestionsName(value) {
-    return uniqueEventsName.filter((language) =>
-      language.startsWith(value.trim().toLowerCase())
+    return uniqueEventsName.filter(
+      (language) => language.toLowerCase().indexOf(value.toLowerCase()) >= 0
     );
   }
 
@@ -377,7 +370,7 @@ const AddEvent = ({
                 </Downshift> */}
                 <span>Pavadinimas</span>
                 <AutoSuggest
-                  suggestions={suggestionsName}
+                  suggestions={suggestionsName.slice(0, 8)}
                   onSuggestionsClearRequested={() => setSuggestionsName([])}
                   onSuggestionsFetchRequested={({ value }) => {
                     setValueName(value);
@@ -402,7 +395,7 @@ const AddEvent = ({
                 />
                 <span>Organizatorius</span>
                 <AutoSuggest
-                  suggestions={suggestions}
+                  suggestions={suggestions.slice(0, 8)}
                   onSuggestionsClearRequested={() => setSuggestions([])}
                   onSuggestionsFetchRequested={({ value }) => {
                     setValue(value);

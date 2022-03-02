@@ -93,7 +93,7 @@ export const InputWrapper = styled.div`
     display: block;
     position: absolute;
     top: 40px;
-    width: 280px;
+    width: 100%;
     border: 1px solid var(--darkSilver);
     background-color: var(--white);
     font-family: Helvetica, sans-serif;
@@ -112,7 +112,7 @@ export const InputWrapper = styled.div`
 
   .react-autosuggest__suggestion {
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 5px 15px;
   }
 
   .react-autosuggest__suggestion--highlighted {
