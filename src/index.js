@@ -11,7 +11,7 @@ import { GlobalStyle } from "./styles/GlobalStyle";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router basename="/renginiai">
+    <Router>
       <AuthProvider>
         <GlobalStyle />
         <App />

@@ -8,7 +8,7 @@ import { Header } from "./components/index";
 import esriId from "@arcgis/core/identity/IdentityManager";
 // pages
 const Map = lazy(() => import("./pages/Map"));
-const Login = lazy(() => import("./pages/Login"));
+const Login = lazy(() => import("./pages/Login/Login"));
 
 const App = () => {
   const auth = useContext(AuthContext);
