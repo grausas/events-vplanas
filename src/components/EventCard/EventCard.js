@@ -85,7 +85,7 @@ const EventCard = ({
                 <img src={Document} alt="document" />
                 <p>{organization}</p>
               </Text>
-              {/* If url doesn't exit, don't show website */}
+              {/* Do not show website if empty */}
               {url && (
                 <Text onClick={handleLocation}>
                   <img src={ExternalLink} alt="place" />
@@ -94,6 +94,7 @@ const EventCard = ({
                   </a>
                 </Text>
               )}
+              {/* Do not show comment if empty */}
               {comment && isMobile && (
                 <Text>
                   <p>
@@ -104,6 +105,7 @@ const EventCard = ({
                   </p>
                 </Text>
               )}
+              {/* Do not show description if empty */}
               {description && isMobile && (
                 <Text>
                   <p>

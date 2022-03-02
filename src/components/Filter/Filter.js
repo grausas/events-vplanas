@@ -53,7 +53,6 @@ const Filter = ({
   handleChangeStart,
   handleChangeFinish,
   handleClear,
-  handleOpenMore,
   handleDateChange,
   handleFilterByExtent,
 }) => {

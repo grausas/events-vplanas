@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import AutoSuggest from "react-autosuggest";
-// import Downshift from "downshift";
 // Styles
 import {
   AddObjectButton,
@@ -22,9 +21,7 @@ import { CategoryData } from "../../utils/CategoryData";
 
 const AddEvent = ({
   handleSubmit,
-  handleCordinates,
   isEditing,
-  handleUpdate,
   handleCancel,
   setAddNewFeature,
   addNewFeature,
@@ -301,73 +298,6 @@ const AddEvent = ({
                   })}
               </CheckBoxWrapper>
               <InputWrapper>
-                {/* <Downshift
-                  onChange={(selection) =>
-                    alert(
-                      selection
-                        ? `You selected ${selection.attributes.ORGANIZATORIUS}`
-                        : "Selection Cleared"
-                    )
-                  }
-                  itemToString={(item) =>
-                    item ? item.attributes.ORGANIZATORIUS : ""
-                  }
-                >
-                  {({
-                    getInputProps,
-                    getItemProps,
-                    getLabelProps,
-                    getMenuProps,
-                    isOpen,
-                    inputValue,
-                    highlightedIndex,
-                    selectedItem,
-                    getRootProps,
-                  }) => (
-                    <div>
-                      <label {...getLabelProps()}>Organizatorius</label>
-                      <div
-                        style={{ display: "inline-block" }}
-                        {...getRootProps({}, { suppressRefError: true })}
-                      >
-                        <input {...getInputProps()} />
-                      </div>
-                      <ul {...getMenuProps()}>
-                        {isOpen
-                          ? events.features
-                              .filter(
-                                (item) =>
-                                  !inputValue ||
-                                  item.attributes.ORGANIZATORIUS.includes(
-                                    inputValue
-                                  )
-                              )
-                              .map((item, index) => (
-                                <li
-                                  {...getItemProps({
-                                    key: item.attributes.OBJECTID,
-                                    index,
-                                    item,
-                                    style: {
-                                      backgroundColor:
-                                        highlightedIndex === index
-                                          ? "lightgray"
-                                          : "white",
-                                      fontWeight:
-                                        selectedItem === item
-                                          ? "bold"
-                                          : "normal",
-                                    },
-                                  })}
-                                >
-                                  {item.attributes.ORGANIZATORIUS}
-                                </li>
-                              ))
-                          : null}
-                      </ul>
-                    </div>
-                  )}
-                </Downshift> */}
                 <span>Pavadinimas</span>
                 <AutoSuggest
                   suggestions={suggestionsName.slice(0, 8)}
