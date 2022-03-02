@@ -154,6 +154,9 @@ const Filter = ({
 
   const handleCheckboxChanges = (e) => {
     setCheckedFilter(e.target.checked);
+    if (e.target.checked === false) {
+      resetDefault();
+    }
   };
 
   return (
