@@ -53,8 +53,8 @@ export const TimelineContainer = styled.div`
   position: relative;
 
   &&:after {
-    background-color: var(--grey);
     content: "";
+    background-color: var(--grey);
     position: absolute;
     left: calc(0% + 3px);
     width: 2px;
@@ -139,14 +139,15 @@ export const Text = styled.p`
 `;
 
 export const Circle = styled.span`
-  background-color: var(--grey);
-  border: 1px solid var(--white);
+  background-color: var(--red);
+  border: 1px solid var(--red);
   border-radius: 50%;
   position: absolute;
-  top: calc(50% - 10px);
-  left: -29px;
-  width: 16px;
-  height: 16px;
+  top: calc(50% - 8px);
+  left: -28px;
+  width: 14px;
+  height: 14px;
+  z-index: 2;
 `;
 
 export const Close = styled.div`
