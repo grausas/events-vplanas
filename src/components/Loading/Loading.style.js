@@ -7,10 +7,8 @@ export const Wrapper = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 998;
 `;
-
-export const Content = styled.div``;
 
 export const LoadingBlock = styled.div`
   text-align: center;
@@ -23,18 +21,41 @@ export const LoadingBlock = styled.div`
   bottom: 0;
   margin: auto;
 
+  span {
+    position: absolute;
+    top: -24px;
+    left: -15px;
+    background-color: var(--lightBlue);
+    font-size: var(--fontMed);
+    color: var(--silver);
+    padding: 0 5px;
+    border-radius: 5px;
+  }
+
+  img {
+    position: absolute;
+    height: 30px;
+    z-index: 999;
+    top: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
   &:before {
     content: "";
     width: 50px;
     height: 5px;
-    background: var(--dark);
-    opacity: 0.1;
+    background: var(--grey);
+    opacity: 0.5;
     position: absolute;
     top: 59px;
     left: 0;
     border-radius: 50%;
     animation: shadow 0.5s linear infinite;
   }
+
   &:after {
     content: "";
     width: 50px;
@@ -44,8 +65,9 @@ export const LoadingBlock = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 3px;
+    border-radius: 5px;
   }
+
   @keyframes animate {
     17% {
       border-bottom-right-radius: 3px;
@@ -64,6 +86,7 @@ export const LoadingBlock = styled.div`
       transform: translateY(0) rotate(90deg);
     }
   }
+
   @keyframes shadow {
     0%,
     100% {

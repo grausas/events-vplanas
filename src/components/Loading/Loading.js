@@ -1,12 +1,13 @@
 // styles
-import { Wrapper, Content, LoadingBlock } from "./Loading.style";
+import { Wrapper, LoadingBlock } from "./Loading.style";
+// icon
 
 function Loading({ id }) {
   return (
     <Wrapper id={id}>
-      <Content>
-        <LoadingBlock></LoadingBlock>
-      </Content>
+      <LoadingBlock>
+        <span>Kraunama</span>
+      </LoadingBlock>
     </Wrapper>
   );
 }
