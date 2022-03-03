@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: relative;
-  max-width: 500px;
   width: 100%;
   max-height: 70vh;
   height: 100%;
@@ -103,6 +102,10 @@ export const ItemContent = styled.div`
     width: 12px;
     height: 12px;
     background: var(--white);
+  }
+
+  @media only screen and (max-width: 1280px) {
+    padding: 5px 10px;
   }
 `;
 

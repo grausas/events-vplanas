@@ -18,7 +18,12 @@ export const Wrapper = styled.div`
     left: 10px;
     top: 5px;
     max-width: ${(props) => (props.close ? "120px" : "95%")};
-    max-height: 99%;
+    width: 100%;
+    max-height: 100%;
+  }
+
+  @media only screen and (max-width: 1280px) and (min-width: 769px) {
+    width: ${(props) => (props.close ? "260px" : "340px")};
   }
 `;
 
