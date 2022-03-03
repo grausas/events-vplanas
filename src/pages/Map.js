@@ -94,7 +94,6 @@ function Map() {
 
   // create an event listener
   useEffect(() => {
-    // window.addEventListener("resize", handleResize);
     handleResize();
   }, []);
 
@@ -474,7 +473,8 @@ function Map() {
                 .queryFeatures({
                   geometry: view.toMap(event),
                   outFields: ["*"],
-                  distance: 2.8 * view.resolution,
+                  distance: 50,
+                  units: "meters",
                   spatialRelationship: "intersects",
                   where: "OBJECTID IN (" + arrIds + ")",
                   // returnGeometry: true,
