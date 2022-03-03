@@ -12,3 +12,7 @@ body,
 .esri-view .esri-view-surface--inset-outline:focus::after {
   outline: none !important;
 }
+
+.esri-ui-manual-container > .esri-component {
+  display: none;
+}
