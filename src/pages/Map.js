@@ -385,14 +385,16 @@ function Map() {
     setEventsFeatureLayer(layer);
     setView(view);
 
-    // const date = new Date();
-    // const queryEventsDate = date.setMonth(date.getMonth() - 1);
+    const date = new Date().toISOString();
+    // const queryEventsDate = new Date(
+    //   date.setMonth(date.getMonth() - 1)
+    // ).toISOString();
 
     view.when(function () {
       layer
         .queryFeatures({
-          // where: "RENGINIO_PABAIGA > '2022 / 03 / 02'",
-          where: ["1=1"],
+          where: "RENGINIO_PABAIGA > '" + date + "'",
+          // where: ["1=1"],
           outFields: ["*"],
           returnGeometry: true,
         })
