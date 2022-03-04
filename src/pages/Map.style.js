@@ -31,10 +31,24 @@ export const SearchDiv = styled.div`
 `;
 
 export const SketchDiv = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
   position: absolute;
   right: 20px;
   top: 90px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   border: 1px solid var(--darkSilver);
   border-radius: 5px;
+
+  .esri-editor__header {
+    height: 30px;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  .esri-editor__content {
+    min-height: 0;
+  }
 `;

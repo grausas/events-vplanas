@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   }
 
   [class*="esri-icon"] {
-    font-size: 18px;
+    font-size: 19px;
     padding: 7px;
     margin: 0;
     font-weight: 600;
