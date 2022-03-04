@@ -358,7 +358,8 @@ function Map() {
     addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
-  const addPolygon = () => drawNewPolygon(view, setAddNewFeature);
+  const addPolygon = () =>
+    drawNewPolygon(view, setAddNewFeature, addNewFeature);
   // const updateCurrentPolygon = () =>
   //   updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () =>
@@ -546,8 +547,10 @@ function Map() {
   });
 
   useEffect(() => {
-    addPolygon();
-    editPolygon(view, eventsFeatureLayer);
+    if (auth.token) {
+      addPolygon();
+      editPolygon(view, eventsFeatureLayer);
+    }
   }, [view]);
 
   // query only filtered features
@@ -672,7 +675,7 @@ function Map() {
           <SearchDiv id="SearchDiv" />
           {!!auth.token && (
             <SketchDiv id="SketchDiv">
-              {/* <div id="EditDiv"></div> */}
+              <div id="EditDiv"></div>
             </SketchDiv>
           )}
           <Home handleClick={() => zoomDefault(view)} />
