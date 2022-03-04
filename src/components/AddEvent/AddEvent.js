@@ -37,6 +37,8 @@ const AddEvent = ({
   const [startDateArr, setStartDateArr] = useState([]);
   const [weekDayArr, setWeekDayArr] = useState([]);
 
+  console.log("addEvent: ", addNewFeature);
+
   const weekday = [
     { day: "Pirmadienis", value: 1 },
     { day: "Antradienis", value: 2 },
@@ -214,6 +216,24 @@ const AddEvent = ({
     }
   };
 
+  const handleAddFormSubmit = (e) => {
+    handleSubmit(e);
+    setStartDateArr([]);
+    setWeekDayArr([]);
+    handleClearCheckbox();
+    setValueName("");
+    setValue("");
+    setAddNewFeature({ rings: "" });
+    handleOpen();
+  };
+
+  const handleClearButton = () => {
+    handleCancel();
+    setStartDateArr([]);
+    setAddNewFeature({ rings: "" });
+    handleOpen();
+  };
+
   return isLoggedIn ? (
     <>
       <AddObjectButton>
@@ -227,18 +247,7 @@ const AddEvent = ({
         <FormWrapper isEditing={isEditing}>
           <CloseImage src={CloseIcon} alt="close-icon" onClick={handleOpen} />
           <>
-            <form
-              onSubmit={(e) => {
-                handleSubmit(e);
-                setStartDateArr([]);
-                setWeekDayArr([]);
-                handleClearCheckbox();
-                setValueName("");
-                setValue("");
-                setAddNewFeature({ rings: "" });
-                handleOpen();
-              }}
-            >
+            <form onSubmit={handleAddFormSubmit}>
               <h3>Pridėti renginį</h3>
               <DatePicker
                 placeholderTextDate="Data"
@@ -399,15 +408,7 @@ const AddEvent = ({
                 />
               </InputWrapper>
               <ConfirmButton type="submit">PRIDĖTI RENGINĮ</ConfirmButton>
-              <ClearButton
-                type="reset"
-                handleClick={() => {
-                  handleCancel();
-                  setStartDateArr([]);
-                  setAddNewFeature({ rings: "" });
-                  handleOpen();
-                }}
-              >
+              <ClearButton type="reset" handleClick={handleClearButton}>
                 ATŠAUKTI
               </ClearButton>
             </form>
