@@ -406,33 +406,33 @@ function Map() {
     });
 
     // Chnage cursor when on event
-    function changeMouseCursor(response) {
-      if (
-        response.results.length > 0 &&
-        response.results[0].graphic.layer.type === "feature"
-      ) {
-        mapRef.current.style.cursor = "pointer";
-      } else {
-        mapRef.current.style.cursor = "default";
-      }
-    }
+    // function changeMouseCursor(response) {
+    //   if (
+    //     response.results.length > 0 &&
+    //     response.results[0].graphic.layer.type === "feature"
+    //   ) {
+    //     mapRef.current.style.cursor = "pointer";
+    //   } else {
+    //     mapRef.current.style.cursor = "default";
+    //   }
+    // }
 
-    view.when(function () {
-      view.whenLayerView(layer).then(function (lview) {
-        watchUtils.whenFalseOnce(lview, "updating", function () {
-          // Set up a click event handler and retrieve the screen x, y coordinates
-          view.on("pointer-move", function (evt) {
-            var screenPoint = {
-              x: evt.x,
-              y: evt.y,
-            };
-            view.hitTest(screenPoint).then(function (response) {
-              changeMouseCursor(response);
-            });
-          });
-        });
-      });
-    });
+    // view.when(function () {
+    //   view.whenLayerView(layer).then(function (lview) {
+    //     watchUtils.whenFalseOnce(lview, "updating", function () {
+    //       // Set up a click event handler and retrieve the screen x, y coordinates
+    //       view.on("pointer-move", function (evt) {
+    //         var screenPoint = {
+    //           x: evt.x,
+    //           y: evt.y,
+    //         };
+    //         view.hitTest(screenPoint).then(function (response) {
+    //           changeMouseCursor(response);
+    //         });
+    //       });
+    //     });
+    //   });
+    // });
 
     // show loading while map is laoding
     watchUtils.whenFalse(view, "updating", function (evt) {
@@ -757,31 +757,33 @@ function Map() {
             />
           </EventsSchedule>
           {/* Pridėti naują renginį  */}
-          <AddEvent
-            isLoggedIn={!!auth.token}
-            setAddNewFeature={setAddNewFeature}
-            addNewFeature={addNewFeature}
-            isEditing={!isEditing}
-            startDate={startDate}
-            events={data}
-            handleCordinates={() => {
-              eventsFeatureLayer.opacity = 0.3;
-            }}
-            handleUpdate={() => {
-              // updateCurrentPolygon();
-              setIsEditing(!isEditing);
-            }}
-            handleSubmit={(e) => {
-              e.preventDefault();
-              eventsFeatureLayer.opacity = 1;
-              addEvents(addNewFeature);
-              setIsEditing(!isEditing);
-            }}
-            handleCancel={() => {
-              eventsFeatureLayer.opacity = 1;
-              graphicsLayer.removeAll();
-            }}
-          />
+          {auth.token && (
+            <AddEvent
+              isLoggedIn={!!auth.token}
+              setAddNewFeature={setAddNewFeature}
+              addNewFeature={addNewFeature}
+              isEditing={!isEditing}
+              startDate={startDate}
+              events={data}
+              handleCordinates={() => {
+                eventsFeatureLayer.opacity = 0.3;
+              }}
+              handleUpdate={() => {
+                // updateCurrentPolygon();
+                setIsEditing(!isEditing);
+              }}
+              handleSubmit={(e) => {
+                e.preventDefault();
+                eventsFeatureLayer.opacity = 1;
+                addEvents(addNewFeature);
+                setIsEditing(!isEditing);
+              }}
+              handleCancel={() => {
+                eventsFeatureLayer.opacity = 1;
+                graphicsLayer.removeAll();
+              }}
+            />
+          )}
           {/* Renginių ir renginio atvaizdavimas, redagavimas */}
           {openModal && (
             <EventCard
@@ -805,30 +807,32 @@ function Map() {
                 };
               }}
             >
-              <EditEvent
-                setQueryPoint={setQueryPoint}
-                queryPoint={queryPoint}
-                handleChange={() => {
-                  handleOpenModal();
-                  handleOpen(show);
-                }}
-                handleSubmit={(e) => {
-                  e.preventDefault();
-                  updateEvent(queryPoint);
-                  handleOpenModal(!openModal);
-                  setQueryPoint([]);
-                }}
-                handleDeleteConfirm={(e) => {
-                  deleteEvent(queryPoint.OBJECTID);
-                  handleOpenModal(!openModal);
-                  view.goTo(
-                    {
-                      zoom: 11,
-                    },
-                    { duration: 600 }
-                  );
-                }}
-              />
+              {auth.token && (
+                <EditEvent
+                  setQueryPoint={setQueryPoint}
+                  queryPoint={queryPoint}
+                  handleChange={() => {
+                    handleOpenModal();
+                    handleOpen(show);
+                  }}
+                  handleSubmit={(e) => {
+                    e.preventDefault();
+                    updateEvent(queryPoint);
+                    handleOpenModal(!openModal);
+                    setQueryPoint([]);
+                  }}
+                  handleDeleteConfirm={(e) => {
+                    deleteEvent(queryPoint.OBJECTID);
+                    handleOpenModal(!openModal);
+                    view.goTo(
+                      {
+                        zoom: 11,
+                      },
+                      { duration: 600 }
+                    );
+                  }}
+                />
+              )}
             </EventCard>
           )}
         </Content>
