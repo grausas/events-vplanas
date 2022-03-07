@@ -8,14 +8,17 @@ export const updateEventFeature = (params, layer, type, message) => {
       GlobalID: params.GlobalID,
       PAVADINIMAS: params.PAVADINIMAS,
       ORGANIZATORIUS: params.ORGANIZATORIUS,
-      PASTABOS: params.PASTABOS,
-      APRASYMAS: params.APRASYMAS,
-      WEBPAGE: params.WEBPAGE,
-      KATEGORIJA: params.KATEGORIJA,
       RENGINIO_PRADZIA: new Date(params.RENGINIO_PRADZIA).toISOString(),
       RENGINIO_PABAIGA: new Date(params.RENGINIO_PABAIGA).toISOString(),
+      APRASYMAS: params.APRASYMAS !== undefined ? params.APRASYMAS : "",
+      WEBPAGE: params.WEBPAGE,
+      KATEGORIJA: params.KATEGORIJA == null ? 1 : params.KATEGORIJA,
+      PASTABOS: params.PASTABOS !== undefined ? params.PASTABOS : "",
     },
+    geometry: params.geometry,
   });
+
+  console.log("editFeature", editFeature);
   const edits = {
     updateFeatures: [editFeature],
   };
