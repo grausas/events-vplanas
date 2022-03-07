@@ -83,6 +83,8 @@ function Map() {
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
 
+  // console.log("addNewFeature", addNewFeature);
+
   // mobile screen size
   const handleResize = () => {
     if (window.innerWidth < 768) {
@@ -358,8 +360,7 @@ function Map() {
     addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
-  const addPolygon = () =>
-    drawNewPolygon(view, setAddNewFeature, addNewFeature);
+  const addPolygon = () => drawNewPolygon(view, setAddNewFeature);
   // const updateCurrentPolygon = () =>
   //   updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () =>
@@ -480,7 +481,7 @@ function Map() {
                   units: "meters",
                   spatialRelationship: "intersects",
                   where: "OBJECTID IN (" + arrIds + ")",
-                  // returnGeometry: true,
+                  returnGeometry: true,
                   // returnCentroid: true,
                   // maxAllowableOffset: 222,
                   // quantizationParameters: {
@@ -564,7 +565,6 @@ function Map() {
         return arrIds.push(result);
       });
   }, [filteredResults]);
-
   // filter by selected today, week, month
   useEffect(() => {
     view &&

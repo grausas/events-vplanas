@@ -44,6 +44,10 @@ export const SketchDiv = styled.div`
     height: 30px;
   }
 
+  .esri-feature-form__date-format-hint {
+    display: none;
+  }
+
   h4 {
     margin: 0;
   }
