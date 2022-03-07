@@ -37,8 +37,6 @@ const AddEvent = ({
   const [startDateArr, setStartDateArr] = useState([]);
   const [weekDayArr, setWeekDayArr] = useState([]);
 
-  console.log("addEvent: ", addNewFeature);
-
   const weekday = [
     { day: "Pirmadienis", value: 1 },
     { day: "Antradienis", value: 2 },

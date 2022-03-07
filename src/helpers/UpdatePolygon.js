@@ -1,33 +1,7 @@
 // import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
 import Editor from "@arcgis/core/widgets/Editor";
-// import { graphicsLayer } from "./DrawPolygon";
 
 export const editPolygon = (view, layer) => {
-  // const polyInfos = {
-  //   layer: layer,
-  //   formTemplate: {
-  //     // autocasts to FormTemplate
-  //     elements: [
-  //       {
-  //         // autocasts to FieldElement
-  //         type: "field",
-  //         fieldName: "incidenttype",
-  //         label: "Incident Type",
-  //       },
-  //       {
-  //         type: "field",
-  //         fieldName: "activeincid",
-  //         label: "Active",
-  //       },
-  //       {
-  //         type: "field",
-  //         fieldName: "descrip",
-  //         label: "Description",
-  //       },
-  //     ],
-  //   },
-  // };
-
   view &&
     view.when(() => {
       const editor = new Editor({
@@ -35,14 +9,82 @@ export const editPolygon = (view, layer) => {
         container: "EditDiv",
         label: "PAVADINIMAS",
         allowedWorkflows: "update",
+        supportingWidgetDefaults: false,
+        layerInfos: [
+          {
+            layer: layer,
+            allowAttachments: false,
+            title: "fewfe",
+            formTemplate: {
+              label: "PAVADINIMAS",
+
+              // autocastable to FormTemplate
+              title: "Redaguoti renginį",
+              elements: [
+                {
+                  type: "field",
+                  fieldName: "PAVADINIMAS",
+                  label: "Pavadinimas",
+                },
+                {
+                  type: "field",
+                  fieldName: "ORGANIZATORIUS",
+                  label: "Organizatorius",
+                },
+                {
+                  type: "field",
+                  fieldName: "RENGINIO_PRADZIA",
+                  label: "Renginio pradžia",
+                },
+                {
+                  type: "field",
+                  fieldName: "RENGINIO_PABAIGA",
+                  label: "Renginio pabaiga",
+                },
+                {
+                  type: "field",
+                  fieldName: "KATEGORIJA",
+                  label: "Kategorija",
+                },
+              ],
+            },
+          },
+        ],
         // layerInfos: [polyInfos],
-        snappingOptions: {
-          enabled: true,
-          featureSources: [{ layer: layer }],
-        },
       });
 
-      console.log(editor.viewModel);
+      editor.viewModel.sketchViewModel.tool = "reshape";
+
+      editor.viewModel.watch("state", function (event) {
+        // console.log("graphicsLayer", graphicsLayer);
+        // console.log("event", event);
+        // let arr = [];
+        // Check the Editor's viewModel state, if it is currently open and editing existing features, disable popups
+        if (editor.viewModel.state === "editing-existing-feature") {
+          editor.viewModel.sketchViewModel.on("update", function (event) {
+            // console.log("sketchUpdate", event);
+            // let sketchGeometry;
+            if (event.state === "complete") {
+              // console.log("drawPolygon", sketchGeometry);
+              // arr.push("hello");
+            }
+          });
+          // const sketchGeometry =
+          //   editor.viewModel.featureFormViewModel.feature.geometry;
+
+          // console.log("event2", editor);
+          // console.log("event4", event);
+        } else {
+          // Grab the features of the popup
+          // console.log("done", arr);
+          // console.log("event3", event);
+        }
+      });
+
+      // console.log(editor);
+      // if (editor.viewModel.state === "editing-existing-feature") {
+      //   console.log("hello");
+      // }
     });
 };
 
