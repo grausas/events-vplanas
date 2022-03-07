@@ -407,33 +407,33 @@ function Map() {
     });
 
     // Chnage cursor when on event
-    // function changeMouseCursor(response) {
-    //   if (
-    //     response.results.length > 0 &&
-    //     response.results[0].graphic.layer.type === "feature"
-    //   ) {
-    //     mapRef.current.style.cursor = "pointer";
-    //   } else {
-    //     mapRef.current.style.cursor = "default";
-    //   }
-    // }
+    function changeMouseCursor(response) {
+      if (
+        response.results.length > 0 &&
+        response.results[0].graphic.layer.type === "feature"
+      ) {
+        mapRef.current.style.cursor = "pointer";
+      } else {
+        mapRef.current.style.cursor = "default";
+      }
+    }
 
-    // view.when(function () {
-    //   view.whenLayerView(layer).then(function (lview) {
-    //     watchUtils.whenFalseOnce(lview, "updating", function () {
-    //       // Set up a click event handler and retrieve the screen x, y coordinates
-    //       view.on("pointer-move", function (evt) {
-    //         var screenPoint = {
-    //           x: evt.x,
-    //           y: evt.y,
-    //         };
-    //         view.hitTest(screenPoint).then(function (response) {
-    //           changeMouseCursor(response);
-    //         });
-    //       });
-    //     });
-    //   });
-    // });
+    view.when(function () {
+      view.whenLayerView(layer).then(function (lview) {
+        watchUtils.whenFalseOnce(lview, "updating", function () {
+          // Set up a click event handler and retrieve the screen x, y coordinates
+          view.on("pointer-move", function (evt) {
+            var screenPoint = {
+              x: evt.x,
+              y: evt.y,
+            };
+            view.hitTest(screenPoint).then(function (response) {
+              changeMouseCursor(response);
+            });
+          });
+        });
+      });
+    });
 
     // show loading while map is laoding
     watchUtils.whenFalse(view, "updating", function (evt) {

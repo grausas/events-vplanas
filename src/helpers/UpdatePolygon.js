@@ -10,17 +10,12 @@ export const editPolygon = (view, layer) => {
         label: "PAVADINIMAS",
         allowedWorkflows: "update",
         supportingWidgetDefaults: false,
-
         layerInfos: [
           {
             layer: layer,
             allowAttachments: false,
-            title: "fewfe",
             formTemplate: {
-              label: "PAVADINIMAS",
-
               // autocastable to FormTemplate
-              title: "Redaguoti renginį",
               elements: [
                 {
                   type: "field",
@@ -54,6 +49,13 @@ export const editPolygon = (view, layer) => {
         // layerInfos: [polyInfos],
       });
 
+      console.log(editor);
+
+      editor.viewModel.sketchViewModel.defaultUpdateOptions = {
+        tool: "reshape",
+        toggleToolOnClick: false,
+        mode: "click",
+      };
       editor.viewModel.watch("state", function (event) {
         // console.log("graphicsLayer", graphicsLayer);
         // console.log("event", event);
