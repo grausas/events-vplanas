@@ -9,6 +9,8 @@ export const graphicsLayer = new GraphicsLayer({
 export const drawNewPolygon = (view, setState) => {
   view &&
     view.when(() => {
+      // graphicsLayer = featureLayerPrivate;
+
       const sketch = new Sketch({
         layer: graphicsLayer,
         container: "SketchDiv",
@@ -22,6 +24,7 @@ export const drawNewPolygon = (view, setState) => {
           },
           selectionTools: {
             "lasso-selection": false,
+            "rectangle-selection": false,
           },
           settingsMenu: false,
         },
@@ -33,13 +36,14 @@ export const drawNewPolygon = (view, setState) => {
       });
 
       sketch.on("create", function (event) {
+        let sketchGeometry;
         if (event.state === "complete") {
-          const sketchGeometry = event.graphic.geometry;
+          sketchGeometry = event.graphic.geometry;
           const sketchRings = event.graphic.geometry.rings[0];
 
-          setState((state) => ({
+          setState((s) => ({
             geometry: sketchGeometry,
-            rings: [...state.rings, sketchRings],
+            rings: [...s.rings, sketchRings],
           }));
         }
       });
