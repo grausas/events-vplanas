@@ -10,6 +10,7 @@ export const editPolygon = (view, layer) => {
         label: "PAVADINIMAS",
         allowedWorkflows: "update",
         supportingWidgetDefaults: false,
+
         layerInfos: [
           {
             layer: layer,
@@ -52,8 +53,6 @@ export const editPolygon = (view, layer) => {
         ],
         // layerInfos: [polyInfos],
       });
-
-      editor.viewModel.sketchViewModel.tool = "reshape";
 
       editor.viewModel.watch("state", function (event) {
         // console.log("graphicsLayer", graphicsLayer);

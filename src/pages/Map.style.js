@@ -48,11 +48,23 @@ export const SketchDiv = styled.div`
     display: none;
   }
 
+  .esri-editor__feature-list-item {
+    padding: 6px 3px;
+  }
+
   h4 {
     margin: 0;
   }
 
   .esri-editor__content {
     min-height: 0;
+    padding: 3px 6px;
+  }
+
+  .esri-editor__controls {
+    padding: 3px 15px;
+  }
+  .esri-editor__control-button {
+    min-height: 22px;
   }
 `;

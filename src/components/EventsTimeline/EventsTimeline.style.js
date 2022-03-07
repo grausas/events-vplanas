@@ -150,7 +150,7 @@ export const Circle = styled.span`
   left: -28px;
   width: 14px;
   height: 14px;
-  z-index: 2;
+  z-index: 1;
 `;
 
 export const Close = styled.div`
