@@ -696,8 +696,16 @@ function Map() {
                 selectedStart={startDate}
                 selectedFinish={finishDate}
                 handleChangeStart={(date) => {
-                  setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
-                  setEventsText("Renginiai");
+                  if (date >= finishDate) {
+                    setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
+                    setFinishDate(
+                      new Date(date.setHours(23, 59, 59, 59)).getTime()
+                    );
+                    setEventsText("Renginiai");
+                  } else {
+                    setStartDate(new Date(date.setHours(0, 0, 0, 0)).getTime());
+                    setEventsText("Renginiai");
+                  }
                 }}
                 handleChangeFinish={(date) => {
                   if (date >= startDate) {
