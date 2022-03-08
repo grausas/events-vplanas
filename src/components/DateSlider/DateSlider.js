@@ -78,12 +78,12 @@ const TimeSlider = ({
       const filteredDate = data.features.filter((item) => {
         if (startDate && finishDate) {
           return (
-            item.attributes.RENGINIO_PRADZIA >= startDate &&
+            item.attributes.RENGINIO_PABAIGA >= startDate &&
             item.attributes.RENGINIO_PRADZIA <= finishDate
           );
         } else {
           return (
-            item.attributes.RENGINIO_PRADZIA >= startDate ||
+            item.attributes.RENGINIO_PABAIGA >= startDate ||
             item.attributes.RENGINIO_PABAIGA <= finishDate
           );
         }

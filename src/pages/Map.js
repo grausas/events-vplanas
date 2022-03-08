@@ -660,7 +660,7 @@ function Map() {
               layer={eventsFeatureLayer}
               view={view}
               data={data}
-              setShortResults={setShortResults}
+              setShortResults={setFilteredResults}
               startOfDay={startDate}
               endOfDay={finishDate}
             />
