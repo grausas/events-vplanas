@@ -18,7 +18,6 @@ export const updateEventFeature = (params, layer, type, message) => {
     geometry: params.geometry,
   });
 
-  console.log("editFeature", editFeature);
   const edits = {
     updateFeatures: [editFeature],
   };

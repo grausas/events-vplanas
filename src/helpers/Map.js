@@ -35,6 +35,7 @@ export const createMapView = (ref, layers) => {
     },
   });
 
+  // add graphicLayer to map if user logged in
   view.when(() => {
     if (layers.title !== "public") {
       webmap.add(graphicsLayer);
@@ -44,6 +45,7 @@ export const createMapView = (ref, layers) => {
   layers.when(() => {
     const uniqueValue = view.map.layers.getItemAt(0).renderer.uniqueValueInfos;
 
+    // create unique render values with icons
     const simpleRenderer = {
       type: "unique-value",
       field: "KATEGORIJA",
@@ -204,12 +206,14 @@ export const createMapView = (ref, layers) => {
       ],
     };
 
+    // render polygons
     const simpleRendererPolygon = {
       type: "unique-value",
       field: "KATEGORIJA",
       uniqueValueInfos: uniqueValue,
     };
 
+    // change render symbol depending on scale level
     view.when().then(() => {
       if (view.scale > 124447) {
         layers.renderer = simpleRenderer;

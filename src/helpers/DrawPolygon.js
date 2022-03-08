@@ -9,8 +9,6 @@ export const graphicsLayer = new GraphicsLayer({
 export const drawNewPolygon = (view, setState) => {
   view &&
     view.when(() => {
-      // graphicsLayer = featureLayerPrivate;
-
       const sketch = new Sketch({
         layer: graphicsLayer,
         container: "SketchDiv",

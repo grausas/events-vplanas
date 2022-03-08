@@ -67,7 +67,6 @@ function Map() {
   const [view, setView] = useState("");
   const [eventsFeatureLayer, setEventsFeatureLayer] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
   const [error, setError] = useState("");
@@ -365,15 +364,6 @@ function Map() {
   //   updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () =>
     deleteFeatureEvent(eventsFeatureLayer, queryPoint, setType, setError);
-
-  // open full form if cordinates exist
-  useEffect(() => {
-    if (addNewFeature.geometry === undefined) {
-      setIsEditing(false);
-    } else {
-      setIsEditing(true);
-    }
-  }, [addNewFeature.geometry]);
 
   useEffect(() => {
     // change layers depending if user is logged in
@@ -774,21 +764,15 @@ function Map() {
               isLoggedIn={!!auth.token}
               setAddNewFeature={setAddNewFeature}
               addNewFeature={addNewFeature}
-              isEditing={!isEditing}
               startDate={startDate}
               events={data}
               handleCordinates={() => {
                 eventsFeatureLayer.opacity = 0.3;
               }}
-              handleUpdate={() => {
-                // updateCurrentPolygon();
-                setIsEditing(!isEditing);
-              }}
               handleSubmit={(e) => {
                 e.preventDefault();
                 eventsFeatureLayer.opacity = 1;
                 addEvents(addNewFeature);
-                setIsEditing(!isEditing);
               }}
               handleCancel={() => {
                 eventsFeatureLayer.opacity = 1;

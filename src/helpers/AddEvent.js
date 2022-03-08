@@ -3,6 +3,7 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, type, message) => {
   var features = [];
+  // check if more polygon exist and change than change geometry
   if (params.rings) {
     params.geometry.rings = params.rings;
   }
@@ -53,8 +54,6 @@ export const addEventsFeature = (params, layer, type, message) => {
     features.push(addFeature);
   }
 
-  // padaryti, kad jeigu renginio datos diena sutampa su checkbox diena, tada neleisti prideti papildomos
-
   const add = {
     addFeatures: features,
   };
@@ -69,8 +68,6 @@ export const addEventsFeature = (params, layer, type, message) => {
         message("Renginys sėkmingai pridėtas");
       }
       graphicsLayer.removeAll();
-      // layer.refresh();
-      // layer.load();
     })
     .catch((error) => {
       if (error) {
