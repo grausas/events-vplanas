@@ -366,7 +366,7 @@ function Map() {
   const deleteEvent = () =>
     deleteFeatureEvent(eventsFeatureLayer, queryPoint, setType, setError);
 
-  // atidaryti pilną formą, jeigu yra kordinatės, reikia pataisyti
+  // open full form if cordinates exist
   useEffect(() => {
     if (addNewFeature.geometry === undefined) {
       setIsEditing(false);
@@ -376,7 +376,7 @@ function Map() {
   }, [addNewFeature.geometry]);
 
   useEffect(() => {
-    // const layer = featureLayer();
+    // change layers depending if user is logged in
     const layer =
       !auth.token && !auth.token.length > 0
         ? featureLayer()
@@ -387,16 +387,20 @@ function Map() {
     setEventsFeatureLayer(layer);
     setView(view);
 
-    const date = new Date().toISOString();
-    // const queryEventsDate = new Date(
-    //   date.setMonth(date.getMonth() - 1)
-    // ).toISOString();
-
+    // set how old events to query
+    const date = new Date();
+    const publicDate = new Date(
+      date.setMonth(date.getMonth() - 1)
+    ).toISOString();
+    const privateDate = new Date(
+      date.setMonth(date.getMonth() - 6)
+    ).toISOString();
+    const queryDate = layer.title !== "public" ? publicDate : privateDate;
+    // query events from feature layer
     view.when(function () {
       layer
         .queryFeatures({
-          where: "RENGINIO_PABAIGA > '" + date + "'",
-          // where: ["1=1"],
+          where: "RENGINIO_PABAIGA > '" + queryDate + "'",
           outFields: ["*"],
           returnGeometry: true,
         })
