@@ -6,6 +6,8 @@ export const MapDiv = styled.div`
   position: relative !important;
 `;
 
+export const Content = styled.div``;
+
 export const SearchDiv = styled.div`
   position: absolute;
   right: 20px;

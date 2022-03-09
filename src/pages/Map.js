@@ -7,7 +7,7 @@ import React, {
   useContext,
 } from "react";
 // Styles
-import { MapDiv, SearchDiv, SketchDiv } from "./Map.style";
+import { MapDiv, SearchDiv, Content, SketchDiv } from "./Map.style";
 // context
 import { AuthContext } from "../context/AuthContext";
 // Hooks
@@ -606,7 +606,7 @@ function Map() {
   return (
     <>
       <MapDiv ref={mapRef}>
-        <>
+        <Content>
           {error && <Notification type={type} message={error} />}
           <Loading id="loading" />
           {!isMobile && (
@@ -786,7 +786,7 @@ function Map() {
               )}
             </EventCard>
           )}
-        </>
+        </Content>
       </MapDiv>
     </>
   );
