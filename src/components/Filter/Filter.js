@@ -158,6 +158,13 @@ const Filter = ({
     }
   };
 
+  // clear button
+  const handleClearFilter = () => {
+    resetDefault();
+    handleClear();
+    handleClearCheckbox();
+  };
+
   return (
     <Wrapper>
       <ButtonDivs>
@@ -254,14 +261,7 @@ const Filter = ({
                         </CheckBoxDiv>
                       );
                     })}
-                  <ClearButton
-                    handleClick={() => {
-                      resetDefault();
-                      handleClear();
-                      handleClearCheckbox();
-                    }}
-                    value="clear"
-                  >
+                  <ClearButton handleClick={handleClearFilter} value="clear">
                     IŠVALYTI
                   </ClearButton>
                 </FilterContent>

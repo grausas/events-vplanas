@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
   } else {
     if (now - setupTime > hours * 60 * 60 * 1000) {
       localStorage.clear();
-      // localStorage.setItem("setupTime", now);
     }
   }
 

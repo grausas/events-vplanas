@@ -47,7 +47,6 @@ import { featureLayer, featureLayerPrivate } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
-// import { updatePolygon } from "../helpers/UpdatePolygon";
 import { editPolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
@@ -81,8 +80,6 @@ function Map() {
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
-
-  // console.log("addNewFeature", addNewFeature);
 
   // mobile screen size
   const handleResize = () => {
@@ -324,13 +321,12 @@ function Map() {
     setShortResults(filterResults());
   }, [data, filterResults]);
 
+  // helpers functions
   const addEvents = () =>
     addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
   const addPolygon = () => drawNewPolygon(view, setAddNewFeature);
-  // const updateCurrentPolygon = () =>
-  //   updatePolygon(view, addNewFeature, setAddNewFeature);
   const deleteEvent = () =>
     deleteFeatureEvent(eventsFeatureLayer, queryPoint, setType, setError);
 
@@ -430,7 +426,6 @@ function Map() {
     });
 
     // on map click, get events from clicked place
-
     view &&
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
@@ -445,14 +440,6 @@ function Map() {
                   spatialRelationship: "intersects",
                   where: "OBJECTID IN (" + arrIds + ")",
                   returnGeometry: true,
-                  // returnCentroid: true,
-                  // maxAllowableOffset: 222,
-                  // quantizationParameters: {
-                  //   originPosition: "upper-left",
-                  //   mode: view,
-                  //   tolerance: 4820,
-                  //   extent: layer.fullExtent,
-                  // },
                 })
                 .then(function (response) {
                   if (response.features.length > 1) {
@@ -537,7 +524,6 @@ function Map() {
   }, [data.features]);
 
   // open event clicked in events timeline
-  // let highlight;
 
   const openEvent = (event) => {
     const filterResult = filteredResults.filter(
