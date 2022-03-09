@@ -184,20 +184,15 @@ function Map() {
   const filterDates = useCallback(() => {
     if (view && (startDate || finishDate) && valuesArr.length === 0) {
       const filteredDates = datesFilter(data.features);
+      const filteredObjectIds = filteredDates.map(
+        (item) => item.attributes.OBJECTID
+      );
       setFilteredResults(filteredDates);
       view
         .whenLayerView(eventsFeatureLayer)
         .then((layerView) => {
           layerView.filter = {
-            where:
-              startDate && finishDate
-                ? "RENGINIO_PABAIGA >= " +
-                  startDate +
-                  " AND RENGINIO_PRADZIA <= " +
-                  finishDate
-                : startDate
-                ? "RENGINIO_PABAIGA >= " + startDate
-                : "RENGINIO_PABAIGA <= " + finishDate,
+            where: "OBJECTID IN (" + filteredObjectIds + ")",
           };
         })
         .catch((error) => {
@@ -226,42 +221,25 @@ function Map() {
     if (isChecked && itemValue !== 0) {
       valuesArr.push(itemValue);
 
-      const filteredDates = data.features.filter((item) =>
-        valuesArr.includes(item.attributes.KATEGORIJA)
+      const filteredDates = datesFilter(
+        sortByDate(
+          data.features.filter((item) =>
+            valuesArr.includes(item.attributes.KATEGORIJA)
+          )
+        )
       );
-      setFilteredResults(datesFilter(sortByDate(filteredDates)));
-
+      setFilteredResults(filteredDates);
+      const filteredObjectIds = filteredDates.map(
+        (item) => item.attributes.OBJECTID
+      );
       const values = valuesArr.map((el) => el);
 
       view.whenLayerView(eventsFeatureLayer).then((layerView) => {
         for (let i = 0; i < values.length; i++) {
           newArr.push(values[i]);
         }
-        const newArrStr = newArr.join();
-
         layerView.filter = {
-          where:
-            startDate && finishDate
-              ? "KATEGORIJA IN (" +
-                newArrStr +
-                ") AND " +
-                "RENGINIO_PABAIGA >= " +
-                startDate +
-                " AND RENGINIO_PRADZIA <= " +
-                finishDate
-              : startDate
-              ? "KATEGORIJA IN (" +
-                newArrStr +
-                ") AND " +
-                "RENGINIO_PABAIGA >= " +
-                startDate
-              : "KATEGORIJA IN (" +
-                newArrStr +
-                ") AND " +
-                "RENGINIO_PRADZIA <= " +
-                finishDate
-              ? "KATEGORIJA IN (" + newArrStr + ")"
-              : null,
+          where: "OBJECTID IN (" + filteredObjectIds + ")",
         };
       });
     } else if (!isChecked && valuesArr.length > 0) {
@@ -320,15 +298,6 @@ function Map() {
               : null,
         };
       });
-    } else if (itemValue === 0) {
-      view.whenLayerView(eventsFeatureLayer).then((layerView) => {
-        layerView.filter = {
-          where: ["1=1"],
-        };
-      });
-      setStartDate("");
-      setFinishDate("");
-      setValuesArr([]);
     } else {
       return null;
     }
