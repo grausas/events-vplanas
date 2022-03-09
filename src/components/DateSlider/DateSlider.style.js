@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``;
-
 export const IconDiv = styled.div`
   position: absolute;
   display: flex;
