@@ -22,6 +22,8 @@ const TimeSlider = ({
   const [finishDate, setFinishtDate] = useState("");
   const [dateSlider, setDateSlider] = useState("");
 
+  let timeLayerView;
+
   const handleOpenModal = () => {
     setOpenModal(!openModal);
   };
@@ -44,7 +46,6 @@ const TimeSlider = ({
       openModal &&
       layer.when(function () {
         // wait until the layer view is loaded
-        let timeLayerView;
         view.whenLayerView(layer).then((layerView) => {
           timeLayerView = layerView;
           const fullTimeExtent = layer.timeInfo.fullTimeExtent;
@@ -60,16 +61,17 @@ const TimeSlider = ({
           };
         });
 
-        dateSlider.watch("timeExtent", (value) => {
-          setStartDate(new Date(value.start).getTime());
-          setFinishtDate(new Date(value.end).getTime());
-
+        dateSlider.watch("timeExtent", function (value) {
+          const start = new Date(value.start).getTime();
+          const end = new Date(value.end).getTime();
+          setStartDate(start);
+          setFinishtDate(end);
+          view.timeExtent = null;
           timeLayerView.filter = {
-            timeExtent: value,
+            where:
+              "RENGINIO_PABAIGA >= " + start + " AND RENGINIO_PRADZIA <=" + end,
           };
         });
-
-        dateSlider.render();
       });
   }, [dateSlider, startOfDay, endOfDay]);
 
@@ -88,6 +90,7 @@ const TimeSlider = ({
           );
         }
       });
+
       setShortResults(sortByDate(filteredDate));
     }
   }, [startDate, finishDate]);
