@@ -5,7 +5,7 @@ export const graphicsLayer = new GraphicsLayer({
   title: "graphics",
 });
 // Sketch widget
-export const drawNewPolygon = (view, setState) => {
+export const drawNewPolygon = (view, setState, layer) => {
   view &&
     view.when(() => {
       const sketch = new Sketch({
@@ -33,6 +33,7 @@ export const drawNewPolygon = (view, setState) => {
       });
 
       sketch.on("create", function (event) {
+        layer.opacity = 0.2;
         let sketchGeometry;
         if (event.state === "complete") {
           sketchGeometry = event.graphic.geometry;
@@ -42,6 +43,9 @@ export const drawNewPolygon = (view, setState) => {
             geometry: sketchGeometry,
             rings: [...s.rings, sketchRings],
           }));
+        }
+        if (event.state === "cancel") {
+          layer.opacity = 1;
         }
       });
       sketch.on("delete", function (event) {

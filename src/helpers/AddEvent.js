@@ -68,6 +68,7 @@ export const addEventsFeature = (params, layer, type, message) => {
         message("Renginys sėkmingai pridėtas");
       }
       graphicsLayer.removeAll();
+      layer.opacity = 1;
     })
     .catch((error) => {
       if (error) {

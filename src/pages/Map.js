@@ -326,7 +326,8 @@ function Map() {
     addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
     updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
-  const addPolygon = () => drawNewPolygon(view, setAddNewFeature);
+  const addPolygon = () =>
+    drawNewPolygon(view, setAddNewFeature, eventsFeatureLayer);
   const deleteEvent = () =>
     deleteFeatureEvent(eventsFeatureLayer, queryPoint, setType, setError);
 
