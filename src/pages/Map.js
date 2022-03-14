@@ -421,8 +421,6 @@ function Map() {
                   returnGeometry: true,
                 })
                 .then(function (response) {
-                  console.log("isEditing", isEditing);
-
                   if (response.features.length > 1) {
                     setShortResults(sortByDate(response.features));
                     const result =
@@ -621,7 +619,7 @@ function Map() {
     },
   });
 
-  const haandleEditFeature = () => {
+  const handleEditFeature = () => {
     view.when(function () {
       setIsEditing(true);
       view.on("immediate-click", function (event) {
@@ -630,36 +628,28 @@ function Map() {
           console.log("State:: " + sketchViewModel.state);
           return;
         }
-        view.hitTest(event).then(function (response) {
-          if (response.results.length >= 1) {
-            console.log(response.results[0]);
-            const editGraphic = response.results[0].graphic;
-            graphicsLayer.graphics.add(editGraphic);
-            sketchViewModel.update(editGraphic, { tool: "reshape" });
-            eventsFeatureLayer.definitionExpression =
-              "OBJECTID <> " + editGraphic.attributes.OBJECTID;
-          }
-        });
+        view
+          .hitTest(event, { include: [graphicsLayer, eventsFeatureLayer] })
+          .then(function (response) {
+            if (response.results.length >= 1) {
+              console.log(response.results[0]);
+              const editGraphic = response.results[0].graphic;
+              graphicsLayer.graphics.add(editGraphic);
+              sketchViewModel.update(editGraphic, { tool: "reshape" });
+              eventsFeatureLayer.definitionExpression =
+                "OBJECTID <> " + editGraphic.attributes.OBJECTID;
+            }
+          });
       });
 
       sketchViewModel.on(["update", "undo", "redo"], function (event) {
         if (event.state === "complete") {
           const graphic = event.graphics[0].geometry;
-          const eventattributes = event.graphics[0].attributes;
-
           console.log("graphic", graphic);
-
-          const editFeature = new Graphic({
-            attributes: {
-              OBJECTID: eventattributes.OBJECTID,
-            },
+          setQueryPoint({
+            ...queryPoint,
             geometry: graphic,
           });
-
-          const edits = {
-            updateFeatures: [editFeature],
-          };
-          eventsFeatureLayer.applyEdits(edits);
         }
       });
     });
@@ -686,7 +676,7 @@ function Map() {
           <SearchDiv id="SearchDiv" />
           {!!auth.token && (
             <SketchDiv id="SketchDiv">
-              <button onClick={haandleEditFeature}>Redaguoti objektą</button>
+              <button onClick={handleEditFeature}>Redaguoti objektą</button>
               <div id="EditDiv"></div>
             </SketchDiv>
           )}
@@ -809,6 +799,7 @@ function Map() {
               SavaitesDienos={queryPoint.Savaites_dienos}
               category={queryPoint.KATEGORIJA}
               isMobile={!isMobile}
+              handleEditEvent={handleEditFeature}
               handleChange={(e) => {
                 setQueryPoint([]);
                 handleOpenModal();
