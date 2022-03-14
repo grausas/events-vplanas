@@ -1,8 +1,14 @@
 import Graphic from "@arcgis/core/Graphic";
 
 // gal neleisti koreguoti datu, nes per daug keitimo atsiranfa
-export const updateEventFeature = (params, layer, type, message) => {
-  console.log("params", params);
+export const updateEventFeature = (params, layer, type, message, rings) => {
+  console.log("params", rings.rings);
+  console.log("rings.geometry", rings.geometry);
+
+  if (rings.rings) {
+    rings.rings.map((item) => params.geometry.addRing(item));
+  }
+
   const editFeature = new Graphic({
     attributes: {
       OBJECTID: params.OBJECTID,
@@ -18,6 +24,8 @@ export const updateEventFeature = (params, layer, type, message) => {
     },
     geometry: params.geometry,
   });
+
+  console.log("editFeature", editFeature);
 
   const edits = {
     updateFeatures: [editFeature],

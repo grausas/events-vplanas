@@ -328,7 +328,13 @@ function Map() {
   const addEvents = () =>
     addEventsFeature(addNewFeature, eventsFeatureLayer, setType, setError);
   const updateEvent = () =>
-    updateEventFeature(queryPoint, eventsFeatureLayer, setType, setError);
+    updateEventFeature(
+      queryPoint,
+      eventsFeatureLayer,
+      setType,
+      setError,
+      addNewFeature
+    );
   const addPolygon = () =>
     drawNewPolygon(view, setAddNewFeature, eventsFeatureLayer);
   const deleteEvent = () =>
@@ -676,7 +682,6 @@ function Map() {
           <SearchDiv id="SearchDiv" />
           {!!auth.token && (
             <SketchDiv id="SketchDiv">
-              <button onClick={handleEditFeature}>Redaguoti objektą</button>
               <div id="EditDiv"></div>
             </SketchDiv>
           )}
