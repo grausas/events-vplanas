@@ -17,6 +17,8 @@ import { useOpenCloseModal } from "../hooks/openModal";
 import * as watchUtils from "@arcgis/core/core/watchUtils";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
+import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
+import Graphic from "@arcgis/core/Graphic";
 
 // locale
 import * as intl from "@arcgis/core/intl";
@@ -77,6 +79,7 @@ function Map() {
   const [arrIds, setArrIds] = useState([]);
   const [byExtent, setByExtent] = useState();
   const [isMobile, setIsMobile] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -401,6 +404,60 @@ function Map() {
       loader.style.display = "none";
     });
 
+    // on map click, get events from clicked place
+    view &&
+      view.on("immediate-click", function (event) {
+        view.hitTest(event, { include: layer }).then(function (response) {
+          if (response.results.length >= 1) {
+            view.whenLayerView(layer).then(function (layerView) {
+              layerView
+                .queryFeatures({
+                  geometry: view.toMap(event),
+                  outFields: ["*"],
+                  distance: 100,
+                  units: "meters",
+                  spatialRelationship: "intersects",
+                  where: "OBJECTID IN (" + arrIds + ")",
+                  returnGeometry: true,
+                })
+                .then(function (response) {
+                  console.log("isEditing", isEditing);
+
+                  if (response.features.length > 1) {
+                    setShortResults(sortByDate(response.features));
+                    const result =
+                      response.features &&
+                      response.features.map((item) => item.attributes.OBJECTID);
+                    layer.featureEffect = {
+                      filter: {
+                        objectIds: result,
+                      },
+                      excludedEffect: "opacity(30%) ",
+                      includedEffect: "drop-shadow(0px, 0px, 3px)",
+                    };
+                  } else if (
+                    response.features.length === 1 &&
+                    openModal === false
+                  ) {
+                    setQueryPoint(response.features[0].attributes);
+                    handleOpenModal(!openModal);
+
+                    layer.featureEffect = {
+                      filter: {
+                        objectIds: response.features[0].attributes.OBJECTID,
+                      },
+                      excludedEffect: "opacity(30%) ",
+                      includedEffect: "drop-shadow(0px, 0px, 3px)",
+                    };
+                  }
+                });
+            });
+          } else {
+            return null;
+          }
+        });
+      });
+
     // search
     const sources = [
       {
@@ -425,57 +482,6 @@ function Map() {
         allPlaceholder: "Ieškoti adreso arba vietovės",
       });
     });
-
-    // on map click, get events from clicked place
-    view &&
-      view.on("immediate-click", function (event) {
-        view.hitTest(event, { include: layer }).then(function (response) {
-          if (response.results.length >= 1) {
-            view.whenLayerView(layer).then(function (layerView) {
-              layerView
-                .queryFeatures({
-                  geometry: view.toMap(event),
-                  outFields: ["*"],
-                  distance: 50,
-                  units: "meters",
-                  spatialRelationship: "intersects",
-                  where: "OBJECTID IN (" + arrIds + ")",
-                  returnGeometry: true,
-                })
-                .then(function (response) {
-                  if (response.features.length > 1) {
-                    setShortResults(sortByDate(response.features));
-                    const result =
-                      response.features &&
-                      response.features.map((item) => item.attributes.OBJECTID);
-                    layer.featureEffect = {
-                      filter: {
-                        objectIds: result,
-                      },
-                      excludedEffect: "opacity(30%) ",
-                      includedEffect: "drop-shadow(0px, 0px, 3px)",
-                    };
-                  } else if (
-                    response.features.length === 1 &&
-                    openModal === false
-                  ) {
-                    setQueryPoint(response.features[0].attributes);
-                    handleOpenModal(!openModal);
-                    layer.featureEffect = {
-                      filter: {
-                        objectIds: response.features[0].attributes.OBJECTID,
-                      },
-                      excludedEffect: "opacity(30%) ",
-                      includedEffect: "drop-shadow(0px, 0px, 3px)",
-                    };
-                  }
-                });
-            });
-          } else {
-            return null;
-          }
-        });
-      });
 
     return () => {
       view && view.destroy();
@@ -604,6 +610,61 @@ function Map() {
     }
   };
 
+  // edit feature
+  const sketchViewModel = new SketchViewModel({
+    view,
+    layer: graphicsLayer,
+    updateOnGraphicClick: false,
+    defaultUpdateOptions: {
+      // set the default options for the update operations
+      toggleToolOnClick: false, // only reshape operation will be enabled
+    },
+  });
+
+  const haandleEditFeature = () => {
+    view.when(function () {
+      setIsEditing(true);
+      view.on("immediate-click", function (event) {
+        console.log("State:: " + sketchViewModel.state);
+        if (sketchViewModel.state === "active") {
+          console.log("State:: " + sketchViewModel.state);
+          return;
+        }
+        view.hitTest(event).then(function (response) {
+          if (response.results.length >= 1) {
+            console.log(response.results[0]);
+            const editGraphic = response.results[0].graphic;
+            graphicsLayer.graphics.add(editGraphic);
+            sketchViewModel.update(editGraphic, { tool: "reshape" });
+            eventsFeatureLayer.definitionExpression =
+              "OBJECTID <> " + editGraphic.attributes.OBJECTID;
+          }
+        });
+      });
+
+      sketchViewModel.on(["update", "undo", "redo"], function (event) {
+        if (event.state === "complete") {
+          const graphic = event.graphics[0].geometry;
+          const eventattributes = event.graphics[0].attributes;
+
+          console.log("graphic", graphic);
+
+          const editFeature = new Graphic({
+            attributes: {
+              OBJECTID: eventattributes.OBJECTID,
+            },
+            geometry: graphic,
+          });
+
+          const edits = {
+            updateFeatures: [editFeature],
+          };
+          eventsFeatureLayer.applyEdits(edits);
+        }
+      });
+    });
+  };
+
   return (
     <>
       <MapDiv ref={mapRef}>
@@ -625,6 +686,7 @@ function Map() {
           <SearchDiv id="SearchDiv" />
           {!!auth.token && (
             <SketchDiv id="SketchDiv">
+              <button onClick={haandleEditFeature}>Redaguoti objektą</button>
               <div id="EditDiv"></div>
             </SketchDiv>
           )}
@@ -715,16 +777,13 @@ function Map() {
             />
           </EventsSchedule>
           {/* Pridėti naują renginį  */}
-          {auth.token && (
+          {auth.token && !isEditing && (
             <AddEvent
               isLoggedIn={!!auth.token}
               setAddNewFeature={setAddNewFeature}
               addNewFeature={addNewFeature}
               startDate={startDate}
               events={data}
-              handleCordinates={() => {
-                eventsFeatureLayer.opacity = 0.3;
-              }}
               handleSubmit={(e) => {
                 e.preventDefault();
                 eventsFeatureLayer.opacity = 1;

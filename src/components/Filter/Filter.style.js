@@ -175,12 +175,6 @@ export const FilterButton = styled(Button)`
   }
 `;
 
-export const DayButton = styled(Button)`
-  font-size: var(--fontSmall);
-  padding: 2px 5px;
-  background: var(-green);
-`;
-
 export const Dropdown = styled.div`
   margin-top: 10px;
   position: relative;
