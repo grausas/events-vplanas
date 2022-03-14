@@ -38,8 +38,8 @@ const EventCard = ({
   handleChange,
   handleLocation,
   isLoggedIn,
-  SavaitesDienos,
   isMobile,
+  handleEditEvent,
 }) => {
   const { handleOpen, show } = useOpenClose();
   const result = CategoryData.find(({ id }) => id === Number(category));
@@ -52,7 +52,14 @@ const EventCard = ({
         <Wrapper>
           <Close backgroundColor={category}>
             {isLoggedIn && (
-              <EditIcon src={Edit} alt="edit-icon" onClick={handleOpen} />
+              <EditIcon
+                src={Edit}
+                alt="edit-icon"
+                onClick={() => {
+                  handleOpen();
+                  handleEditEvent();
+                }}
+              />
             )}
             <Logo backgroundImage={category} />
             <CategoryDiv>
@@ -74,11 +81,6 @@ const EventCard = ({
                 <EventDates>
                   <p>Pradžia: {startDate}</p>
                   <p>Pabaiga: {finishDate}</p>
-                  {/* <p>
-                    {SavaitesDienos && SavaitesDienos.length > 12
-                      ? "Vyksta kiekvieną dieną"
-                      : null}
-                  </p> */}
                 </EventDates>
               </Text>
               <Text>

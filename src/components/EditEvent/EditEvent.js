@@ -37,6 +37,55 @@ const EditEvent = ({
       show: false,
     });
   };
+
+  const handleChangeStartTime = (date) => {
+    const startDate = new Date(queryPoint.RENGINIO_PRADZIA);
+    if (startDate) {
+      const [month, day, year] = [
+        startDate.getMonth(),
+        startDate.getDate(),
+        startDate.getFullYear(),
+      ];
+      if (date && startDate) {
+        const [hours, minutes] = [date.getHours(), date.getMinutes()];
+        const newDate = new Date(date.setFullYear(year, [month], [day]));
+        newDate.setHours(hours, [minutes]);
+        setQueryPoint({
+          ...queryPoint,
+          RENGINIO_PRADZIA: newDate,
+        });
+      }
+    } else {
+      setQueryPoint({
+        ...queryPoint,
+        RENGINIO_PRADZIA: date,
+      });
+    }
+  };
+  const handleChangeFinishTime = (date) => {
+    const finishDate = new Date(queryPoint.RENGINIO_PRADZIA);
+    if (finishDate) {
+      const [month, day, year] = [
+        finishDate.getMonth(),
+        finishDate.getDate(),
+        finishDate.getFullYear(),
+      ];
+      if (date) {
+        const [hours, minutes] = [date.getHours(), date.getMinutes()];
+        const newDate = new Date(date.setFullYear(year, [month], [day]));
+        newDate.setHours(hours, [minutes]);
+        setQueryPoint({
+          ...queryPoint,
+          RENGINIO_PABAIGA: newDate,
+        });
+      }
+    } else {
+      setQueryPoint({
+        ...queryPoint,
+        RENGINIO_PABAIGA: date,
+      });
+    }
+  };
   return (
     <>
       {!popup.show ? (
@@ -48,12 +97,13 @@ const EditEvent = ({
               timeTitle="Pradžios laikas"
               dateTitle="Pradžios data"
               selected={queryPoint.RENGINIO_PRADZIA}
-              handleChange={(date, e) => {
+              handleChange={(date) => {
                 setQueryPoint({
                   ...queryPoint,
                   RENGINIO_PRADZIA: date,
                 });
               }}
+              handleChangeTime={handleChangeStartTime}
             />
             <DatePicker
               timeTitle="Pabaigos laikas"
@@ -65,6 +115,7 @@ const EditEvent = ({
                   RENGINIO_PABAIGA: date,
                 });
               }}
+              handleChangeTime={handleChangeFinishTime}
             />
             <InputField
               type="text"
