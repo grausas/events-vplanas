@@ -136,14 +136,6 @@ const AddEvent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDateArr, weekDayArr]);
 
-  useEffect(() => {
-    setAddNewFeature({
-      ...addNewFeature,
-      rings: "",
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // suggestion organization
   const lowerEvents =
     events.features &&
@@ -221,21 +213,19 @@ const AddEvent = ({
     handleClearCheckbox();
     setValueName("");
     setValue("");
-    setAddNewFeature({ rings: "" });
     handleOpen();
   };
 
   const handleClearButton = () => {
     handleCancel();
     setStartDateArr([]);
-    setAddNewFeature({ rings: "" });
     handleOpen();
   };
 
   return isLoggedIn ? (
     <>
       <AddObjectButton>
-        {addNewFeature.geometry && !addNewFeature.geometry.length > 0 ? (
+        {addNewFeature.geometry && addNewFeature.geometry.length > 0 ? (
           <span onClick={handleOpen}>Užpildykite duomenis</span>
         ) : (
           <span>Nubraižykite objektą</span>

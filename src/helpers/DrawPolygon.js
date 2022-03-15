@@ -4,6 +4,9 @@ import Sketch from "@arcgis/core/widgets/Sketch";
 export const graphicsLayer = new GraphicsLayer({
   title: "graphics",
 });
+
+let arr = [];
+
 // Sketch widget
 export const drawNewPolygon = (view, setState, layer) => {
   view &&
@@ -35,13 +38,17 @@ export const drawNewPolygon = (view, setState, layer) => {
       sketch.on("create", function (event) {
         layer.opacity = 0.2;
         let sketchGeometry;
+
         if (event.state === "complete") {
           sketchGeometry = event.graphic.geometry;
           const sketchRings = event.graphic.geometry.rings[0];
-
+          if (arr.length > 0) {
+            arr[0].rings.push(sketchRings);
+          } else {
+            arr.push(sketchGeometry);
+          }
           setState((s) => ({
-            geometry: sketchGeometry,
-            rings: [...s.rings, sketchRings],
+            geometry: arr,
           }));
         }
         if (event.state === "cancel") {
@@ -49,9 +56,10 @@ export const drawNewPolygon = (view, setState, layer) => {
         }
       });
       sketch.on("delete", function (event) {
+        graphicsLayer.removeAll();
+        arr = [];
         setState({
           geometry: "",
-          rings: "",
         });
       });
     });

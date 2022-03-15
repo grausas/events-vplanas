@@ -3,11 +3,6 @@ import { graphicsLayer } from "./DrawPolygon";
 
 export const addEventsFeature = (params, layer, type, message) => {
   var features = [];
-  // check if more polygon exist and change than change geometry
-  if (params.rings) {
-    params.geometry.rings = params.rings;
-  }
-
   if (
     params.startDateArr &&
     params.startDateArr.length > 0 &&
@@ -29,7 +24,7 @@ export const addEventsFeature = (params, layer, type, message) => {
               ? params.Savaites_dienos
               : "nera",
         },
-        geometry: params.geometry,
+        geometry: params.geometry[0],
       });
       return features.push(addFeature1);
     });
@@ -49,7 +44,7 @@ export const addEventsFeature = (params, layer, type, message) => {
             ? params.Savaites_dienos
             : "nera",
       },
-      geometry: params.geometry,
+      geometry: params.geometry[0],
     });
     features.push(addFeature);
   }

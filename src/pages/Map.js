@@ -649,7 +649,7 @@ function Map() {
       });
 
       sketchViewModel.on(["update", "undo", "redo"], function (event) {
-        if (event.state === "complete") {
+        if (event.state === "complete" || event.state === "cancel") {
           const graphic = event.graphics[0].geometry;
           console.log("graphic", graphic);
           setQueryPoint({
@@ -820,7 +820,6 @@ function Map() {
                   queryPoint={queryPoint}
                   handleChange={() => {
                     handleOpenModal();
-                    handleOpen(show);
                   }}
                   handleSubmit={(e) => {
                     e.preventDefault();
