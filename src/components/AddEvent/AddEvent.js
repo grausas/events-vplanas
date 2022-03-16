@@ -47,15 +47,6 @@ const AddEvent = ({
     { day: "Sekmadienis", value: 0 },
   ];
 
-  // add more polygons rings
-  useEffect(() => {
-    setAddNewFeature({
-      ...addNewFeature,
-      rings: "",
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // Clicked checkboxes add to array
   const [checkedItems, setCheckeditems] = useState(weekday);
   const handleOnChange = useCallback(
@@ -232,6 +223,15 @@ const AddEvent = ({
     handleOpen();
     setAddNewFeature({ rings: "" });
   };
+
+  // add more polygons rings
+  useEffect(() => {
+    setAddNewFeature({
+      ...addNewFeature,
+      rings: "",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return isLoggedIn ? (
     <>
