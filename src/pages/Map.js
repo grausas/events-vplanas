@@ -615,50 +615,75 @@ function Map() {
   };
 
   // edit feature
-  const sketchViewModel = new SketchViewModel({
-    view,
-    layer: graphicsLayer,
-    updateOnGraphicClick: false,
-    defaultUpdateOptions: {
-      // set the default options for the update operations
-      toggleToolOnClick: false, // only reshape operation will be enabled
-    },
-  });
 
-  const handleEditFeature = () => {
-    view.when(function () {
-      setIsEditing(true);
-      view.on("immediate-click", function (event) {
-        console.log("State:: " + sketchViewModel.state);
-        if (sketchViewModel.state === "active") {
-          console.log("State:: " + sketchViewModel.state);
-          return;
-        }
-        view
-          .hitTest(event, { include: [graphicsLayer, eventsFeatureLayer] })
-          .then(function (response) {
-            if (response.results.length >= 1) {
-              console.log(response.results[0]);
-              const editGraphic = response.results[0].graphic;
-              graphicsLayer.graphics.add(editGraphic);
-              sketchViewModel.update(editGraphic, { tool: "reshape" });
-              eventsFeatureLayer.definitionExpression =
-                "OBJECTID <> " + editGraphic.attributes.OBJECTID;
-            }
-          });
+  view &&
+    view.when(() => {
+      let sketchViewModel;
+      let arr = [];
+
+      sketchViewModel = new SketchViewModel({
+        view: view,
+        layer: graphicsLayer,
+        defaultUpdateOptions: {
+          tool: "reshape",
+          toggleToolOnClick: false,
+          mode: "click",
+        },
+        polygonSymbol: {
+          type: "simple-fill",
+          color: [0, 0, 0, 0.2],
+          style: "none",
+          outline: {
+            style: "dash",
+            color: [168, 168, 168, 1],
+            width: 2,
+          },
+        },
       });
+      isEditing && setUpClickHandler();
 
-      sketchViewModel.on(["update", "undo", "redo"], function (event) {
-        if (event.state === "complete" || event.state === "cancel") {
+      function setUpClickHandler() {
+        view.on("click", function (event) {
+          if (sketchViewModel.state === "active") {
+            console.log("State2222:: " + sketchViewModel.state);
+            return;
+          }
+          view
+            .hitTest(event, { include: [graphicsLayer, eventsFeatureLayer] })
+            .then(function (response) {
+              if (response.results.length >= 1) {
+                console.log(response.results[0]);
+                const editGraphic = response.results[0].graphic;
+                graphicsLayer.graphics.add(editGraphic);
+                eventsFeatureLayer.definitionExpression =
+                  "OBJECTID <> " + editGraphic.attributes.OBJECTID;
+                sketchViewModel.update(editGraphic);
+              }
+            });
+        });
+      }
+      sketchViewModel.on(["update", "undo", "redo"], onGraphicUpdate);
+
+      function onGraphicUpdate(event) {
+        if (
+          event.toolEventInfo &&
+          (event.toolEventInfo.type === "move-stop" ||
+            event.toolEventInfo.type === "reshape-stop")
+        ) {
           const graphic = event.graphics[0].geometry;
           console.log("graphic", graphic);
+          arr.push(graphic);
           setQueryPoint({
             ...queryPoint,
             geometry: graphic,
           });
+          sketchViewModel.complete();
         }
-      });
+      }
     });
+
+  const handleEditFeature = () => {
+    setIsEditing(true);
   };
 
   return (

@@ -5,7 +5,7 @@ export const graphicsLayer = new GraphicsLayer({
   title: "graphics",
 });
 
-let arr = [];
+// let arr = [];
 
 // Sketch widget
 export const drawNewPolygon = (view, setState, layer) => {
@@ -37,29 +37,31 @@ export const drawNewPolygon = (view, setState, layer) => {
 
       sketch.on("create", function (event) {
         layer.opacity = 0.2;
-        let sketchGeometry;
 
         if (event.state === "complete") {
-          sketchGeometry = event.graphic.geometry;
+          const sketchGeometry = event.graphic.geometry;
           const sketchRings = event.graphic.geometry.rings[0];
-          if (arr.length > 0) {
-            arr[0].rings.push(sketchRings);
-          } else {
-            arr.push(sketchGeometry);
-          }
+          // if (arr.length > 0) {
+          //   arr[0].rings.push(sketchRings);
+          // } else {
+          //   arr.push(sketchGeometry);
+          // }
           setState((s) => ({
-            geometry: arr,
+            geometry: sketchGeometry,
+            rings: [...s.rings, sketchRings],
           }));
         }
         if (event.state === "cancel") {
           layer.opacity = 1;
         }
       });
+
       sketch.on("delete", function (event) {
         graphicsLayer.removeAll();
-        arr = [];
+        // arr = [];
         setState({
           geometry: "",
+          rings: "",
         });
       });
     });

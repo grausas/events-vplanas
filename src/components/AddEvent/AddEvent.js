@@ -47,6 +47,15 @@ const AddEvent = ({
     { day: "Sekmadienis", value: 0 },
   ];
 
+  // add more polygons rings
+  useEffect(() => {
+    setAddNewFeature({
+      ...addNewFeature,
+      rings: "",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Clicked checkboxes add to array
   const [checkedItems, setCheckeditems] = useState(weekday);
   const handleOnChange = useCallback(
@@ -214,18 +223,20 @@ const AddEvent = ({
     setValueName("");
     setValue("");
     handleOpen();
+    setAddNewFeature({ rings: "" });
   };
 
   const handleClearButton = () => {
     handleCancel();
     setStartDateArr([]);
     handleOpen();
+    setAddNewFeature({ rings: "" });
   };
 
   return isLoggedIn ? (
     <>
       <AddObjectButton>
-        {addNewFeature.geometry && addNewFeature.geometry.length > 0 ? (
+        {addNewFeature.geometry && !addNewFeature.geometry.length > 0 ? (
           <span onClick={handleOpen}>Užpildykite duomenis</span>
         ) : (
           <span>Nubraižykite objektą</span>
