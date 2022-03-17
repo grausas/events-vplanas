@@ -20,4 +20,5 @@ export const Wrapper = styled.div`
 
 export const Icon = styled.img`
   width: 22px;
+  height: 22px;
 `;

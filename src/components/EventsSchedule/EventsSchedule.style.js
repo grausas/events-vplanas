@@ -132,7 +132,7 @@ export const ExpandImage = styled.img`
   cursor: pointer;
 
   @media only screen and (max-width: 768px) {
-    width: 25px;
+    width: 24px;
     right: 0px;
     top: 5px;
   }

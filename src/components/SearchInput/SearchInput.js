@@ -22,7 +22,7 @@ const SearchInput = ({
   return (
     <>
       <InputDiv>
-        <Icon src={Search} />
+        <Icon src={Search} alt="search_icon" />
         <Input
           type="text"
           defaultValue={defaultValue}

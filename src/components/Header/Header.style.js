@@ -35,7 +35,8 @@ export const LogoDiv = styled.div`
 `;
 
 export const Logo = styled.img`
-  height: 100%;
+  /* width: 40px; */
+  height: 40px;
 `;
 
 export const Text = styled.span`
