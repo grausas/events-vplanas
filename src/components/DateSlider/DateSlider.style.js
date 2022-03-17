@@ -20,6 +20,7 @@ export const IconDiv = styled.div`
 
 export const Icon = styled.img`
   width: 22px;
+  height: 22px;
 `;
 
 export const SliderDiv = styled.div`

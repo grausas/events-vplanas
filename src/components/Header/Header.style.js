@@ -35,7 +35,7 @@ export const LogoDiv = styled.div`
 `;
 
 export const Logo = styled.img`
-  /* width: 40px; */
+  width: į0px;
   height: 40px;
 `;
 

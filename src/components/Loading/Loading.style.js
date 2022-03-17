@@ -21,17 +21,6 @@ export const LoadingBlock = styled.div`
   bottom: 0;
   margin: auto;
 
-  span {
-    position: absolute;
-    top: -24px;
-    left: -15px;
-    background-color: var(--lightBlue);
-    font-size: var(--fontMed);
-    color: var(--silver);
-    padding: 0 5px;
-    border-radius: 5px;
-  }
-
   img {
     position: absolute;
     height: 30px;

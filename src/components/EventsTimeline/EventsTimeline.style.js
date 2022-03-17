@@ -129,6 +129,7 @@ export const EventDate = styled.span`
 
   img {
     width: 22px;
+    height: 22px;
     margin-right: 5px;
   }
 `;
