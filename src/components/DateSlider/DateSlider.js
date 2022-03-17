@@ -56,7 +56,6 @@ const TimeSlider = ({
 
           // set up time slider properties based on layer timeInfo
           dateSlider.fullTimeExtent = fullTimeExtent;
-          console.log(layer.timeInfo.fullTimeExtent);
 
           dateSlider.timeExtent = {
             start: startOfDay,
@@ -82,7 +81,7 @@ const TimeSlider = ({
   }, [dateSlider, startOfDay, endOfDay]);
 
   useEffect(() => {
-    if (data && layer) {
+    if (data && layer && openModal) {
       const filteredDate = data.features.filter((item) => {
         if (startDate && finishDate) {
           return (
