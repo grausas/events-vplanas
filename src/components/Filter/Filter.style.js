@@ -165,14 +165,6 @@ export const FilterButton = styled(Button)`
     color: var(--dark);
     border: 1px solid var(--darkSilver);
   }
-
-  img {
-    position: absolute;
-    left: 1px;
-    top: 3px;
-    width: 20px;
-    border-radius: 50%;
-  }
 `;
 
 export const Dropdown = styled.div`
