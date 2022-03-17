@@ -112,6 +112,9 @@ function Map() {
   // filter by day, week, month
 
   const handleFilterByDate = (e) => {
+    eventsFeatureLayer.featureEffect = {
+      excludedEffect: "opacity(100%) ",
+    };
     const value = e ? e.target.value : "day";
     var startOfDay = new Date();
     var endOfDay = new Date();

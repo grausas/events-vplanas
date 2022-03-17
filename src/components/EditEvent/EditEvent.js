@@ -187,7 +187,7 @@ const EditEvent = ({
             />
           </form>
           <ButtonsDiv>
-            <Button handleClick={handleSubmit}>PATVIRTINTI</Button>
+            <Button handleClick={handleSubmit}>ATNAUJINTI</Button>
             <Button handleClick={handleDelete}>
               <DeleteImage src={DeleteIcon} alt="delete-icon" />
               IŠTRINTI

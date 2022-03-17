@@ -49,9 +49,15 @@ const TimeSlider = ({
         view.whenLayerView(layer).then((layerView) => {
           timeLayerView = layerView;
           const fullTimeExtent = layer.timeInfo.fullTimeExtent;
+          const date = new Date();
+          fullTimeExtent.start = new Date(
+            date.setMonth(date.getMonth() - 1)
+          ).toISOString();
 
           // set up time slider properties based on layer timeInfo
           dateSlider.fullTimeExtent = fullTimeExtent;
+          console.log(layer.timeInfo.fullTimeExtent);
+
           dateSlider.timeExtent = {
             start: startOfDay,
             end: endOfDay,
