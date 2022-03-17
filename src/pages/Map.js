@@ -616,7 +616,7 @@ function Map() {
 
   // edit feature
 
-  view &&
+  isEditing &&
     view.when(() => {
       let sketchViewModel;
       let arr = [];
@@ -640,7 +640,7 @@ function Map() {
           },
         },
       });
-      isEditing && setUpClickHandler();
+      setUpClickHandler();
 
       function setUpClickHandler() {
         view.on("click", function (event) {
