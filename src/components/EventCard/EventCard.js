@@ -55,6 +55,7 @@ const EventCard = ({
               <EditIcon
                 src={Edit}
                 alt="edit-icon"
+                loading="lazy"
                 onClick={() => {
                   handleOpen();
                   handleEditEvent();

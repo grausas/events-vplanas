@@ -79,7 +79,7 @@ const EventsTimeline = ({
                   </CategoryDiv>
                   <Text>{event.attributes.PAVADINIMAS}</Text>
                   <EventDate>
-                    <img src={Calendar} alt="calendar-icon" />
+                    <img src={Calendar} alt="calendar-icon" loading="lazy" />
                     {event.attributes.Savaites_dienos === null ||
                     event.attributes.Savaites_dienos === "" ||
                     event.attributes.Savaites_dienos === "nera" ||

@@ -531,10 +531,7 @@ function Map() {
   }, [filteredResults]);
   // filter by selected today, week, month
   useEffect(() => {
-    view &&
-      view.when().then(() => {
-        handleFilterByDate();
-      });
+    view && handleFilterByDate();
   }, [data.features]);
 
   // open event clicked in events timeline
@@ -561,6 +558,7 @@ function Map() {
   // filter results by view extent
   let filterExtent;
   const filterByExtent = (e) => {
+    console.log("extent");
     const isChecked = e.target.checked;
     let graphics;
     if (isChecked) {
