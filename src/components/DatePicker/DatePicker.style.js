@@ -58,7 +58,6 @@ export const CustomButton = styled.input`
   border: 1px solid var(--darkSilver);
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   &:focus {
     border: 2px solid var(--lightBlue);

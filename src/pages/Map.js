@@ -543,6 +543,7 @@ function Map() {
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
+    setQueryGeometry(filterResult[0]);
     // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
@@ -630,13 +631,12 @@ function Map() {
       mode: "click",
     },
     polygonSymbol: {
-      type: "simple-fill",
-      color: [0, 0, 0, 0.2],
-      style: "none",
+      type: "simple-fill", // autocasts as new SimpleFillSymbol()
+      color: "rgba(0, 205, 255, 0.3)",
+      style: "backward-diagonal",
       outline: {
-        style: "dash",
-        color: [168, 168, 168, 1],
-        width: 2,
+        color: "red",
+        width: 1,
       },
     },
   });
@@ -693,6 +693,7 @@ function Map() {
   const handleEditFeature = () => {
     setIsEditing(true);
     console.log(queryPoint);
+    console.log("queryGeometry", queryGeometry);
     const editGraphic = queryGeometry;
     graphicsLayer.graphics.add(editGraphic);
     eventsFeatureLayer.definitionExpression =
@@ -871,6 +872,12 @@ function Map() {
                     updateEvent(queryPoint);
                     handleOpenModal(!openModal);
                     setQueryPoint([]);
+                    setIsEditing(false);
+                    graphicsLayer.removeAll();
+                    eventsFeatureLayer.definitionExpression = ["1=1"];
+                    eventsFeatureLayer.featureEffect = {
+                      excludedEffect: "opacity(100%) ",
+                    };
                   }}
                   handleDeleteConfirm={(e) => {
                     deleteEvent(queryPoint.OBJECTID);

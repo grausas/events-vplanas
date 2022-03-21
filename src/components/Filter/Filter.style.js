@@ -181,7 +181,6 @@ export const DropdownButton = styled(Button)`
   color: var(--dark);
   padding: 2px 0;
   border: 1px solid var(--darkSilver);
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   display: flex;
   justify-content: center;

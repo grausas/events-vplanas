@@ -143,8 +143,8 @@ export const Text = styled.p`
 `;
 
 export const Circle = styled.span`
-  background-color: var(--red);
-  border: 1px solid var(--red);
+  background-color: var(--grey);
+  border: 1px solid var(--grey);
   border-radius: 50%;
   position: absolute;
   top: calc(50% - 8px);
