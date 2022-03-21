@@ -80,6 +80,7 @@ function Map() {
   const [byExtent, setByExtent] = useState();
   const [isMobile, setIsMobile] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [queryGeometry, setQueryGeometry] = useState([]);
 
   const { handleOpen, show } = useOpenClose();
   const { handleOpenModal, openModal } = useOpenCloseModal();
@@ -447,6 +448,7 @@ function Map() {
                     openModal === false
                   ) {
                     setQueryPoint(response.features[0].attributes);
+                    setQueryGeometry(response.features[0]);
                     handleOpenModal(!openModal);
 
                     layer.featureEffect = {
@@ -640,29 +642,36 @@ function Map() {
   });
   let arr = [];
 
-  const setUpClickHandler = () => {
-    view.on("click", function (event) {
-      view
-        .hitTest(event, { include: [eventsFeatureLayer] })
-        .then(function (response) {
-          console.log("response", response);
-          if (response.results.length >= 1) {
-            for (var i = 0; i < response.results.length; i++) {
-              console.log("response", response.results[0]);
-              const editGraphic = response.results[i].graphic;
-              graphicsLayer.graphics.add(editGraphic);
-              eventsFeatureLayer.definitionExpression =
-                "OBJECTID <> " + editGraphic.attributes.OBJECTID;
-              sketchViewModel.update(editGraphic);
-            }
-          } else return null;
-        });
-    });
-  };
+  // const setUpClickHandler = () => {
+  //   console.log("isEdd", isEditing);
+  //   var handler =
+  //     view &&
+  //     isEditing &&
+  //     view.on("click", function (event) {
+  //       view
+  //         .hitTest(event, { include: [eventsFeatureLayer] })
+  //         .then(function (response) {
+  //           console.log("response", response);
+  //           console.log("iseEditing", isEditing);
 
-  isEditing && setUpClickHandler();
+  //           if (response.results.length >= 1) {
+  //             for (var i = 0; i < response.results.length; i++) {
+  //               console.log("response", response.results[0]);
+  //               const editGraphic = response.results[i].graphic;
+  //               graphicsLayer.graphics.add(editGraphic);
+  //               eventsFeatureLayer.definitionExpression =
+  //                 "OBJECTID <> " + editGraphic.attributes.OBJECTID;
+  //               sketchViewModel.update(editGraphic);
+  //             }
+  //           } else return handler.remove();
+  //         });
+  //     });
+  // };
 
-  sketchViewModel.on(["update", "undo", "redo"], onGraphicUpdate);
+  // isEditing ? setUpClickHandler() : console.log("null");
+  // console.log("isEditing222", isEditing);
+
+  isEditing && sketchViewModel.on(["update", "undo", "redo"], onGraphicUpdate);
 
   function onGraphicUpdate(event) {
     if (
@@ -683,6 +692,12 @@ function Map() {
 
   const handleEditFeature = () => {
     setIsEditing(true);
+    console.log(queryPoint);
+    const editGraphic = queryGeometry;
+    graphicsLayer.graphics.add(editGraphic);
+    eventsFeatureLayer.definitionExpression =
+      "OBJECTID <> " + editGraphic.attributes.OBJECTID;
+    sketchViewModel.update(editGraphic);
   };
 
   return (
@@ -844,6 +859,12 @@ function Map() {
                   queryPoint={queryPoint}
                   handleChange={() => {
                     handleOpenModal();
+                    setIsEditing(false);
+                    graphicsLayer.removeAll();
+                    eventsFeatureLayer.definitionExpression = ["1=1"];
+                    eventsFeatureLayer.featureEffect = {
+                      excludedEffect: "opacity(100%) ",
+                    };
                   }}
                   handleSubmit={(e) => {
                     e.preventDefault();
