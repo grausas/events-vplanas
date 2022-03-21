@@ -620,9 +620,7 @@ function Map() {
 
   // edit feature
 
-  let sketchViewModel;
-
-  sketchViewModel = new SketchViewModel({
+  const sketchViewModel = new SketchViewModel({
     view: view,
     layer: graphicsLayer,
     defaultUpdateOptions: {

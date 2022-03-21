@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     padding: 0 10px;
+    height: 40px;
   }
 `;
 
@@ -25,18 +26,14 @@ export const Content = styled.div`
 export const LogoDiv = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 5px;
+`;
+
+export const Logo = styled.img`
   height: 40px;
 
   @media screen and (max-width: 768px) {
     height: 35px;
-    margin-right: 5px;
   }
-`;
-
-export const Logo = styled.img`
-  width: į0px;
-  height: 40px;
 `;
 
 export const Text = styled.span`

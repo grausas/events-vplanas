@@ -58,6 +58,7 @@ const EventsTimeline = ({
             const oneDay = 1000 * 60 * 60 * 24;
             const diffInTime = endDate.getTime() - startDate.getTime();
             const diffInDays = Math.round(diffInTime / oneDay);
+            console.log(diffInDays);
 
             return (
               <TimelineItem key={event.attributes.OBJECTID}>
@@ -80,12 +81,13 @@ const EventsTimeline = ({
                   <Text>{event.attributes.PAVADINIMAS}</Text>
                   <EventDate>
                     <img src={Calendar} alt="calendar-icon" loading="lazy" />
-                    {event.attributes.Savaites_dienos === null ||
-                    event.attributes.Savaites_dienos === "" ||
-                    event.attributes.Savaites_dienos === "nera" ||
-                    diffInDays <= 1 ||
-                    (event.attributes.Savaites_dienos.length > 1 &&
-                      event.attributes.Savaites_dienos.length < 12) ? (
+
+                    {diffInDays <= 1 &&
+                    (event.attributes.Savaites_dienos === null ||
+                      event.attributes.Savaites_dienos === "" ||
+                      event.attributes.Savaites_dienos === "nera" ||
+                      (event.attributes.Savaites_dienos.length > 1 &&
+                        event.attributes.Savaites_dienos.length < 12)) ? (
                       <>
                         {eventStartDate +
                           " " +
