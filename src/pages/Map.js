@@ -721,7 +721,7 @@ function Map() {
           <SearchDiv id="SearchDiv" />
           {!!auth.token && (
             <SketchDiv id="SketchDiv">
-              <div id="EditDiv"></div>
+              {/* <div id="EditDiv"></div> */}
             </SketchDiv>
           )}
           <Home handleClick={() => zoomDefault(view)} />

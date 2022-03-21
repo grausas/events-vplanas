@@ -94,6 +94,7 @@ const EditEvent = ({
           <form>
             <h3>Redaguoti renginį</h3>
             <DatePicker
+              height="small"
               timeTitle="Pradžios laikas"
               dateTitle="Pradžios data"
               selected={queryPoint.RENGINIO_PRADZIA}
@@ -106,6 +107,7 @@ const EditEvent = ({
               handleChangeTime={handleChangeStartTime}
             />
             <DatePicker
+              height="small"
               timeTitle="Pabaigos laikas"
               dateTitle="Pabaigos data"
               selected={queryPoint.RENGINIO_PABAIGA}
