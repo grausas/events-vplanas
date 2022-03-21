@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
   top: 140px;
   background: var(--white);
   right: 20px;
-  padding: 5px;
   border-radius: 5px;
   box-shadow: 0px 5px 60px 0px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
@@ -23,19 +22,26 @@ export const Wrapper = styled.div`
   }
 
   h3 {
-    margin-bottom: 10px;
+    background-color: var(--silver);
+    padding: 5px;
+    text-align: center;
+    margin: 0;
+  }
+
+  form {
+    padding: 5px;
   }
 `;
 
 export const ButtonsDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  padding: 5px;
 `;
 
 export const Button = styled(Btn)`
   background-color: var(--grey);
-  padding: 5px 20px;
+  padding: 3px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,7 +51,6 @@ export const Button = styled(Btn)`
     padding-left: 8px;
     background-color: var(--red);
     color: var(--white);
-    border: 1px solid var(--white);
   }
 
   &:hover {
@@ -60,15 +65,15 @@ export const Button = styled(Btn)`
 
 export const CloseImage = styled.img`
   position: absolute;
-  right: 5px;
-  top: 5px;
-  width: 28px;
-  padding: 6px;
+  right: 1px;
+  top: 1px;
+  width: 22px;
+  padding: 3px;
   border-radius: 50%;
   cursor: pointer;
 
   :hover {
-    background-color: var(--silver);
+    background-color: var(--white);
   }
 `;
 

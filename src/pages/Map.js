@@ -49,7 +49,7 @@ import { featureLayer, featureLayerPrivate } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
-import { editPolygon } from "../helpers/UpdatePolygon";
+// import { editPolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
@@ -516,7 +516,7 @@ function Map() {
   useEffect(() => {
     if (auth.token) {
       addPolygon();
-      editPolygon(view, eventsFeatureLayer);
+      // editPolygon(view, eventsFeatureLayer);
     }
   }, [view]);
 
@@ -619,26 +619,29 @@ function Map() {
   };
 
   // edit feature
-
-  const sketchViewModel = new SketchViewModel({
-    view: view,
-    layer: graphicsLayer,
-    defaultUpdateOptions: {
-      tool: "reshape",
-      toggleToolOnClick: false,
-      mode: "click",
-    },
-    polygonSymbol: {
-      type: "simple-fill", // autocasts as new SimpleFillSymbol()
-      color: "rgba(0, 205, 255, 0.3)",
-      style: "backward-diagonal",
-      outline: {
-        color: "red",
-        width: 1,
-      },
-    },
-  });
   let arr = [];
+  let sketchViewModel;
+
+  if (auth.token) {
+    sketchViewModel = new SketchViewModel({
+      view: view,
+      layer: graphicsLayer,
+      defaultUpdateOptions: {
+        tool: "reshape",
+        toggleToolOnClick: false,
+        mode: "click",
+      },
+      polygonSymbol: {
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: "rgba(0, 205, 255, 0.3)",
+        style: "backward-diagonal",
+        outline: {
+          color: "red",
+          width: 1,
+        },
+      },
+    });
+  }
 
   // const setUpClickHandler = () => {
   //   console.log("isEdd", isEditing);
@@ -669,7 +672,8 @@ function Map() {
   // isEditing ? setUpClickHandler() : console.log("null");
   // console.log("isEditing222", isEditing);
 
-  isEditing && sketchViewModel.on(["update", "undo", "redo"], onGraphicUpdate);
+  sketchViewModel &&
+    sketchViewModel.on(["update", "undo", "redo"], onGraphicUpdate);
 
   function onGraphicUpdate(event) {
     if (
@@ -678,7 +682,6 @@ function Map() {
         event.toolEventInfo.type === "reshape-stop")
     ) {
       const graphic = event.graphics[0].geometry;
-      console.log("graphic", graphic);
       arr.push(graphic);
       setQueryPoint({
         ...queryPoint,
@@ -690,8 +693,6 @@ function Map() {
 
   const handleEditFeature = () => {
     setIsEditing(true);
-    console.log(queryPoint);
-    console.log("queryGeometry", queryGeometry);
     const editGraphic = queryGeometry;
     graphicsLayer.graphics.add(editGraphic);
     eventsFeatureLayer.definitionExpression =

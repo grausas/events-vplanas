@@ -58,7 +58,6 @@ const EventsTimeline = ({
             const oneDay = 1000 * 60 * 60 * 24;
             const diffInTime = endDate.getTime() - startDate.getTime();
             const diffInDays = Math.round(diffInTime / oneDay);
-            console.log(diffInDays);
 
             return (
               <TimelineItem key={event.attributes.OBJECTID}>

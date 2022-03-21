@@ -91,8 +91,8 @@ const EditEvent = ({
       {!popup.show ? (
         <Wrapper>
           <CloseImage src={CloseIcon} alt="close-icon" onClick={handleChange} />
+          <h3>Redaguoti renginį</h3>
           <form>
-            <h3>Redaguoti renginį</h3>
             <DatePicker
               height="small"
               timeTitle="Pradžios laikas"
