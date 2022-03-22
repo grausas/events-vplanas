@@ -695,6 +695,9 @@ function Map() {
     setIsEditing(true);
     const editGraphic = queryGeometry;
     graphicsLayer.graphics.add(editGraphic);
+    eventsFeatureLayer.featureEffect = {
+      excludedEffect: "opacity(0%) ",
+    };
     eventsFeatureLayer.definitionExpression =
       "OBJECTID <> " + editGraphic.attributes.OBJECTID;
     sketchViewModel.update(editGraphic);
@@ -881,6 +884,11 @@ function Map() {
                   handleDeleteConfirm={(e) => {
                     deleteEvent(queryPoint.OBJECTID);
                     handleOpenModal(!openModal);
+                    graphicsLayer.removeAll();
+                    eventsFeatureLayer.definitionExpression = ["1=1"];
+                    eventsFeatureLayer.featureEffect = {
+                      excludedEffect: "opacity(100%) ",
+                    };
                     view.goTo(
                       {
                         zoom: 11,
