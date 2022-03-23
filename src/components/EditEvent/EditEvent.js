@@ -86,6 +86,11 @@ const EditEvent = ({
       });
     }
   };
+
+  const result = CategoryData.find(
+    ({ id }) => id === Number(queryPoint.KATEGORIJA)
+  );
+
   return (
     <>
       {!popup.show ? (
@@ -145,8 +150,9 @@ const EditEvent = ({
               type="dropdown"
               options={CategoryData}
               labelText="Kategorija"
-              defaultValue={queryPoint.KATEGORIJA}
+              defaultValue={result.value}
               handleChange={(e) => {
+                console.log(e.target.value);
                 setQueryPoint({
                   ...queryPoint,
                   KATEGORIJA: e.target.value,

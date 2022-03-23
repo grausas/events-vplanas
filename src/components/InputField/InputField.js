@@ -39,9 +39,9 @@ const InputField = ({
           <Select
             id={id}
             name={selectName}
-            defaultValue
             required={required}
             onChange={handleChange}
+            defaultValue={defaultValue}
           >
             <option disabled value>
               Pasirinkti kategoriją
