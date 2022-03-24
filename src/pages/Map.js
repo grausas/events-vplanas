@@ -18,7 +18,6 @@ import * as watchUtils from "@arcgis/core/core/watchUtils";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
-
 // import Graphic from "@arcgis/core/Graphic";
 
 // locale
@@ -420,48 +419,41 @@ function Map() {
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
           if (response.results.length >= 1) {
-            view.whenLayerView(layer).then(function (layerView) {
-              layerView
-                .queryFeatures({
-                  geometry: view.toMap(event),
-                  outFields: ["*"],
-                  distance: 100,
-                  units: "meters",
-                  spatialRelationship: "intersects",
-                  where: "OBJECTID IN (" + arrIds + ")",
-                  returnGeometry: true,
-                })
-                .then(function (response) {
-                  if (response.features.length > 1) {
-                    setShortResults(sortByDate(response.features));
-                    const result =
-                      response.features &&
-                      response.features.map((item) => item.attributes.OBJECTID);
-                    layer.featureEffect = {
-                      filter: {
-                        objectIds: result,
-                      },
-                      excludedEffect: "opacity(30%) ",
-                      includedEffect: "drop-shadow(0px, 0px, 3px)",
-                    };
-                  } else if (
-                    response.features.length === 1 &&
-                    openModal === false
-                  ) {
-                    setQueryPoint(response.features[0].attributes);
-                    setQueryGeometry(response.features[0]);
-                    handleOpenModal(!openModal);
+            console.log("hittest", response);
+            if (response.results.length > 1) {
+              console.log("arrIDs", arrIds);
+              const objectIds =
+                response.results &&
+                response.results.map(
+                  (item) => item.graphic.attributes.OBJECTID
+                );
+              const result =
+                response.results &&
+                response.results.map((item) => item.graphic);
+              console.log(result);
+              setShortResults(sortByDate(result));
 
-                    layer.featureEffect = {
-                      filter: {
-                        objectIds: response.features[0].attributes.OBJECTID,
-                      },
-                      excludedEffect: "opacity(30%) ",
-                      includedEffect: "drop-shadow(0px, 0px, 3px)",
-                    };
-                  }
-                });
-            });
+              layer.featureEffect = {
+                filter: {
+                  objectIds: objectIds,
+                },
+                excludedEffect: "opacity(30%) ",
+                includedEffect: "drop-shadow(0px, 0px, 3px)",
+              };
+            } else if (response.results.length === 1 && openModal === false) {
+              console.log(response.results[0].graphic.attributes);
+              setQueryPoint(response.results[0].graphic.attributes);
+              setQueryGeometry(response.results[0].graphic);
+              handleOpenModal(!openModal);
+
+              layer.featureEffect = {
+                filter: {
+                  objectIds: response.results[0].graphic.attributes.OBJECTID,
+                },
+                excludedEffect: "opacity(30%) ",
+                includedEffect: "drop-shadow(0px, 0px, 3px)",
+              };
+            }
           } else {
             return null;
           }

@@ -150,7 +150,7 @@ const EditEvent = ({
               type="dropdown"
               options={CategoryData}
               labelText="Kategorija"
-              defaultValue={result.value}
+              defaultValue={result.value && result.value}
               handleChange={(e) => {
                 console.log(e.target.value);
                 setQueryPoint({
