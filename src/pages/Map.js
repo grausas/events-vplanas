@@ -18,6 +18,7 @@ import * as watchUtils from "@arcgis/core/core/watchUtils";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
+
 // import Graphic from "@arcgis/core/Graphic";
 
 // locale
