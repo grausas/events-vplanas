@@ -381,10 +381,7 @@ function Map() {
 
     // Chnage cursor when on event
     function changeMouseCursor(response) {
-      if (
-        response.results.length > 0 &&
-        response.results[0].graphic.layer.type === "feature"
-      ) {
+      if (response.length > 0 && response[0].graphic.layer.type === "feature") {
         mapRef.current.style.cursor = "pointer";
       } else {
         mapRef.current.style.cursor = "default";
@@ -401,7 +398,10 @@ function Map() {
               y: evt.y,
             };
             view.hitTest(screenPoint).then(function (response) {
-              changeMouseCursor(response);
+              const results = response.results.filter(
+                (item) => item.graphic.layer !== null
+              );
+              changeMouseCursor(results);
             });
           });
         });
@@ -419,9 +419,7 @@ function Map() {
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
           if (response.results.length >= 1) {
-            console.log("hittest", response);
             if (response.results.length > 1) {
-              console.log("arrIDs", arrIds);
               const objectIds =
                 response.results &&
                 response.results.map(
@@ -430,9 +428,7 @@ function Map() {
               const result =
                 response.results &&
                 response.results.map((item) => item.graphic);
-              console.log(result);
               setShortResults(sortByDate(result));
-
               layer.featureEffect = {
                 filter: {
                   objectIds: objectIds,
@@ -441,7 +437,6 @@ function Map() {
                 includedEffect: "drop-shadow(0px, 0px, 3px)",
               };
             } else if (response.results.length === 1 && openModal === false) {
-              console.log(response.results[0].graphic.attributes);
               setQueryPoint(response.results[0].graphic.attributes);
               setQueryGeometry(response.results[0].graphic);
               handleOpenModal(!openModal);
