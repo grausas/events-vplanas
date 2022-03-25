@@ -415,6 +415,7 @@ function Map() {
     });
 
     // on map click, get events from clicked place
+
     view &&
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
