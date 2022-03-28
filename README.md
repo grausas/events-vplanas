@@ -5,6 +5,3 @@
 - React.js
 - Styled components
 - ArcGIS Javascript API
-
-
-
