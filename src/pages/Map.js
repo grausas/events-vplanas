@@ -550,7 +550,6 @@ function Map() {
   // filter results by view extent
   let filterExtent;
   const filterByExtent = (e) => {
-    console.log("extent");
     const isChecked = e.target.checked;
     let graphics;
     if (isChecked) {
@@ -631,35 +630,6 @@ function Map() {
       },
     });
   }
-
-  // const setUpClickHandler = () => {
-  //   console.log("isEdd", isEditing);
-  //   var handler =
-  //     view &&
-  //     isEditing &&
-  //     view.on("click", function (event) {
-  //       view
-  //         .hitTest(event, { include: [eventsFeatureLayer] })
-  //         .then(function (response) {
-  //           console.log("response", response);
-  //           console.log("iseEditing", isEditing);
-
-  //           if (response.results.length >= 1) {
-  //             for (var i = 0; i < response.results.length; i++) {
-  //               console.log("response", response.results[0]);
-  //               const editGraphic = response.results[i].graphic;
-  //               graphicsLayer.graphics.add(editGraphic);
-  //               eventsFeatureLayer.definitionExpression =
-  //                 "OBJECTID <> " + editGraphic.attributes.OBJECTID;
-  //               sketchViewModel.update(editGraphic);
-  //             }
-  //           } else return handler.remove();
-  //         });
-  //     });
-  // };
-
-  // isEditing ? setUpClickHandler() : console.log("null");
-  // console.log("isEditing222", isEditing);
 
   sketchViewModel &&
     sketchViewModel.on(["update", "undo", "redo"], onGraphicUpdate);

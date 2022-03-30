@@ -152,7 +152,6 @@ const EditEvent = ({
               labelText="Kategorija"
               defaultValue={result.value && result.value}
               handleChange={(e) => {
-                console.log(e.target.value);
                 setQueryPoint({
                   ...queryPoint,
                   KATEGORIJA: e.target.value,
