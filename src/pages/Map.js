@@ -18,7 +18,6 @@ import * as watchUtils from "@arcgis/core/core/watchUtils";
 import esriId from "@arcgis/core/identity/IdentityManager";
 import Search from "@arcgis/core/widgets/Search";
 import SketchViewModel from "@arcgis/core/widgets/Sketch/SketchViewModel";
-// import Graphic from "@arcgis/core/Graphic";
 
 // locale
 import * as intl from "@arcgis/core/intl";
@@ -49,7 +48,6 @@ import { featureLayer, featureLayerPrivate } from "../helpers/Layers";
 import { addEventsFeature } from "../helpers/AddEvent";
 import { updateEventFeature } from "../helpers/EditEvent";
 import { drawNewPolygon, graphicsLayer } from "../helpers/DrawPolygon";
-// import { editPolygon } from "../helpers/UpdatePolygon";
 import { changeTime, changeDate } from "../helpers/DateChange";
 import { deleteFeatureEvent } from "../helpers/DeleteEvent";
 import { handleZoom, zoomIn, zoomOut, zoomDefault } from "../helpers/Zooms";
@@ -505,7 +503,6 @@ function Map() {
   useEffect(() => {
     if (auth.token) {
       addPolygon();
-      // editPolygon(view, eventsFeatureLayer);
     }
   }, [view]);
 
@@ -681,11 +678,7 @@ function Map() {
           )}
           <BasemapSwitch handleChangeBasemap={handleChangeBasemap} />
           <SearchDiv id="SearchDiv" />
-          {!!auth.token && (
-            <SketchDiv id="SketchDiv">
-              {/* <div id="EditDiv"></div> */}
-            </SketchDiv>
-          )}
+          {!!auth.token && <SketchDiv id="SketchDiv"></SketchDiv>}
           <Home handleClick={() => zoomDefault(view)} />
           <Zoom
             handleZoomIn={() => zoomIn(view)}
