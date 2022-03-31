@@ -1,8 +1,10 @@
 {
-  "name": "renginiai",
-  "version": "0.1.0",
+  "name": "vplanas-events",
+  "version": "1.0.0",
   "private": true,
   "homepage": ".",
+  "author": "Marius Pikzirnis",
+  "license": "MIT",
   "dependencies": {
     "@arcgis/core": "^4.23.5",
     "@testing-library/jest-dom": "^5.16.3",
