@@ -1,8 +1,6 @@
 // Zoom to clicked event
 export const handleZoom = (e, eventsFeatureLayer, view) => {
   const eventId = e;
-
-  // pakeisti i viewLayer
   eventsFeatureLayer.queryFeatures().then(function (results) {
     const features = results.features;
     const filterResult = features.filter(
@@ -38,6 +36,7 @@ export const zoomOut = (view) => {
   );
 };
 
+// zoom to default position
 export const zoomDefault = (view) => {
   view.goTo(
     {

@@ -16,7 +16,6 @@ const App = () => {
 
   return (
     <>
-      {/* Sutvarkyti logout, nes dabar jeigu neperkraunu puslapio tai buna error */}
       {location.pathname === "/login" ? null : (
         <Header
           isLoggedIn={!!auth.token}

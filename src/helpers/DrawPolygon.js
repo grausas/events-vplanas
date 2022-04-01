@@ -5,7 +5,6 @@ export const graphicsLayer = new GraphicsLayer({
   title: "graphics",
 });
 
-// Sketch widget
 export const drawNewPolygon = (view, setState, layer) => {
   view &&
     view.when(() => {
@@ -49,7 +48,7 @@ export const drawNewPolygon = (view, setState, layer) => {
         }
       });
 
-      sketch.on("delete", function (event) {
+      sketch.on("delete", function () {
         graphicsLayer.removeAll();
         setState({
           geometry: "",

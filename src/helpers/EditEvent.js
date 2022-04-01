@@ -1,6 +1,5 @@
 import Graphic from "@arcgis/core/Graphic";
 
-// gal neleisti koreguoti datu, nes per daug keitimo atsiranfa
 export const updateEventFeature = (params, layer, type, message, rings) => {
   if (rings.rings) {
     rings.rings.map((item) => params.geometry.addRing(item));
@@ -28,7 +27,7 @@ export const updateEventFeature = (params, layer, type, message, rings) => {
 
   layer
     .applyEdits(edits)
-    .then((response) => {
+    .then(() => {
       type("");
       message("Renginys sėkmingai redaguotas");
     })

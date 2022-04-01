@@ -109,7 +109,6 @@ function Map() {
   }, [error]);
 
   // filter by day, week, month
-
   const handleFilterByDate = (e) => {
     eventsFeatureLayer.featureEffect = {
       excludedEffect: "opacity(100%) ",
@@ -161,9 +160,7 @@ function Map() {
   };
 
   //-------------------------------------
-  // filtravimas pagal kategoriją ir datą
-  // Perkeltis šitą funkciją ir kitas dažnai naudojasmas į utils folderį
-  // Filter dates
+  // Filter events by dates and category
   const datesFilter = useCallback(
     (results) => {
       if (startDate || finishDate) {
@@ -354,7 +351,7 @@ function Map() {
     setEventsFeatureLayer(layer);
     setView(view);
 
-    // set how old events to query
+    // set how old events are quered
     const date = new Date();
     const publicDate = new Date(
       date.setMonth(date.getMonth() - 1)
@@ -413,7 +410,6 @@ function Map() {
     });
 
     // on map click, get events from clicked place
-
     view &&
       view.on("immediate-click", function (event) {
         view.hitTest(event, { include: layer }).then(function (response) {
@@ -454,7 +450,7 @@ function Map() {
         });
       });
 
-    // search
+    // search widget
     const sources = [
       {
         url: "https://gis.vplanas.lt/arcgis/rest/services/Lokatoriai/PAIESKA_COMPOSITE/GeocodeServer",
@@ -484,6 +480,7 @@ function Map() {
     };
   }, []);
 
+  // change dates format
   const startEventDate = changeDate(new Date(queryPoint.RENGINIO_PRADZIA));
   const finishEventDate = changeDate(new Date(queryPoint.RENGINIO_PABAIGA));
   const startEventTime = changeTime(new Date(queryPoint.RENGINIO_PRADZIA));
@@ -523,14 +520,12 @@ function Map() {
   }, [data.features]);
 
   // open event clicked in events timeline
-
   const openEvent = (event) => {
     const filterResult = filteredResults.filter(
       (item) => item.attributes.OBJECTID === event
     );
     setQueryPoint(filterResult[0].attributes);
     setQueryGeometry(filterResult[0]);
-    // pataisyti sita vieta, kad kai paspaudi ant timeline atidarytu visada
     if (filterResult.length > 0 && openModal === false) {
       handleOpenModal(!openModal);
     }
@@ -685,7 +680,7 @@ function Map() {
             handleZoomOut={() => zoomOut(view)}
           />
           {isMobile && <Location id="LocationDiv" />}
-          {/* Renginių juosta */}
+          {/* Events schedule */}
           <EventsSchedule
             handleOpen={handleOpen}
             show={isMobile === true ? show : !show}
@@ -765,7 +760,7 @@ function Map() {
               }}
             />
           </EventsSchedule>
-          {/* Pridėti naują renginį  */}
+          {/* Add new event */}
           {auth.token && !isEditing && (
             <AddEvent
               isLoggedIn={!!auth.token}
@@ -784,7 +779,7 @@ function Map() {
               }}
             />
           )}
-          {/* Renginių ir renginio atvaizdavimas, redagavimas */}
+          {/* View and edit event */}
           {openModal && (
             <EventCard
               isLoggedIn={!!auth.token}

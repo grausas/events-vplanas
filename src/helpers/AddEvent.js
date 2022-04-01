@@ -4,7 +4,7 @@ import { graphicsLayer } from "./DrawPolygon";
 export const addEventsFeature = (params, layer, type, message) => {
   var features = [];
 
-  // check if more polygon exist and change than change geometry
+  // check if more polygons exist and when change geometry
   if (params.rings) {
     params.geometry.rings = params.rings;
   }
@@ -59,8 +59,6 @@ export const addEventsFeature = (params, layer, type, message) => {
     addFeatures: features,
   };
 
-  // padaryti validacija, if pavadinimas ir t.t suvestas tada daryti applyedits else ismesti,
-  // kad reikia uzpildyti visus reikalingus duomenis
   layer
     .applyEdits(add)
     .then((response) => {
