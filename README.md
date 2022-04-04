@@ -34,3 +34,8 @@ git clone https://github.com/grausas/events-vplanas.git
 ```sh
 npm install
 ```
+3. Run application
+
+```sh
+npm start
+```
