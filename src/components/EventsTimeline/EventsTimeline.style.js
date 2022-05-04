@@ -8,6 +8,15 @@ export const Wrapper = styled.div`
   background: var(--white);
   padding: 0 10px;
   overflow: auto;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: var(--darkSilver);
+  }
 
   h2 {
     text-align: center;
