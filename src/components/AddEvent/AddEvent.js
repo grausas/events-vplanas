@@ -139,7 +139,9 @@ const AddEvent = ({
   // suggestion organization
   const lowerEvents =
     events.features &&
-    events.features.map((item) => item.attributes.ORGANIZATORIUS);
+    events.features
+      .filter((item) => item.attributes.ORGANIZATORIUS !== null)
+      .map((item) => item.attributes.ORGANIZATORIUS);
 
   const uniqueEvents = [...new Set(lowerEvents)];
   function getSuggestions(value) {
@@ -150,7 +152,9 @@ const AddEvent = ({
   // suggestion name
   const lowerEventsName =
     events.features &&
-    events.features.map((item) => item.attributes.PAVADINIMAS);
+    events.features
+      .filter((item) => item.attributes.PAVADINIMAS !== null)
+      .map((item) => item.attributes.PAVADINIMAS);
 
   const uniqueEventsName = [...new Set(lowerEventsName)];
   function getSuggestionsName(value) {
