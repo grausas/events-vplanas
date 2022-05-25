@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import AutoSuggest from "react-autosuggest";
 // Styles
 import {
@@ -48,12 +48,12 @@ const AddEvent = ({
   ];
 
   // Clicked checkboxes add to array
-  const [checkedItems, setCheckeditems] = useState(weekday);
+  const [checkedItems, setCheckedItems] = useState(weekday);
   const handleOnChange = (e) => {
     const index = e.target.name;
     let items = [...checkedItems];
     items[index].isChecked = e.target.checked;
-    setCheckeditems(items);
+    setCheckedItems(items);
   };
 
   // Clear all checkboxes
@@ -64,7 +64,7 @@ const AddEvent = ({
         return (item.isChecked = false);
       } else return null;
     });
-    setCheckeditems(items);
+    setCheckedItems(items);
   };
 
   // get all days between two dates
