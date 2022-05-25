@@ -49,15 +49,13 @@ const AddEvent = ({
 
   // Clicked checkboxes add to array
   const [checkedItems, setCheckeditems] = useState(weekday);
-  const handleOnChange = useCallback(
-    (e) => {
-      const index = e.target.name;
-      let items = [...checkedItems];
-      items[index].isChecked = e.target.checked;
-      setCheckeditems(items);
-    },
-    [checkedItems]
-  );
+  const handleOnChange = (e) => {
+    const index = e.target.name;
+    let items = [...checkedItems];
+    items[index].isChecked = e.target.checked;
+    setCheckeditems(items);
+  };
+
   // Clear all checkboxes
   const handleClearCheckbox = () => {
     let items = [...checkedItems];
@@ -70,26 +68,42 @@ const AddEvent = ({
   };
 
   // get all days between two dates
-  function getDates(startDate, endDate) {
+  function getDates(startDates, endDates) {
     const dates = [];
-    let currentDate = startDate;
+    let currentDate = startDates;
     const addDays = function (days) {
       const date = new Date(this.valueOf());
       date.setDate(date.getDate() + days);
       return date;
     };
-    while (currentDate <= endDate) {
+    while (currentDate <= endDates) {
       dates.push(currentDate);
       currentDate = addDays.call(currentDate, 1);
     }
     return dates;
   }
 
-  //
-  const handleWeekdays = (e) => {
-    var itemValue = Number(e.target.value);
-    var isChecked = e.target.checked;
+  // add dates by selected weekdays
+  let itemValue;
+  let isChecked;
 
+  const handleWeekdays = (e) => {
+    itemValue = Number(e.target.value);
+    isChecked = e.target.checked;
+
+    handleWeekDay();
+  };
+
+  useEffect(() => {
+    if (addNewFeature.RENGINIO_PRADZIA || addNewFeature.RENGINIO_PABAIGA) {
+      setStartDateArr([]);
+      setWeekDayArr([]);
+      handleClearCheckbox();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addNewFeature.RENGINIO_PRADZIA, addNewFeature.RENGINIO_PABAIGA]);
+
+  const handleWeekDay = () => {
     const dates = getDates(
       new Date(addNewFeature.RENGINIO_PRADZIA),
       new Date(addNewFeature.RENGINIO_PABAIGA)
@@ -149,6 +163,7 @@ const AddEvent = ({
       (language) => language.toLowerCase().indexOf(value.toLowerCase()) >= 0
     );
   }
+
   // suggestion name
   const lowerEventsName =
     events.features &&
@@ -186,6 +201,7 @@ const AddEvent = ({
       });
     }
   };
+
   const handleChangeFinishTime = (date) => {
     if (addNewFeature.RENGINIO_PABAIGA) {
       const [month, day, year] = [
