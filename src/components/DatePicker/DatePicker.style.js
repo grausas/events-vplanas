@@ -22,7 +22,7 @@ export const Wrapper = styled.div`
     font-size: 14px;
 
     &:focus {
-      border: 2px solid var(--lightBlue);
+      border: 1px solid var(--lightBlue);
       outline: none;
     }
   }

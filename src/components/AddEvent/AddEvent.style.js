@@ -72,11 +72,10 @@ export const InputWrapper = styled.div`
     color: var(--dark);
     font-size: 14px;
     margin-bottom: 5px;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
   }
 
   .react-autosuggest__input--focused {
-    border: 2px solid var(--lightBlue);
+    border: 1px solid var(--lightBlue);
     outline: none;
   }
 

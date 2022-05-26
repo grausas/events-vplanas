@@ -23,7 +23,7 @@ export const Input = styled.input`
   font-size: var(--fontSmall);
 
   &:focus {
-    border: 2px solid var(--lightBlue);
+    border: 1px solid var(--lightBlue);
     outline: none;
   }
 `;
@@ -40,7 +40,7 @@ export const TextArea = styled.textarea`
   color: var(--dark);
 
   &:focus {
-    border: 2px solid var(--lightBlue);
+    border: 1px solid var(--lightBlue);
     outline: none;
   }
 `;
@@ -56,7 +56,7 @@ export const Select = styled.select`
   font-size: var(--fontSmall);
 
   &:focus {
-    border: 2px solid var(--lightBlue);
+    border: 1px solid var(--lightBlue);
     outline: none;
   }
 `;
