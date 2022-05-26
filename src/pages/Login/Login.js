@@ -10,6 +10,8 @@ import * as S from "./Login.style";
 import { Button } from "../../components/index";
 // locale
 import * as intl from "@arcgis/core/intl";
+// images
+import Logo from "../../assets/icons/VILNIUS_WHITE_LOGO.png";
 
 function Login() {
   intl.setLocale("lt");
@@ -31,8 +33,9 @@ function Login() {
     <>
       <S.LoginBlock>
         <S.ImageDiv>
+          <S.LogoDiv src={Logo} alt="logo" />
           <span>
-            <span>Vilniaus renginių žemėlapis</span>
+            <span>Vilniaus miesto renginių žemėlapis</span>
           </span>
         </S.ImageDiv>
         <S.FormDiv>

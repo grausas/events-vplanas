@@ -49,11 +49,13 @@ export const ImageDiv = styled.div`
   width: 50%;
   padding: 2em 6em;
   text-align: center;
+
   @media only screen and (max-width: 768px) {
     width: 100%;
     height: 25%;
     padding: 2em 1em 1em 1em;
   }
+
   span {
     position: relative;
     font-size: 2em;
@@ -61,14 +63,17 @@ export const ImageDiv = styled.div`
     @media only screen and (max-width: 768px) {
       margin-top: 30px;
     }
+
     span {
-      color: var(--grey);
+      color: var(--white);
       text-decoration: underline;
     }
+
     @media only screen and (max-width: 768px) {
       font-size: 1em;
     }
   }
+
   &::before {
     content: " ";
     position: absolute;
@@ -81,6 +86,15 @@ export const ImageDiv = styled.div`
     background-repeat: no-repeat;
     background-position: 50% 0%;
     background-size: cover;
-    opacity: 0.7;
+  }
+`;
+
+export const LogoDiv = styled.img`
+  position: absolute;
+  top: 10px;
+  width: 120px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 `;
