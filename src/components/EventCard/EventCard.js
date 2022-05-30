@@ -101,7 +101,7 @@ const EventCard = ({
               {comment && isMobile && (
                 <Text>
                   <p>
-                    Pastabos:
+                    Gauta
                     {comment && comment.length && comment !== undefined
                       ? " " + comment
                       : " Pastabų nėra"}

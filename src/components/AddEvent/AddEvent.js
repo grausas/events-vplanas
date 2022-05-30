@@ -391,8 +391,8 @@ const AddEvent = ({
 
                 <InputField
                   type="longtext"
-                  labelText="Pastabos"
-                  placeholder="Pastabos"
+                  labelText="Gauta"
+                  placeholder="Gauta"
                   id="pastabos"
                   handleChange={(e) => {
                     setAddNewFeature({
